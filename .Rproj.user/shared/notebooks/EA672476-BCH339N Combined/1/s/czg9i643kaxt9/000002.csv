@@ -1,0 +1,16 @@
+"0","```r
+#final few rows of clinvar do not have location of mutation, exclude those that are benign/likely benign
+clinvar1<-clinvar%>%slice(1:57)%>%filter(grepl(\"benign\", Clinical.significance..Last.reviewed.,fixed=T)!=T)%>%select(dbSNP.ID, GRCh37Location, Name, Protein.change, Clinical.significance..Last.reviewed.)
+
+
+#turn into character instead of factor 
+gnomAD1 = gnomad %>% select(rsID, Position, Consequence, Protein.Consequence, Transcript.Consequence, Annotation,Allele.Frequency) %>%
+  mutate(rsID = as.character(rsID)) %>% mutate(Consequence = as.character(Consequence)) %>% mutate(Protein.Consequence = as.character(Protein.Consequence)) %>%
+  mutate(Transcript.Consequence = as.character(Transcript.Consequence)) %>% mutate(Annotation = as.character(Annotation))
+
+#turn into character instead of factor 
+cancer1 = cancer %>% select(dbSNP, Protein.Change, HGVSg, Start.Pos, Mutation.Type, Variant.Type,Ref,Var) %>% mutate(Protein.Change = as.character(Protein.Change)) %>%
+  mutate(HGVSg = as.character(HGVSg)) %>% mutate(Mutation.Type = as.character(Mutation.Type)) %>% mutate(Variant.Type = as.character(Variant.Type)) %>%
+  mutate(dbSNP = as.character(dbSNP))%>%mutate(Ref = as.character(Ref))%>%mutate(Var = as.character(Var))
+
+```"

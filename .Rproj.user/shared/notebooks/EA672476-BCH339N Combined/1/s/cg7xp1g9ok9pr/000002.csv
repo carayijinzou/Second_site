@@ -1,0 +1,13 @@
+"0","```r
+library(peptider)
+one_to_three=function(x){
+  one<- c(\"A\", \"C\", \"D\", \"E\", \"F\" ,\"G\", \"H\", \"I\", \"K\", \"L\", \"M\" ,\"N\", \"P\" ,\"Q\" ,\"R\", \"S\" ,\"T\", \"V\", \"W\", \"Y\")
+  three<-c(\"Ala\", \"Cys\" ,\"Asp\", \"Glu\" ,\"Phe\" ,\"Gly\" ,\"His\" ,\"Ile\", \"Lys\" ,\"Leu\" ,\"Met\",\"Asn\", \"Pro\" ,\"Gln\" ,\"Arg\" ,\"Ser\" ,\"Thr\", \"Val\" ,\"Trp\", \"Tyr\")
+  index=match(x,one)
+  return(three[index])
+}
+
+#create BLOSUM with three letter amino acid code
+BLOSUM80_2<-BLOSUM80%>%mutate(AA1=one_to_three(as.character(AA1)))%>%mutate(AA2=one_to_three(as.character(AA2)))
+
+```"

@@ -1,0 +1,34 @@
+"0","```r
+## cancer variant
+Mutation.Type <- c(\"Splice_Region\",'Missense_Mutation','Nonsense_Mutation','Frame_Shift_Del',\"Fusion\",\"Splice_Site\")
+cancer_translation<-c(\"Splice\", \"Missense\", \"Nonsense\", \"Out_Frame_Del\",\"Fusion\", \"Splice\")
+cancer_trans<- data.frame(Mutation.Type, cancer_translation)
+cancer_type<-cancer%>%select(Mutation.Type)
+Mutation_type_cancer = left_join(cancer_type, cancer_trans,by=\"Mutation.Type\")
+cancer2$Mutation_Type = as.character(Mutation_type_cancer$cancer_translation)
+
+
+
+# gnomAD variant
+Annotation<-c(\"5_prime_UTR_variant\",\"intron_variant\",\"splice_region_variant\",\"missense_variant\",\"synonymous_variant\",\"stop_gained\",\"inframe_deletion\",\"inframe_insertion\",\"start_lost\",\"stop_lost\",\"3_prime_UTR_variant\")
+gnomad_mutation_type<-c(\"5_prime_UTR_variant\",\"Intron\",\"Splice\",\"Missense\",\"Synonymous\",\"Nonsense\",\"inframe_deletion\",\"inframe_insertion\",\"start_lost\",\"stop_lost\",\"3_prime_UTR_variant\")
+gnomad_trans<-data.frame(Annotation, gnomad_mutation_type)
+gnomad_type<-gnomAD2%>%select(Annotation)
+Mutation_type_gnomAD = left_join(gnomad_type,gnomad_trans,by=\"Annotation\")
+gnomAD2$Mutation_Type = as.character(Mutation_type_gnomAD$gnomad_mutation_type)
+
+
+
+
+#The original dataset for clinvar did not have this feature, therefore the coordinates of the mutation were used and inputted in VEP from ensemble. 
+
+#clinvar variant
+clinvar_VEP<-read.csv(\"Final_ClinVar_VEP.csv\", header=T)
+clinvar_VEP_select<-clinvar_VEP%>%select(X.Uploaded_variation,Consequence,Feature)%>%filter(Feature==\"ENST00000361487.6\")
+Consequence<-c(\"upstream_gene_variant\",\"5_prime_UTR_variant\",\"non_coding_transcript_exon_variant\",\"intron_variant,non_coding_transcript_variant\",\"regulatory_region_variant\",\"intron_variant\",\"TF_binding_site_variant\",\"downstream_gene_variant\",\"start_lost,splice_region_variant\",\"splice_region_variant,non_coding_transcript_exon_variant\",\"splice_region_variant,synonymous_variant\", \"missense_variant\", \"synonymous_variant\",\"stop_gained\",\"frameshift_variant\", \"3_prime_UTR_variant\" )
+clin_var_translation<-c(\"5_prime_UTR_variant\",\"5_prime_UTR_variant\",\"5_prime_UTR_variant\",\"Intron\",\"regulatory_region_variant\",\"Intron\",\"TF_binding_site_variant\", \"3_prime_UTR_variant\",\"start_lost\",\"Splice\",\"Splice\",\"Missense\",\"Synonymous\",\"Nonsense\",\"Out_Frame_Del\",\"3_prime_UTR_variant\")
+clin_var_translation<-data.frame(Consequence, clin_var_translation)
+Mutation_type_clinvar = left_join(clinvar_VEP_select,clin_var_translation)
+clinvar2$Mutation_Type = as.character(Mutation_type_clinvar$clin_var_translation)
+
+```"

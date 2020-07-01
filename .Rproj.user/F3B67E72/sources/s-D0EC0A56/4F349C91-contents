@@ -1,0 +1,31 @@
+---
+title: "Hidden Markov Model"
+author: "Cara Yijin Zou"
+date: "2020-04-20"
+output: html_document
+math : true
+categories: ["Statistics", "Probability","Bioinformatics"]
+tags: ["Statistics","Modelling", "Markov Chain","Probability"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Hidden Markov Model
+I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values. 
+
+## Emission probability
+The **emission probability** is what gives way to the observed state (or the markov state).
+
+## Forward Algorithm
+What is the probability of a certain state at each time given the observations? 
+
+## Viterbi Algorithm
+What is the probabiltiy of our entire set of observations given a state path?
+
+## HMM Package in R 
+
+
+## Application
+[This](https://www.kaggle.com/alfrandom/protein-secondary-structure/data) is a good exercise to test your understanding. It looks at predicting the secondary structure of proteins from the primary sequence. 

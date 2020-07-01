@@ -1,0 +1,2 @@
+"0","TB_Data%>%ggplot(aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))+geom_smooth(method = 'lm',se=F, aes(color=region))"
+"0",""

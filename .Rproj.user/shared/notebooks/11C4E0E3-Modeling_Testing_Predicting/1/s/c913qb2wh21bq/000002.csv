@@ -1,0 +1,4 @@
+"0","library(plotROC)"
+"0","prob <- predict(fit4, type = ""response"")"
+"0","ROCplot1 <- ggplot(BinaryTB) + geom_roc(aes(d = y, m = prob),n.cuts = 0)+geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) "
+"0","ROCplot1"

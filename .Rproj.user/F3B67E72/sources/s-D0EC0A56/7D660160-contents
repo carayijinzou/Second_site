@@ -1,0 +1,268 @@
+## BCH 339N
+## PS4 - Hidden Markov Models
+
+## We have covered the Viterbi and Forward Algorithms in class.
+## These methods are implemented in the R package - HMM
+library(HMM)
+?initHMM
+?forward
+?viterbi
+
+## In this homework, we are going to develop an HMM that can predict secondary structure of proteins.
+## Kaggle (https://www.kaggle.com) organizes data-science and machine learning challenges for the community
+## They have many challenges related to bioinformatics.
+## We will explore the https://www.kaggle.com/alfrandom/protein-secondary-structure/data challenge.
+## Read the associated introduction to familiarize yourself with this dataset (see attachedPreview the document). 
+## Q1 -3pt
+## What is protein secondary structure?
+#Protein secondary structure is the 3D structure of regions of the amino acid sequence into regular arrangements
+#held together by hydrogen bonds. The most common of these structures include alpha helices and beta sheets but 
+#also include loops, bends, turns, etc. 
+
+## We are going to work with the three state secondary structure encoding (sst3).
+## Explain the biochemical features of the three states that we will model (C, E, and H ).
+#The 8 secondary structure types are combined into three: 
+#C- C: Loops and irregular elements, T: Turn, S: Bend
+#E- E: β-strand,  B: β-bridge
+#H- H: α-helix, G: 3-helix, I: π-helix. 
+
+prot_sec_data = read.csv('./2018-06-06-pdb-intersect-pisces.csv', stringsAsFactors = F)
+dim(prot_sec_data)
+
+
+## Q2 - 3pt
+## We will use the data with the strict quality controls for this homework
+## Remove all examples with non-standard amino acids
+prot_sec_data_std=prot_sec_data[prot_sec_data$has_nonstd_aa=="False",]
+
+## Q2a - Print the number of rows and columns of the remaining data.
+dim(prot_sec_data_std)
+
+## Next, we are going to split our dataset into two parts.
+## Q2b - The first part should contain 10% of the sequences and will be used for training our HMM
+## The remaining 90% will be used as a test set to assess how well our HMM does in predicting secondary structure.
+## To ensure reproducibility of your code, we are going to use the set.seed function.
+#?set.seed
+set.seed(3)
+
+
+sample <- sample.int(n = nrow(prot_sec_data_std), size = floor(.1*nrow(prot_sec_data_std)), replace = F)
+
+
+train_data = prot_sec_data_std[sample,]
+test_data = prot_sec_data_std[-sample,]
+  
+  ## Q3 - 3pt
+  ## We will use the training data to infer the parameters of the HMM model.
+  ## Specifically, use sst3 and seq columns of the data and determine the
+  ## transition, emission and initial probabilities.
+  ## Write a function that will take the training data as input.
+  ## The output should be a list with names
+  ## c(“initial_probs”, “emission_probs”, “transition_probs”)
+  ## Note that emission_probs and transition_probs should be matrices of the form defined in initHMM.
+?initHMM
+  
+
+symbols = c("A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y")
+
+states = c("C", "E", "H")
+
+parameters_HMM=function(train_data){
+  sst3=train_data[,5]
+
+  #to find initial_probs
+  initial_vector<-c(0,0,0) #empty vector to hold number of times each state is first state 
+  for (i in 1:length(sst3)){
+    index_State=match(substr(sst3[i],1,1),states)
+    initial_vector[index_State]<-initial_vector[index_State]+1
+  }
+  sum_initial=sum(initial_vector)
+  initial_probs<-c(initial_vector[1]/sum_initial, initial_vector[2]/sum_initial,initial_vector[3]/sum_initial)
+  
+  #make a global variable
+  inital_probs<<-initial_probs
+
+  #to find transition probs
+  transition_matrix<-matrix(c(rep(0,9)),3,3) 
+  for (i in 1:length(sst3)){
+    for (j in 1:(nchar(sst3[i])-1)){
+      index_State_1=match(substr(sst3[i],j,j),states)
+      index_State_2=match(substr(sst3[i],j+1,j+1),states)
+      transition_matrix[index_State_1,index_State_2]=transition_matrix[index_State_1,index_State_2]+1
+    }
+  }
+  transition_matrix
+  transition_probs_matrix<-matrix(c(rep(0,9)),3,3) #transProbs
+  colnames(transition_probs_matrix) <- states
+  rownames(transition_probs_matrix) <- states
+  for (k in 1:3){
+    sum_row=sum(transition_matrix[k,])
+    for (h in 1:3){
+      transition_probs_matrix[k,h]=(transition_matrix[k,h]/sum_row)
+    }
+  }
+  #make a global variable
+  transition_probs<<-transition_probs_matrix
+  
+   #find emission 
+   seq=train_data[,3]
+   
+   #create empty emission matrix (counts)
+   emission_matrix<-matrix(c(rep(0,3*length(symbols))),3,length(symbols)) 
+   colnames(emission_matrix) <- symbols
+   rownames(emission_matrix) <- states
+   for (i in 1:length(sst3)){
+     for (j in 1:nchar(sst3[i])){
+       index_State_1=match(substr(sst3[i],j,j),states)
+       index_State_2=match(substr(seq[i],j,j),symbols)
+       emission_matrix[index_State_1,index_State_2]=emission_matrix[index_State_1,index_State_2]+1
+     }
+   }
+   
+  
+  #emission probabilty 
+  emission_probs_matrix<-matrix(c(rep(0,3*length(symbols))),3,length(symbols))  #transProbs
+  colnames(emission_probs_matrix) <- symbols
+  rownames(emission_probs_matrix) <- states
+  for (k in 1:3){
+    sum_row=sum(emission_matrix[k,])
+    for (h in 1:length(symbols)){
+      emission_probs_matrix[k,h]=(emission_matrix[k,h]/sum_row)
+    }
+  }
+  #make a global variable
+  emission_probs<<-emission_probs_matrix
+  return (c('initial_probs', 'emission_probs', 'transition_probs'))
+  }
+
+parameters_HMM(train_data)
+transition_probs
+
+
+## Q4 - 3pt
+## Look at how hmms are defined in the HMM package
+## Q4a - Use the inferred parameters from Q3 to define an HMM.
+
+secondary_structure_hmm<-initHMM(states,symbols, startProbs = initial_probs, transProbs = transition_probs, emissionProbs = emission_probs)
+
+## Q4b- We are going to assess the performance on the test data
+## For each example in the test data, use the given sequence (seq column) to predict the most likely path of hidden states.
+## You can use the appropriate function in the hmm package for this step.
+## For each example, compare the predicted most likely hidden state path with the experimentally identified values (sst3 column).
+## Output a vector named percent_correct containing the percentage of amino acids whose secondary structure was correctly predicted for each example in test data.
+
+#helper function to see if the predicted and actual states are the same 
+same_state=function(vec1,vec2){
+  number_correct=0
+  for (i in 1:length(vec1)){
+    number_correct=number_correct+ifelse(vec1[i]==vec2[i],1,0)
+  }
+  return (number_correct/length(vec1))
+}
+
+
+#I'm sorry this is really slow, I tried to reduce the number of loops but I couldn't figure out how to use
+#apply for this problem 
+percentage_correct_predict=function(test_data){
+  seq_column=test_data[,3]
+  sst3_column=test_data[,5]
+  percent_correct=c()
+  for (i in 1:nrow(test_data)){
+    observations=unlist(strsplit(seq_column[i],split=""))
+    predicted=viterbi(secondary_structure_hmm,observations)
+    actual=unlist(strsplit(sst3_column[i],split=""))
+    predict_correct_indiv=same_state(predicted,actual)
+    percent_correct=append(percent_correct,predict_correct_indiv)
+  }
+  return (percent_correct)
+}
+
+percent_correct_result=percentage_correct_predict(test_data)
+
+
+## Q5 - 3pt
+## Plot the distribution of percent_correct
+## What is the mean, median and 90th percentile of this distribution?
+hist(percent_correct_result)
+mean(percent_correct_result)
+median(percent_correct_result)
+quantile(percent_correct_result,0.9)
+#The mean is 45.5% correct prediction, the median is 44.5% correct prediction and the 90th percentile is 
+#70.8% correctly predicted state. 
+
+
+
+
+## Q6 - 3p
+## Does protein length correlate with success?
+## Plot the relationship, calculate correlation coefficient and explain your conclusion
+seq_Test=test_data[,3]
+#to find protein length 
+protein_length=c()
+for (i in 1:nrow(test_data)){
+  length_indiv=nchar(seq_Test[i])
+  protein_length=append(protein_length,length_indiv)
+}
+
+
+plot(protein_length, percent_correct_result)
+cor(protein_length, percent_correct_result)
+#From the plot, there is no obvious relationship bewtween protein length and the percent of the sequence
+#that was successfully predicted. The resulting graph shows a funneling pattern with proteins of shorter
+#length having a wider spread of values for percent correct. There is a weak correlation between protein 
+#length and success with a correlation coefficient of -0.11. Therefore as protein length increases, there
+#is a negative relationship with a successful prediction. 
+
+
+## Q7- 3pt
+## Q7a - Identify the test examples where we succeed less than 1%. Output the pdb_ids of these examples
+
+pdb_less=c()
+index_less=match(percent_correct_result[percent_correct_result<0.01],percent_correct_result)
+pdb_test=test_data[,1]
+for (i in 1:length(index_less)){
+  final=index_less[i]
+  print(final)
+  print(pdb_test[final])
+  pdb_less=append(pdb_less, pdb_test[final])
+
+}
+
+print(pdb_less)
+
+## Examine the predicted hidden state for these and the actual secondary structure.
+## Notice that these test examples have a high percentage of "E" in their secondary structure.
+## Calculate for each test example, the percentage of residues with "E" secondary structure state.
+sst3_column=test_data[,5]
+percentage_E_vec=c()
+for (i in 1:nrow(test_data)){
+  number_E=0
+  states_vec=unlist(strsplit(sst3_column[i],split=""))
+  for (j in 1:length(states_vec)){
+    number_E=number_E+ifelse(states_vec[j]=="E", 1, 0)
+
+  }
+  percent_E=number_E/length(states_vec)
+  percentage_E_vec=append(percentage_E_vec,percent_E)
+}
+
+
+## Plot the relationship between this value and percent_correct.
+## What is the correlation coefficient?
+
+plot(percentage_E_vec, percent_correct_result)
+cor(percentage_E_vec, percent_correct_result)
+#From the graph, there is a clear negative trend between the percentage of E and the percent correct. 
+#The correlation coefficient was found to be : -0.799. 
+
+
+## Explain why you think our HMM doesn't work for this certain class of proteins?
+#The E state includes the helix secondary structures which may be more difficult to predict 
+#based on the amino acid sequence. A variety of amino acids can be used to form helices. While 
+#certain combinations of amino acids may favor certain other secondary structures (example: proline and 
+#glycine are more commonly found in turns), there aren't specific amino acids that must be in helices 
+#(A markov chain predicts the current state by looking at the previous state).
+
+
+## Hint: Think about the biology of the "E" state and the definition of a Markov chain
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HMM | Cara (Yijin) Zou</title>
+    <link>/tag/hmm/</link>
+      <atom:link href="/tag/hmm/index.xml" rel="self" type="application/rss+xml" />
+    <description>HMM</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>HMM</title>
+      <link>/tag/hmm/</link>
+    </image>
+    
+    <item>
+      <title>Hidden Markov Models (HMMs)</title>
+      <link>/post/hmm/hmm/</link>
+      <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/hmm/hmm/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;div id=&#34;what-is-a-markov-chain&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a markov chain?&lt;/h3&gt;
+&lt;p&gt;A succession of random events such as coin tosses, e.g. THTTHT.
+Each of these events has a certain likelihood.
+In a fair coin:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Outcome&lt;/th&gt;
+&lt;th&gt;Likelihood&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Heads&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Tails&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

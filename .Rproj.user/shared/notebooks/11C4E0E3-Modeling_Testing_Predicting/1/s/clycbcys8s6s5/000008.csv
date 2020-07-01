@@ -1,0 +1,4 @@
+"0",""
+"0","# Confirm equal variance"
+"0","plot(fit1$fitted.values, fit1$residuals, xlab = ""Fitted Values"", "
+"0","    ylab = ""Residuals"", pch = 20)"

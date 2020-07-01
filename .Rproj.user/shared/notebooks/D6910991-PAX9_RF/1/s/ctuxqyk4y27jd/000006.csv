@@ -1,0 +1,1 @@
+"0","inner_join(gnomAD1,clinvar1, by=c(rsID=""dbSNP.ID""),na_matches=""never"")%>%filter(Allele.Frequency>0.05)"

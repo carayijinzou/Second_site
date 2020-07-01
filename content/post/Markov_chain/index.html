@@ -1,0 +1,250 @@
+---
+title: "Markov Chains"
+author: "Cara Yijin Zou"
+date: "2020-02-21"
+output: html_document
+diagram: true
+math : true
+categories: ["Statistics", "Probability"]
+tags: ["Statistics","Modelling", "Markov Chain", "Python", "NumPy", "Transition Matrix","Absorbing Matrix" ,"Probability","Math"]
+image:
+  placement: 1
+  caption: "Chutes and Ladders Board"
+  focal_point: "Smart"
+  preview_only: false 
+---
+
+
+
+<div id="markov-chain" class="section level1">
+<h1>Markov Chain</h1>
+<div id="what-is-a-markov-chain" class="section level3">
+<h3>What is a markov chain?</h3>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI0MjFweCIgaGVpZ2h0PSIzNTFweCIgdmlld0JveD0iLTAuNSAtMC41IDQyMSAzNTEiIGNvbnRlbnQ9IiZsdDtteGZpbGUgaG9zdD0mcXVvdDthcHAuZGlhZ3JhbXMubmV0JnF1b3Q7IG1vZGlmaWVkPSZxdW90OzIwMjAtMDctMDFUMTY6NTA6MDguNzg2WiZxdW90OyBhZ2VudD0mcXVvdDs1LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTRfNikgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzgzLjAuNDEwMy4xMTYgU2FmYXJpLzUzNy4zNiZxdW90OyBldGFnPSZxdW90O3FZZDdxdmxZOF9qX2t4VmdZUThOJnF1b3Q7IHZlcnNpb249JnF1b3Q7MTMuMy41JnF1b3Q7IHR5cGU9JnF1b3Q7ZGV2aWNlJnF1b3Q7Jmd0OyZsdDtkaWFncmFtIGlkPSZxdW90O0M1UkJzNDNvRGEtS2R6WmVOdHV5JnF1b3Q7IG5hbWU9JnF1b3Q7UGFnZS0xJnF1b3Q7Jmd0OzdWckprdG93RVAwYWpxR3N4U3pITUpsTTlxVklNcGxUeW9VMVdEWEdJa0lzenRkSGltVnNTUVlNQVp3TWM2R3N0aXk3WDNjL1BYWFJRbGVUMVEwUHB0RjdGcEs0QmIxdzFVSXZXaEQyY1VmK0trT2FHWENubnhuR25JYVpDUlNHSWYxRnROSFQxamtOeWN5WUtCaUxCWjJheGhGTEVqSVNoaTNnbkMzTmFmY3NOdDg2RGNiRU1ReEhRZXhhYjJrb29zemFnOTNDL29yUWNaUy9HZVQrVFlKOHN2WmtGZ1VoVzVaTTZMcUZyamhqSXJ1YXJLNUlyTERMY2JsOW5kN0c3eDQ2TjI4K3ozNEdYd2R2djN6NDlpeGI3T1UrajZ4ZDRDUVJ4MTFhbzdBSTRybkc2d01SOXpGZGFaZEZtdVBJMlR3SmlWb0x0TkJnR1ZGQmh0TmdwTzR1WmVKSVd5UW1zYjU5enhLaFV3RkluQWJqT0ppcE9IcnllaVk0ZTFqSFFzMWVBNnR1MS9SVlk3SWdYSkJWS2RMYTl4dkNKa1R3VkU3UmQzRmZoMUhuTWNSNnZDeXlBdVNoamtvWmtjOExkQ0tPMTBzWFlNc0xqZmMrWVFVTytNT1lrT21qZ3g3OGU5QkRCL3BYY3VrbDR3K1BEbjJFVGZSUjk0em9vOWsxVGdaK0ZBMFdRLzcyUy9vanVQK29lYW9NdmdNNlNjTG5pdnpsYUtRZ3BDTVRaNGtSVDc4cjVOcCtQcndyMzN1eDByQm1velFmcmFnb1BTWkhkNlU3eFVOcWtCcUJJYUd6ejlTTDFJek4rWWpVU0VZUjhESFp0bUMzT3M2bE9Qb1ZZY3h0bk1TQm9BdlRpYXJZNmpkOFlsUzZWNlNSVmNUSXQ5SWo4MU0vVmQ2SHJJV3duWStldFZDR2c3UFFuMVJidTMxNDlybXM2N1d4azRDeXVJU1pjbG41WHJHWWNXbEpXRUpVdmRNNHRreEJUTWVKeWx1WkhVVGFCNnBVcVJRa3ovV05DUTFEOVpwS0xpbllwa2c5cDlickp0L216WEJUREVxNWhDdHlDWjZLRWx3K1Boc2wvR1Y1NzZ4YXNDRVU1eWxiN0cxZy8vK3RiTkZUMlVJRS83R3l4YnZMZGpUbmk3VjYybFhEZjFXTFRaV1lqemJJMjMxTHpPOWFDNkY2SlNZaERkTFN0S21hTU52eXdjQjZEL0MyZjVmbElPanRtTi9aYzM3UCtoN1BtQzh2TWcrUHlpZCtCWi80RjhZbjBPSVQ0RGZNSjUwanlBQ3Q4UFByTzBQdFZ5djhRanFVaFVOSlI1eEdPdXcrR2RUVkdFOG5nMk5RZ3RzTTg5cDVxQzZGRWxBWG0xeGMwUzA0S3lYMG5pU0dTOVFIU3d6WU9ZL0VnTjUrRXNQWmlYWkloald3ZGVmYjB1b2NFcU4vdk4zTWE4Tnl3d3JVM003MFUrc2Q3WC9aejdLV1dHTWJtcVZIRVRpdzJwQ1ZwYWh6M2cydG9zMTllWWRtbS9JUWFuaEhBMVd0ak02RlJjVTVVelo5OUFBMWVobDd0Q0I3SnZNKzg5cmVydFBFbjlFbndxbDBTSVh0UE4zSlJwbldPZm4zMEdGTTY5dDZ3MjV6bnBwcHE5b0psM1oyc0lQUVBOUFc2Q2M4L3NNRDZ2bEdXUENoY2daYm5JM3R3QjNwOElBc3NaNzNCVGJLTE52Qjd2YjVHTzQ1SDIvOW50TWNIa0JWTjhKTjM4Zk5LSFpyQ2ZlYVpwUWE3WWphWnpxalF3bHJ0aWhCeTJoUndxWjdsTjI2UXFOWkRyUjdsUDFET2REdVVkcWRtRk1MRGJlcDRMWFJwZEdDTFJ2aHlXaEJEb3QvZUdaQkxQNG1pNjUvQXc9PSZsdDsvZGlhZ3JhbSZndDsmbHQ7L214ZmlsZSZndDsiPjxkZWZzLz48Zz48cmVjdCB4PSIzMDAiIHk9IjkwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiByeD0iNiIgcnk9IjYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMTBweDsgbWFyZ2luLWxlZnQ6IDMwMXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj5OZXRmbGl4PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjM2MCIgeT0iMTE0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk5ldGZsaXg8L3RleHQ+PC9zd2l0Y2g+PC9nPjxyZWN0IHg9IjAiIHk9IjkwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiByeD0iNiIgcnk9IjYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMTBweDsgbWFyZ2luLWxlZnQ6IDFweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+U2xlZXA8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNjAiIHk9IjExNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TbGVlcDwvdGV4dD48L3N3aXRjaD48L2c+PHJlY3QgeD0iMTUwIiB5PSIyMjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI2IiByeT0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDExOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDI0MHB4OyBtYXJnaW4tbGVmdDogMTUxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPkhvbWV3b3JrPC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjIxMCIgeT0iMjQ0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkhvbWV3b3JrPC90ZXh0Pjwvc3dpdGNoPjwvZz48cGF0aCBkPSJNIDIxMCAyMjAgTCAzNTQuNTQgMTMzLjI4IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMzU5LjA0IDEzMC41OCBMIDM1NC44NCAxMzcuMTggTCAzNTQuNTQgMTMzLjI4IEwgMzUxLjI0IDEzMS4xOCBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjI1MCIgeT0iMTUwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE2MHB4OyBtYXJnaW4tbGVmdDogMjUxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyNzAiIHk9IjE2NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjQ8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMjEwIDIyMCBMIDY1LjQ2IDEzMy4yOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDYwLjk2IDEzMC41OCBMIDY4Ljc2IDEzMS4xOCBMIDY1LjQ2IDEzMy4yOCBMIDY1LjE2IDEzNy4xOCBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE2MHB4OyBtYXJnaW4tbGVmdDogMTMxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIxNTAiIHk9IjE2NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjQ8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzQwIDkwIFEgMzIwIDYwIDMzMCA0NSBRIDM0MCAzMCAzNTUgMzAgUSAzNzAgMzAgMzgwIDQwIFEgMzkwIDUwIDM4Mi4wMSA3My45NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDM4MC4zNSA3OC45NCBMIDM3OS4yNSA3MS4xOSBMIDM4Mi4wMSA3My45NiBMIDM4NS44OSA3My40MSBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjMwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDEwcHg7IG1hcmdpbi1sZWZ0OiAzMXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj4wLjU8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNTAiIHk9IjE0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuNTwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSAxMjAgMTEwIEwgMjkzLjYzIDExMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDI5OC44OCAxMTAgTCAyOTEuODggMTEzLjUgTCAyOTMuNjMgMTEwIEwgMjkxLjg4IDEwNi41IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTg0IiB5PSIxMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJub25lIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDM4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMTMwcHg7IG1hcmdpbi1sZWZ0OiAxODVweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+MC4xPC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjIwNCIgeT0iMTM0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuMTwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSAzMCA5MCBRIDEwIDYwIDIwIDQ1IFEgMzAgMzAgNDUgMzAgUSA2MCAzMCA3MCA0MCBRIDgwIDUwIDcyLjAxIDczLjk2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNzAuMzUgNzguOTQgTCA2OS4yNSA3MS4xOSBMIDcyLjAxIDczLjk2IEwgNzUuODkgNzMuNDEgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDMwIDEzMCBMIDE3NC41NCAyMTYuNzIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSAxNzkuMDQgMjE5LjQyIEwgMTcxLjI0IDIxOC44MiBMIDE3NC41NCAyMTYuNzIgTCAxNzQuODQgMjEyLjgyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iNzAiIHk9IjE4MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9Im5vbmUiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMzhweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxOTBweDsgbWFyZ2luLWxlZnQ6IDcxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSI5MCIgeT0iMTk0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuNDwvdGV4dD48L3N3aXRjaD48L2c+PHJlY3QgeD0iMzQwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDEwcHg7IG1hcmdpbi1sZWZ0OiAzNDFweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+MC42PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjM2MCIgeT0iMTQiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MC42PC90ZXh0Pjwvc3dpdGNoPjwvZz48cGF0aCBkPSJNIDM5MCAxMzMgTCAyNTQuNDUgMjE0LjcxIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMjQ5Ljk2IDIxNy40MiBMIDI1NC4xNSAyMTAuODEgTCAyNTQuNDUgMjE0LjcxIEwgMjU3Ljc2IDIxNi44MSBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjMxMCIgeT0iMTgwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE5MHB4OyBtYXJnaW4tbGVmdDogMzExcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMTwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIzMzAiIHk9IjE5NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjE8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMTk1IDI2MCBRIDE4MCAyOTAgMTg3LjUgMzA1IFEgMTk1IDMyMCAyMTUgMzIwIFEgMjM1IDMyMCAyNDIuNSAzMDUgUSAyNTAgMjkwIDI0Mi44NSAyNzUuNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDI0MC41IDI3MSBMIDI0Ni43NiAyNzUuNyBMIDI0Mi44NSAyNzUuNyBMIDI0MC41IDI3OC44MyBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjIwMCIgeT0iMzMwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM0MHB4OyBtYXJnaW4tbGVmdDogMjAxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMjwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyMjAiIHk9IjM0NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjI8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzAwIDEwMCBMIDEyNi4zNyAxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSAxMjEuMTIgMTAwIEwgMTI4LjEyIDk2LjUgTCAxMjYuMzcgMTAwIEwgMTI4LjEyIDEwMy41IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTkwIiB5PSI3MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9Im5vbmUiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMzhweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiA4MHB4OyBtYXJnaW4tbGVmdDogMTkxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMzwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyMTAiIHk9Ijg0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuMzwvdGV4dD48L3N3aXRjaD48L2c+PC9nPjxzd2l0Y2g+PGcgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ii8+PGEgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNSkiIHhsaW5rOmhyZWY9Imh0dHBzOi8vZGVzay5kcmF3LmlvL3N1cHBvcnQvc29sdXRpb25zL2FydGljbGVzLzE2MDAwMDQyNDg3IiB0YXJnZXQ9Il9ibGFuayI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMHB4IiB4PSI1MCUiIHk9IjEwMCUiPlZpZXdlciBkb2VzIG5vdCBzdXBwb3J0IGZ1bGwgU1ZHIDEuMTwvdGV4dD48L2E+PC9zd2l0Y2g+PC9zdmc+" style="cursor:pointer;max-width:100%;"onclick="(function(img){if(img.wnd!=null&&!img.wnd.closed){img.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&&evt.source==img.wnd){img.wnd.postMessage(decodeURIComponent(img.getAttribute('src')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);img.wnd=window.open('https://app.diagrams.net/?client=1&lightbox=1&edit=_blank');}})(this);"/></p>
+<ul>
+<li><p>A succession of random events.</p></li>
+<li><p>There is a set of states, in the above example, after coming home from school: Sleep, Homework, and Netflix.</p></li>
+<li><p>There is an initial probability for each state. Right after coming home, you might be tired and there is a 60% probability of you taking a nap. You might have an assignment that is due that night so you might get started right away (30%) or you might have finished everything already and just want to relax and watch Netflix (10%).</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Likelihood</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sleep</td>
+<td>0.6</td>
+</tr>
+<tr class="even">
+<td>Homework</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>Netflix</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>There is a transition probability between states. For example:
+<em>(For each probability, it is the likelihood of transitioning from the row to the column state.)</em></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Sleep</th>
+<th>Homework</th>
+<th>Netflix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sleep</strong></td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td><strong>Homework</strong></td>
+<td>0.4</td>
+<td>0.2</td>
+<td>0.4</td>
+</tr>
+<tr class="odd">
+<td><strong>Netflix</strong></td>
+<td>0.3</td>
+<td>0.1</td>
+<td>0.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="application-chutes-and-ladders" class="section level3">
+<h3>Application: Chutes and Ladders</h3>
+<div id="markov-propoerty" class="section level4">
+<h4>Markov Propoerty</h4>
+<p><strong>Markov property</strong> dictates that the future only depends on current state, thus it doesn’t matter how we got to current state. In other words, the probability of landing on a position is independent from all the moves before the current state.</p>
+<p>Markov chains use a combination of probability and matrices for problems that occur in a series of steps or probability trees. In this way, we are able to calculate the probability of being in any state many steps ahead. Markov chains are a set of states and the probability of transitioning between states. In chutes and ladders, every player is in a state and no person can be in both states. Players change states when the dice is rolled.</p>
+</div>
+<div id="transition-matrix" class="section level4">
+<h4>Transition Matrix</h4>
+<p>These probabilities then form a matrix known as a transition matrix. The probability in the transition probability matrix is the probability of moving to a state, not the probability of starting in that state. All transition matrices are square which is due to the fact that each state always has a probability of transitioning to another state, even if the transition probability is zero.</p>
+</div>
+<div id="absorbing-markov-chain" class="section level4">
+<h4>Absorbing Markov Chain</h4>
+<p>There are different types of markov chains, however for the case of chutes and ladders, we will be focusing on one, the <strong>absorbing markov chain</strong>. An absorbing markov chain has absorbing states where once reached, it is impossible to exit from. In this case, we will be using an absorbing markov chain since the game is over once the final position is reached.</p>
+</div>
+<div id="setting-up-the-board" class="section level4">
+<h4>Setting Up the Board</h4>
+<p>In a typical board for chutes and ladders, there are 100 squares and thus many states that a player can be in, however this is tedius to construct, thus a simplified board is used to demonstrate this instead. In this case, the “ladder” is from position 2 and advances the player to position 8 while the “snakes” are from position 4 to position 1 and from position 9 to position 6. A standard, fair, six sided dice is used.</p>
+<p>Players are independent from each other, the moves of one player do not affect the probability of the other player on rolling a number and advancing. The only way the other person is involved is in who makes it to the 100th/last position first. Therefore, only one player’s moves need to be calculated and understood to understand this problem.</p>
+<p><img src="Simplified_Chutes_Ladders_Board.png" /></p>
+<p>In this case, the state space is: <strong>{0,1,3,5,6,7,8,10}</strong>. This is because when landed on, for spaces 2,4,and 9, the position either moves up or down through the use of a ladder or snake. There are different types of states, position 0 in this case is an open state, once this state is exited, the player cannot go back. For position 10 in this case, it is an <strong>absorbing state</strong> as once it is reached the game is over. On the other hand, state 1,3,4,5,6,7,8 are <strong>transient states</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Initial probability</strong>:
+All players start off the board (or at state “0”).</li>
+</ol>
+<p><span class="math display">\[P(X=0)=1\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Constructing the <strong>transition matrix</strong>:
+Probability from left side column state to land on the top row state. <em>(Why is it not 11 by 11? Keep in mind that only 7 states are possible).</em>
+The transition probability matrix for the first roll is:</li>
+</ol>
+<pre class="python"><code>import numpy as np
+transition= np.array( [ [ 0, 1/3, 1/6, 1/6, 1/6, 0  , 1/6, 0  ],
+                        [ 0, 1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0  ],
+                        [ 0, 1/6,  0 , 1/6, 1/3, 1/6, 1/6, 0  ],
+                        [ 0,  0 ,  0 ,  0 , 1/3, 1/6, 1/6, 1/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6, 1/6, 1/6, 1/2],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 , 1/6, 2/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 ,  0 , 5/6],
+                        [ 0,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 1  ]])
+
+prettyPrint (transition)</code></pre>
+<pre><code>##        0      1      3      5      6      7      8      10
+## 0    0.000  0.333  0.167  0.167  0.167  0.000  0.167  0.000  
+## 1    0.000  0.167  0.167  0.167  0.167  0.167  0.167  0.000  
+## 3    0.000  0.167  0.000  0.167  0.333  0.167  0.167  0.000  
+## 5    0.000  0.000  0.000  0.000  0.333  0.167  0.167  0.333  
+## 6    0.000  0.000  0.000  0.000  0.167  0.167  0.167  0.500  
+## 7    0.000  0.000  0.000  0.000  0.167  0.000  0.167  0.667  
+## 8    0.000  0.000  0.000  0.000  0.167  0.000  0.000  0.833  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000</code></pre>
+<p>Notice that the rows of the transition matrix add up to one. The expected value for the position of the player is calculated by the sum of, all the probability times their corresponding state number for the first horizontal row . Therefore, the expected value is 4.</p>
+<pre class="python"><code>possible_states_int=[0,1,3,5,6,7,8,10]
+expected_one= np.dot(transition[0], possible_states_int)
+print(expected_one)</code></pre>
+<pre><code>## 4.0</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Matrix Multiplication</strong>
+After two rolls, the matrix is:</li>
+</ol>
+<pre class="python"><code>second= np.dot(transition, transition)
+prettyPrint(second)</code></pre>
+<pre><code>##        0      1      3      5      6      7      8      10
+## 0    0.000  0.083  0.056  0.083  0.222  0.139  0.139  0.278  
+## 1    0.000  0.056  0.028  0.056  0.222  0.111  0.139  0.389  
+## 3    0.000  0.028  0.028  0.028  0.194  0.111  0.139  0.472  
+## 5    0.000  0.000  0.000  0.000  0.111  0.056  0.083  0.750  
+## 6    0.000  0.000  0.000  0.000  0.083  0.028  0.056  0.833  
+## 7    0.000  0.000  0.000  0.000  0.056  0.028  0.028  0.889  
+## 8    0.000  0.000  0.000  0.000  0.028  0.028  0.028  0.917  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000</code></pre>
+<pre class="python"><code>expected_two= np.dot(second[0], possible_states_int)
+print(round(expected_two,2))</code></pre>
+<pre><code>## 6.86</code></pre>
+<p>This is found by multiplying the transition probability matrix by itself using dot product. The expected value after two rows is found by multiplying the matrix by itself. The expected value after two turns is 6.86.</p>
+<p>You can continue this matrix multiplication determine the probability of being at a certain state after <em>n</em> number of rolls.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Expected Number of rolls to finish</strong></li>
+</ol>
+<p>For expected <strong>hitting times</strong> or expected number of dice rolls to reach state 10, it can be found through the first-hitting-time model or the first passage time which indicates the time taken to reach a certain value.</p>
+<p><span class="math display">\[
+E(Y) = \sum_{i}P(Y|X=i)P(X=i)
+\]</span></p>
+<p>How do we do this faster? <strong>Matrix partition</strong></p>
+<p><span class="math display">\[
+\begin{bmatrix}
+Q &amp; R \\
+0 &amp; I
+\end{bmatrix}
+\]</span></p>
+<p>Take the transition matrix and divide it into 4 sections. <strong>Q</strong>, a square matrix, shows the transition probabilities between transition states. <strong>R</strong> is rectangular and represent the probability of a transition state turning into an absorbing state. <strong>0</strong> represents the reverse, the probability of an absorbing state turning reaching to a transition state (impossible based on the definition of absorbing state). <strong>I</strong> represents the identity matrix, once in this state, it can only stay in this state (absorbing state).</p>
+<p>So how do we find the expected absorbing time?
+<span class="math display">\[
+H = QH + 1 
+\]</span>
+The <strong>1</strong> represents the probability changing from absorbing to absorbing. Another way of writing this is:
+<span class="math display">\[
+H = (I - Q)^{-1}1
+\]</span></p>
+<pre class="python"><code>#since we only have one absorbing state, our Q square matrix is just the transition matrix without the last row and last column
+Q = transition[:-1,:-1]
+R = np.array([1,1,1,1,1,1,1])
+I = np.identity(7)
+subtract = I-Q
+inverse = np.linalg.inv(subtract)
+np.dot(inverse,R)</code></pre>
+<pre><code>## array([3.37232432, 3.10613256, 2.91389635, 2.05389222, 1.76047904,
+##        1.50898204, 1.29341317])</code></pre>
+<p>Therefore, for the simplified chutes and ladders game, the expected number of moves from start to finish is 3.37 moves.</p>
+</div>
+<div id="simulation" class="section level4">
+<h4>Simulation</h4>
+<p>Using Python, we can run a simulation to approximate this answer. Without having to write the transition matrix, it also fairly easy to adapt this to find the average number of turns for the full board and beyond.</p>
+<pre class="python"><code>def play_game():
+  chute_ladders = {4:1,2:8,9:6}
+  win=False
+  num_turns=0
+  position=0
+  while win!=True: 
+    num_turns+=1
+    #player spins
+    dice=np.random.randint(1, high=7, dtype=int)
+    #player moves  
+    position+= dice
+    #check position
+    if position&gt;=10: 
+      win=True
+    else: 
+      if position in chute_ladders:
+        position = chute_ladders.get(position)
+  return num_turns
+  
+def main(): 
+  #run the simulation a bunch of times 
+  multipleGames = np.array([play_game() for i in range(10000)])
+  print(&quot;Average number of moves to finish for 1000 games: &quot;, np.mean(multipleGames))
+main()</code></pre>
+<pre><code>## Average number of moves to finish for 1000 games:  3.3841</code></pre>
+<p>We can see above that using a simulation, we get a similar answer to our markov chain of about 3.4 turns after averaging over 10,000 games (law of large numbers).</p>
+</div>
+<div id="other-applications" class="section level4">
+<h4>Other Applications</h4>
+<p>Markov chains are applicable to a wide range of topics including finance, music, and computer science. One example from biochemistry is Michaelis-Menten kinetics which describes the binding of substrate and enzyme, resulting in product formation. For a more complex example, I talk about hidden markov models here.
+<span class="math display">\[
+E + S \leftrightarrow ES \rightarrow E + P
+\]</span></p>
+</div>
+<div id="works-cited" class="section level4">
+<h4>Works Cited</h4>
+<ol style="list-style-type: decimal">
+<li><p>Althoen, S. C., L. King, and K. Schilling. “Structural Glycobiology: A Game of Snakes and Ladders.” How Long Is A Game of Snakes and Ladders 18.8 (2008): 569. Mathematical Association. Mathematical Association, Mar. 1993. Web. 26 Sept. 2016.</p></li>
+<li><p>Barry, Nick. “Analysis of Chutes and Ladders.” Data Genetics. Data Genetics, 2013. Web. 26 Sept. 2016.</p></li>
+<li><p>Besom, Evelyn, and Sarah Rittgers. “Monte Carlo Methods with Snakes and Ladders.” Monte Carlo Method. N.p., n.d. Web. 26 Sept. 2016.</p></li>
+<li><p>Busa, Natalino. “Markov Chains for Ladders and Snakes.” Natalino Busa:. Blogger, 25 Jan. 2013. Web. 26 Sept. 2016.</p></li>
+<li><p>Campbell, J. The Maths of Snakes and Ladders (n.d.): n. pag. The Maths of Snakes and Ladders. 12 Dec. 2013. Web. 26 Sept. 2016.</p></li>
+<li><p>Coolen, ACC. “Markov Chains Associated With Lipschitz Kernels Examples.”Markov Chains Compact Lecture Notes and Exercises (n.d.): 63-80. King’s College London, Sept. 2009. Web. 26 Sept. 2016.</p></li>
+<li><p>Hochman, Michael. “CHUTES AND LADDERS.” CHUTES AND LADDERS(n.d.): n. pag. Web. 26 Sept. 2016.</p></li>
+<li><p>Khamsi, M. A. “Markov Chains.” Markov Chains. S.O.S. Mathematics CyberBoard, 2016. Web. 26 Sept. 2016.</p></li>
+<li><p>ORMethodsTutorials. “Sharkey: First Passage Times and the Chutes and Ladders Markov Chain.” YouTube. YouTube, 05 Nov. 2014. Web. 26 Sept. 2016.</p></li>
+<li><p>Sundar, Avinaash, and Danny Zheng. “Markov Chains - A Simple Snakes and Ladders Example.” YouTube. YouTube, 03 Aug. 2014. Web. 26 Sept. 2016.</p></li>
+<li><p>Wise, Barry M. “Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation.” Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation. Cornell University, n.d. Web. 26 Sept. 2016.</p></li>
+</ol>
+</div>
+</div>
+</div>

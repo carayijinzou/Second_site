@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1593477735240.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7D660160",
+    "lastKnownWriteTime" : 1582950495,
+    "last_content_update" : 1582950495,
+    "path" : "~/Desktop/BCH339N/BCH339N_PS4.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "13,23",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

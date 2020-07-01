@@ -1,0 +1,7 @@
+"0","```r
+library(tidyverse)
+
+clinvar<-read.csv(\"clinvar_result.csv\", header=T,na.strings=\"\")%>%mutate_each(as.character())
+cancer<-read.csv(\"pax9_mutation_in_cancer.csv\", header=T,na.strings=\"\")
+gnomad<-read.csv(\"gnomAD_Grch37.csv\", header=T,na.strings=\"\")
+```"

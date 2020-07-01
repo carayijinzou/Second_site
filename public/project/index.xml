@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Cara (Yijin) Zou</title>
+    <link>/project/</link>
+      <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 08 May 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Projects</title>
+      <link>/project/</link>
+    </image>
+    
+    <item>
+      <title>PAX9 Variants Random Forest Model</title>
+      <link>/project/pax9_rf/</link>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      <guid>/project/pax9_rf/</guid>
+      <description>
+
+
+&lt;div id=&#34;predicting-the-effect-of-pax9-variants-using-a-random-forest-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Predicting the Effect of PAX9 variants using a Random Forest Model&lt;/h2&gt;
+&lt;div id=&#34;abstract&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Abstract&lt;/h3&gt;
+&lt;p&gt;Pax9 is a gene belonging to the family of paired-box genes that encode transcription factors involved in organogenesis. Defects in Pax9 can lead to various types of cancer as well as a condition known as oligodontia which causes missing teeth in individuals. A random forest model was used to predict the phenotypic effect of variants of PAX9. Features that were used include: location of mutation, type of mutation, CADD score, protein change (BLOSUM80 score), and in-frame/out of frame mutation. A 10-fold cross validation was conducted to ensure that the model was not overfitting. The resulting random forest model had an 88.6% prediction accuracy, in which the sensitivity was 84.0% and the specificity was 81.8%. However, due to the small size of the available data there are many limitations to the model and involving other features such as other gene interactions would be a major direction of future research on the PAX9 gene.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;introductionbackground&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction/Background&lt;/h3&gt;
+&lt;p&gt;The PAX9 gene belongs to the family of paired box genes (PAX), which are highly conserved across species. It is located on chromosome 14 and codes for a transcription factor which plays a key role in fetal development. Mutations in the PAX9 gene can lead to different types of cancers (especially lung cancer) as well as oligodontia, a congenital defect of more than 6 missing teeth, especially the molars.The members of the PAX gene family usually consist of a paired-type homeodomain, an octapeptide and a paired box domain. The paired box domain is responsible for binding to DNA to facilitate transcription and is one of our major interests to examine whether a mutation in the gene encoding this structure can be an indication of potential cancer or tooth agenesis phenotype. There are five exons that make up the gene transcript for PAX9. The two most important exons for our project include exon 2 (37130902-37131298), which contains four nucleotides including the start codon, as well as exon 3 (37132102-37132728) which contains the majority of the paired box domain.&lt;/p&gt;
+&lt;p&gt;The features used by the random forest model includes: location of mutation, type of mutation, CADD score, protein change (BLOSUM80 score), and in-frame/out of frame mutation. The location of the mutation was important because preliminary analysis using a chi-squared test determined that the location of the mutation (in the paired box region or not) is not independent to whether an individual exhibits oligodontia. Additionally, many of the features were chosen based on known biological information of genes/proteins. Type of mutation and in frame/out of frame mutation were chosen because synonymous mutations are likely to have little deleterious effect while missense and nonsense mutations are likely to cause a more significant effect on the gene product. Insertions and deletions are likely to cause the most effect on the gene since this can cause a frameshift and thus affect all subsequent amino acids. The effect of the protein change was quantified using a higher valued BLOSUM (BLOSUM80) which is used for closely related sequences as some amino acid changes are more detrimental than others. Finally, CADD score was used as it has a similar objective to our model (predicting the effect of variants) and including other similar models will hopefully improve the ability of our model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;objective&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Objective&lt;/h3&gt;
+&lt;p&gt;Utilizing a random forest to classify whether a PAX9 gene variant is pathogenic with the gene data from ClinVar, cBioPortal and gnomAD.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-sources&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Sources&lt;/h3&gt;
+&lt;p&gt;The pathogenic variants were found using cBioPortal (&lt;a href=&#34;https://www.cbioportal.org/&#34; class=&#34;uri&#34;&gt;https://www.cbioportal.org/&lt;/a&gt;) which contained known variants that cause cancer. Pathogenic variants were also identified from the ClinVar database (&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/clinvar/&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/clinvar/&lt;/a&gt;) which consists of variants and their corresponding phenotype/condition. ClinVar largely contained variants that resulted in tooth agenesis. If the clinical significance was labelled as “benign” or “likely benign”, they were excluded from the positive variants dataset. It must be noted that there is a risk using ClinVar since there are more lenient standards for submitting data onto the database.&lt;/p&gt;
+&lt;p&gt;The negative variants were extracted from gnomAD (&lt;a href=&#34;https://gnomad.broadinstitute.org/&#34; class=&#34;uri&#34;&gt;https://gnomad.broadinstitute.org/&lt;/a&gt;) which is an aggregation of genome sequencing data. Although variants from individuals that are affected by severe pediatric disease as well as their first degree relatives were removed, there may still be some individuals affected by severe disease still included. Therefore, this is not a true reference set of alleles. To remove some known disease variants, any overlap between gnomAD and the pathogenic variants were removed from the gnomAD dataset provided that the allele frequency was less than 0.05.&lt;/p&gt;
+&lt;p&gt;All variants were relative to the GRCh37 reference genome (NG_013357.1).
+### Computational Methods
+Various R packages were used including ‘tidyverse’ and ‘ggplot2’ for manipulating the data as well as ‘peptider’ which contained the BLOSUM80 matrix. The ‘randomForest’ package provided the model for machine learning.&lt;/p&gt;
+&lt;p&gt;The Ensembl Variant Effect Predictor (VEP) was used to obtain the protein consequence for the ClinVar data while the other two datasets already included protein consequence. A VCF file was produced using the results of VEP and was used to obtain the PHRED score from Combined Annotation Dependent Depletion (&lt;a href=&#34;https://cadd.gs.washington.edu/&#34; class=&#34;uri&#34;&gt;https://cadd.gs.washington.edu/&lt;/a&gt;) which predicts the deleteriousness of a single nucleotide change as well as insertions and deletions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Results&lt;/h3&gt;
+&lt;div id=&#34;variant-selection&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Variant Selection&lt;/h5&gt;
+&lt;p&gt;Since there are a lot more variants from gnomAD that are neutral phenotype compared to the number of pathogenic variants, an unbalanced data would form if all of the datasets were included. To combat this, we sampled an equal number of variants that are diseased/not diseased each time we trained our model. Additionally, we used the ten-fold cross validation to make sure that the data is not overfit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;features&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Features&lt;/h5&gt;
+&lt;p&gt;Allele frequency was originally a feature, however, ClinVar did not contain allele frequency and any attempts at obtaining allele frequency using the Ensembl allele frequency calculator were not successful because it only retrieves information for variants identified from the 1000 Genomes Project. While the cBioPortal dataset did have allele frequency, this was the frequency of a cancerous cell with the PAX9 variant out of all the biopsy samples which was not directly comparable to the gnomAD allele frequency value which is in reference to the entire population. Therefore, this feature was removed.&lt;/p&gt;
+&lt;div id=&#34;gene-location&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;Gene Location&lt;/h6&gt;
+&lt;p&gt;The feature ‘gene location’ was derived from all the variant positions (only using the starting position for convenience) on the chromosome in reference to the human genome GRCh37. The classification of position was built up according to the UCSC genome browser with reference sequence NM_006194. Additionally, we enriched the classification result via the usage of the NCBI analysis on NM_006194.3 since USCS genome browser only provided the exon position. As a result, categories in this feature include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;5’ UTR (37126773-37,131,294) (covering all the exon 1 and majority of exon 2)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Start codon region (37131295-37131298) (at the very end of exon 2)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exon 3 (37132102-37132728) (contain PAI, RED and KDM5B)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;PAI (37132116-37132286)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;RED (37132341-37132487)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;KDM5B (37132599-37132664)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exon 4 (37135667-37135806)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exon 5 (37145403-37145657)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;3’ UTR (37,145,658-37147011)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Intron (parts outside of the above regions)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;paired-box-region&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;Paired box region&lt;/h6&gt;
+&lt;p&gt;The PAI stands for paired-box region, which encodes a structure for the PAX9 transcription factor to bind to DNA molecules. The RED subdomain aids and corrects PAI’s recognition of DNA sites, and its variant number is larger than PAI, which might account for why PAX proteins have different target genes. The KDM5B protein helps transcriptional repression of some tumor suppressor gene.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blosum80-amino-acid-conservation&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;BLOSUM80 (amino acid conservation)&lt;/h6&gt;
+&lt;p&gt;The BLOSUM80 score displayed the extent of effect of amino acid change on the stability of the PAX9 protein. We expected that this feature would greatly improve the prediction of our model. R package ‘peptider’ was used to obtain the BLOSUM80 matrix. However, the substitution matrix only considered single amino acid change, so we assumed that variants with a replacement length over one (such as a deletion, frameshift, etc) would get the lowest score since they are more likely to have deleterious effects on the protein structure.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mutation-type&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;Mutation Type&lt;/h6&gt;
+&lt;p&gt;For the feature of mutation type, it was determined from the original data for gnomAD and cBioPortal. The ClinVar data was processed via VEP to acquire the result. Using the mutation feature and BLOSUM80 matrix, we were able to further classify the data into whether it was in-frameshift and out-of-frame shift since it was expected that frameshift mutation would likely to generate abnormal protein.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cadd-phred-score&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;CADD PHRED score&lt;/h6&gt;
+&lt;p&gt;CADD PHRED score was obtained by using the coordinates of variants and submitting to VEP. The result produced a VCF file that was submitted to CADD. Some variants such as fusion proteins did not have a CADD score and were given an estimated CADD score ( in this particular case, maximum CADD score was used in replacement) which may not have reflected its true deleteriousness effect.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pathogenicity&#34; class=&#34;section level6&#34;&gt;
+&lt;h6&gt;Pathogenicity&lt;/h6&gt;
+&lt;p&gt;Finally, for the pathogenicity feature–which was our goal of RF prediction–due to the missing allele frequency in most of the cBioPortal and ClinVar it would be nearly impossible to precisely know which variant was neutral or not. Thus, we had to assume that all ClinVar and cBioPortal variants were pathogenic while all gnomAD variants were neutral (after filtering for duplicates) for convenience.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;random-forest&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Random Forest&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+##  randomForest(formula = phenotype ~ ., data = training_data, importance = T,      ntree = 20, na.action = na.exclude) 
+##                Type of random forest: classification
+##                      Number of trees: 20
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 14.44%
+## Confusion matrix:
+##            neutral pathogenic class.error
+## neutral         75         15   0.1666667
+## pathogenic      11         79   0.1222222&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The RF model showed that it had an overall accuracy of 85.56%, with 20 decision trees for doing classification tasks. The low value of tree number was due to the limited training data size (80).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##                 neutral pathogenic MeanDecreaseAccuracy MeanDecreaseGini
+## GRCh37Location 6.496823   9.856697             9.376161       25.2817657
+## gene_location  1.924800   3.587758             4.798873        8.1996621
+## BLOSUM         4.423561   7.614464             6.227631       17.4672859
+## Mutation_Type  2.271270   2.648797             2.938764       13.3248609
+## inframe        1.025978   0.000000             1.025978        0.4994845
+## PHRED          3.754689   1.829102             3.861181       19.7613239&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/PAX9_RF_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+Based on the variable importance plot above, the most important variable would be the location relative to the reference GRCh37. On the other hand, the variable with the smallest effect on the predicting power of our model is inframe. This is expected since there were relatively few variants that caused a frame shift in the population.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ten-fold-cross-validation&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Ten-fold Cross Validation&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;##                           1         2         3         4         5         6
+## ten_fold_accuracy 0.8888889 0.7777778 0.8888889 0.8888889 0.7777778 0.8888889
+##                           7         8         9        10
+## ten_fold_accuracy 0.8333333 0.9444444 0.8888889 0.8888889&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cross Validation mean accuracy:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8666667&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By comparing the accuracy between RF (85.56%) and ten-fold (86.67%), we found that despite the low sample size, the model exhibited limited overfitting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;prediction-result&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Prediction Result&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;##             prediction_result
+## truth        neutral pathogenic Sum
+##   pathogenic       5         17  22
+##   neutral         20          2  22
+##   Sum             25         19  44&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##             accuracy sensitivity specificity precision
+## pathogenic 0.8409091   0.8947368   0.9090909 0.8947368&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the confusion matrix, the model has relatively good accuracy, sensitivity, specificity, and precision.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;The objective of the project was to build a random forest model to predict the phenotype of a PAX9 gene variant. The ten-fold cross validation indicated that the model didn’t overfit. While the prediction result was satisfactory, it is important to note that it is only as good as the available training data. It is again acknowledged that there was a risk associated with using the ClinVar resource due to its relatively loose quality check. Additionally, since a large proportion of the allele frequency in cBioPortal and ClinVar was missing, it was difficult to identify all the potential neutral variants and all the variants were assumed to be pathogenic in order to run the RF model. Hence, if possible, allele frequency could potentially be an important feature of any future research on PAX9 gene. Another improvement would be to increase the very limited online human PAX9 gene data to generate more powerful machine learning models. To further refine the prediction of the RF model, a suggestion may be to use the continuous conservation score from other available tools as highly conserved sequences are likely less tolerant to changes. Although BLOSUM80 was insightful on the effect of amino acid substitution on protein structure, adding conservation score could provide a more comprehensive information. Lastly, future research may have a stronger focus on the PAX9’s metabolic pathway. This gene plays a principal role in organogenesis and interacts with many other genes so it is unfortunate that this gene hasn’t received the same attention as other popular genes like p53.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Bonczek et al, ‘PAX9 gene mutations and tooth agenesis: A review’, Clinical Genetics, 2017/02/01, doi: 10.1111/cge.12986.
+&lt;a href=&#34;https://www.researchgate.net/publication/313264549_PAX9_gene_mutations_and_tooth_agenesis_A_review&#34; class=&#34;uri&#34;&gt;https://www.researchgate.net/publication/313264549_PAX9_gene_mutations_and_tooth_agenesis_A_review&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;UCSC genome browser on PAX9. &lt;a href=&#34;http://www.genome.ucsc.edu/cgi-bin/hgc?hgsid=828585015_qsdofxT4g0z4a48R33zLnyqdtxND&amp;amp;g=htcCdnaAliInWindow&amp;amp;i=NM_006194&amp;amp;c=chr14&amp;amp;l=37126772&amp;amp;r=37147011&amp;amp;o=37126772&amp;amp;aliTable=refSeqAli&amp;amp;table=refGene&#34; class=&#34;uri&#34;&gt;http://www.genome.ucsc.edu/cgi-bin/hgc?hgsid=828585015_qsdofxT4g0z4a48R33zLnyqdtxND&amp;amp;g=htcCdnaAliInWindow&amp;amp;i=NM_006194&amp;amp;c=chr14&amp;amp;l=37126772&amp;amp;r=37147011&amp;amp;o=37126772&amp;amp;aliTable=refSeqAli&amp;amp;table=refGene&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NCBI data on PAX9: &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/nuccore/NM_006194#feature_NM_006194.3&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/nuccore/NM_006194#feature_NM_006194.3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Pellizzari et al. Co-operation between the PAI and RED subdomains of Pax-8 in the interaction with the thyroglobulin promoter. Biochem J. 1999;337 ( Pt 2)(Pt 2):253‐262.
+&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1219959/&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1219959/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;KDB5B gene: &lt;a href=&#34;https://www.genecards.org/cgi-bin/carddisp.pl?gene=KDM5B&#34; class=&#34;uri&#34;&gt;https://www.genecards.org/cgi-bin/carddisp.pl?gene=KDM5B&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ensembl Variant Effect Predictor (VEP): &lt;a href=&#34;https://useast.ensembl.org/info/docs/tools/vep/index.html&#34; class=&#34;uri&#34;&gt;https://useast.ensembl.org/info/docs/tools/vep/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Combined Annotation Dependent Depletion (CADD): &lt;a href=&#34;https://cadd.gs.washington.edu/&#34; class=&#34;uri&#34;&gt;https://cadd.gs.washington.edu/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;cBioPortal: &lt;a href=&#34;https://www.cbioportal.org/&#34; class=&#34;uri&#34;&gt;https://www.cbioportal.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ClinVar:&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/clinvar/&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/clinvar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gnomAD: &lt;a href=&#34;https://gnomad.broadinstitute.org/&#34; class=&#34;uri&#34;&gt;https://gnomad.broadinstitute.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Random Forest: A. Liaw and M. Wiener (2002). Classification and Regression by randomForest. R News 2(3), 18–22.&lt;/li&gt;
+&lt;li&gt;Tidyr package: Hadley Wickham and Lionel Henry (2020). tidyr: Tidy Messy Data. R package; version 1.0.2. &lt;a href=&#34;https://CRAN.R-project.org/package=tidyr&#34; class=&#34;uri&#34;&gt;https://CRAN.R-project.org/package=tidyr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Peptider package: Heike Hofmann, Eric Hare and GGobi Foundation (2015). peptider: Evaluation of Diversity in Nucleotide Libraries. R package version 0.2.2. &lt;a href=&#34;https://CRAN.R-project.org/package=peptider&#34; class=&#34;uri&#34;&gt;https://CRAN.R-project.org/package=peptider&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dplyr package: Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2020). Dplyr: A Grammar of Data Manipulation. R package version 0.8.5. &lt;a href=&#34;https://CRAN.R-project.org/package=dplyr&#34; class=&#34;uri&#34;&gt;https://CRAN.R-project.org/package=dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modelling, Testing, and Predicting</title>
+      <link>/project/modeling_testing_predicting/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/project/modeling_testing_predicting/</guid>
+      <description>
+
+
+&lt;div id=&#34;modeling&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Modeling&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;This dataset is comprised of a merged dataset from &lt;a href=&#34;https://www.who.int/tb/country/data/download/en/&#34;&gt;World Health Organization&lt;/a&gt; and &lt;a href=&#34;https://data.worldbank.org/indicator/NY.GDP.PCAP.CD&#34;&gt;The World Bank Group&lt;/a&gt;. It consists of information about cases of Tuberculosis including new pulmonary cases, previous cases, drug resistant cases (MDR and XDR), mortality due to tuberculosis, etc. This dataset also contains information about country, region, year (2017 or 2018), population number, and GDP per capita in US dollars.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;manova-testing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;MANOVA testing&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; #H0: For each response variable, the means of the groups are equal
+ #H1: For at least one response variable, at least one group mean differs
+head(TB_Data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## country region year new.pul.TB prev.treated.pul.TB
+prev.unk.pul.TB new.MDR prev.MDR
+## 1 Albania EUR 2017 195 15 0 0 0
+## 2 Algeria AFR 2017 6278 419 0 11 28
+## 3 Algeria AFR 2018 6137 362 21 2 5
+## 4 American Samoa WPR 2017 3 0 0 1 0
+## 5 Andorra EUR 2017 1 0 0 0 0
+## 6 Angola AFR 2018 31098 6623 0 0 0
+## MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+TB_mort.num GDP
+## 1 0 0 2884169 20.0 580 0.34 10 4532.889
+## 2 39 4 41389189 70.0 29000 7.70 3200 4048.285
+## 3 7 4 42228408 69.0 29000 7.70 3300 4278.850
+## 4 1 0 55620 10.0 6 0.85 0 11398.777
+## 5 0 0 77001 1.5 1 0.12 0 39134.393
+## 6 0 0 30809787 355.0 109000 72.00 22000 3432.386&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;man1&amp;lt;-manova(cbind(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)~region, data=TB_Data)
+summary(man1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Df Pillai approx F num Df den Df Pr(&amp;gt;F)
+## region 5 1.2666 7.1585 50 1055 &amp;lt; 2.2e-16 ***
+## Residuals 216
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are alot of assumptions for the MANOVA test which indicates that they are usually hard to test and/or meet. These assumptions include: random samples, independent observations, dependent variables have multivariate normality, homogeneity of within-group covariance matrices for each dependent variable and equal covariance between any two dependent variables, linear relationships amoung dependent variables, no extreme univariate or multivariate outliers, and no multicollinearity. The dataset would likely not have been able to meet the assumptions, especially since many of the variables are likely correlated (e.g.: new drug resistant TB cases is likely related to previous/new TB cases ).&lt;/p&gt;
+&lt;p&gt;For the MANOVA, only 10 dependent variables were chosen. For example, only one of TB.100k (TB cases per 100,000 people) and TB.num (TB cases total) since they are likely to be highly related. The p-value (&amp;lt; 2.2e-16) is significant for the MANOVA test, therefore, for at least one of the response variables, the mean between regions is different.&lt;/p&gt;
+&lt;div id=&#34;univariate-anova-testing&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Univariate ANOVA testing&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary.aov(man1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Response new.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 3.7015e+11 7.4029e+10 13.356 2.385e-11 ***
+## Residuals 216 1.1972e+12 5.5427e+09
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response prev.treated.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 1.1311e+10 2262181943 7.6302 1.268e-06 ***
+## Residuals 216 6.4039e+10 296477285
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response prev.unk.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 30299516 6059903 3.4395 0.005189 **
+## Residuals 216 380558289 1761844
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response new.MDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 4062809 812562 1.8615 0.1023
+## Residuals 216 94285428 436507
+##
+## Response prev.MDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 12235002 2447000 1.9446 0.08818 .
+## Residuals 216 271810715 1258383
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response XDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 468938 93788 1.388 0.2299
+## Residuals 216 14595646 67572
+##
+## Response pop.number :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 7.5761e+17 1.5152e+17 10.661 3.61e-09 ***
+## Residuals 216 3.0700e+18 1.4213e+16
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response TB.100k :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 1375556 275111 22.228 &amp;lt; 2.2e-16 ***
+## Residuals 216 2673438 12377
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response TB_mort.100k :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 81943 16388.6 23.624 &amp;lt; 2.2e-16 ***
+## Residuals 216 149845 693.7
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response GDP :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 2.0424e+10 4084759281 15.597 4.243e-13 ***
+## Residuals 216 5.6568e+10 261891068
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of the 10 dependent variables tested, the univariate ANOVAs with a p-value &amp;lt;0.05 include: new.pul.TB, prev.treated.pul.TB, prev.unk.pul.TB, pop.number, TB.100k, TB_mort.100k, and GDP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;post-hoc-t-testing&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Post hoc t-testing&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# region in world: AFR=Africa; AMR=Americas;
+# EMR=Eastern Mediterranean; EUR=Europe; SEAR=South-East
+# Asia; WPR=Western Pacific
+
+#New pulmonary tuberculosis cases 
+pairwise.t.test(TB_Data$new.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$new.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.71    -       -       -       -      
+## EMR 0.83    0.60    -       -       -      
+## EUR 0.64    0.96    0.54    -       -      
+## SEA 2.1e-11 7.2e-12 2.5e-09 3.8e-13 -      
+## WPR 0.80    0.92    0.67    0.87    4.7e-11
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Previously treated pulmonary tuberculosis cases 
+pairwise.t.test(TB_Data$prev.treated.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$prev.treated.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.88    -       -       -       -      
+## EMR 0.90    0.80    -       -       -      
+## EUR 0.98    0.89    0.87    -       -      
+## SEA 1.3e-07 1.0e-07 2.4e-06 3.1e-08 -      
+## WPR 0.96    0.93    0.87    0.98    3.7e-07
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Confirmed pulmonary TB cases with unknown TB treatment history
+pairwise.t.test(TB_Data$prev.unk.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$prev.unk.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.97315 -       -       -       -      
+## EMR 0.98235 0.99463 -       -       -      
+## EUR 0.74157 0.77669 0.80590 -       -      
+## SEA 0.00023 0.00031 0.00090 0.00028 -      
+## WPR 0.98122 0.95689 0.96726 0.74643 0.00042
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Population Number 
+pairwise.t.test(TB_Data$pop.number,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$pop.number and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 1.00    -       -       -       -      
+## EMR 0.61    0.62    -       -       -      
+## EUR 0.92    0.93    0.64    -       -      
+## SEA 5.7e-10 9.3e-10 1.2e-07 1.5e-10 -      
+## WPR 0.76    0.77    0.46    0.68    8.6e-10
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#TB cases per 100,000 individuals
+pairwise.t.test(TB_Data$TB.100k,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$TB.100k and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 3.4e-12 -       -       -       -      
+## EMR 4.2e-06 0.11090 -       -       -      
+## EUR 1.2e-15 0.72536 0.04362 -       -      
+## SEA 0.72362 7.4e-07 0.00082 4.6e-08 -      
+## WPR 0.02843 6.2e-06 0.01175 1.5e-07 0.18283
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#TB mortality cases per 100,000 individuals 
+pairwise.t.test(TB_Data$TB_mort.100k,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$TB_mort.100k and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 2.3e-15 -       -       -       -      
+## EMR 9.7e-10 0.34679 -       -       -      
+## EUR &amp;lt; 2e-16 0.74776 0.19773 -       -      
+## SEA 0.00066 0.00411 0.05824 0.00109 -      
+## WPR 1.2e-10 0.21678 0.85228 0.09768 0.06676
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#GDP 
+pairwise.t.test(TB_Data$GDP,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$GDP and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.03154 -       -       -       -      
+## EMR 0.00053 0.10499 -       -       -      
+## EUR 1.0e-13 2.1e-07 0.00652 -       -      
+## SEA 0.82314 0.16977 0.01100 2.6e-07 -      
+## WPR 0.00045 0.13530 0.81059 0.00098 0.01345
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonferroni-correction&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Bonferroni correction&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#MANOVA: 1 
+#ANOVA: 11
+#T-tests: 15* 7= 105
+
+#Probability of a type I error if unadjusted 
+1-(1-0.05)^117&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9975245&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#New alpha 
+0.05/(1+10+105)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.0004310345&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The total number of tests conducted is 117, therefore if unadjusted, the probability of at least one type I error is 0.9975. Therefore, the bonferroni correction was used to obtain the new alpha value of 0.00043 so that the overall alpha value remains at 0.05.&lt;/p&gt;
+&lt;p&gt;Using this new alpha value, the MANOVA is still significant. The ANOVAs of new.pul.TB, prev.treated.pul.TB, pop.number, TB.100k, TB_mort.100k, and GDP are still significant. Only the ANOVA of prev.unk.pul.TB is no longer significant (p-value=0.005189). For the post-hoc analysis of the new pulmonary TB cases, previously treated pulmonary TB, and population number only the means of SEA are different from the other regions. For TB.100k there are significant differences between AFR/AMR, AFR/EMR, AFR/EUR, AMR/SEA, AMR/WPR, SEA/EMR, EUR/SEA, and EUR/WPR. For the TB mortality for every 100,000 individuals, AFR is significantly different from the other regions. For GDP, AFR/EMR, AFR/EUR, AFR/WPR, AMR/EUR, EUR/SEA, and EUR/WPR are significantly different.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;randomization-test-permanova&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Randomization test: PERMANOVA&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#H0: The centroid and dispersion of points is the same for the different regions
+#H1: The centroid and dispersion of points is different for at least one of the different regions
+
+
+#compute distances/dissimilarities
+dists&amp;lt;-TB_Data%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%dist()
+
+
+#compute observed F
+SST&amp;lt;- sum(dists^2)/150
+SSW&amp;lt;-TB_Data%&amp;gt;%group_by(region)%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%
+ do(d=dist(.[2:3],&amp;quot;euclidean&amp;quot;))%&amp;gt;%ungroup()%&amp;gt;%
+ summarise(sum(d[[1]]^2)/50 + sum(d[[2]]^2)/50+ sum(d[[3]]^2)/50)%&amp;gt;%pull
+F_obs&amp;lt;-((SST-SSW)/2)/(SSW/147) #observed F statistic
+F_obs&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 21739142596&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# compute null distribution for F
+Fs&amp;lt;-replicate(1000,{
+new&amp;lt;-TB_Data%&amp;gt;%mutate(region=sample(region)) #permute the region vector
+SSW&amp;lt;-new%&amp;gt;%group_by(region)%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%
+ do(d=dist(.[2:3],&amp;quot;euclidean&amp;quot;))%&amp;gt;%ungroup()%&amp;gt;%
+ summarise(sum(d[[1]]^2)/50 + sum(d[[2]]^2)/50+ sum(d[[3]]^2)/50)%&amp;gt;%pull
+((SST-SSW)/2)/(SSW/147) #calculate new F on randomized data
+})
+
+{hist(Fs,prob = T); abline(v=F_obs, col=&amp;quot;red&amp;quot;, add=T)}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(Fs&amp;gt;F_obs)  #p-value &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.007&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since the data is unlikely to meet the assumptions of the MANOVA, a randomization-test MANOVA (PERMANOVA) was conducted which resulted in a p-value &amp;lt; 0.05 (significant). Therefore the null hypothesis is rejected in favor of the alternative hypothesis that there is a significant difference between the centroid and/or the spread of the points is not equal between the different regions. This therefore supports the conclusion of the MANOVA conducted previously.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linear-regression-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Linear regression model&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TB_Data$GDP_c &amp;lt;- TB_Data$GDP - mean(TB_Data$GDP, na.rm = T)
+TB_Data$TB_mort.100k_c &amp;lt;- TB_Data$TB_mort.100k - mean(TB_Data$TB_mort.100k, na.rm = T)
+fit1&amp;lt;-lm(TB_mort.100k_c ~ GDP_c*region, data=TB_Data)
+
+#uncorrected SEs
+summary(fit1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## Call:
+## lm(formula = TB_mort.100k_c ~ GDP_c * region, data =
+TB_Data)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -54.036 -5.622 -1.086 1.755 144.129
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 1.059e+00 1.514e+01 0.070 0.9443
+## GDP_c -2.858e-03 1.179e-03 -2.423 0.0162 *
+## regionAMR -1.472e+01 1.595e+01 -0.923 0.3572
+## regionEMR -6.498e+00 1.605e+01 -0.405 0.6860
+## regionEUR -1.457e+01 1.557e+01 -0.936 0.3505
+## regionSEA -3.136e+01 3.331e+01 -0.942 0.3475
+## regionWPR -5.678e+00 1.582e+01 -0.359 0.7200
+## GDP_c:regionAMR 2.651e-03 1.328e-03 1.996 0.0472 *
+## GDP_c:regionEMR 2.457e-03 1.211e-03 2.029 0.0437 *
+## GDP_c:regionEUR 2.789e-03 1.188e-03 2.349 0.0198 *
+## GDP_c:regionSEA -6.893e-04 2.812e-03 -0.245 0.8066
+## GDP_c:regionWPR 2.541e-03 1.204e-03 2.110 0.0361 *
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Residual standard error: 25.98 on 210 degrees of freedom
+## Multiple R-squared: 0.3884, Adjusted R-squared: 0.3564
+## F-statistic: 12.12 on 11 and 210 DF, p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the model with uncorrected standard errors, controlling for region, for every increase of 1 USD of GDP from the mean, the number of cases of mortality due to tuberculosis per 100,000 people decreases by 2.858e-03. Compared to the reference region of AFR and controlling for GDP, the mean number of cases of mortality due to tuberculosis per 100,000 people decreases for all regions: AMR (1.472e+01), EMR(6.498e+00), EUR (1.457e+01), SEA (3.136e+01), and WPR (5.678e+00). The coefficient for the interactions describe the difference in the
+effect of GDP on the mortality due to tuberculosis per 100,00 people depending on which region the country is in (the slope difference between the regions). For example, the slope difference between AFR and: AMR (2.651e-03), EMR (2.457e-03), EUR (2.789e-03), SEA (-6.893e-04), and WPR (2.541e-03).&lt;/p&gt;
+&lt;div id=&#34;plot-the-regression&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Plot the regression&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TB_Data%&amp;gt;%ggplot(aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))+geom_smooth(method = &amp;#39;lm&amp;#39;,se=F, aes(color=region))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asumptions&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Asumptions&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Linear relationship between each predictor and response (no scatterplot for region since it is categorical)
+ggplot(TB_Data, aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Confirm normality of residuals
+qqnorm(fit1$residuals, main = &amp;quot;QQ-plot of Model Residuals&amp;quot;)
+qqline(fit1$residuals, col = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-2.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Confirm equal variance
+plot(fit1$fitted.values, fit1$residuals, xlab = &amp;quot;Fitted Values&amp;quot;, 
+    ylab = &amp;quot;Residuals&amp;quot;, pch = 20)
+abline(h = 0, col = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-3.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(sandwich); library(lmtest)
+bptest(fit1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit1
+## BP = 58.313, df = 11, p-value = 1.905e-08&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The data fails all assumptions. The scatterplot does not show a linear relationship between GDP and TB_mort.100k. The QQ-plot of the model residuals is also not normal. There is also a funneling pattern in the residual plot which indicates that it does not meet the assumption of equal variance (homoskedasticity). This is again confirmed by the Breusch-Pagan test which concluded that the homoskedasticity assumption is not met (p-value=1.905e-08).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;recompute-regression-results-with-robust-standard-errors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Recompute regression results with robust standard errors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#robust SEs
+coeftest(fit1, vcov = vcovHC(fit1))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## t test of coefficients:
+##
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 1.0589e+00 2.0328e+01 0.0521 0.95851
+## GDP_c -2.8577e-03 1.7036e-03 -1.6775 0.09494 .
+## regionAMR -1.4716e+01 2.0333e+01 -0.7238 0.47001
+## regionEMR -6.4979e+00 2.0762e+01 -0.3130 0.75462
+## regionEUR -1.4572e+01 2.0334e+01 -0.7166 0.47441
+## regionSEA -3.1361e+01 2.2356e+01 -1.4028 0.16215
+## regionWPR -5.6775e+00 2.0456e+01 -0.2776 0.78163
+## GDP_c:regionAMR 2.6510e-03 1.7052e-03 1.5546 0.12155
+## GDP_c:regionEMR 2.4566e-03 1.7146e-03 1.4327 0.15342
+## GDP_c:regionEUR 2.7895e-03 1.7036e-03 1.6374 0.10305
+## GDP_c:regionSEA -6.8927e-04 1.9443e-03 -0.3545 0.72331
+## GDP_c:regionWPR 2.5408e-03 1.7056e-03 1.4897 0.13781
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A model with robust standard errors should be used if the data is heteroskedastic. With uncorrected standard errors, the coefficient estimates of the main effect of GDP (p-value = 0.0162) was significant. The interactions GDP_c:regionAMR (p-value= 0.0472), GDP_c:regionEMR (p-value= 0.0437), GDP_c:regionEUR (p-value= 0.0198), and GDP_c:regionWPR (p-value= 0.0361) were also significant. Contrastingly, using the more robust SEs (more conservative), none of the coefficient estimates are still significant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;effect-size&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Effect Size&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(fit1)$adj.r.squared&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3563608&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The adjusted r-squared of 0.356 indicates that 35.6% of variation in the mean number of cases of mortality due to tuberculosis per 100,000 people is explained by the model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regression-but-without-interactions&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Regression but without interactions&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit2&amp;lt;-lm(TB_mort.100k_c ~ GDP_c+region, data=TB_Data)
+summary(fit2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## Call:
+## lm(formula = TB_mort.100k_c ~ GDP_c + region, data =
+TB_Data)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -49.946 -6.211 -1.696 2.397 146.834
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 3.394e+01 4.177e+00 8.125 3.49e-14 ***
+## GDP_c -2.055e-04 1.101e-04 -1.866 0.063421 .
+## regionAMR -4.759e+01 5.783e+00 -8.230 1.80e-14 ***
+## regionEMR -3.978e+01 6.834e+00 -5.822 2.10e-08 ***
+## regionEUR -4.572e+01 5.796e+00 -7.888 1.53e-13 ***
+## regionSEA -2.635e+01 7.646e+00 -3.446 0.000684 ***
+## regionWPR -3.867e+01 6.261e+00 -6.177 3.23e-09 ***
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Residual standard error: 26.19 on 215 degrees of freedom
+## Multiple R-squared: 0.3638, Adjusted R-squared: 0.3461
+## F-statistic: 20.49 on 6 and 215 DF, p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Examining only the main effects, the effect of GDP is no longer significant while all the coeficient estimates for region are now significant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linear-regression-model-with-bootstrapped-standard-errors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Linear regression model with bootstrapped standard errors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# repeat 5000 times, saving the coefficients each time
+samp_distn&amp;lt;-replicate(5000, {
+ boot_TB&amp;lt;-TB_Data[sample(nrow(TB_Data),replace=TRUE),]
+ fit3&amp;lt;-lm(TB_mort.100k_c ~ GDP_c*region, data=boot_TB)
+ coef(fit3)
+})
+
+#Estimated SEs
+samp_distn%&amp;gt;%t%&amp;gt;%as.data.frame%&amp;gt;%summarise_all(sd)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## (Intercept) GDP_c regionAMR regionEMR regionEUR
+regionSEA regionWPR GDP_c:regionAMR
+## 1 38.6096 0.003045773 38.63531 38.79675 38.6104 41.86718
+38.70029 0.003046698
+## GDP_c:regionEMR GDP_c:regionEUR GDP_c:regionSEA
+GDP_c:regionWPR
+## 1 0.003055984 0.003045843 0.003347488 0.003045734&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Bootstrapped standard errors are used when the data is non-normal as well. Compared to the original standard errors, the standard errors for all the coefficient estimates increased (more conservative). The p-values are therefore higher as well because of the higher standard errors. Compared to the robust standard errors, the bootstrapped standard errors are also higher. Therefore, the p-values are also higher (more conservative).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;logistic-regression-predicting-a-binary-categorical-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Logistic regression predicting a binary categorical variable&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BinaryTB&amp;lt;-TB_Data%&amp;gt;%mutate(y = as.numeric(ifelse(XDR &amp;gt; 0, 1, 0)))
+fit4&amp;lt;-glm(y~region+TB.100k+pop.number,data=BinaryTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+coeftest(fit4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## z test of coefficients:
+##
+## Estimate Std. Error z value Pr(&amp;gt;|z|)
+## (Intercept) -2.5554e+00 5.5591e-01 -4.5968 4.291e-06 ***
+## regionAMR 2.2980e-01 6.5681e-01 0.3499 0.7264340
+## regionEMR 1.2454e+00 6.4541e-01 1.9296 0.0536624 .
+## regionEUR 2.2567e+00 5.6757e-01 3.9761 7.005e-05 ***
+## regionSEA 4.0806e-01 8.6513e-01 0.4717 0.6371581
+## regionWPR -2.4001e-01 6.4077e-01 -0.3746 0.7079782
+## TB.100k 5.4362e-03 1.5506e-03 3.5059 0.0004551 ***
+## pop.number 3.8675e-08 1.0182e-08 3.7984 0.0001456 ***
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;exp(coef(fit4))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## (Intercept) regionAMR regionEMR regionEUR regionSEA
+regionWPR TB.100k pop.number
+## 0.07766039 1.25834993 3.47417743 9.55178621 1.50390035
+0.78661626 1.00545098 1.00000004&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A binary variable was created that measures whether there are any XDR (extensively drug resistant tuberculosis) cases in a country. Controlling for TB.100k and population number, the odds of having a XDR TB case are 1.25 times higher for the region AMR than AFR. The odds for the other regions compared to AFR: EMR (3.47), EUR (9.55), SEA (1.50), WPR (0.79). The region with the lowest odds of a country having a case of XDR TB is WPR. The region that has the highest odds of a country having a case of XDR TB is EUR. Controlling for region and TB.100k, for every 1-unit increase in population number, odds of having a case of XDR TB change by a factor of 1.00000004. Controlling for region and population number, for every 1-unit increase in TB.100k, odds of having a case of XDR TB change by a factor of 1.00545098 (increase by 0.54%).&lt;/p&gt;
+&lt;div id=&#34;confusion-matrix&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Confusion Matrix&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;prob &amp;lt;- predict(fit4, type = &amp;quot;response&amp;quot;) #get predictions
+pred &amp;lt;- ifelse(prob &amp;gt; 0.5, 1, 0)
+table(truth = BinaryTB$y, prediction = pred) %&amp;gt;% addmargins&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      prediction
+## truth   0   1 Sum
+##   0   109  23 132
+##   1    34  56  90
+##   Sum 143  79 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Classification Function
+class_diag&amp;lt;-function(probs,truth){
+
+tab&amp;lt;-table(factor(probs&amp;gt;.5,levels=c(&amp;quot;FALSE&amp;quot;,&amp;quot;TRUE&amp;quot;)),truth)
+acc=sum(diag(tab))/sum(tab)
+sens=tab[2,2]/colSums(tab)[2]
+spec=tab[1,1]/colSums(tab)[1]
+ppv=tab[2,2]/rowSums(tab)[2]
+
+if(is.numeric(truth)==FALSE &amp;amp; is.logical(truth)==FALSE) truth&amp;lt;-as.numeric(truth)-1
+
+#CALCULATE EXACT AUC
+ord&amp;lt;-order(probs, decreasing=TRUE)
+probs &amp;lt;- probs[ord]; truth &amp;lt;- truth[ord]
+
+TPR=cumsum(truth)/max(1,sum(truth)) 
+FPR=cumsum(!truth)/max(1,sum(!truth))
+
+dup&amp;lt;-c(probs[-1]&amp;gt;=probs[-length(probs)], FALSE)
+TPR&amp;lt;-c(0,TPR[!dup],1); FPR&amp;lt;-c(0,FPR[!dup],1)
+
+n &amp;lt;- length(TPR)
+auc&amp;lt;- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+
+data.frame(acc,sens,spec,ppv,auc)
+}
+
+class_diag(prob, BinaryTB$y)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         acc      sens      spec       ppv       auc
+## 1 0.7432432 0.6222222 0.8257576 0.7088608 0.8367845&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the confusion matrix, the model has an accuracy of 0.743 which is fair. The sensitivity or true positive rate is 0.622 which is poor. The specificity or true negative rate is 0.826 which is good. The precision or positive predictive value of the model is 0.709 which is fair.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;density-of-log-odds-logit&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Density of log-odds (logit)&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BinaryTB$logit&amp;lt;-predict(fit4) #get predicted log-odds
+BinaryTB$factor.y&amp;lt;-factor(BinaryTB$y,levels=c(1,0))
+ggplot(BinaryTB,aes(logit, fill=factor.y))+geom_density(alpha=.3)+
+  geom_vline(xintercept=0,lty=2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+#### ROC Curve&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plotROC)
+prob &amp;lt;- predict(fit4, type = &amp;quot;response&amp;quot;)
+ROCplot1 &amp;lt;- ggplot(BinaryTB) + geom_roc(aes(d = y, m = prob),n.cuts = 0)+geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) 
+ROCplot1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;calc_auc(ROCplot1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PANEL group       AUC
+## 1     1    -1 0.8367845&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The AUC is determined to be 0.837 which suggests that the model is good at predicting whether a country has a case of XDR TB (the probability that a randomly selected country with a case of XDR TB has a higher prediction than a randomly selected country without a case of XDR TB).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fold-cv&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;10-fold CV&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;k = 10
+data1 &amp;lt;- BinaryTB[sample(nrow(BinaryTB)), ] #put dataset in random order
+folds &amp;lt;- cut(seq(1:nrow(BinaryTB)), breaks = k, labels = F) #create folds
+diags &amp;lt;- NULL
+for (i in 1:k) {
+# FOR EACH OF 10 FOLDS
+train &amp;lt;- data1[folds != i, ] #CREATE TRAINING SET
+test &amp;lt;- data1[folds == i, ] #CREATE TESTING SET
+truth &amp;lt;- test$y
+fit &amp;lt;- glm(y~region+TB.100k+pop.number,data=BinaryTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+probs &amp;lt;- predict(fit, newdata = test, type = &amp;quot;response&amp;quot;)
+diags &amp;lt;- rbind(diags, class_diag(probs, truth))
+}
+apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
+## 0.7434783 0.6442857 0.8261991 0.7169048 0.8454062&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The out of sample confusion matrix for this model has: accuracy (0.742- fair), sensitivity (0.625- poor), specificity (0.811- good), precision (0.692- poor). Although, precision decreased from fair to poor, the classifications did not change greatly. The AUC also did not change significantly which suggests that there was not overfitting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lasso-least-absolute-shrinkage-and-selection-operator-regression&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;LASSO (least absolute shrinkage and selection operator) Regression&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(BinaryTB)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## country region year new.pul.TB prev.treated.pul.TB
+prev.unk.pul.TB new.MDR prev.MDR
+## 1 Albania EUR 2017 195 15 0 0 0
+## 2 Algeria AFR 2017 6278 419 0 11 28
+## 3 Algeria AFR 2018 6137 362 21 2 5
+## 4 American Samoa WPR 2017 3 0 0 1 0
+## 5 Andorra EUR 2017 1 0 0 0 0
+## 6 Angola AFR 2018 31098 6623 0 0 0
+## MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+TB_mort.num GDP GDP_c
+## 1 0 0 2884169 20.0 580 0.34 10 4532.889 -10208.887
+## 2 39 4 41389189 70.0 29000 7.70 3200 4048.285 -10693.491
+## 3 7 4 42228408 69.0 29000 7.70 3300 4278.850 -10462.926
+## 4 1 0 55620 10.0 6 0.85 0 11398.777 -3342.999
+## 5 0 0 77001 1.5 1 0.12 0 39134.393 24392.617
+## 6 0 0 30809787 355.0 109000 72.00 22000 3432.386
+-11309.391
+## TB_mort.100k_c y logit factor.y
+## 1 -16.129009 0 -0.07841423 0
+## 2 -8.769009 1 -0.57416872 1
+## 3 -8.769009 1 -0.54714847 1
+## 4 -15.619009 0 -2.73891183 0
+## 5 -16.349009 0 -0.28754952 0
+## 6 55.530991 0 0.56598835 0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;LassoTB&amp;lt;-BinaryTB%&amp;gt;%dplyr::select(region,year,new.pul.TB, prev.treated.pul.TB, prev.unk.pul.TB,new.MDR, prev.MDR, MDR.tested,pop.number, TB.100k, TB.num, TB_mort.100k, TB_mort.num,GDP,y)  
+
+fit5 &amp;lt;- glm(y~.,data=LassoTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+library(glmnet)
+x &amp;lt;- model.matrix(fit5)[, -1]
+y &amp;lt;- as.matrix(LassoTB$y)
+cv &amp;lt;- cv.glmnet(x, y, family = &amp;quot;binomial&amp;quot;)
+lasso &amp;lt;- glmnet(x, y, family = &amp;quot;binomial&amp;quot;, lambda = cv$lambda.1se)
+coef(lasso)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 19 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                                s0
+## (Intercept)         -1.280359e+00
+## regionAMR           -9.392417e-03
+## regionEMR            5.857288e-01
+## regionEUR            1.624157e+00
+## regionSEA            2.860857e-01
+## regionWPR           -2.740013e-01
+## year                 .           
+## new.pul.TB           .           
+## prev.treated.pul.TB  .           
+## prev.unk.pul.TB      .           
+## new.MDR              8.206249e-04
+## prev.MDR             .           
+## MDR.tested           .           
+## pop.number           8.126931e-09
+## TB.100k              2.901032e-03
+## TB.num               .           
+## TB_mort.100k         .           
+## TB_mort.num          .           
+## GDP                 -1.438615e-05&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Variables with a non-zero coefficient from LASSO will be retained in the model: region, new.MDR, pop.number, TB.100k, and GDP. Therefore, these are the most important predictors of if a country has atleast one case of XDR TB.&lt;/p&gt;
+&lt;div id=&#34;perform-10-fold-cv-using-lasso-model&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Perform 10-fold CV using LASSO model&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Model with just non-zero lasso coefficient estimates
+fit6 &amp;lt;- glm(y ~ region+new.MDR+pop.number+TB.100k+GDP, data = LassoTB, family = &amp;quot;binomial&amp;quot;)
+
+prob6 &amp;lt;- predict(fit6, type = &amp;quot;response&amp;quot;)
+class_diag(prob6, LassoTB$y)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         acc      sens      spec      ppv       auc
+## 1 0.7972973 0.6333333 0.9090909 0.826087 0.8883838&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#10-fold CV 
+k = 10
+data1 &amp;lt;- LassoTB[sample(nrow(LassoTB)), ] #put dataset in random order
+folds &amp;lt;- cut(seq(1:nrow(LassoTB)), breaks = k, labels = F) #create folds
+diags &amp;lt;- NULL
+for (i in 1:k) {
+# FOR EACH OF 10 FOLDS
+train &amp;lt;- data1[folds != i, ] #CREATE TRAINING SET
+test &amp;lt;- data1[folds == i, ] #CREATE TESTING SET
+truth &amp;lt;- test$y
+fit &amp;lt;- glm(y ~ region+new.MDR+pop.number+TB.100k+GDP, data = LassoTB, family = &amp;quot;binomial&amp;quot;)
+probs &amp;lt;- predict(fit, newdata = test, type = &amp;quot;response&amp;quot;)
+diags &amp;lt;- rbind(diags, class_diag(probs, truth))
+}
+apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
+## 0.7972332 0.6279670 0.9124291 0.8128175 0.8995426&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This new model’s out of sample accuracy is 0.797 which is fair. It is slightly higher than the previous model’s out of sample accuracy which was 0.743. The AUC also slightly increased from 0.839 to 0.886 (both models are good predictors of if there are XDR TB cases in a country).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+##
+## Matrix products: default
+## BLAS:
+/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK:
+/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+##
+## locale:
+## [1]
+en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+##
+## attached base packages:
+## [1] stats graphics grDevices utils datasets methods base
+##
+## other attached packages:
+## [1] glmnet_3.0-2 Matrix_1.2-18 plotROC_2.2.1
+lmtest_0.9-37 zoo_1.8-7 sandwich_2.5-1
+## [7] forcats_0.5.0 stringr_1.4.0 dplyr_0.8.5 purrr_0.3.3
+readr_1.3.1 tidyr_1.0.2
+## [13] tibble_2.1.3 ggplot2_3.3.0 tidyverse_1.3.0
+knitr_1.28
+##
+## loaded via a namespace (and not attached):
+## [1] Rcpp_1.0.4 lubridate_1.7.4 lattice_0.20-40
+foreach_1.4.8 assertthat_0.2.1
+## [6] digest_0.6.25 R6_2.4.1 cellranger_1.1.0 plyr_1.8.6
+backports_1.1.5
+## [11] reprex_0.3.0 evaluate_0.14 httr_1.4.1 blogdown_0.18
+pillar_1.4.3
+## [16] rlang_0.4.5 readxl_1.3.1 rstudioapi_0.11
+rmarkdown_2.1 labeling_0.3
+## [21] splines_3.6.1 munsell_0.5.0 broom_0.5.5
+compiler_3.6.1 modelr_0.1.6
+## [26] xfun_0.12 pkgconfig_2.0.3 shape_1.4.4 mgcv_1.8-31
+htmltools_0.4.0
+## [31] tidyselect_1.0.0 bookdown_0.18 codetools_0.2-16
+fansi_0.4.1 crayon_1.3.4
+## [36] dbplyr_1.4.2 withr_2.1.2 grid_3.6.1 nlme_3.1-145
+jsonlite_1.6.1
+## [41] gtable_0.3.0 lifecycle_0.2.0 DBI_1.1.0 magrittr_1.5
+scales_1.1.0
+## [46] cli_2.0.2 stringi_1.4.6 farver_2.0.3 fs_1.3.2
+xml2_1.2.5
+## [51] generics_0.0.2 vctrs_0.2.4 iterators_1.0.12
+tools_3.6.1 glue_1.3.2
+## [56] hms_0.5.3 yaml_2.2.1 colorspace_1.4-1 rvest_0.3.5
+haven_2.2.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:23:55 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## sysname
+## &amp;quot;Darwin&amp;quot;
+## release
+## &amp;quot;18.7.0&amp;quot;
+## version
+## &amp;quot;Darwin Kernel Version 18.7.0: Tue Aug 20 16:57:14 PDT
+2019; root:xnu-4903.271.2~2/RELEASE_X86_64&amp;quot;
+## nodename
+## &amp;quot;Cara-Yijin-Zou.local&amp;quot;
+## machine
+## &amp;quot;x86_64&amp;quot;
+## login
+## &amp;quot;yijinzou&amp;quot;
+## user
+## &amp;quot;yijinzou&amp;quot;
+## effective_user
+## &amp;quot;yijinzou&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploratory Data Analysis</title>
+      <link>/project/exploratory_data_analysis/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/project/exploratory_data_analysis/</guid>
+      <description>
+
+
+&lt;div id=&#34;data-wrangling-and-data-exploration&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Wrangling and Data Exploration&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The first two datasets used in this project are both from &lt;a href=&#34;https://www.who.int/tb/country/data/download/en/&#34;&gt;World Health Organization&lt;/a&gt;. They contains information about cases of Tuberculosis for different countries including the new cases, previous cases, drug resistant cases, total population, etc. The third dataset is from &lt;a href=&#34;https://data.worldbank.org/indicator/NY.GDP.PCAP.CD&#34;&gt;The World Bank Group&lt;/a&gt; which lists the GDP per capita of countries for different years in US dollars. This data is interesting because I am currently in a reserach stream at UT trying to identify potential drugs to treat tuberculosis.&lt;/p&gt;
+&lt;p&gt;The first two datasets include information about the resistance of &lt;em&gt;Mycobacterium tuberculosis&lt;/em&gt; to drugs. Tuberculosis is linked with poverty which is why the GDP per capita was also considered. Expectations include that as the number of TB (tuberculosis) cases increase, the number of drug resistant multidrug resistant (MDR) and extensively drug resistant (XDR) TB cases will also increase. Furthermore, as GDP per capita increases, TB cases (and mortality) per 100,000 individuals should decrease since it is assumed that there is more access to healthcare and resources for treatment and prevention.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;find-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Find data:&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tidying&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Tidying:&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join1 &amp;lt;- left_join(data1a, data1b, by = c(&amp;quot;country&amp;quot;, &amp;quot;year&amp;quot;))
+head(join1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB
+## 1 Afghanistan    EMR 2017      19354                2233             125
+## 2 Afghanistan    EMR 2018      20485                1712              NA
+## 3     Albania    EUR 2017        195                  15               0
+## 4     Albania    EUR 2018        198                  10               0
+## 5     Algeria    AFR 2017       6278                 419               0
+## 6     Algeria    AFR 2018       6137                 362              21
+##   new.MDR prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+## 1      NA       NA         NA   5   36296113     189  69000        30.00
+## 2      NA       10         10   8   37171921     189  70000        29.00
+## 3       0        0          0   0    2884169      20    580         0.34
+## 4       1        1         NA  NA    2882740      18    510         0.34
+## 5      11       28         39   4   41389189      70  29000         7.70
+## 6       2        5          7   4   42228408      69  29000         7.70
+##   TB_mort.num
+## 1       11000
+## 2       11000
+## 3          10
+## 4          10
+## 5        3200
+## 6        3300&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First, a left join was used to join the first two tuberculosis data sets since dataset 1a included information for 2017 and 2018 while dataset 1b contains data for many years (2000-2018). A left join was used compared to a full_join or right_join because there would be many rows with NAs (rows with year 2000-2016).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data2pivot &amp;lt;- data2 %&amp;gt;% pivot_longer(cols = c(3:4), names_to = &amp;quot;year&amp;quot;, 
+    values_to = &amp;quot;GDP&amp;quot;) %&amp;gt;% separate(col = &amp;quot;year&amp;quot;, into = c(NA, 
+    &amp;quot;year&amp;quot;), sep = 1) %&amp;gt;% mutate(year = as.numeric(year))
+head(data2pivot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   country     Country.Code  year    GDP
+##   &amp;lt;fct&amp;gt;       &amp;lt;fct&amp;gt;        &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Aruba       ABW           2017 25630.
+## 2 Aruba       ABW           2018    NA 
+## 3 Afghanistan AFG           2017   556.
+## 4 Afghanistan AFG           2018   521.
+## 5 Angola      AGO           2017  4096.
+## 6 Angola      AGO           2018  3432.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, to make it easier to join the first two datasets with the third dataset, pivot longer was used on the GDP data (dataset 2). This is due to the fact that while year is a column name in dataset 1a and 1b, for dataset 2, the GDP has two columns: 2017 and 2018. Additionally, when imported, the header of the GDP data inserted an X before the year value. This was removed using the seperate function. Mutate was then used on ‘year’ because its type was character which is incompatible with year in the tuberculosis (1a and 1b) dataset which is a numeric type (cannot be used to join).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;joiningmerging&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Joining/Merging&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(join1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 432&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(data2pivot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 528&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Joining of all three datasets and deleting rows with NAs
+join2 &amp;lt;- inner_join(join1, data2pivot, by = c(&amp;quot;country&amp;quot;, &amp;quot;year&amp;quot;))
+nrow(join1) - nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 72&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(data2pivot) - nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 168&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 &amp;lt;- join2 %&amp;gt;% na.omit()
+nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# document the type of join that you do
+# (left/right/inner/full), including how many cases in each
+# dataset were dropped and why you chose this particular join&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Initially, the tuberculosis dataset had 432 cases while the GDP dataset had 528 cases. An inner join was chosen so that all countries remaining would contain information for tuberculosis and their GDP. This resulted in 360 observations remaining with 72 cases being dropped from the tuberculosis dataset and 168 cases dropped from the GDP dataset. Problems include that rows with NAs are more likely to be smaller and poorer countries with less documentation of the data which may skew the results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;wrangling-filter-select-arrange-group_by-mutate-summarize&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Wrangling: filter, select, arrange, group_by, mutate, summarize&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Determining the quantile of GDP and population for each
+# country
+ntile &amp;lt;- join2 %&amp;gt;% mutate(ntileGDP = ntile(n = 5, x = GDP)) %&amp;gt;% 
+    mutate(ntilepop = ntile(n = 5, x = pop.number))
+
+# Mean and standard deviation of numeric variables (excluding
+# year)
+join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% summarize_all(.funs = mean)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   new.pul.TB prev.treated.pul.TB prev.unk.pul.TB  new.MDR prev.MDR MDR.tested
+## 1   16571.29            2829.351        138.8468 135.6441 197.5495   290.7928
+##        XDR pop.number TB.100k   TB.num TB_mort.100k TB_mort.num      GDP
+## 1 38.74324   33335846 98.5732 56241.17     16.46901    8344.464 14741.78&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% summarize_all(.funs = sd)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   new.pul.TB prev.treated.pul.TB prev.unk.pul.TB  new.MDR prev.MDR MDR.tested
+## 1    84215.1            18464.84        1363.483 667.0942   1133.7   1601.977
+##        XDR pop.number TB.100k   TB.num TB_mort.100k TB_mort.num      GDP
+## 1 261.0853  131603854 135.356 276737.8      32.3854    44225.92 18664.98&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 %&amp;gt;% summarize_all(.funs = n_distinct)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1     130      6    2        205                 148              44      77
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1       77         86  43        222     152    142          139         132
+##   Country.Code GDP
+## 1          130 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# top 10 Observations for extensively drug resistant TB cases
+# for 2017 and 2018
+ntile %&amp;gt;% arrange(desc(XDR)) %&amp;gt;% head(10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##               country region year new.pul.TB prev.treated.pul.TB
+## 1  Russian Federation    EUR 2017      32978               26058
+## 2             Ukraine    EUR 2017      12840                7212
+## 3             Ukraine    EUR 2018      12931                6774
+## 4               India    SEA 2018     825939              208197
+## 5               India    SEA 2017     868769              176450
+## 6             Belarus    EUR 2017       1690                 700
+## 7          Tajikistan    EUR 2017       2432                 652
+## 8             Belarus    EUR 2018       1529                 612
+## 9            Pakistan    EMR 2017     128806               15241
+## 10               Peru    AMR 2018      17387                3075
+##    prev.unk.pul.TB new.MDR prev.MDR MDR.tested  XDR pop.number TB.100k  TB.num
+## 1                0    8206    14611      20477 3562  145530082      59   85000
+## 2                0    2594     2414       5008 1001   44487709      84   37000
+## 3                0    2755     2299       5054  972   44246156      80   36000
+## 4                0    3232     5182       6832  493 1352642280     199 2690000
+## 5                0    2152     5357       6787  466 1338676785     204 2740000
+## 6                0     629      459       1088  343    9450231      37    3500
+## 7                0     413      133        508  279    8880268      85    7500
+## 8                0     559      425        984  185    9452617      31    2900
+## 9              116     535     2102       2600  123  207906209     267  554000
+## 10               0    1198      481        758   91   31989260     123   39000
+##    TB_mort.100k TB_mort.num Country.Code        GDP ntileGDP ntilepop
+## 1           8.1       12000          RUS 10750.5871        4        5
+## 2          14.0        6400          UKR  2640.6757        2        5
+## 3          13.0        5700          UKR  3095.1736        2        5
+## 4          33.0      449000          IND  2015.5905        2        5
+## 5          34.0      454000          IND  1981.4990        2        5
+## 6           6.0         560          BLR  5761.7471        3        3
+## 7           9.2         820          TJK   806.0416        1        3
+## 8           5.9         560          BLR  6289.9386        3        3
+## 9          21.0       45000          PAK  1466.8431        1        5
+## 10          8.3        2700          PER  6947.2566        3        5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# new variable created using mutate; proportion of XDR/MDR:
+# richest countries as well as the poorest countries have the
+# lowest mean percentage of MDR TB cases developing into XDR
+# cases
+ntile %&amp;gt;% mutate(perc.XDR.MDR = XDR/MDR.tested) %&amp;gt;% group_by(ntileGDP) %&amp;gt;% 
+    summarize(mean(perc.XDR.MDR, na.rm = T))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 2
+##   ntileGDP `mean(perc.XDR.MDR, na.rm = T)`
+##      &amp;lt;int&amp;gt;                           &amp;lt;dbl&amp;gt;
+## 1        1                          0.0709
+## 2        2                          0.169 
+## 3        3                          0.150 
+## 4        4                          0.129 
+## 5        5                          0.0803&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by quantile of GDP per capita ; mean TB per 100,000
+# people and mortality due to TB per 100,00 people appears to
+# decrease as the percentile of GDP per capita increases
+ntile %&amp;gt;% group_by(ntileGDP) %&amp;gt;% summarize(mean(TB.100k), mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 3
+##   ntileGDP `mean(TB.100k)` `mean(TB_mort.100k)`
+##      &amp;lt;int&amp;gt;           &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+## 1        1           220                 49.0  
+## 2        2           163                 19.4  
+## 3        3            64.0                9.93 
+## 4        4            29.0                2.61 
+## 5        5            14.9                0.811&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by region in world: AFR=Africa; AMR=Americas;
+# EMR=Eastern Mediterranean; EUR=Europe; SEAR=South-East
+# Asia; WPR=Western Pacific
+join2 %&amp;gt;% group_by(region) %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% 
+    summarize(mean(TB.100k), mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 3
+##   region `mean(TB.100k)` `mean(TB_mort.100k)`
+##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+## 1 AFR              210                  53.0 
+## 2 AMR               30.7                 3.79
+## 3 EMR               76.6                10.2 
+## 4 EUR               22.8                 2.09
+## 5 SEA              198.                 26.4 
+## 6 WPR              153.                 11.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Maximum TB cases per 100,000 people
+ntile %&amp;gt;% filter(TB.100k == max(TB.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1 Lesotho    AFR 2018       3595                 728               0      51
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1        5          5   0    2108328     611  13000          200        4200
+##   Country.Code      GDP ntileGDP ntilepop
+## 1          LSO 1324.283        1        2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Minimum TB cases per 100,000 people
+ntile %&amp;gt;% filter(TB.100k == min(TB.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1   Barbados    AMR 2017          0                   0               0       0
+## 2 San Marino    EUR 2017          0                   0               0       0
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1        0          0   0     286232       0      0          0.9           3
+## 2        0          0   0      33671       0      0          0.0           0
+##   Country.Code      GDP ntileGDP ntilepop
+## 1          BRB 16327.61        4        1
+## 2          SMR 48494.55        5        1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by two variables: percentile of population and year
+ntile %&amp;gt;% group_by(ntilepop, year) %&amp;gt;% summarize(mean(TB.100k), 
+    mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 10 x 4
+## # Groups:   ntilepop [5]
+##    ntilepop  year `mean(TB.100k)` `mean(TB_mort.100k)`
+##       &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;           &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+##  1        1  2017            89.1                 9.21
+##  2        1  2018            91.8                10.4 
+##  3        2  2017           117.                 24.1 
+##  4        2  2018           154.                 31.6 
+##  5        3  2017            23.3                 2.31
+##  6        3  2018            20.9                 1.93
+##  7        4  2017           106.                 22.6 
+##  8        4  2018           147.                 33.8 
+##  9        5  2017           124.                 15.1 
+## 10        5  2018           124.                 16.4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since most of the variables are numeric, the quantiles of GDP and the population were found and were used later to group the data. The mean and standard deviation were found for the numeric variables using the summarize_all function. Using arrange, the country that has the most extensively drug resistant TB cases for either 2017 or 2018 is the Russia followed by Ukraine and India. Using mutate to create a new variable, the proportion of of XDR/MDR appears to decrease towards the extremes of GDP per capita. Grouping by quantile of GDP per capita, mean TB cases and mortality due to TB per 100,00 people appears to decrease as the quantile of GDP per capita increases. Grouping by region, AFR has the highest mean TB cases and mortality per 100,000 people of the regions while EUR has the lowest averages.&lt;/p&gt;
+&lt;p&gt;The country with the maximum TB per 100,000 people is Lesotho in AFR and in the 1st quantile of GDP (low). The countries with the minimum TB per 100,000 people are Barbados and San Marino which both have small populations (1st quantile) and relatively high GDP. Grouping by two variables (population and year), countries in the 2nd and 4th quantile of population saw the greatest change in mean TB cases per 100,000 with both reporting an increase from 2017 to 2018. Countries in the 2nd and 4th quantile of the population also had the greatest mean mortality due to TB cases per 100,000 (as well as the greatest change between 2017 and 2018). Interestingly, the countries in the 3rd quantile had the lowest mean TB cases and mortality per 100,000 (for both 2017 and 2018).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Correlation matrix
+join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% cor() %&amp;gt;% round(2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                      year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB
+## year                 1.00       0.00                0.01            0.06
+## new.pul.TB           0.00       1.00                0.97            0.17
+## prev.treated.pul.TB  0.01       0.97                1.00            0.06
+## prev.unk.pul.TB      0.06       0.17                0.06            1.00
+## new.MDR             -0.03       0.39                0.47            0.02
+## prev.MDR            -0.06       0.47                0.53            0.08
+## MDR.tested          -0.05       0.43                0.49            0.07
+## XDR                 -0.06       0.18                0.26            0.01
+## pop.number           0.00       0.99                0.98            0.14
+## TB.100k              0.04       0.19                0.13            0.11
+## TB.num               0.00       0.99                0.96            0.21
+## TB_mort.100k         0.05       0.11                0.08            0.04
+## TB_mort.num          0.01       0.99                0.97            0.15
+## GDP                  0.01      -0.13               -0.10           -0.02
+##                     new.MDR prev.MDR MDR.tested   XDR pop.number TB.100k TB.num
+## year                  -0.03    -0.06      -0.05 -0.06       0.00    0.04   0.00
+## new.pul.TB             0.39     0.47       0.43  0.18       0.99    0.19   0.99
+## prev.treated.pul.TB    0.47     0.53       0.49  0.26       0.98    0.13   0.96
+## prev.unk.pul.TB        0.02     0.08       0.07  0.01       0.14    0.11   0.21
+## new.MDR                1.00     0.96       0.98  0.96       0.43    0.04   0.38
+## prev.MDR               0.96     1.00       0.99  0.93       0.51    0.06   0.47
+## MDR.tested             0.98     0.99       1.00  0.96       0.47    0.05   0.42
+## XDR                    0.96     0.93       0.96  1.00       0.23    0.00   0.17
+## pop.number             0.43     0.51       0.47  0.23       1.00    0.13   0.98
+## TB.100k                0.04     0.06       0.05  0.00       0.13    1.00   0.23
+## TB.num                 0.38     0.47       0.42  0.17       0.98    0.23   1.00
+## TB_mort.100k           0.01     0.03       0.02 -0.01       0.07    0.86   0.13
+## TB_mort.num            0.38     0.46       0.42  0.17       0.98    0.21   0.98
+## GDP                   -0.09    -0.08      -0.09 -0.06      -0.10   -0.40  -0.13
+##                     TB_mort.100k TB_mort.num   GDP
+## year                        0.05        0.01  0.01
+## new.pul.TB                  0.11        0.99 -0.13
+## prev.treated.pul.TB         0.08        0.97 -0.10
+## prev.unk.pul.TB             0.04        0.15 -0.02
+## new.MDR                     0.01        0.38 -0.09
+## prev.MDR                    0.03        0.46 -0.08
+## MDR.tested                  0.02        0.42 -0.09
+## XDR                        -0.01        0.17 -0.06
+## pop.number                  0.07        0.98 -0.10
+## TB.100k                     0.86        0.21 -0.40
+## TB.num                      0.13        0.98 -0.13
+## TB_mort.100k                1.00        0.16 -0.32
+## TB_mort.num                 0.16        1.00 -0.13
+## GDP                        -0.32       -0.13  1.00&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The correlation matrix shows that the strongest positive correlations are between new pulmonary TB cases and population number; new pulmonary TB cases and total number of TB cases; new pulmonary TB cases and total mortality due to TB; previous MDR TB cases and number of MDR cases that were tested for additional resistance. The strongest negative correlations are GDP and the TB cases per 100,000 people; GDP and TB mortality per 100,000 people.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualizing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Visualizing&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 1: Scatterplot
+ntile %&amp;gt;% ggplot(aes(x = TB.100k, y = TB_mort.100k)) + geom_point(aes(color = ntileGDP)) + 
+    ggtitle(&amp;quot;TB Cases and Mortality&amp;quot;) + xlab(&amp;quot;TB Cases per 100,000 people&amp;quot;) + 
+    ylab(&amp;quot;TB mortality per 100,000 people&amp;quot;) + scale_fill_brewer() + 
+    scale_y_continuous(breaks = c(25, 50, 75, 100, 125, 150, 
+        175, 200)) + scale_x_continuous(breaks = c(100, 200, 
+    300, 400, 500, 600)) + labs(color = &amp;quot;GDP&amp;quot;) + theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+This graph shows that as TB cases increase, TB mortality also increases per 100,000 people. Contrastingly, TB cases and mortality have a negative relationship with GDP per capita. This suggests that countries with lower GDP have higher occurrences of TB and mortality due to TB which is expected since there is less funding towards preventative measures as well as resources and access to treatment.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 2: Boxplot
+ntile %&amp;gt;% ggplot(aes(group = region, x = region, y = TB.100k)) + 
+    geom_boxplot() + geom_jitter(alpha = 0.3, aes(color = ntilepop, 
+    size = ntilepop)) + ggtitle(&amp;quot;TB cases for each Region&amp;quot;) + 
+    xlab(&amp;quot;Region&amp;quot;) + ylab(&amp;quot;TB Cases per 100,000 people&amp;quot;) + labs(color = &amp;quot;Population&amp;quot;, 
+    size = &amp;quot;Population&amp;quot;) + theme_light()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+The boxplot shows that the median of TB cases for 100,000 people is highest in SEA. Previously, summary statistics showed that AFR had the highest mean. From the boxplot, it is clear that the distribution is skewed resulting in a higher median than mean. The spread is largest for AFR as well. The countries in AMR, EMR, and EUR all have relatively low median values. When grouped by region, there is not an obvious relationship between the population and TB cases per 100,000 people.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 3: Stacked Bar plot
+ntile$year &amp;lt;- factor(ntile$year, levels = c(&amp;quot;2017&amp;quot;, &amp;quot;2018&amp;quot;))
+ggplot(ntile, aes(x = ntileGDP, y = TB_mort.100k, fill = year)) + 
+    geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;mean&amp;quot;, position = &amp;quot;dodge&amp;quot;) + 
+    geom_errorbar(stat = &amp;quot;summary&amp;quot;, position = &amp;quot;dodge&amp;quot;) + xlab(&amp;quot;Quantile of GDP per capita&amp;quot;) + 
+    ylab(&amp;quot;TB Mortality per 100,000 people&amp;quot;) + ggtitle(&amp;quot;GDP per Capita and TB mortality per 100,000 people&amp;quot;) + 
+    theme_grey() + scale_y_continuous(breaks = c(10, 20, 30, 
+    40, 50, 60))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+A stacked bar plot was used to demonstrate how increasing GDP per capita results in a lower TB mortality on average. The biggest change in TB mortality between 2017 and 2018 is represented in the countries in the 1st quantile of GDP per capita (however, the error bars are overlapping). As the quantile of GDP increases, the spread of the data (error bars) also decrease.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dimensionality-reduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Dimensionality Reduction&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Prepare data by scaling
+joinPCA &amp;lt;- join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% scale %&amp;gt;% na.omit
+join_pca &amp;lt;- princomp(joinPCA)
+summary(join_pca, loadings = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Importance of components:
+##                           Comp.1    Comp.2    Comp.3     Comp.4     Comp.5
+## Standard deviation     2.5078967 1.6468586 1.4044384 1.01775753 0.96840866
+## Proportion of Variance 0.4512861 0.1946011 0.1415266 0.07432267 0.06728992
+## Cumulative Proportion  0.4512861 0.6458872 0.7874138 0.86173646 0.92902637
+##                            Comp.6      Comp.7      Comp.8      Comp.9
+## Standard deviation     0.86661846 0.371251458 0.202421301 0.145441708
+## Proportion of Variance 0.05388756 0.009889379 0.002939985 0.001517786
+## Cumulative Proportion  0.98291394 0.992803315 0.995743300 0.997261086
+##                            Comp.10      Comp.11      Comp.12     Comp.13
+## Standard deviation     0.127383707 0.1098210941 0.0756806126 0.052799805
+## Proportion of Variance 0.001164288 0.0008653747 0.0004109623 0.000200031
+## Cumulative Proportion  0.998425374 0.9992907485 0.9997017107 0.999901742
+##                             Comp.14
+## Standard deviation     3.700566e-02
+## Proportion of Variance 9.825826e-05
+## Cumulative Proportion  1.000000e+00
+## 
+## Loadings:
+##                     Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8
+## year                                      0.729  0.674                     
+## new.pul.TB          -0.356  0.246 -0.118                              0.147
+## prev.treated.pul.TB -0.362  0.188 -0.138                             -0.465
+## prev.unk.pul.TB                           0.656 -0.728  0.101              
+## new.MDR             -0.297 -0.385                                    -0.616
+## prev.MDR            -0.320 -0.344                                     0.524
+## MDR.tested          -0.310 -0.372                                     0.177
+## XDR                 -0.235 -0.474  0.124                                   
+## pop.number          -0.361  0.210 -0.147                                   
+## TB.100k                     0.213  0.602               -0.241  0.708       
+## TB.num              -0.354  0.253 -0.100                       0.131  0.239
+## TB_mort.100k                0.192  0.602               -0.358 -0.670       
+## TB_mort.num         -0.354  0.255 -0.101                      -0.115       
+## GDP                               -0.404  0.157        -0.890              
+##                     Comp.9 Comp.10 Comp.11 Comp.12 Comp.13 Comp.14
+## year                                                              
+## new.pul.TB          -0.304  0.175                  -0.790  -0.156 
+## prev.treated.pul.TB  0.688         -0.130   0.264  -0.111         
+## prev.unk.pul.TB                                                   
+## new.MDR             -0.402 -0.197  -0.295  -0.212           0.203 
+## prev.MDR             0.382 -0.267  -0.185  -0.219  -0.151   0.416 
+## MDR.tested                         -0.102           0.177  -0.821 
+## XDR                         0.537   0.512   0.332           0.201 
+## pop.number          -0.139 -0.605   0.616           0.164         
+## TB.100k                                                           
+## TB.num              -0.307  0.115  -0.437   0.509   0.358   0.199 
+## TB_mort.100k                                                      
+## TB_mort.num                 0.424          -0.667   0.390         
+## GDP&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Choose number of PC to keep convert standard deviations to
+# eigenvalues
+eigval &amp;lt;- join_pca$sdev^2
+# proportion of variance explained by each PC
+varprop = round(eigval/sum(eigval), 2)
+ggplot() + geom_bar(aes(y = varprop, x = 1:14), stat = &amp;quot;identity&amp;quot;) + 
+    xlab(&amp;quot;&amp;quot;) + geom_path(aes(y = varprop, x = 1:14)) + geom_text(aes(x = 1:14, 
+    y = varprop, label = round(varprop, 2)), vjust = 1, col = &amp;quot;white&amp;quot;, 
+    size = 5) + scale_y_continuous(breaks = seq(0, 0.6, 0.2), 
+    labels = scales::percent) + scale_x_continuous(breaks = 1:14)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot for PCA (PC1 and PC2)
+join2 %&amp;gt;% na.omit %&amp;gt;% mutate(PC1 = join_pca$scores[, 1], PC2 = join_pca$scores[, 
+    2]) %&amp;gt;% ggplot(aes(x = PC1, y = PC2, color = region, size = GDP)) + 
+    geom_point() + ggtitle(&amp;quot;PCA Plot&amp;quot;) + theme(legend.position = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot for PCA (PC3 and PC4)
+join2 %&amp;gt;% na.omit %&amp;gt;% mutate(PC3 = join_pca$scores[, 3], PC4 = join_pca$scores[, 
+    4]) %&amp;gt;% ggplot(aes(x = PC3, y = PC4, color = region, size = GDP)) + 
+    geom_point() + ggtitle(&amp;quot;PCA Plot&amp;quot;) + theme(legend.position = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-3.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot of loadings
+join_pca$loadings[1:14, 1:2] %&amp;gt;% as.data.frame %&amp;gt;% rownames_to_column %&amp;gt;% 
+    ggplot() + geom_hline(aes(yintercept = 0), lty = 2) + geom_vline(aes(xintercept = 0), 
+    lty = 2) + ylab(&amp;quot;PC2&amp;quot;) + xlab(&amp;quot;PC1&amp;quot;) + geom_segment(aes(x = 0, 
+    y = 0, xend = Comp.1, yend = Comp.2), arrow = arrow(), col = &amp;quot;red&amp;quot;) + 
+    geom_label(aes(x = Comp.1 * 1.1, y = Comp.2 * 1.1, label = rowname)) + 
+    ggtitle(&amp;quot;Plot of Loadings&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-4.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# biplot combining loadings plot and PC score plot
+library(&amp;quot;factoextra&amp;quot;)
+fviz_pca_biplot(join_pca)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-5.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Based on the scree plot and cumulative proportion of variance (and Kaiser’s rule), 3 to 4 PCs should be chosen. High scores on PC1 indicate low TB cases (new, previous, MDR TB, mortality, etc.) and low population. For PC2, high scores indicate high TB cases and mortality per 100,000 people but lower resistant (MDR and XDR) TB cases as well as lower GDP per capita. For PC3, high scores indicate lower cases of resistant TB cases and lower TB cases and mortality per 100,000 people but higher GDP. On the PCA plot, there appears to be some seperation based on GDP looking at PC3 (larger dots on the right). Finally, high scores PC4 indicate high numbers of confirmed TB cases with unknown TB treatment history.&lt;/p&gt;
+&lt;p&gt;The plot of loadings helps visualize which variances contribute to which of the PCs with a smaller angle between vectors showing higher correlation. Therefore, GDP is negatively correlated to the other variables and mainly differs based on PC1. Contrastingly, other variables such as new cases of pulmonary TB, previous treated pulmonary TB cases, total TB cases, etc. are almost redundant.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] factoextra_1.0.6 forcats_0.5.0    stringr_1.4.0    dplyr_0.8.5     
+##  [5] purrr_0.3.3      readr_1.3.1      tidyr_1.0.2      tibble_2.1.3    
+##  [9] ggplot2_3.3.0    tidyverse_1.3.0  knitr_1.28      
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.0.0 xfun_0.12        haven_2.2.0      lattice_0.20-40 
+##  [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
+##  [9] yaml_2.2.1       utf8_1.1.4       rlang_0.4.5      ggpubr_0.2.5    
+## [13] pillar_1.4.3     withr_2.1.2      glue_1.3.2       DBI_1.1.0       
+## [17] dbplyr_1.4.2     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
+## [21] ggsignif_0.6.0   munsell_0.5.0    blogdown_0.18    gtable_0.3.0    
+## [25] cellranger_1.1.0 rvest_0.3.5      evaluate_0.14    labeling_0.3    
+## [29] fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4       formatR_1.7     
+## [33] backports_1.1.5  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
+## [37] fs_1.3.2         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
+## [41] ggrepel_0.8.2    bookdown_0.18    grid_3.6.1       cli_2.0.2       
+## [45] tools_3.6.1      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
+## [49] ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0     lubridate_1.7.4 
+## [53] assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1       rstudioapi_0.11 
+## [57] R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:21:42 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                                                                                            sysname 
+##                                                                                           &amp;quot;Darwin&amp;quot; 
+##                                                                                            release 
+##                                                                                           &amp;quot;18.7.0&amp;quot; 
+##                                                                                            version 
+## &amp;quot;Darwin Kernel Version 18.7.0: Tue Aug 20 16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64&amp;quot; 
+##                                                                                           nodename 
+##                                                                             &amp;quot;Cara-Yijin-Zou.local&amp;quot; 
+##                                                                                            machine 
+##                                                                                           &amp;quot;x86_64&amp;quot; 
+##                                                                                              login 
+##                                                                                         &amp;quot;yijinzou&amp;quot; 
+##                                                                                               user 
+##                                                                                         &amp;quot;yijinzou&amp;quot; 
+##                                                                                     effective_user 
+##                                                                                         &amp;quot;yijinzou&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

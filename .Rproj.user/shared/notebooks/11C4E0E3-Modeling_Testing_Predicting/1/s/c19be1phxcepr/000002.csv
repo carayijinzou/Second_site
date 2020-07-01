@@ -1,0 +1,3 @@
+"0","library(tidyverse)"
+"0","TB_Data<-read.csv(""/Users/yijinzou/Desktop/SDS348Site/content/TB_Data.csv"", header=T)%>%dplyr::select(-1, -Country.Code)"
+"0",""

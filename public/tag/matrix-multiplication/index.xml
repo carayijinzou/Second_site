@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matrix Multiplication | Cara (Yijin) Zou</title>
+    <link>/tag/matrix-multiplication/</link>
+      <atom:link href="/tag/matrix-multiplication/index.xml" rel="self" type="application/rss+xml" />
+    <description>Matrix Multiplication</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Matrix Multiplication</title>
+      <link>/tag/matrix-multiplication/</link>
+    </image>
+    
+    <item>
+      <title>Markov Chains</title>
+      <link>/post/markov_model/</link>
+      <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/markov_model/</guid>
+      <description>
+
+
+&lt;div id=&#34;markov-chain&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Markov Chain&lt;/h1&gt;
+&lt;div id=&#34;what-is-a-markov-chain&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a markov chain?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A succession of random events such as coin tosses, e.g. THTTHT.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;There is a set of states: Tails and Heads. Each of these events has a certain likelihood.&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There is an initial probability for each state as well as a transition probability between states.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In a fair coin:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Outcome&lt;/th&gt;
+&lt;th&gt;Likelihood&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Heads&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Tails&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;application-chutes-and-ladders&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Application: Chutes and Ladders&lt;/h3&gt;
+&lt;div id=&#34;markov-propoerty&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Markov Propoerty&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Markov property&lt;/strong&gt; dictates that the future only depends on current state, thus it doesn’t matter how we got to current state. In other words, the probability of landing on a position is independent from all the moves before the current state.&lt;/p&gt;
+&lt;p&gt;Markov chains use a combination of probability and matrices for problems that occur in a series of steps or probability trees. In this way, we are able to calculate the probability of being in any state many steps ahead. Markov chains are a set of states and the probability of transitioning between states. In chutes and ladders, every player is in a state and no person can be in both states. Players change states when the dice is rolled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;transition-matrix&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Transition Matrix&lt;/h4&gt;
+&lt;p&gt;These probabilities then form a matrix known as a transition matrix. The probability in the transition probability matrix is the probability of moving to a state, not the probability of starting in that state. All transition matrices are square which is due to the fact that each state always has a probability of transitioning to another state, even if the transition probability is zero.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;absorbing-markov-chain&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Absorbing Markov Chain&lt;/h4&gt;
+&lt;p&gt;There are different types of markov chains, however for the case of chutes and ladders, we will be focusing on one, the &lt;strong&gt;absorbing markov chain&lt;/strong&gt;. An absorbing markov chain has absorbing states where once reached, it is impossible to exit from. In this case, we will be using an absorbing markov chain since the game is over once the final position is reached.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-up-the-board&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Setting Up the Board&lt;/h4&gt;
+&lt;p&gt;In a typical board for chutes and ladders, there are 100 squares and thus 100 states that a player can be in, however this is tedius to construct, thus a simplified board is used to demonstrate this instead. In this case, the “ladder” is from position 2 and advances the player to position 8 while the “snakes” are from position 4 to position 1 and from position 9 to position 6. A standard, fair, six sided dice is used.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;Simplified_Chutes_Ladders_Board.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In this case, there are 7 &lt;strong&gt;state spaces: {0,1,3,5,6,7,8,10}&lt;/strong&gt;. This is because when landed on, for spaces 2,4,and 9, the position either moves up or down through the use of a ladder or snake. There are different types of states, position 0 in this case is an open state, once this state is exited, the player cannot go back. For position 10 in this case, it is an &lt;strong&gt;absorbing state&lt;/strong&gt; as once it is reached the game is over. On the other hand, state 1,3,4,5,6,7,8 are transition states.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Initial probability&lt;/strong&gt;:
+All players start off the board (or at state “0”).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[P(X=0)=1\]&lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Constructing the &lt;strong&gt;transition matrix&lt;/strong&gt;:
+Probability from left side column state to land on the top row state. &lt;em&gt;(Why is it not 11 by 11? Keep in mind that only 7 states are possible).&lt;/em&gt;
+The transition probability matrix for the first roll is:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+transition= np.array([[ 0, 1/3, 1/6, 1/6, 1/6, 0  , 1/6, 0  ],
+                        [ 0, 1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0  ],
+                        [ 0, 1/6,  0 , 1/6, 1/3, 1/6, 1/6, 0  ],
+                        [ 0,  0 ,  0 ,  0 , 1/3, 1/6, 1/6, 1/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6, 1/6, 1/6, 1/2],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 , 1/6, 2/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 ,  0 , 5/6],
+                        [ 0,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 1  ]])
+
+prettyPrint (transition)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        0      1      3      5      6      7      8      10
+## 0    0.000  0.333  0.167  0.167  0.167  0.000  0.167  0.000  
+## 1    0.000  0.167  0.167  0.167  0.167  0.167  0.167  0.000  
+## 3    0.000  0.167  0.000  0.167  0.333  0.167  0.167  0.000  
+## 5    0.000  0.000  0.000  0.000  0.333  0.167  0.167  0.333  
+## 6    0.000  0.000  0.000  0.000  0.167  0.167  0.167  0.500  
+## 7    0.000  0.000  0.000  0.000  0.167  0.000  0.167  0.667  
+## 8    0.000  0.000  0.000  0.000  0.167  0.000  0.000  0.833  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice that the rows of the transition matrix add up to one. The expected value for the position of the player is calculated by the sum of, all the s times their corresponding square number for the first horizontal row . Therefore, the expected value is 4.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;possible_states_int=[0,1,3,5,6,7,8,10]
+expected_one= np.dot(transition[0], possible_states_int)
+print(expected_one)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Matrix Multiplication&lt;/strong&gt;
+After two rolls, the matrix is:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;second= np.dot(transition, transition)
+prettyPrint(second)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        0      1      3      5      6      7      8      10
+## 0    0.000  0.083  0.056  0.083  0.222  0.139  0.139  0.278  
+## 1    0.000  0.056  0.028  0.056  0.222  0.111  0.139  0.389  
+## 3    0.000  0.028  0.028  0.028  0.194  0.111  0.139  0.472  
+## 5    0.000  0.000  0.000  0.000  0.111  0.056  0.083  0.750  
+## 6    0.000  0.000  0.000  0.000  0.083  0.028  0.056  0.833  
+## 7    0.000  0.000  0.000  0.000  0.056  0.028  0.028  0.889  
+## 8    0.000  0.000  0.000  0.000  0.028  0.028  0.028  0.917  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;expected_two= np.dot(second[0], possible_states_int)
+print(round(expected_two,2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 6.86&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is found by multiplying the transition probability matrix by itself using dot product. The expected value after two rows is found by multiplying the matrix by itself. The expected value after two turns is 6.86.&lt;/p&gt;
+&lt;p&gt;You can continue this matrix multiplication determine the probability of being at a certain state after &lt;em&gt;n&lt;/em&gt; number of rolls.&lt;/p&gt;
+&lt;ol start=&#34;4&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Expected Number of rolls to finish&lt;/strong&gt;
+A &lt;strong&gt;hitting probability&lt;/strong&gt; describes the probability of ever reaching a certain state. Expected Number of Dice rolls can be found through the first-hitting-time model or the first passage time which indicates the time taken to reach a certain value. We must examine the probability of reaching 10 starting from 0, 1 , 2 ,… and add these values together.
+&lt;strong&gt;Partition theorem&lt;/strong&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+P(Y=j) = \sum_{i=j}^{N}P(Y=j|X=i)P(X=i)
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Starting at state 0:
+&lt;span class=&#34;math display&#34;&gt;\[
+\mu(0,10) = 1+ (1/3)\mu(1,10)+(1/6)\mu(3,10)+(1/6)\mu(5,10)+(1/6)\mu(6,10)+(1/6)\mu(8,10)
+\]&lt;/span&gt;
+State 1:
+&lt;span class=&#34;math display&#34;&gt;\[
+\mu(1,10)=1+(1/6)\mu(1,10)+(1/6)\mu(3,10)+(1/6)\mu(5,10)+(1/6)\mu(6,10)+(1/6)\mu(7,10)+(1/6)\mu(8,10)\\
+\]&lt;/span&gt;
+and so on…hopefully you can see how time-consuming this can become…&lt;/p&gt;
+&lt;p&gt;How do we do this faster? &lt;strong&gt;Matrix partition&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{bmatrix}
+Q &amp;amp; R \\
+0 &amp;amp; I
+\end{bmatrix}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Q&lt;/strong&gt;, a square matrix, shows the transition probabilities between transition states. &lt;strong&gt;R&lt;/strong&gt; is rectangular and represent the probability of a transition state turning into an absorbing state. &lt;strong&gt;0&lt;/strong&gt; represents the reverse, the probability of an absorbing state turning reaching to a transition state (impossible based on the definition of absorbing state). &lt;strong&gt;I&lt;/strong&gt; represents the identity matrix, once in this state, it can only stay in this state (absorbing state).&lt;/p&gt;
+&lt;p&gt;Why do I care?
+For fast computation, we only need parts Q and R.&lt;/p&gt;
+&lt;p&gt;So how do we find the hitting probability of state 10?
+&lt;span class=&#34;math display&#34;&gt;\[
+H = QH + R 
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+H = (I - Q)^{-1}R
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;#since we only have one absorbing state, our Q square matrix is just the transition matrix without the last row and last column
+Q = transition[:-1,:-1]
+R = transition[:, -1]
+I = transition[-1,-1]
+subtract = I-Q
+inverse = np.linalg.inv(subtract)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;simulation&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Simulation&lt;/h4&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def play_game(players, position):
+  for i in range(len(players)): 
+    #player spins
+    
+    #player moves  
+    position[i]+=1
+    
+    #check position
+    if position[i]==100: 
+      print(players[i], &amp;quot;wins!&amp;quot;)
+      break
+    else: 
+      print(&amp;quot;no winners yet&amp;quot;)
+  return
+  
+def main(): 
+  players=[&amp;quot;Ann&amp;quot;, &amp;quot;Joe&amp;quot;]
+  position=[0,7]
+  
+  play_game(players, position)
+main()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## no winners yet
+## no winners yet&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;works-cited&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Works Cited&lt;/h4&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Althoen, S. C., L. King, and K. Schilling. “Structural Glycobiology: A Game of Snakes and Ladders.” How Long Is A Game of Snakes and Ladders 18.8 (2008): 569. Mathematical Association. Mathematical Association, Mar. 1993. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Barry, Nick. “Analysis of Chutes and Ladders.” Data Genetics. Data Genetics, 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Besom, Evelyn, and Sarah Rittgers. “Monte Carlo Methods with Snakes and Ladders.” Monte Carlo Method. N.p., n.d. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Busa, Natalino. “Markov Chains for Ladders and Snakes.” Natalino Busa:. Blogger, 25 Jan. 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Campbell, J. The Maths of Snakes and Ladders (n.d.): n. pag. The Maths of Snakes and Ladders. 12 Dec. 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Coolen, ACC. “Markov Chains Associated With Lipschitz Kernels Examples.”Markov Chains Compact Lecture Notes and Exercises (n.d.): 63-80. King’s College London, Sept. 2009. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hochman, Michael. “CHUTES AND LADDERS.” CHUTES AND LADDERS(n.d.): n. pag. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Khamsi, M. A. “Markov Chains.” Markov Chains. S.O.S. Mathematics CyberBoard, 2016. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ORMethodsTutorials. “Sharkey: First Passage Times and the Chutes and Ladders Markov Chain.” YouTube. YouTube, 05 Nov. 2014. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Sundar, Avinaash, and Danny Zheng. “Markov Chains - A Simple Snakes and Ladders Example.” YouTube. YouTube, 03 Aug. 2014. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Wise, Barry M. “Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation.” Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation. Cornell University, n.d. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

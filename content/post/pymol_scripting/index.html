@@ -1,0 +1,206 @@
+---
+title: "PyMOL Scripting"
+author: "Cara Yijin Zou"
+date: "2020-06-29"
+categories: ["Bioinformatics", "VDS"]
+tags: ["PyMOL","scripting","Visualization"]
+output: html_document
+image:
+  placement: 1
+  caption: "Photo made using [PyMOL](https://pymol.org/2/)"
+  focal_point: "Smart"
+  preview_only: false 
+  alt_text: MtDalaDala (PDB:3lwb) active site shown as sticks. Carbons colored green. Ligands from PDB 1iow- Phosphinic_Acid as white, ADP as cyan. 
+
+---
+
+
+
+<div id="pymol" class="section level2">
+<h2>PyMOL</h2>
+<div id="brief-introduction-what-is-pymol" class="section level3">
+<h3>Brief Introduction: What is PyMOL?</h3>
+<p>PyMOL is a molecular visualization software used for 3D depictions of molecules such as proteins, nucleic acids, etc. You can download the software here: <a href="https://pymol.org/2/">https://pymol.org/2/</a>.</p>
+</div>
+<div id="why-do-scripting-and-not-just-use-the-graphical-interface" class="section level3">
+<h3>Why do scripting and not just use the graphical interface?</h3>
+<p>While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface.</p>
+</div>
+<div id="how-do-i-create-a-script" class="section level3">
+<h3>How do I create a script?</h3>
+<p>In PyMOL, go to file –&gt; log file –&gt; Open. Name your new script and save as a .pml. You can start typing commands in PyMOL and your actions will be recorded. To stop recording, go to log file –&gt; Close. To run this script later on, go to run script and find the file. You always open the .pml in a text editor and change commands later.</p>
+</div>
+<div id="how-to-approach-hopefully-helpful-tips" class="section level3">
+<h3>How to approach/ (Hopefully) Helpful tips</h3>
+<p>Having a pymol “cheat sheet” can aslo be extremely helpful. Here are some key details that I find to be useful. These are just some functions that I think are important, for more information, here is the <a href="https://pymolwiki.org/">pymol wiki</a>.</p>
+<div id="setting-up-the-interface" class="section level4">
+<h4>Setting up the interface</h4>
+<blockquote>
+<p>bg white</p>
+</blockquote>
+<blockquote>
+<p>hide nonbonded # hides water molecules</p>
+</blockquote>
+<blockquote>
+<p>set seq_view, 1</p>
+</blockquote>
+</div>
+<div id="loading-in-a-proteins" class="section level4">
+<h4>Loading in a protein(s)</h4>
+<p>Sometimes, it can appear that the script works fine when manually inputting lines one by one but when running an entire script, it fails to run. In this case, it is important to use the async=0 so that PyMOL understands to pause until the protein(s) has loaded before proceeding. Also something to note, currently, when fetching directly from PyMOL, files download as a .CIF instead of a .PDB. You can change this by adding type=pdb.</p>
+<blockquote>
+<p>fetch 3lwb, type=pdb, async=0</p>
+</blockquote>
+</div>
+<div id="simple-self-explanatory-functions" class="section level4">
+<h4>Simple (self-explanatory) functions</h4>
+<blockquote>
+<p>zoom resn EDO</p>
+</blockquote>
+<blockquote>
+<p>show sticks, hyfo</p>
+</blockquote>
+<blockquote>
+<p>show spheres, 3lwb_active_water</p>
+</blockquote>
+<blockquote>
+<p>color orange, hyfo</p>
+</blockquote>
+<blockquote>
+<p>orient 3lwb</p>
+</blockquote>
+<blockquote>
+<p>scene 001, store #save scene</p>
+</blockquote>
+<blockquote>
+<p>save 3lwb_v1.pse #save session</p>
+</blockquote>
+</div>
+<div id="select-and-rename-objects" class="section level4">
+<h4>Select (and Rename) Objects</h4>
+<p>select chosen_name, resn actual_name</p>
+<blockquote>
+<p>sele protein, chain A - resn HOH</p>
+</blockquote>
+<blockquote>
+<p>select ADP, (1iow &amp; resn ADP)</p>
+</blockquote>
+<blockquote>
+<p>select backbone, name CA+N+C+O</p>
+</blockquote>
+<blockquote>
+<p>sele active_site, resi 122+120+189+208+250+124</p>
+</blockquote>
+<blockquote>
+<p>select hyfo, resn ala+gly+val+ile+leu+phe+met</p>
+</blockquote>
+</div>
+<div id="labelling" class="section level4">
+<h4>Labelling</h4>
+<blockquote>
+<p>label (resi 330 &amp; n;cg &amp;! 1iow),“%s-%s” % (resn,resi)</p>
+</blockquote>
+<blockquote>
+<p>label (ADP &amp; n;o3a), “ADP”</p>
+</blockquote>
+<blockquote>
+<p>label (resn MG), “Magnesium”</p>
+</blockquote>
+</div>
+<div id="booleans" class="section level4">
+<h4>Booleans</h4>
+<p>Reviewing booleans for “and”, “or”, “not” can be helpful when selecting molecules.
+For example:</p>
+<blockquote>
+<p>select 3lwb_active_water, ((ligands) around 3.2) and (resn HOH) &amp; ! 1iow</p>
+</blockquote>
+</div>
+<div id="alter-and-rebuild" class="section level4">
+<h4>Alter and Rebuild</h4>
+<p>When changing the size of spheres, it may be necessary to rebuild the view in order to see the change.</p>
+<blockquote>
+<p>alter Magnesium, vdw = 0.7</p>
+</blockquote>
+<blockquote>
+<p>rebuild</p>
+</blockquote>
+</div>
+<div id="acronyms" class="section level4">
+<h4>Acronyms</h4>
+<p>Other than just practicing, I think the biggest help for learning scripting is learning what the acronyms and certain key words mean.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>util.cbag</td>
+<td>Utility color by atom (color first letter)</td>
+</tr>
+<tr class="even">
+<td>resn ALA</td>
+<td>Residue name</td>
+</tr>
+<tr class="odd">
+<td>resi 100</td>
+<td>Residue identifier</td>
+</tr>
+<tr class="even">
+<td>id</td>
+<td>Column number in PDB</td>
+</tr>
+<tr class="odd">
+<td>byres</td>
+<td>By complete residue (also byobject, bychain, etc.)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="within-vs-around" class="section level4">
+<h4>Within VS Around</h4>
+<blockquote>
+<p>sele active, byres all within 5 of ligands</p>
+</blockquote>
+<p><strong>Within</strong> also selects the ligands as part of the active site. If you want to select active site residues not including the ligands you can use <strong>around</strong>:</p>
+<blockquote>
+<p>select active, byres (ligand around 5)</p>
+</blockquote>
+</div>
+<div id="take-high-quality-picture" class="section level4">
+<h4>Take high quality picture</h4>
+<blockquote>
+<p>ray</p>
+</blockquote>
+<blockquote>
+<p>png 3lwbRay.png</p>
+</blockquote>
+</div>
+<div id="distance" class="section level4">
+<h4>Distance</h4>
+<blockquote>
+<p>distance hbonds_ligands, ligands, 3lwb_active, 3.2, mode=2</p>
+</blockquote>
+<blockquote>
+<p>hide labels, hbonds_ligands</p>
+</blockquote>
+<blockquote>
+<p>color black, hbonds_ligands</p>
+</blockquote>
+</div>
+<div id="atom-names" class="section level4">
+<h4>Atom names</h4>
+<p>When selecting individual atoms it can be helpful to understand this notation: “n;ca”.
+This refers to name carbon alpha (and so on for beta, gamma, delta, etc.).</p>
+</div>
+<div id="superimposing" class="section level4">
+<h4>Superimposing</h4>
+<p>The first will move to superimpose on the second structure.</p>
+<blockquote>
+<p>super 1iow, 3lwb</p>
+</blockquote>
+</div>
+</div>
+</div>

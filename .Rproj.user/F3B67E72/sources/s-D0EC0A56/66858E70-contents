@@ -1,0 +1,37 @@
+---
+title: "Markov Models - Chutes and Ladders"
+author: "Cara Yijin Zou"
+date: "2020-02-21"
+output: html_document
+diagram: true 
+categories: ["Statistics"]
+tags: ["Statistics","Modelling", "Markov Model"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Markov Chain
+### What is a markov chain? 
+A succession of random events such as coin tosses, e.g. THTTHT.
+Each of these events has a certain likelihood. There is a set of states: Tails and Heads. There is an initial probability for each state as well as a transition probability between states. 
+In a fair coin: 
+
+| Outcome          | Likelihood                     |
+| -----------------| -------------------------------|
+| Heads            | 0.5                            |
+| Tails            | 0.5                            |
+
+
+### Application: Chutes and Ladders 
+A well known application is through the game "chutes and ladders" or also known as "snakes and ladders". 
+
+Markov property, future only depends on current state (doesn't matter how we got to current state)
+Another possible way this problem can be solved is modelling it using Markov Chain where the probability of landing on a position is independent from all the moves  before the current state which is true for chutes and ladders. Markov chains use a combination of probability and matrices for problems that occur in a series of steps or probability trees. In this way, we are able to calculate the probability of being in any state many steps ahead. Markov chains are a set of states and the probability of transitioning between states. Every player is in a state and no person can be in both states. Players change states when the dice is rolled.
+
+#### Transition Matrix 
+
+ These probabilities then form a matrix known as a transition matrix. The probability in the transition probability matrix is the probability of moving to a state, not the probability of starting in that state. All transition matrices are square, in this case, it will be a 100 by 100 matrix. This is due to the fact that each state always has a probability of transitioning to another state, even if the transition probability is zero. 
+
+ There are different types of markov chains, however for the case of chutes and ladders, we will be focusing on one, the absorbing markov chain. An absorbing markov chain has absorbing states where once reached, it is impossible to exit from. In this case, we will be using an absorbing markov chain since the game is over once position 100 is reached. 

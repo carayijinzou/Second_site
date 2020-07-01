@@ -1,0 +1,5 @@
+"0","#Model with just non-zero lasso coefficient estimates"
+"0","fit6 <- glm(y ~ region+new.MDR+pop.number+TB.100k+GDP, data = LassoTB, family = ""binomial"")"
+"0",""
+"0","prob6 <- predict(fit6, type = ""response"")"
+"0","class_diag(prob6, LassoTB$y)"

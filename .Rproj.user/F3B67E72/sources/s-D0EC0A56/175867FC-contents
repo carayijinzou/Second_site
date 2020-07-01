@@ -1,0 +1,607 @@
+
+#Without Recursion: 
+fibonnacci_noREcursion =  function (n){
+  if (n==1){return(1)}
+  if (n==0){return(0)}
+  else {
+    fibo_Prev=0
+    fibo_Current = 1
+    for (i in 1:(n-1)){
+      
+    }
+  }
+}
+
+
+
+#With Recursion: disadv- lots of duplication, really inefficient in terms of calculation
+# because of branching, increasing exponentially
+fibonacci = function (n){
+  if (n==1){return(1)}
+  if (n==0){return(0)}
+  return (fibonacci(n-1)+fibonacci(n-2))
+}
+
+#Using recursion, you can find all different types of alignment 
+
+alignment_recursion = function(n,m){
+  if (n==0 | m==0){return(1)}
+  return (alignment_recursion(n,m-1)+alignment_recursion(n-1,m-1)+alignment_recursion(n-1, m))
+}
+
+alignment_recursion(2,1) #should equal 5
+alignment_recursion(7,8)
+
+
+#fibonacci_nums=numeric(0)
+fibonacci_nums[1]=1
+fibonacci_nums[2]=1
+#new notation: '<<-' = scope of function, usual <- will only assign during function (locally)
+#the <<- allows for global variable
+#by keeping track of things, speed everyting up a lot 
+fibonacci_wCache=function(n){
+  if (is.na(fibonacci_nums[n])){
+    fibonacci[n]<<-fibonacci_wCache(n-1)+fibonacci(n-2)
+  }
+  return(fibonacci_nums[n])
+}
+
+fibonacci(10)
+##########################################################################################################################################
+#Defensive programming, which input required or has default value 
+#check if input is expected type of variable 
+#if (!is.integer(input)){
+  #stop("message")}
+#my_fun(x,y=10){
+  #always running in default move, if user want to test something else and inputs y = 1000 
+#example, in transversion/transition question, could get infinite (if (test_result=is.infinite(result)){return(infinite)
+
+##################################################################################################################
+#Dynamic programming 
+#form a matrix 
+#why local alignment? - proteins have important domains; really critical region 
+#if tie, randomly decide
+#need pointer matrix 
+#global best alignment, always start from bottom right 
+#for local, additional rule: max (gap, match, mismatch, ZERO ), zero just says that it is end of alignment 
+#if negative score, convert to zero, don't look at bottom right, find highest score and go backwards 
+
+################################################################################################################
+#factorial using recursion 
+
+factorial_func<-function(n){
+  if (n==0){return (1)}
+  return (n *factorial_func(n-1))
+}
+
+factorial_func(4)
+###############################################################################################################
+#1²+2²+3²+…..+n² 
+series_sum<- function(n){
+  if (n==1){return(1)}
+  return ( n^2+ series_sum(n-1))
+}
+
+series_sum(10)
+
+###############################################################################################################
+#Number single amino acid changes, including synonymous changes (A>>A) 
+#generated from codon permutations for 1500nt of coding sequence (20 amino acid plus stop codon)
+#tentative: 500*21 
+
+#Methionine and Tryptophan have only one codon, there is no substitution to still create same amino acid 
+#ATG-> ATG 
+#500*21-sum(Met or Trp)
+
+###############################################################################################################
+#Fibonacci sequence using bottom up approach (top down is inefficient) 
+
+fibonacci_bottom_up<-function(n){
+  seq<-c(1,1) #f(0)=1, f(1)=1
+  for (i in 3:n){
+    seq[i]<-seq[i-1]+seq[i-2]
+  }
+  return(seq[n])
+  }
+  
+
+fibonacci_bottom_up(10)
+##############################################################################################################
+#BLOSUM 60 vs BLOSUM 90= 
+#BLOSUm 60 takes sequences with 60% similarity and then scores them and gives E (expected value)
+#E value is standarized 
+
+#########################################################################################################
+#Hidden Markov Models (HMMs)
+#Markov chain= succession of random events such as coin toss 
+#TTTHT 
+#T 0.5
+#H 0.5 
+
+#for next event heads again, transition from H<->T, tails again (all equally likely)
+
+#Biased coin 
+#T=0.9, H=0.1
+
+#Markov property, future only depends on current state (doesn't matter how we got to current state)
+#Conditional probability = 
+#p(A|B)= p(A intersect B)/p(B)
+
+#Markov Chain 
+#set of states (ex: H and T)
+#transition probabilities between states 
+  #if rainy right now, tomorrow: 0.5 Rain, 0.4 Cloudy, 0.1 Sunny 
+#initial probability distribution, at time state, what is the initial probabiltity 
+#Snakes and Ladders (no hidden information)
+
+
+#Hidden Markov Model 
+#markov chain is not visible to us, only observe outcome values 
+  #can't directly observe weather, how many icecream sold each day, can I infer what the weather was 
+#Obs: 100, 200, 3000, 3500, 43000, 50, 100
+      #C-> C--> H ----> H --->H--->C
+      #transitions 
+#could predict Cold but actually something happened and it was a hot day 
+#both states can have high/low numbers
+#emission probability is what gives way to the observed state (from the markov state)
+
+
+#Two coins: one fair, one biased (type of coin is hidden state, changing between the two )
+#two states: fair, biased (only given H/T, can i infer when we switched between H/T)
+#if i see a head, higher chance of fair coin, other way for tail 
+
+
+#FORWARD ALGORITHM - can i estimate what the probability of a certain state at each time given the observations
+
+#Hidden state= HOT COLD 
+#H-> C 0.4
+#C->H 0.5
+#H 0.6
+#C 0.5 
+
+
+#Ice cream sold can be 1,2,3 
+
+#Emission probabilites 
+#[p(1|H),p(2|H),p(3|H)]=[0.2,0.4,0.4]
+
+#for cold = [0.5,0.4,0.1]
+
+#Observed: 3,1,3 (unknown if it was hot or cold)
+  #initial probability if hot or cold is 0.5
+#Method 1: 
+  #state all possible observations, if i had HHH what is probability of getting 313, if i had HHC .... 
+  #HHH
+  #0.5 *0.4+0.6*0.2+0.6*0.4  (To get total probability of 313, add up all for HHH,CCC, HCH,etc.)
+#j is the state (prob that we are in state j afters seeing k observations )
+#alpha <j (t)
+
+#sum over all possible states 
+
+
+#########################################################################################################
+#Independent Events 
+#probability of HCC and 311 = initial probability * p(3|H)*transition between cold to hot*...
+#why, because they are all independent events dont add them 
+#NOT (0.5*0.8)+(0.4*0.9)+(0.7*0.9)
+(0.5*0.8)*(0.4*0.9)*(0.7*0.9)
+
+##########################################################################################################
+#Forward Algorithm- Recursion 
+#for first event 3H, could have been 3H, 1H,3C,1C 
+#forward=alpha, probability of 3 coming from h or c at the last step
+#viterbi=find maximum alpha and backtrack to find exact order of hidden markov states 
+#first initialize with alpha and matrix 
+#recursion 
+
+#313
+#HCH 
+#forward- what is the probability of observing a particular state at last state being k given all of our observations
+#- given sequence what is the probability of given states
+#Viterbi - what is th eprobability of this state path given observation 
+
+################################################################################################################
+#HMM Discussion: 
+#VITERBI 
+
+#Bioinformatics Textbook to understand basics of HMM and understand each component 
+#Casino problem 
+#Flip a coin and the person you are playing against has a fair and biased coin (H- 0.75, T-0.25)
+#Don't know which coin they are using, only OBSERVATIONS: X- H(1)/T (0)
+#pi is (unknown) STATE PATH = order of state (Fair or biased) 
+#known possible states (F, B) 
+
+#EMISSION probability 
+# -  H      T 
+# F 0.5     0.5
+# B 0.75    0.25
+
+
+#TRANSITION probability 
+# -  F      B 
+# F  0.9  0.1
+# B  0.1  0.9
+
+
+#P(x | state) = emission probabiltiy 
+#P(pi[i-1] --> pi [i]) = transition probabilities 
+
+
+#INITIAL probability 
+#F=0.5, B=0.5 
+
+#Table looking symbol is multiply from i through n like (E) sum symbol 
+
+#What is the probabiltiy of our entire set of observations given a state path (Viterbi- dynamic programming) 
+#Determine by multiplying probabilites 
+#P(x|pi)= initial probability  * Table (emission *transition)
+#(1/2*1/2)*(1/2*9/10)*
+#Might need to use log because probability can be super small since we are multiplying 
+#many state paths could have generated observations but the probability would not be the same, try to find 
+#max which is the most likely state path (explain why we want dynamic programming)
+
+#a is transition probability (indexing into matrix). e is emission matrix 
+
+
+################################################################################################################
+#DAG- directed acyclic graph 
+#PS2 with an edit graph which is a directed acyclic graph 
+#directed= can only move in a particular direction (ex: down, right, diagonal)
+#acyclic= if we start at a particular cell, can't move back to the same cell, must always move to another cell
+#can not take a long path and move back to original cell either (no path can take you back)
+#Any graph has nodes and edges - nodes are some value already computed
+#Edge = value to quanity moving from node to node 
+#PS2: node is score, edge is change in score based on gap/match/etc. 
+
+#                   . . . .
+# Possible states   . . . .
+#       (3)         . . . .
+# 
+#                 Observations(4)
+
+
+
+#what is the path that maximizes weight of edges ?????? 
+
+################################################################################################################
+#FORWARD Algorithm 
+# Not interested in state path that caused observations, instead at what point did they switch coins? 
+# probability that some state at i equals a certain state k given the observations we have seen up until 
+#that point   = P(pi[i]=k|x) 
+# Example: probability at state i is biased 
+# To solve: 
+# similar to viterbi 
+#L is a state contained in set Q (all possible states)
+#emission i given in state k * sum (transition between L and K * last value computed with function--> recursion)
+#value of any node is dependent on previous node 
+#in viterbi, we take max instead of summing 
+
+
+#HMM only applicable for certain situations 
+#state is always dependent on previous states (if situation where it doesn't just depend on previous states, HMM 
+#may not be best model)
+
+################################################################################################################
+#SANGER SEQUENCE
+#template DNA molecule, primer initiates sequencing reaction, DNA polymerase 
+#ddNTPs - fluoresce diff colors and aren't able to be extended 
+#seperate by size for sequence determination 
+
+#What can we learn from sequencing 
+ #- genes correlated with diseases, may require more individuals and with a specific phenotype
+ #- evolutionary relationships 
+ #- maybe not worth money? b/c of post-transcriptional/translational modification, not a lot of information 
+
+#Next generation sequencing platforms 
+ #- after sanger sequencing 
+ #- large number of technologies 
+ #- very little competition: illumina 
+  #- sanger can be parralel but very low throughput compared to other 
+
+#How does illumina sequencing work? fairly accurate- 99%
+ #-compared to sanger, big diff is that the fluorophore ddNTP are reversible??
+ #- DNA fragment, can't sequence RNA directly 
+ #- need attachment of ADAPTORS - with primer binding site and capture sequence (what allows DNA to attach to
+ #flow cell/ microscope slide). Adaptors can include barcode/index sequences - ability to sequence multiple
+ #samples together, multiple sequences can be differenciated. Instead of one run for each person, put 
+ #unique sequence for each sequence. #to simultaneously sequence many sequences at the same time (can tell 
+ #where certain sequences came from)
+
+# These terminator nucleotides have blocking groups attached to the 3' ends that
+#permit addition of only one nucleotide to each strand.
+#Next, lasers excite all the fluorescent labels, and an image of the entire surface reveals the color (and thus the
+#identity of the base) added to each cluster. The fluorescent label and the blocking groups are then chemically
+#or photolytically removed, in preparation for adding a
+#new nucleotide to each cluster.
+
+ #flow cell preparation
+  #- blue is DNA molecule that has adaptor, capture sequence bound to microscope sequence 
+  #- create many copies of target DNA, generate clusters of same sequence 
+  #*flow them in and 'clonal amplification', single molecule flourescence may not be enough for microscope 
+  #-since ddNTP can be removed, now can extend more, can keep repeating
+    #1) add ddNTP 
+    #2) get flurorescence/peak 
+    #3) remove flourophore ddNTP 
+
+# top left corner has cluster of same DNA, each cycle fluoresces something different 
+#hamming distance - how many nucleotides are different 
+
+#ACCG
+#AGCG
+
+#ACCG     ACCG
+#AGGG     AGCG
+
+#ACCCG   ACCTT
+#ATTTT
+
+#ACCCGG
+#ATTTTT
+
+#ATTCGT   Depending on number of errors, at least 2(error)+1
+
+
+
+#flow cell consists of lanes 
+
+#Pair end sequencing 
+ #- library fragment is the insert 
+  #1) Sample prep- add adaptors 
+  #2) Cluster Generation - each fragment amplified, denature strand and template is washed away, 
+  #bridge amplification (two types of oligo on the flow cell)
+
+  #3) Sequencing - after each addition, excited fluorophore, all strands read simultaneously; 
+  #hybridize something different for index read 
+  #*** no gel used 
+  #4) Data Analysis - seperated by indicies 
+
+
+#How many colors do we need for sequencing ?
+  # two colors really close to each other 
+  # if both start with G, don't know if one weird cluster or 2 clusters, however, if really 2, they will diverge
+  #at some point 
+
+  # major downside: every time I want to read one nucleotide, I need to take 4 images, need excite with different 
+  # wavelength (expensive lazers, implementation). Reduce # colors but still sequence 
+ 
+  #can you use just 3 colors? Yes
+  #one of them not colored, if not the other 3, must be the dark one (if none of above, must be last one)
+
+  #can you use just 2 colors? Yes 
+  #R,G, RG, no color  
+  #increases speed, instead of 4 images, just take 2 images 
+  #reduce implementation cost (lazers, etc. )
+
+  #can also do 1 color ! need a chemical step so less efficient and more errors (not as good as fluorescence)
+  #only some bases have chemically cleavable label
+
+#Limitations
+#-read length is limited 
+#-lab prep can be challenging - add adaptors 
+#-can't sequence RNA, proteins, etc. 
+#-monopoly, less innovation 
+
+
+
+#Competitors of Illumina 
+  #- Much longer read length
+    # some areas such as coding sequences, easier to piece together but repeating sequences can be very long 
+    #may not have clear differentiating sequence (can't tell with illumina how long the repeat region really is)
+    #putting genome together need stitch of small fragments, the longer the sequence, the easier it is
+    #structural variation- cancer, piece breaks off and add to another part of genome, with illumina, 
+    #can't tell what the big reaarrangements are 
+
+  #- Single molecule sequencing: individual molecule 
+
+
+#NGS Applications
+#- identification- who did this DNA come from  ? 
+#- Assemly- human genome project - possible to stich together short reads (make many short fragents that overlap)
+#- Variants - many different people differ in different positions 
+#- Quantification - 5 pieces of A and 1 piece of B (5times as much A than B)
+
+
+#sequencing of cell free DNA 
+#in maternal blood there is also DNA from the baby 
+  #determine sex of baby as well as any abnormalities 
+#microbes- found bacterial DNA in blood and identify species 
+#cancer- tumors DNA 
+
+#Nanopore 
+  #-much longer reads 
+  #current which forces DNA strand to go through pore, disrupt current 
+
+#Pacific : 
+  #-fluorescence attached to phosphate, removed after incorporated 
+  #spikes in fluorescence as attached and then leaves so signal goes down 
+
+#-why is illumina not single molecule? cluster | Why sanger not? because many fragments needed 
+
+#Edman sequencing- chop peptide one at a time and is labelled with fluorescence
+#find which amino acid is leaving 
+
+
+
+
+####################################################################################################
+#Guest Lecturer 
+
+#DNA folding 
+
+#DNA Sequencing 
+#-determining the order of nucleotide in DNA of interest 
+#-how? mostly illumina; gives you fastQ 
+
+#DNA is very tightly packed 
+#-if you line up all chromosomes of single cell - 2 meters 
+#diameter of nucleus is 1 million times smaller 
+
+#why study DNA folding? 
+#is DNA randomly packed? 
+#does folding have biological meaning? influences transcription and biological functions 
+#if you don't need to transcribe, can fold tightly 
+#does it provide additional information? cell type? etc.? 
+
+
+#how do we study DNA Folding? 
+# diff in vitro and in vivo folding, amount of DNA 
+#limitation of microscope: local structure only, scaling: few molecules at a time 
+
+#HI-C
+# DNA interactions globally
+#many moleules at same time 
+#high resolution 
+#how does it work? 
+  #two pieces of DNA close together are attached to protein (CROSSLINKING which prevent it from seperating)
+  #digest: cut around 
+  #mark ends with biotin? 
+  #ligate products 
+#use nextgen - illumina : use pair end sequencing instead of single end 
+#genes closer together can be enhancers which increase transcritption 
+
+
+
+#If A and B are closer together, will A and B more likely interact or A and C? 
+#Ans: True 
+
+
+
+####################################################################################################
+#Gene Expression Analysis 
+#RNA Seq: 
+  # powerful because can do identification, quantitation, assembly, and variants 
+#Method
+  # capture RNA with poly-A tail (we know that this is mature mRNA) using TTTTTTT 
+  # mRNA fragmentation -why? limitation of illumina sequencing (can't go pass certain # bp: read length)
+    #average mRNA is 1.7kb 
+  #reverse transcriptase is used to convert mRNA to complementary DNA strand, needs starting point which 
+    #is why we have random primers. Or you can use oligo dT. 
+  #convert cDNA to ds DNA with adaptor sequences, why adaptor sequences used?? contains barcode to tell us
+     #where the RNA is from, match oligonucleotides on flow cell (flow cell binding site)
+  #do I have to convert to DNA?? can i just adaptors to RNA??? 
+    #Ans: stability??? but biggest reason: incorporate fluorescent base with DNA polymerase 
+    #Nanopore doesn't depend on DNA polymerase, can sequence RNA 
+
+#paired end: sometime long sequence between (Hi-C)
+#for RNA seq is it better to get 300bp from one end compared to 150bp on both ends 
+  #single end to avoid poly A tail ? 
+  #paired end: may get an idea of the size of the fragment, also can tell if alternative splicing 
+
+#Assuming perfect sequence read, can you assemble longer pieces from short? 
+#Genome: ATTCGTAGCA
+#4 nt reads: ATTC    TCGT    TAGC 
+#Algorithms 
+#search for overlap, you can extend it 
+#if more than 1 sequence overlaps, find sequence overlap with highest score (score the overlap? )
+#multiple overlaps makes it more confident 
+
+#get all unique sequences (duplicates don't offer more information)
+#length of overlap: for each read can have several sequences that 
+
+#ATT
+#TAA  
+          #shift them over 
+#ATT
+# TAA
+
+#ATT
+#  TAA
+
+
+#with illumina sequence, only get short reads, however the shorter the reads, the harder it is to piece
+#togethere (sometimes unsolvable) 
+
+#make a matrix 1.......100
+            #1 6 
+            #...  6 
+            #100     6
+
+
+#don't want six since want unique reads, look at 5 overlaps 
+#example 2,78 ; 2,89; 4,5
+#randomly pick one and extend now have 99 reads with one being the extended 2,78 
+#Greedy algorithm 
+#repeats: ATTAATTAA (will fail)
+
+
+
+
+####################################################################################################
+#Annotation Packages (AnnotationDbi)
+
+#conversion of gene name to ID, etc. 
+#accessor and constructor functions 
+
+#if you want to find out the class of an object, use str()
+
+
+
+
+####################################################################################################
+
+#SAM File 
+#1) Header: information about reference 
+
+#2) Alignment Records: where did this read come from
+
+#Q name =query name, unique identifier of read, from fastq
+#RNAME= reference name : algorithm thinks it came from this reference sequence starting at position _ 
+#POS= position from above 
+#MAPQ= mapping quality , prob that a read was misplaced on PHRED Scale 
+#P(incorrect map)=10^-(mapQ/10)
+
+#Good alignment score but bad mapping quality 
+  #small sequence but repeats throughout sequence,don't know where to place it 
+
+
+#IGV
+  #BAM is binary (SAM is human readable)
+  #also needs index file (.bai, can be created using SAM tool)
+
+###############################IMPORTANT###############################################################
+#vignette will contain tutorial for how to use package 
+
+install.packages("BiocManager")
+BiocManager::install("Rsubread")
+BiocManager::install('recount')
+
+library(Rsubread)
+library(recount)
+
+
+buildindex(basename="chr22",reference="chr22.fasta") #will take time
+
+#guess for length of read, helps them know where to put our read 
+
+align(index="chr22", readfile1="SRR1803211_1.fastq.gz", readfile2="SRR1803211_2.fastq.gz", type="rna",
+      output_file = "chr22.bam", minFragLength = 50, maxFragLength = 600)
+#why not mapped fragments nearly all? because only align to chr 22
+
+#fasta vs fastq, fastq contains extra lines that contains quality 
+
+
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("GEOquery")
+library(GEOquery)
+?getGEO
+gds858 <- getGEO(filename='GSE52853_family.soft')
+colnames(Table(gds858))
+Meta(gds858)$description        
+
+
+test=matrix(c(1,2,3,4,5,6,7,8,8),3,3)
+new=colSums(test)/2
+sum(test[,1])
+
+test = test/matrix(rep(new,3), nrow=3, ncol=3, byrow=T)
+test
+
+keep <- (rowSums(x > 1) > 3)
+test <- test[keep,]
+test
+
+
+

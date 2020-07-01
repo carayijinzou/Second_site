@@ -1,0 +1,1439 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics | Cara (Yijin) Zou</title>
+    <link>/tag/statistics/</link>
+      <atom:link href="/tag/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Statistics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 20 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Statistics</title>
+      <link>/tag/statistics/</link>
+    </image>
+    
+    <item>
+      <title>Hidden Markov Model</title>
+      <link>/post/hidden_markov_model/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/post/hidden_markov_model/</guid>
+      <description>
+
+
+&lt;div id=&#34;hidden-markov-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Hidden Markov Model&lt;/h2&gt;
+&lt;p&gt;I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;emission-probability&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Emission probability&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;emission probability&lt;/strong&gt; is what gives way to the observed state (or the markov state).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Forward Algorithm&lt;/h2&gt;
+&lt;p&gt;What is the probability of a certain state at each time given the observations?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;viterbi-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Viterbi Algorithm&lt;/h2&gt;
+&lt;p&gt;What is the probabiltiy of our entire set of observations given a state path?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hmm-package-in-r&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;HMM Package in R&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Application&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.kaggle.com/alfrandom/protein-secondary-structure/data&#34;&gt;This&lt;/a&gt; is a good exercise to test your understanding. It looks at predicting the secondary structure of proteins from the primary sequence.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Markov Chains</title>
+      <link>/post/markov_chain/</link>
+      <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/markov_chain/</guid>
+      <description>
+
+
+&lt;div id=&#34;markov-chain&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Markov Chain&lt;/h1&gt;
+&lt;div id=&#34;what-is-a-markov-chain&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a markov chain?&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI0MjFweCIgaGVpZ2h0PSIzNTFweCIgdmlld0JveD0iLTAuNSAtMC41IDQyMSAzNTEiIGNvbnRlbnQ9IiZsdDtteGZpbGUgaG9zdD0mcXVvdDthcHAuZGlhZ3JhbXMubmV0JnF1b3Q7IG1vZGlmaWVkPSZxdW90OzIwMjAtMDctMDFUMTY6NTA6MDguNzg2WiZxdW90OyBhZ2VudD0mcXVvdDs1LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTRfNikgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzgzLjAuNDEwMy4xMTYgU2FmYXJpLzUzNy4zNiZxdW90OyBldGFnPSZxdW90O3FZZDdxdmxZOF9qX2t4VmdZUThOJnF1b3Q7IHZlcnNpb249JnF1b3Q7MTMuMy41JnF1b3Q7IHR5cGU9JnF1b3Q7ZGV2aWNlJnF1b3Q7Jmd0OyZsdDtkaWFncmFtIGlkPSZxdW90O0M1UkJzNDNvRGEtS2R6WmVOdHV5JnF1b3Q7IG5hbWU9JnF1b3Q7UGFnZS0xJnF1b3Q7Jmd0OzdWckprdG93RVAwYWpxR3N4U3pITUpsTTlxVklNcGxUeW9VMVdEWEdJa0lzenRkSGltVnNTUVlNQVp3TWM2R3N0aXk3WDNjL1BYWFJRbGVUMVEwUHB0RjdGcEs0QmIxdzFVSXZXaEQyY1VmK0trT2FHWENubnhuR25JYVpDUlNHSWYxRnROSFQxamtOeWN5WUtCaUxCWjJheGhGTEVqSVNoaTNnbkMzTmFmY3NOdDg2RGNiRU1ReEhRZXhhYjJrb29zemFnOTNDL29yUWNaUy9HZVQrVFlKOHN2WmtGZ1VoVzVaTTZMcUZyamhqSXJ1YXJLNUlyTERMY2JsOW5kN0c3eDQ2TjI4K3ozNEdYd2R2djN6NDlpeGI3T1UrajZ4ZDRDUVJ4MTFhbzdBSTRybkc2d01SOXpGZGFaZEZtdVBJMlR3SmlWb0x0TkJnR1ZGQmh0TmdwTzR1WmVKSVd5UW1zYjU5enhLaFV3RkluQWJqT0ppcE9IcnllaVk0ZTFqSFFzMWVBNnR1MS9SVlk3SWdYSkJWS2RMYTl4dkNKa1R3VkU3UmQzRmZoMUhuTWNSNnZDeXlBdVNoamtvWmtjOExkQ0tPMTBzWFlNc0xqZmMrWVFVTytNT1lrT21qZ3g3OGU5QkRCL3BYY3VrbDR3K1BEbjJFVGZSUjk0em9vOWsxVGdaK0ZBMFdRLzcyUy9vanVQK29lYW9NdmdNNlNjTG5pdnpsYUtRZ3BDTVRaNGtSVDc4cjVOcCtQcndyMzN1eDByQm1velFmcmFnb1BTWkhkNlU3eFVOcWtCcUJJYUd6ejlTTDFJek4rWWpVU0VZUjhESFp0bUMzT3M2bE9Qb1ZZY3h0bk1TQm9BdlRpYXJZNmpkOFlsUzZWNlNSVmNUSXQ5SWo4MU0vVmQ2SHJJV3duWStldFZDR2c3UFFuMVJidTMxNDlybXM2N1d4azRDeXVJU1pjbG41WHJHWWNXbEpXRUpVdmRNNHRreEJUTWVKeWx1WkhVVGFCNnBVcVJRa3ovV05DUTFEOVpwS0xpbllwa2c5cDlickp0L216WEJUREVxNWhDdHlDWjZLRWx3K1Boc2wvR1Y1NzZ4YXNDRVU1eWxiN0cxZy8vK3RiTkZUMlVJRS83R3l4YnZMZGpUbmk3VjYybFhEZjFXTFRaV1lqemJJMjMxTHpPOWFDNkY2SlNZaERkTFN0S21hTU52eXdjQjZEL0MyZjVmbElPanRtTi9aYzM3UCtoN1BtQzh2TWcrUHlpZCtCWi80RjhZbjBPSVQ0RGZNSjUwanlBQ3Q4UFByTzBQdFZ5djhRanFVaFVOSlI1eEdPdXcrR2RUVkdFOG5nMk5RZ3RzTTg5cDVxQzZGRWxBWG0xeGMwUzA0S3lYMG5pU0dTOVFIU3d6WU9ZL0VnTjUrRXNQWmlYWkloald3ZGVmYjB1b2NFcU4vdk4zTWE4Tnl3d3JVM003MFUrc2Q3WC9aejdLV1dHTWJtcVZIRVRpdzJwQ1ZwYWh6M2cydG9zMTllWWRtbS9JUWFuaEhBMVd0ak02RlJjVTVVelo5OUFBMWVobDd0Q0I3SnZNKzg5cmVydFBFbjlFbndxbDBTSVh0UE4zSlJwbldPZm4zMEdGTTY5dDZ3MjV6bnBwcHE5b0psM1oyc0lQUVBOUFc2Q2M4L3NNRDZ2bEdXUENoY2daYm5JM3R3QjNwOElBc3NaNzNCVGJLTE52Qjd2YjVHTzQ1SDIvOW50TWNIa0JWTjhKTjM4Zk5LSFpyQ2ZlYVpwUWE3WWphWnpxalF3bHJ0aWhCeTJoUndxWjdsTjI2UXFOWkRyUjdsUDFET2REdVVkcWRtRk1MRGJlcDRMWFJwZEdDTFJ2aHlXaEJEb3QvZUdaQkxQNG1pNjUvQXc9PSZsdDsvZGlhZ3JhbSZndDsmbHQ7L214ZmlsZSZndDsiPjxkZWZzLz48Zz48cmVjdCB4PSIzMDAiIHk9IjkwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiByeD0iNiIgcnk9IjYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMTBweDsgbWFyZ2luLWxlZnQ6IDMwMXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj5OZXRmbGl4PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjM2MCIgeT0iMTE0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk5ldGZsaXg8L3RleHQ+PC9zd2l0Y2g+PC9nPjxyZWN0IHg9IjAiIHk9IjkwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiByeD0iNiIgcnk9IjYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMTBweDsgbWFyZ2luLWxlZnQ6IDFweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+U2xlZXA8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNjAiIHk9IjExNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TbGVlcDwvdGV4dD48L3N3aXRjaD48L2c+PHJlY3QgeD0iMTUwIiB5PSIyMjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI2IiByeT0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDExOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDI0MHB4OyBtYXJnaW4tbGVmdDogMTUxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPkhvbWV3b3JrPC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjIxMCIgeT0iMjQ0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkhvbWV3b3JrPC90ZXh0Pjwvc3dpdGNoPjwvZz48cGF0aCBkPSJNIDIxMCAyMjAgTCAzNTQuNTQgMTMzLjI4IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMzU5LjA0IDEzMC41OCBMIDM1NC44NCAxMzcuMTggTCAzNTQuNTQgMTMzLjI4IEwgMzUxLjI0IDEzMS4xOCBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjI1MCIgeT0iMTUwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE2MHB4OyBtYXJnaW4tbGVmdDogMjUxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyNzAiIHk9IjE2NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjQ8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMjEwIDIyMCBMIDY1LjQ2IDEzMy4yOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDYwLjk2IDEzMC41OCBMIDY4Ljc2IDEzMS4xOCBMIDY1LjQ2IDEzMy4yOCBMIDY1LjE2IDEzNy4xOCBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE2MHB4OyBtYXJnaW4tbGVmdDogMTMxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIxNTAiIHk9IjE2NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjQ8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzQwIDkwIFEgMzIwIDYwIDMzMCA0NSBRIDM0MCAzMCAzNTUgMzAgUSAzNzAgMzAgMzgwIDQwIFEgMzkwIDUwIDM4Mi4wMSA3My45NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDM4MC4zNSA3OC45NCBMIDM3OS4yNSA3MS4xOSBMIDM4Mi4wMSA3My45NiBMIDM4NS44OSA3My40MSBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjMwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDEwcHg7IG1hcmdpbi1sZWZ0OiAzMXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj4wLjU8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNTAiIHk9IjE0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuNTwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSAxMjAgMTEwIEwgMjkzLjYzIDExMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDI5OC44OCAxMTAgTCAyOTEuODggMTEzLjUgTCAyOTMuNjMgMTEwIEwgMjkxLjg4IDEwNi41IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTg0IiB5PSIxMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJub25lIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDM4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMTMwcHg7IG1hcmdpbi1sZWZ0OiAxODVweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+MC4xPC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjIwNCIgeT0iMTM0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuMTwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSAzMCA5MCBRIDEwIDYwIDIwIDQ1IFEgMzAgMzAgNDUgMzAgUSA2MCAzMCA3MCA0MCBRIDgwIDUwIDcyLjAxIDczLjk2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNzAuMzUgNzguOTQgTCA2OS4yNSA3MS4xOSBMIDcyLjAxIDczLjk2IEwgNzUuODkgNzMuNDEgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDMwIDEzMCBMIDE3NC41NCAyMTYuNzIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSAxNzkuMDQgMjE5LjQyIEwgMTcxLjI0IDIxOC44MiBMIDE3NC41NCAyMTYuNzIgTCAxNzQuODQgMjEyLjgyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iNzAiIHk9IjE4MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9Im5vbmUiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMzhweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxOTBweDsgbWFyZ2luLWxlZnQ6IDcxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuNDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSI5MCIgeT0iMTk0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuNDwvdGV4dD48L3N3aXRjaD48L2c+PHJlY3QgeD0iMzQwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDEwcHg7IG1hcmdpbi1sZWZ0OiAzNDFweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+MC42PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjM2MCIgeT0iMTQiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MC42PC90ZXh0Pjwvc3dpdGNoPjwvZz48cGF0aCBkPSJNIDM5MCAxMzMgTCAyNTQuNDUgMjE0LjcxIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMjQ5Ljk2IDIxNy40MiBMIDI1NC4xNSAyMTAuODEgTCAyNTQuNDUgMjE0LjcxIEwgMjU3Ljc2IDIxNi44MSBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjMxMCIgeT0iMTgwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE5MHB4OyBtYXJnaW4tbGVmdDogMzExcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMTwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIzMzAiIHk9IjE5NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjE8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMTk1IDI2MCBRIDE4MCAyOTAgMTg3LjUgMzA1IFEgMTk1IDMyMCAyMTUgMzIwIFEgMjM1IDMyMCAyNDIuNSAzMDUgUSAyNTAgMjkwIDI0Mi44NSAyNzUuNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDI0MC41IDI3MSBMIDI0Ni43NiAyNzUuNyBMIDI0Mi44NSAyNzUuNyBMIDI0MC41IDI3OC44MyBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjIwMCIgeT0iMzMwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSkiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAzOHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM0MHB4OyBtYXJnaW4tbGVmdDogMjAxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMjwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyMjAiIHk9IjM0NCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4wLjI8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzAwIDEwMCBMIDEyNi4zNyAxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSAxMjEuMTIgMTAwIEwgMTI4LjEyIDk2LjUgTCAxMjYuMzcgMTAwIEwgMTI4LjEyIDEwMy41IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTkwIiB5PSI3MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9Im5vbmUiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMzhweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiA4MHB4OyBtYXJnaW4tbGVmdDogMTkxcHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPjAuMzwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyMTAiIHk9Ijg0IiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjAuMzwvdGV4dD48L3N3aXRjaD48L2c+PC9nPjxzd2l0Y2g+PGcgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ii8+PGEgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNSkiIHhsaW5rOmhyZWY9Imh0dHBzOi8vZGVzay5kcmF3LmlvL3N1cHBvcnQvc29sdXRpb25zL2FydGljbGVzLzE2MDAwMDQyNDg3IiB0YXJnZXQ9Il9ibGFuayI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMHB4IiB4PSI1MCUiIHk9IjEwMCUiPlZpZXdlciBkb2VzIG5vdCBzdXBwb3J0IGZ1bGwgU1ZHIDEuMTwvdGV4dD48L2E+PC9zd2l0Y2g+PC9zdmc+&#34; style=&#34;cursor:pointer;max-width:100%;&#34;onclick=&#34;(function(img){if(img.wnd!=null&amp;&amp;!img.wnd.closed){img.wnd.focus();}else{var r=function(evt){if(evt.data==&#39;ready&#39;&amp;&amp;evt.source==img.wnd){img.wnd.postMessage(decodeURIComponent(img.getAttribute(&#39;src&#39;)),&#39;*&#39;);window.removeEventListener(&#39;message&#39;,r);}};window.addEventListener(&#39;message&#39;,r);img.wnd=window.open(&#39;https://app.diagrams.net/?client=1&amp;lightbox=1&amp;edit=_blank&#39;);}})(this);&#34;/&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A succession of random events.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There is a set of states, in the above example, after coming home from school: Sleep, Homework, and Netflix.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There is an initial probability for each state. Right after coming home, you might be tired and there is a 60% probability of you taking a nap. You might have an assignment that is due that night so you might get started right away (30%) or you might have finished everything already and just want to relax and watch Netflix (10%).&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Outcome&lt;/th&gt;
+&lt;th&gt;Likelihood&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Sleep&lt;/td&gt;
+&lt;td&gt;0.6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Homework&lt;/td&gt;
+&lt;td&gt;0.3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Netflix&lt;/td&gt;
+&lt;td&gt;0.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;There is a transition probability between states. For example:
+&lt;em&gt;(For each probability, it is the likelihood of transitioning from the row to the column state.)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Sleep&lt;/th&gt;
+&lt;th&gt;Homework&lt;/th&gt;
+&lt;th&gt;Netflix&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;Sleep&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;td&gt;0.4&lt;/td&gt;
+&lt;td&gt;0.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;Homework&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;0.4&lt;/td&gt;
+&lt;td&gt;0.2&lt;/td&gt;
+&lt;td&gt;0.4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;Netflix&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;0.3&lt;/td&gt;
+&lt;td&gt;0.1&lt;/td&gt;
+&lt;td&gt;0.6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;application-chutes-and-ladders&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Application: Chutes and Ladders&lt;/h3&gt;
+&lt;div id=&#34;markov-propoerty&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Markov Propoerty&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Markov property&lt;/strong&gt; dictates that the future only depends on current state, thus it doesn’t matter how we got to current state. In other words, the probability of landing on a position is independent from all the moves before the current state.&lt;/p&gt;
+&lt;p&gt;Markov chains use a combination of probability and matrices for problems that occur in a series of steps or probability trees. In this way, we are able to calculate the probability of being in any state many steps ahead. Markov chains are a set of states and the probability of transitioning between states. In chutes and ladders, every player is in a state and no person can be in both states. Players change states when the dice is rolled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;transition-matrix&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Transition Matrix&lt;/h4&gt;
+&lt;p&gt;These probabilities then form a matrix known as a transition matrix. The probability in the transition probability matrix is the probability of moving to a state, not the probability of starting in that state. All transition matrices are square which is due to the fact that each state always has a probability of transitioning to another state, even if the transition probability is zero.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;absorbing-markov-chain&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Absorbing Markov Chain&lt;/h4&gt;
+&lt;p&gt;There are different types of markov chains, however for the case of chutes and ladders, we will be focusing on one, the &lt;strong&gt;absorbing markov chain&lt;/strong&gt;. An absorbing markov chain has absorbing states where once reached, it is impossible to exit from. In this case, we will be using an absorbing markov chain since the game is over once the final position is reached.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-up-the-board&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Setting Up the Board&lt;/h4&gt;
+&lt;p&gt;In a typical board for chutes and ladders, there are 100 squares and thus many states that a player can be in, however this is tedius to construct, thus a simplified board is used to demonstrate this instead. In this case, the “ladder” is from position 2 and advances the player to position 8 while the “snakes” are from position 4 to position 1 and from position 9 to position 6. A standard, fair, six sided dice is used.&lt;/p&gt;
+&lt;p&gt;Players are independent from each other, the moves of one player do not affect the probability of the other player on rolling a number and advancing. The only way the other person is involved is in who makes it to the 100th/last position first. Therefore, only one player’s moves need to be calculated and understood to understand this problem.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;Simplified_Chutes_Ladders_Board.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In this case, the state space is: &lt;strong&gt;{0,1,3,5,6,7,8,10}&lt;/strong&gt;. This is because when landed on, for spaces 2,4,and 9, the position either moves up or down through the use of a ladder or snake. There are different types of states, position 0 in this case is an open state, once this state is exited, the player cannot go back. For position 10 in this case, it is an &lt;strong&gt;absorbing state&lt;/strong&gt; as once it is reached the game is over. On the other hand, state 1,3,4,5,6,7,8 are &lt;strong&gt;transient states&lt;/strong&gt;.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Initial probability&lt;/strong&gt;:
+All players start off the board (or at state “0”).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[P(X=0)=1\]&lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Constructing the &lt;strong&gt;transition matrix&lt;/strong&gt;:
+Probability from left side column state to land on the top row state. &lt;em&gt;(Why is it not 11 by 11? Keep in mind that only 7 states are possible).&lt;/em&gt;
+The transition probability matrix for the first roll is:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+transition= np.array( [ [ 0, 1/3, 1/6, 1/6, 1/6, 0  , 1/6, 0  ],
+                        [ 0, 1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0  ],
+                        [ 0, 1/6,  0 , 1/6, 1/3, 1/6, 1/6, 0  ],
+                        [ 0,  0 ,  0 ,  0 , 1/3, 1/6, 1/6, 1/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6, 1/6, 1/6, 1/2],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 , 1/6, 2/3],
+                        [ 0,  0 ,  0 ,  0 , 1/6,  0 ,  0 , 5/6],
+                        [ 0,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 1  ]])
+
+prettyPrint (transition)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        0      1      3      5      6      7      8      10
+## 0    0.000  0.333  0.167  0.167  0.167  0.000  0.167  0.000  
+## 1    0.000  0.167  0.167  0.167  0.167  0.167  0.167  0.000  
+## 3    0.000  0.167  0.000  0.167  0.333  0.167  0.167  0.000  
+## 5    0.000  0.000  0.000  0.000  0.333  0.167  0.167  0.333  
+## 6    0.000  0.000  0.000  0.000  0.167  0.167  0.167  0.500  
+## 7    0.000  0.000  0.000  0.000  0.167  0.000  0.167  0.667  
+## 8    0.000  0.000  0.000  0.000  0.167  0.000  0.000  0.833  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice that the rows of the transition matrix add up to one. The expected value for the position of the player is calculated by the sum of, all the probability times their corresponding state number for the first horizontal row . Therefore, the expected value is 4.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;possible_states_int=[0,1,3,5,6,7,8,10]
+expected_one= np.dot(transition[0], possible_states_int)
+print(expected_one)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Matrix Multiplication&lt;/strong&gt;
+After two rolls, the matrix is:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;second= np.dot(transition, transition)
+prettyPrint(second)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        0      1      3      5      6      7      8      10
+## 0    0.000  0.083  0.056  0.083  0.222  0.139  0.139  0.278  
+## 1    0.000  0.056  0.028  0.056  0.222  0.111  0.139  0.389  
+## 3    0.000  0.028  0.028  0.028  0.194  0.111  0.139  0.472  
+## 5    0.000  0.000  0.000  0.000  0.111  0.056  0.083  0.750  
+## 6    0.000  0.000  0.000  0.000  0.083  0.028  0.056  0.833  
+## 7    0.000  0.000  0.000  0.000  0.056  0.028  0.028  0.889  
+## 8    0.000  0.000  0.000  0.000  0.028  0.028  0.028  0.917  
+## 10   0.000  0.000  0.000  0.000  0.000  0.000  0.000  1.000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;expected_two= np.dot(second[0], possible_states_int)
+print(round(expected_two,2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 6.86&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is found by multiplying the transition probability matrix by itself using dot product. The expected value after two rows is found by multiplying the matrix by itself. The expected value after two turns is 6.86.&lt;/p&gt;
+&lt;p&gt;You can continue this matrix multiplication determine the probability of being at a certain state after &lt;em&gt;n&lt;/em&gt; number of rolls.&lt;/p&gt;
+&lt;ol start=&#34;4&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Expected Number of rolls to finish&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For expected &lt;strong&gt;hitting times&lt;/strong&gt; or expected number of dice rolls to reach state 10, it can be found through the first-hitting-time model or the first passage time which indicates the time taken to reach a certain value.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+E(Y) = \sum_{i}P(Y|X=i)P(X=i)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;How do we do this faster? &lt;strong&gt;Matrix partition&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{bmatrix}
+Q &amp;amp; R \\
+0 &amp;amp; I
+\end{bmatrix}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Take the transition matrix and divide it into 4 sections. &lt;strong&gt;Q&lt;/strong&gt;, a square matrix, shows the transition probabilities between transition states. &lt;strong&gt;R&lt;/strong&gt; is rectangular and represent the probability of a transition state turning into an absorbing state. &lt;strong&gt;0&lt;/strong&gt; represents the reverse, the probability of an absorbing state turning reaching to a transition state (impossible based on the definition of absorbing state). &lt;strong&gt;I&lt;/strong&gt; represents the identity matrix, once in this state, it can only stay in this state (absorbing state).&lt;/p&gt;
+&lt;p&gt;So how do we find the expected absorbing time?
+&lt;span class=&#34;math display&#34;&gt;\[
+H = QH + 1 
+\]&lt;/span&gt;
+The &lt;strong&gt;1&lt;/strong&gt; represents the probability changing from absorbing to absorbing. Another way of writing this is:
+&lt;span class=&#34;math display&#34;&gt;\[
+H = (I - Q)^{-1}1
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;#since we only have one absorbing state, our Q square matrix is just the transition matrix without the last row and last column
+Q = transition[:-1,:-1]
+R = np.array([1,1,1,1,1,1,1])
+I = np.identity(7)
+subtract = I-Q
+inverse = np.linalg.inv(subtract)
+np.dot(inverse,R)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## array([3.37232432, 3.10613256, 2.91389635, 2.05389222, 1.76047904,
+##        1.50898204, 1.29341317])&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Therefore, for the simplified chutes and ladders game, the expected number of moves from start to finish is 3.37 moves.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;simulation&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Simulation&lt;/h4&gt;
+&lt;p&gt;Using Python, we can run a simulation to approximate this answer. Without having to write the transition matrix, it also fairly easy to adapt this to find the average number of turns for the full board and beyond.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def play_game():
+  chute_ladders = {4:1,2:8,9:6}
+  win=False
+  num_turns=0
+  position=0
+  while win!=True: 
+    num_turns+=1
+    #player spins
+    dice=np.random.randint(1, high=7, dtype=int)
+    #player moves  
+    position+= dice
+    #check position
+    if position&amp;gt;=10: 
+      win=True
+    else: 
+      if position in chute_ladders:
+        position = chute_ladders.get(position)
+  return num_turns
+  
+def main(): 
+  #run the simulation a bunch of times 
+  multipleGames = np.array([play_game() for i in range(10000)])
+  print(&amp;quot;Average number of moves to finish for 1000 games: &amp;quot;, np.mean(multipleGames))
+main()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Average number of moves to finish for 1000 games:  3.3841&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can see above that using a simulation, we get a similar answer to our markov chain of about 3.4 turns after averaging over 10,000 games (law of large numbers).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;other-applications&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Other Applications&lt;/h4&gt;
+&lt;p&gt;Markov chains are applicable to a wide range of topics including finance, music, and computer science. One example from biochemistry is Michaelis-Menten kinetics which describes the binding of substrate and enzyme, resulting in product formation. For a more complex example, I talk about hidden markov models here.
+&lt;span class=&#34;math display&#34;&gt;\[
+E + S \leftrightarrow ES \rightarrow E + P
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;works-cited&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Works Cited&lt;/h4&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Althoen, S. C., L. King, and K. Schilling. “Structural Glycobiology: A Game of Snakes and Ladders.” How Long Is A Game of Snakes and Ladders 18.8 (2008): 569. Mathematical Association. Mathematical Association, Mar. 1993. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Barry, Nick. “Analysis of Chutes and Ladders.” Data Genetics. Data Genetics, 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Besom, Evelyn, and Sarah Rittgers. “Monte Carlo Methods with Snakes and Ladders.” Monte Carlo Method. N.p., n.d. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Busa, Natalino. “Markov Chains for Ladders and Snakes.” Natalino Busa:. Blogger, 25 Jan. 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Campbell, J. The Maths of Snakes and Ladders (n.d.): n. pag. The Maths of Snakes and Ladders. 12 Dec. 2013. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Coolen, ACC. “Markov Chains Associated With Lipschitz Kernels Examples.”Markov Chains Compact Lecture Notes and Exercises (n.d.): 63-80. King’s College London, Sept. 2009. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hochman, Michael. “CHUTES AND LADDERS.” CHUTES AND LADDERS(n.d.): n. pag. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Khamsi, M. A. “Markov Chains.” Markov Chains. S.O.S. Mathematics CyberBoard, 2016. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ORMethodsTutorials. “Sharkey: First Passage Times and the Chutes and Ladders Markov Chain.” YouTube. YouTube, 05 Nov. 2014. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Sundar, Avinaash, and Danny Zheng. “Markov Chains - A Simple Snakes and Ladders Example.” YouTube. YouTube, 03 Aug. 2014. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Wise, Barry M. “Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation.” Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation. Cornell University, n.d. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modelling, Testing, and Predicting</title>
+      <link>/project/modeling_testing_predicting/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/project/modeling_testing_predicting/</guid>
+      <description>
+
+
+&lt;div id=&#34;modeling&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Modeling&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;This dataset is comprised of a merged dataset from &lt;a href=&#34;https://www.who.int/tb/country/data/download/en/&#34;&gt;World Health Organization&lt;/a&gt; and &lt;a href=&#34;https://data.worldbank.org/indicator/NY.GDP.PCAP.CD&#34;&gt;The World Bank Group&lt;/a&gt;. It consists of information about cases of Tuberculosis including new pulmonary cases, previous cases, drug resistant cases (MDR and XDR), mortality due to tuberculosis, etc. This dataset also contains information about country, region, year (2017 or 2018), population number, and GDP per capita in US dollars.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;manova-testing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;MANOVA testing&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; #H0: For each response variable, the means of the groups are equal
+ #H1: For at least one response variable, at least one group mean differs
+head(TB_Data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## country region year new.pul.TB prev.treated.pul.TB
+prev.unk.pul.TB new.MDR prev.MDR
+## 1 Albania EUR 2017 195 15 0 0 0
+## 2 Algeria AFR 2017 6278 419 0 11 28
+## 3 Algeria AFR 2018 6137 362 21 2 5
+## 4 American Samoa WPR 2017 3 0 0 1 0
+## 5 Andorra EUR 2017 1 0 0 0 0
+## 6 Angola AFR 2018 31098 6623 0 0 0
+## MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+TB_mort.num GDP
+## 1 0 0 2884169 20.0 580 0.34 10 4532.889
+## 2 39 4 41389189 70.0 29000 7.70 3200 4048.285
+## 3 7 4 42228408 69.0 29000 7.70 3300 4278.850
+## 4 1 0 55620 10.0 6 0.85 0 11398.777
+## 5 0 0 77001 1.5 1 0.12 0 39134.393
+## 6 0 0 30809787 355.0 109000 72.00 22000 3432.386&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;man1&amp;lt;-manova(cbind(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)~region, data=TB_Data)
+summary(man1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Df Pillai approx F num Df den Df Pr(&amp;gt;F)
+## region 5 1.2666 7.1585 50 1055 &amp;lt; 2.2e-16 ***
+## Residuals 216
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are alot of assumptions for the MANOVA test which indicates that they are usually hard to test and/or meet. These assumptions include: random samples, independent observations, dependent variables have multivariate normality, homogeneity of within-group covariance matrices for each dependent variable and equal covariance between any two dependent variables, linear relationships amoung dependent variables, no extreme univariate or multivariate outliers, and no multicollinearity. The dataset would likely not have been able to meet the assumptions, especially since many of the variables are likely correlated (e.g.: new drug resistant TB cases is likely related to previous/new TB cases ).&lt;/p&gt;
+&lt;p&gt;For the MANOVA, only 10 dependent variables were chosen. For example, only one of TB.100k (TB cases per 100,000 people) and TB.num (TB cases total) since they are likely to be highly related. The p-value (&amp;lt; 2.2e-16) is significant for the MANOVA test, therefore, for at least one of the response variables, the mean between regions is different.&lt;/p&gt;
+&lt;div id=&#34;univariate-anova-testing&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Univariate ANOVA testing&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary.aov(man1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Response new.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 3.7015e+11 7.4029e+10 13.356 2.385e-11 ***
+## Residuals 216 1.1972e+12 5.5427e+09
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response prev.treated.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 1.1311e+10 2262181943 7.6302 1.268e-06 ***
+## Residuals 216 6.4039e+10 296477285
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response prev.unk.pul.TB :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 30299516 6059903 3.4395 0.005189 **
+## Residuals 216 380558289 1761844
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response new.MDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 4062809 812562 1.8615 0.1023
+## Residuals 216 94285428 436507
+##
+## Response prev.MDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 12235002 2447000 1.9446 0.08818 .
+## Residuals 216 271810715 1258383
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response XDR :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 468938 93788 1.388 0.2299
+## Residuals 216 14595646 67572
+##
+## Response pop.number :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 7.5761e+17 1.5152e+17 10.661 3.61e-09 ***
+## Residuals 216 3.0700e+18 1.4213e+16
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response TB.100k :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 1375556 275111 22.228 &amp;lt; 2.2e-16 ***
+## Residuals 216 2673438 12377
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response TB_mort.100k :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 81943 16388.6 23.624 &amp;lt; 2.2e-16 ***
+## Residuals 216 149845 693.7
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Response GDP :
+## Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+## region 5 2.0424e+10 4084759281 15.597 4.243e-13 ***
+## Residuals 216 5.6568e+10 261891068
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of the 10 dependent variables tested, the univariate ANOVAs with a p-value &amp;lt;0.05 include: new.pul.TB, prev.treated.pul.TB, prev.unk.pul.TB, pop.number, TB.100k, TB_mort.100k, and GDP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;post-hoc-t-testing&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Post hoc t-testing&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# region in world: AFR=Africa; AMR=Americas;
+# EMR=Eastern Mediterranean; EUR=Europe; SEAR=South-East
+# Asia; WPR=Western Pacific
+
+#New pulmonary tuberculosis cases 
+pairwise.t.test(TB_Data$new.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$new.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.71    -       -       -       -      
+## EMR 0.83    0.60    -       -       -      
+## EUR 0.64    0.96    0.54    -       -      
+## SEA 2.1e-11 7.2e-12 2.5e-09 3.8e-13 -      
+## WPR 0.80    0.92    0.67    0.87    4.7e-11
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Previously treated pulmonary tuberculosis cases 
+pairwise.t.test(TB_Data$prev.treated.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$prev.treated.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.88    -       -       -       -      
+## EMR 0.90    0.80    -       -       -      
+## EUR 0.98    0.89    0.87    -       -      
+## SEA 1.3e-07 1.0e-07 2.4e-06 3.1e-08 -      
+## WPR 0.96    0.93    0.87    0.98    3.7e-07
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Confirmed pulmonary TB cases with unknown TB treatment history
+pairwise.t.test(TB_Data$prev.unk.pul.TB,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$prev.unk.pul.TB and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.97315 -       -       -       -      
+## EMR 0.98235 0.99463 -       -       -      
+## EUR 0.74157 0.77669 0.80590 -       -      
+## SEA 0.00023 0.00031 0.00090 0.00028 -      
+## WPR 0.98122 0.95689 0.96726 0.74643 0.00042
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Population Number 
+pairwise.t.test(TB_Data$pop.number,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$pop.number and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 1.00    -       -       -       -      
+## EMR 0.61    0.62    -       -       -      
+## EUR 0.92    0.93    0.64    -       -      
+## SEA 5.7e-10 9.3e-10 1.2e-07 1.5e-10 -      
+## WPR 0.76    0.77    0.46    0.68    8.6e-10
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#TB cases per 100,000 individuals
+pairwise.t.test(TB_Data$TB.100k,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$TB.100k and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 3.4e-12 -       -       -       -      
+## EMR 4.2e-06 0.11090 -       -       -      
+## EUR 1.2e-15 0.72536 0.04362 -       -      
+## SEA 0.72362 7.4e-07 0.00082 4.6e-08 -      
+## WPR 0.02843 6.2e-06 0.01175 1.5e-07 0.18283
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#TB mortality cases per 100,000 individuals 
+pairwise.t.test(TB_Data$TB_mort.100k,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$TB_mort.100k and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 2.3e-15 -       -       -       -      
+## EMR 9.7e-10 0.34679 -       -       -      
+## EUR &amp;lt; 2e-16 0.74776 0.19773 -       -      
+## SEA 0.00066 0.00411 0.05824 0.00109 -      
+## WPR 1.2e-10 0.21678 0.85228 0.09768 0.06676
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#GDP 
+pairwise.t.test(TB_Data$GDP,TB_Data$region,p.adj=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  TB_Data$GDP and TB_Data$region 
+## 
+##     AFR     AMR     EMR     EUR     SEA    
+## AMR 0.03154 -       -       -       -      
+## EMR 0.00053 0.10499 -       -       -      
+## EUR 1.0e-13 2.1e-07 0.00652 -       -      
+## SEA 0.82314 0.16977 0.01100 2.6e-07 -      
+## WPR 0.00045 0.13530 0.81059 0.00098 0.01345
+## 
+## P value adjustment method: none&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonferroni-correction&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Bonferroni correction&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#MANOVA: 1 
+#ANOVA: 11
+#T-tests: 15* 7= 105
+
+#Probability of a type I error if unadjusted 
+1-(1-0.05)^117&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9975245&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#New alpha 
+0.05/(1+10+105)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.0004310345&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The total number of tests conducted is 117, therefore if unadjusted, the probability of at least one type I error is 0.9975. Therefore, the bonferroni correction was used to obtain the new alpha value of 0.00043 so that the overall alpha value remains at 0.05.&lt;/p&gt;
+&lt;p&gt;Using this new alpha value, the MANOVA is still significant. The ANOVAs of new.pul.TB, prev.treated.pul.TB, pop.number, TB.100k, TB_mort.100k, and GDP are still significant. Only the ANOVA of prev.unk.pul.TB is no longer significant (p-value=0.005189). For the post-hoc analysis of the new pulmonary TB cases, previously treated pulmonary TB, and population number only the means of SEA are different from the other regions. For TB.100k there are significant differences between AFR/AMR, AFR/EMR, AFR/EUR, AMR/SEA, AMR/WPR, SEA/EMR, EUR/SEA, and EUR/WPR. For the TB mortality for every 100,000 individuals, AFR is significantly different from the other regions. For GDP, AFR/EMR, AFR/EUR, AFR/WPR, AMR/EUR, EUR/SEA, and EUR/WPR are significantly different.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;randomization-test-permanova&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Randomization test: PERMANOVA&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#H0: The centroid and dispersion of points is the same for the different regions
+#H1: The centroid and dispersion of points is different for at least one of the different regions
+
+
+#compute distances/dissimilarities
+dists&amp;lt;-TB_Data%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%dist()
+
+
+#compute observed F
+SST&amp;lt;- sum(dists^2)/150
+SSW&amp;lt;-TB_Data%&amp;gt;%group_by(region)%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%
+ do(d=dist(.[2:3],&amp;quot;euclidean&amp;quot;))%&amp;gt;%ungroup()%&amp;gt;%
+ summarise(sum(d[[1]]^2)/50 + sum(d[[2]]^2)/50+ sum(d[[3]]^2)/50)%&amp;gt;%pull
+F_obs&amp;lt;-((SST-SSW)/2)/(SSW/147) #observed F statistic
+F_obs&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 21739142596&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# compute null distribution for F
+Fs&amp;lt;-replicate(1000,{
+new&amp;lt;-TB_Data%&amp;gt;%mutate(region=sample(region)) #permute the region vector
+SSW&amp;lt;-new%&amp;gt;%group_by(region)%&amp;gt;%dplyr::select(new.pul.TB,prev.treated.pul.TB,prev.unk.pul.TB, new.MDR, prev.MDR, XDR, pop.number, TB.100k, TB_mort.100k, GDP)%&amp;gt;%
+ do(d=dist(.[2:3],&amp;quot;euclidean&amp;quot;))%&amp;gt;%ungroup()%&amp;gt;%
+ summarise(sum(d[[1]]^2)/50 + sum(d[[2]]^2)/50+ sum(d[[3]]^2)/50)%&amp;gt;%pull
+((SST-SSW)/2)/(SSW/147) #calculate new F on randomized data
+})
+
+{hist(Fs,prob = T); abline(v=F_obs, col=&amp;quot;red&amp;quot;, add=T)}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(Fs&amp;gt;F_obs)  #p-value &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.007&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since the data is unlikely to meet the assumptions of the MANOVA, a randomization-test MANOVA (PERMANOVA) was conducted which resulted in a p-value &amp;lt; 0.05 (significant). Therefore the null hypothesis is rejected in favor of the alternative hypothesis that there is a significant difference between the centroid and/or the spread of the points is not equal between the different regions. This therefore supports the conclusion of the MANOVA conducted previously.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linear-regression-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Linear regression model&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TB_Data$GDP_c &amp;lt;- TB_Data$GDP - mean(TB_Data$GDP, na.rm = T)
+TB_Data$TB_mort.100k_c &amp;lt;- TB_Data$TB_mort.100k - mean(TB_Data$TB_mort.100k, na.rm = T)
+fit1&amp;lt;-lm(TB_mort.100k_c ~ GDP_c*region, data=TB_Data)
+
+#uncorrected SEs
+summary(fit1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## Call:
+## lm(formula = TB_mort.100k_c ~ GDP_c * region, data =
+TB_Data)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -54.036 -5.622 -1.086 1.755 144.129
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 1.059e+00 1.514e+01 0.070 0.9443
+## GDP_c -2.858e-03 1.179e-03 -2.423 0.0162 *
+## regionAMR -1.472e+01 1.595e+01 -0.923 0.3572
+## regionEMR -6.498e+00 1.605e+01 -0.405 0.6860
+## regionEUR -1.457e+01 1.557e+01 -0.936 0.3505
+## regionSEA -3.136e+01 3.331e+01 -0.942 0.3475
+## regionWPR -5.678e+00 1.582e+01 -0.359 0.7200
+## GDP_c:regionAMR 2.651e-03 1.328e-03 1.996 0.0472 *
+## GDP_c:regionEMR 2.457e-03 1.211e-03 2.029 0.0437 *
+## GDP_c:regionEUR 2.789e-03 1.188e-03 2.349 0.0198 *
+## GDP_c:regionSEA -6.893e-04 2.812e-03 -0.245 0.8066
+## GDP_c:regionWPR 2.541e-03 1.204e-03 2.110 0.0361 *
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Residual standard error: 25.98 on 210 degrees of freedom
+## Multiple R-squared: 0.3884, Adjusted R-squared: 0.3564
+## F-statistic: 12.12 on 11 and 210 DF, p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the model with uncorrected standard errors, controlling for region, for every increase of 1 USD of GDP from the mean, the number of cases of mortality due to tuberculosis per 100,000 people decreases by 2.858e-03. Compared to the reference region of AFR and controlling for GDP, the mean number of cases of mortality due to tuberculosis per 100,000 people decreases for all regions: AMR (1.472e+01), EMR(6.498e+00), EUR (1.457e+01), SEA (3.136e+01), and WPR (5.678e+00). The coefficient for the interactions describe the difference in the
+effect of GDP on the mortality due to tuberculosis per 100,00 people depending on which region the country is in (the slope difference between the regions). For example, the slope difference between AFR and: AMR (2.651e-03), EMR (2.457e-03), EUR (2.789e-03), SEA (-6.893e-04), and WPR (2.541e-03).&lt;/p&gt;
+&lt;div id=&#34;plot-the-regression&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Plot the regression&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TB_Data%&amp;gt;%ggplot(aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))+geom_smooth(method = &amp;#39;lm&amp;#39;,se=F, aes(color=region))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asumptions&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Asumptions&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Linear relationship between each predictor and response (no scatterplot for region since it is categorical)
+ggplot(TB_Data, aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Confirm normality of residuals
+qqnorm(fit1$residuals, main = &amp;quot;QQ-plot of Model Residuals&amp;quot;)
+qqline(fit1$residuals, col = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-2.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Confirm equal variance
+plot(fit1$fitted.values, fit1$residuals, xlab = &amp;quot;Fitted Values&amp;quot;, 
+    ylab = &amp;quot;Residuals&amp;quot;, pch = 20)
+abline(h = 0, col = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-9-3.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(sandwich); library(lmtest)
+bptest(fit1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit1
+## BP = 58.313, df = 11, p-value = 1.905e-08&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The data fails all assumptions. The scatterplot does not show a linear relationship between GDP and TB_mort.100k. The QQ-plot of the model residuals is also not normal. There is also a funneling pattern in the residual plot which indicates that it does not meet the assumption of equal variance (homoskedasticity). This is again confirmed by the Breusch-Pagan test which concluded that the homoskedasticity assumption is not met (p-value=1.905e-08).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;recompute-regression-results-with-robust-standard-errors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Recompute regression results with robust standard errors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#robust SEs
+coeftest(fit1, vcov = vcovHC(fit1))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## t test of coefficients:
+##
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 1.0589e+00 2.0328e+01 0.0521 0.95851
+## GDP_c -2.8577e-03 1.7036e-03 -1.6775 0.09494 .
+## regionAMR -1.4716e+01 2.0333e+01 -0.7238 0.47001
+## regionEMR -6.4979e+00 2.0762e+01 -0.3130 0.75462
+## regionEUR -1.4572e+01 2.0334e+01 -0.7166 0.47441
+## regionSEA -3.1361e+01 2.2356e+01 -1.4028 0.16215
+## regionWPR -5.6775e+00 2.0456e+01 -0.2776 0.78163
+## GDP_c:regionAMR 2.6510e-03 1.7052e-03 1.5546 0.12155
+## GDP_c:regionEMR 2.4566e-03 1.7146e-03 1.4327 0.15342
+## GDP_c:regionEUR 2.7895e-03 1.7036e-03 1.6374 0.10305
+## GDP_c:regionSEA -6.8927e-04 1.9443e-03 -0.3545 0.72331
+## GDP_c:regionWPR 2.5408e-03 1.7056e-03 1.4897 0.13781
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A model with robust standard errors should be used if the data is heteroskedastic. With uncorrected standard errors, the coefficient estimates of the main effect of GDP (p-value = 0.0162) was significant. The interactions GDP_c:regionAMR (p-value= 0.0472), GDP_c:regionEMR (p-value= 0.0437), GDP_c:regionEUR (p-value= 0.0198), and GDP_c:regionWPR (p-value= 0.0361) were also significant. Contrastingly, using the more robust SEs (more conservative), none of the coefficient estimates are still significant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;effect-size&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Effect Size&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(fit1)$adj.r.squared&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3563608&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The adjusted r-squared of 0.356 indicates that 35.6% of variation in the mean number of cases of mortality due to tuberculosis per 100,000 people is explained by the model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regression-but-without-interactions&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Regression but without interactions&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit2&amp;lt;-lm(TB_mort.100k_c ~ GDP_c+region, data=TB_Data)
+summary(fit2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## Call:
+## lm(formula = TB_mort.100k_c ~ GDP_c + region, data =
+TB_Data)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -49.946 -6.211 -1.696 2.397 146.834
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&amp;gt;|t|)
+## (Intercept) 3.394e+01 4.177e+00 8.125 3.49e-14 ***
+## GDP_c -2.055e-04 1.101e-04 -1.866 0.063421 .
+## regionAMR -4.759e+01 5.783e+00 -8.230 1.80e-14 ***
+## regionEMR -3.978e+01 6.834e+00 -5.822 2.10e-08 ***
+## regionEUR -4.572e+01 5.796e+00 -7.888 1.53e-13 ***
+## regionSEA -2.635e+01 7.646e+00 -3.446 0.000684 ***
+## regionWPR -3.867e+01 6.261e+00 -6.177 3.23e-09 ***
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1
+##
+## Residual standard error: 26.19 on 215 degrees of freedom
+## Multiple R-squared: 0.3638, Adjusted R-squared: 0.3461
+## F-statistic: 20.49 on 6 and 215 DF, p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Examining only the main effects, the effect of GDP is no longer significant while all the coeficient estimates for region are now significant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linear-regression-model-with-bootstrapped-standard-errors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Linear regression model with bootstrapped standard errors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# repeat 5000 times, saving the coefficients each time
+samp_distn&amp;lt;-replicate(5000, {
+ boot_TB&amp;lt;-TB_Data[sample(nrow(TB_Data),replace=TRUE),]
+ fit3&amp;lt;-lm(TB_mort.100k_c ~ GDP_c*region, data=boot_TB)
+ coef(fit3)
+})
+
+#Estimated SEs
+samp_distn%&amp;gt;%t%&amp;gt;%as.data.frame%&amp;gt;%summarise_all(sd)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## (Intercept) GDP_c regionAMR regionEMR regionEUR
+regionSEA regionWPR GDP_c:regionAMR
+## 1 38.6096 0.003045773 38.63531 38.79675 38.6104 41.86718
+38.70029 0.003046698
+## GDP_c:regionEMR GDP_c:regionEUR GDP_c:regionSEA
+GDP_c:regionWPR
+## 1 0.003055984 0.003045843 0.003347488 0.003045734&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Bootstrapped standard errors are used when the data is non-normal as well. Compared to the original standard errors, the standard errors for all the coefficient estimates increased (more conservative). The p-values are therefore higher as well because of the higher standard errors. Compared to the robust standard errors, the bootstrapped standard errors are also higher. Therefore, the p-values are also higher (more conservative).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;logistic-regression-predicting-a-binary-categorical-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Logistic regression predicting a binary categorical variable&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BinaryTB&amp;lt;-TB_Data%&amp;gt;%mutate(y = as.numeric(ifelse(XDR &amp;gt; 0, 1, 0)))
+fit4&amp;lt;-glm(y~region+TB.100k+pop.number,data=BinaryTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+coeftest(fit4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##
+## z test of coefficients:
+##
+## Estimate Std. Error z value Pr(&amp;gt;|z|)
+## (Intercept) -2.5554e+00 5.5591e-01 -4.5968 4.291e-06 ***
+## regionAMR 2.2980e-01 6.5681e-01 0.3499 0.7264340
+## regionEMR 1.2454e+00 6.4541e-01 1.9296 0.0536624 .
+## regionEUR 2.2567e+00 5.6757e-01 3.9761 7.005e-05 ***
+## regionSEA 4.0806e-01 8.6513e-01 0.4717 0.6371581
+## regionWPR -2.4001e-01 6.4077e-01 -0.3746 0.7079782
+## TB.100k 5.4362e-03 1.5506e-03 3.5059 0.0004551 ***
+## pop.number 3.8675e-08 1.0182e-08 3.7984 0.0001456 ***
+## ---
+## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1
+&amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;exp(coef(fit4))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## (Intercept) regionAMR regionEMR regionEUR regionSEA
+regionWPR TB.100k pop.number
+## 0.07766039 1.25834993 3.47417743 9.55178621 1.50390035
+0.78661626 1.00545098 1.00000004&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A binary variable was created that measures whether there are any XDR (extensively drug resistant tuberculosis) cases in a country. Controlling for TB.100k and population number, the odds of having a XDR TB case are 1.25 times higher for the region AMR than AFR. The odds for the other regions compared to AFR: EMR (3.47), EUR (9.55), SEA (1.50), WPR (0.79). The region with the lowest odds of a country having a case of XDR TB is WPR. The region that has the highest odds of a country having a case of XDR TB is EUR. Controlling for region and TB.100k, for every 1-unit increase in population number, odds of having a case of XDR TB change by a factor of 1.00000004. Controlling for region and population number, for every 1-unit increase in TB.100k, odds of having a case of XDR TB change by a factor of 1.00545098 (increase by 0.54%).&lt;/p&gt;
+&lt;div id=&#34;confusion-matrix&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Confusion Matrix&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;prob &amp;lt;- predict(fit4, type = &amp;quot;response&amp;quot;) #get predictions
+pred &amp;lt;- ifelse(prob &amp;gt; 0.5, 1, 0)
+table(truth = BinaryTB$y, prediction = pred) %&amp;gt;% addmargins&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      prediction
+## truth   0   1 Sum
+##   0   109  23 132
+##   1    34  56  90
+##   Sum 143  79 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Classification Function
+class_diag&amp;lt;-function(probs,truth){
+
+tab&amp;lt;-table(factor(probs&amp;gt;.5,levels=c(&amp;quot;FALSE&amp;quot;,&amp;quot;TRUE&amp;quot;)),truth)
+acc=sum(diag(tab))/sum(tab)
+sens=tab[2,2]/colSums(tab)[2]
+spec=tab[1,1]/colSums(tab)[1]
+ppv=tab[2,2]/rowSums(tab)[2]
+
+if(is.numeric(truth)==FALSE &amp;amp; is.logical(truth)==FALSE) truth&amp;lt;-as.numeric(truth)-1
+
+#CALCULATE EXACT AUC
+ord&amp;lt;-order(probs, decreasing=TRUE)
+probs &amp;lt;- probs[ord]; truth &amp;lt;- truth[ord]
+
+TPR=cumsum(truth)/max(1,sum(truth)) 
+FPR=cumsum(!truth)/max(1,sum(!truth))
+
+dup&amp;lt;-c(probs[-1]&amp;gt;=probs[-length(probs)], FALSE)
+TPR&amp;lt;-c(0,TPR[!dup],1); FPR&amp;lt;-c(0,FPR[!dup],1)
+
+n &amp;lt;- length(TPR)
+auc&amp;lt;- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+
+data.frame(acc,sens,spec,ppv,auc)
+}
+
+class_diag(prob, BinaryTB$y)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         acc      sens      spec       ppv       auc
+## 1 0.7432432 0.6222222 0.8257576 0.7088608 0.8367845&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the confusion matrix, the model has an accuracy of 0.743 which is fair. The sensitivity or true positive rate is 0.622 which is poor. The specificity or true negative rate is 0.826 which is good. The precision or positive predictive value of the model is 0.709 which is fair.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;density-of-log-odds-logit&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Density of log-odds (logit)&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BinaryTB$logit&amp;lt;-predict(fit4) #get predicted log-odds
+BinaryTB$factor.y&amp;lt;-factor(BinaryTB$y,levels=c(1,0))
+ggplot(BinaryTB,aes(logit, fill=factor.y))+geom_density(alpha=.3)+
+  geom_vline(xintercept=0,lty=2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+#### ROC Curve&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plotROC)
+prob &amp;lt;- predict(fit4, type = &amp;quot;response&amp;quot;)
+ROCplot1 &amp;lt;- ggplot(BinaryTB) + geom_roc(aes(d = y, m = prob),n.cuts = 0)+geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) 
+ROCplot1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;calc_auc(ROCplot1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PANEL group       AUC
+## 1     1    -1 0.8367845&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The AUC is determined to be 0.837 which suggests that the model is good at predicting whether a country has a case of XDR TB (the probability that a randomly selected country with a case of XDR TB has a higher prediction than a randomly selected country without a case of XDR TB).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fold-cv&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;10-fold CV&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;k = 10
+data1 &amp;lt;- BinaryTB[sample(nrow(BinaryTB)), ] #put dataset in random order
+folds &amp;lt;- cut(seq(1:nrow(BinaryTB)), breaks = k, labels = F) #create folds
+diags &amp;lt;- NULL
+for (i in 1:k) {
+# FOR EACH OF 10 FOLDS
+train &amp;lt;- data1[folds != i, ] #CREATE TRAINING SET
+test &amp;lt;- data1[folds == i, ] #CREATE TESTING SET
+truth &amp;lt;- test$y
+fit &amp;lt;- glm(y~region+TB.100k+pop.number,data=BinaryTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+probs &amp;lt;- predict(fit, newdata = test, type = &amp;quot;response&amp;quot;)
+diags &amp;lt;- rbind(diags, class_diag(probs, truth))
+}
+apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
+## 0.7434783 0.6442857 0.8261991 0.7169048 0.8454062&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The out of sample confusion matrix for this model has: accuracy (0.742- fair), sensitivity (0.625- poor), specificity (0.811- good), precision (0.692- poor). Although, precision decreased from fair to poor, the classifications did not change greatly. The AUC also did not change significantly which suggests that there was not overfitting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lasso-least-absolute-shrinkage-and-selection-operator-regression&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;LASSO (least absolute shrinkage and selection operator) Regression&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(BinaryTB)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## country region year new.pul.TB prev.treated.pul.TB
+prev.unk.pul.TB new.MDR prev.MDR
+## 1 Albania EUR 2017 195 15 0 0 0
+## 2 Algeria AFR 2017 6278 419 0 11 28
+## 3 Algeria AFR 2018 6137 362 21 2 5
+## 4 American Samoa WPR 2017 3 0 0 1 0
+## 5 Andorra EUR 2017 1 0 0 0 0
+## 6 Angola AFR 2018 31098 6623 0 0 0
+## MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+TB_mort.num GDP GDP_c
+## 1 0 0 2884169 20.0 580 0.34 10 4532.889 -10208.887
+## 2 39 4 41389189 70.0 29000 7.70 3200 4048.285 -10693.491
+## 3 7 4 42228408 69.0 29000 7.70 3300 4278.850 -10462.926
+## 4 1 0 55620 10.0 6 0.85 0 11398.777 -3342.999
+## 5 0 0 77001 1.5 1 0.12 0 39134.393 24392.617
+## 6 0 0 30809787 355.0 109000 72.00 22000 3432.386
+-11309.391
+## TB_mort.100k_c y logit factor.y
+## 1 -16.129009 0 -0.07841423 0
+## 2 -8.769009 1 -0.57416872 1
+## 3 -8.769009 1 -0.54714847 1
+## 4 -15.619009 0 -2.73891183 0
+## 5 -16.349009 0 -0.28754952 0
+## 6 55.530991 0 0.56598835 0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;LassoTB&amp;lt;-BinaryTB%&amp;gt;%dplyr::select(region,year,new.pul.TB, prev.treated.pul.TB, prev.unk.pul.TB,new.MDR, prev.MDR, MDR.tested,pop.number, TB.100k, TB.num, TB_mort.100k, TB_mort.num,GDP,y)  
+
+fit5 &amp;lt;- glm(y~.,data=LassoTB,family=binomial(link=&amp;quot;logit&amp;quot;))
+library(glmnet)
+x &amp;lt;- model.matrix(fit5)[, -1]
+y &amp;lt;- as.matrix(LassoTB$y)
+cv &amp;lt;- cv.glmnet(x, y, family = &amp;quot;binomial&amp;quot;)
+lasso &amp;lt;- glmnet(x, y, family = &amp;quot;binomial&amp;quot;, lambda = cv$lambda.1se)
+coef(lasso)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 19 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                                s0
+## (Intercept)         -1.280359e+00
+## regionAMR           -9.392417e-03
+## regionEMR            5.857288e-01
+## regionEUR            1.624157e+00
+## regionSEA            2.860857e-01
+## regionWPR           -2.740013e-01
+## year                 .           
+## new.pul.TB           .           
+## prev.treated.pul.TB  .           
+## prev.unk.pul.TB      .           
+## new.MDR              8.206249e-04
+## prev.MDR             .           
+## MDR.tested           .           
+## pop.number           8.126931e-09
+## TB.100k              2.901032e-03
+## TB.num               .           
+## TB_mort.100k         .           
+## TB_mort.num          .           
+## GDP                 -1.438615e-05&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Variables with a non-zero coefficient from LASSO will be retained in the model: region, new.MDR, pop.number, TB.100k, and GDP. Therefore, these are the most important predictors of if a country has atleast one case of XDR TB.&lt;/p&gt;
+&lt;div id=&#34;perform-10-fold-cv-using-lasso-model&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Perform 10-fold CV using LASSO model&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Model with just non-zero lasso coefficient estimates
+fit6 &amp;lt;- glm(y ~ region+new.MDR+pop.number+TB.100k+GDP, data = LassoTB, family = &amp;quot;binomial&amp;quot;)
+
+prob6 &amp;lt;- predict(fit6, type = &amp;quot;response&amp;quot;)
+class_diag(prob6, LassoTB$y)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         acc      sens      spec      ppv       auc
+## 1 0.7972973 0.6333333 0.9090909 0.826087 0.8883838&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#10-fold CV 
+k = 10
+data1 &amp;lt;- LassoTB[sample(nrow(LassoTB)), ] #put dataset in random order
+folds &amp;lt;- cut(seq(1:nrow(LassoTB)), breaks = k, labels = F) #create folds
+diags &amp;lt;- NULL
+for (i in 1:k) {
+# FOR EACH OF 10 FOLDS
+train &amp;lt;- data1[folds != i, ] #CREATE TRAINING SET
+test &amp;lt;- data1[folds == i, ] #CREATE TESTING SET
+truth &amp;lt;- test$y
+fit &amp;lt;- glm(y ~ region+new.MDR+pop.number+TB.100k+GDP, data = LassoTB, family = &amp;quot;binomial&amp;quot;)
+probs &amp;lt;- predict(fit, newdata = test, type = &amp;quot;response&amp;quot;)
+diags &amp;lt;- rbind(diags, class_diag(probs, truth))
+}
+apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
+## 0.7972332 0.6279670 0.9124291 0.8128175 0.8995426&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This new model’s out of sample accuracy is 0.797 which is fair. It is slightly higher than the previous model’s out of sample accuracy which was 0.743. The AUC also slightly increased from 0.839 to 0.886 (both models are good predictors of if there are XDR TB cases in a country).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+##
+## Matrix products: default
+## BLAS:
+/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK:
+/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+##
+## locale:
+## [1]
+en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+##
+## attached base packages:
+## [1] stats graphics grDevices utils datasets methods base
+##
+## other attached packages:
+## [1] glmnet_3.0-2 Matrix_1.2-18 plotROC_2.2.1
+lmtest_0.9-37 zoo_1.8-7 sandwich_2.5-1
+## [7] forcats_0.5.0 stringr_1.4.0 dplyr_0.8.5 purrr_0.3.3
+readr_1.3.1 tidyr_1.0.2
+## [13] tibble_2.1.3 ggplot2_3.3.0 tidyverse_1.3.0
+knitr_1.28
+##
+## loaded via a namespace (and not attached):
+## [1] Rcpp_1.0.4 lubridate_1.7.4 lattice_0.20-40
+foreach_1.4.8 assertthat_0.2.1
+## [6] digest_0.6.25 R6_2.4.1 cellranger_1.1.0 plyr_1.8.6
+backports_1.1.5
+## [11] reprex_0.3.0 evaluate_0.14 httr_1.4.1 blogdown_0.18
+pillar_1.4.3
+## [16] rlang_0.4.5 readxl_1.3.1 rstudioapi_0.11
+rmarkdown_2.1 labeling_0.3
+## [21] splines_3.6.1 munsell_0.5.0 broom_0.5.5
+compiler_3.6.1 modelr_0.1.6
+## [26] xfun_0.12 pkgconfig_2.0.3 shape_1.4.4 mgcv_1.8-31
+htmltools_0.4.0
+## [31] tidyselect_1.0.0 bookdown_0.18 codetools_0.2-16
+fansi_0.4.1 crayon_1.3.4
+## [36] dbplyr_1.4.2 withr_2.1.2 grid_3.6.1 nlme_3.1-145
+jsonlite_1.6.1
+## [41] gtable_0.3.0 lifecycle_0.2.0 DBI_1.1.0 magrittr_1.5
+scales_1.1.0
+## [46] cli_2.0.2 stringi_1.4.6 farver_2.0.3 fs_1.3.2
+xml2_1.2.5
+## [51] generics_0.0.2 vctrs_0.2.4 iterators_1.0.12
+tools_3.6.1 glue_1.3.2
+## [56] hms_0.5.3 yaml_2.2.1 colorspace_1.4-1 rvest_0.3.5
+haven_2.2.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:23:55 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## sysname
+## &amp;quot;Darwin&amp;quot;
+## release
+## &amp;quot;18.7.0&amp;quot;
+## version
+## &amp;quot;Darwin Kernel Version 18.7.0: Tue Aug 20 16:57:14 PDT
+2019; root:xnu-4903.271.2~2/RELEASE_X86_64&amp;quot;
+## nodename
+## &amp;quot;Cara-Yijin-Zou.local&amp;quot;
+## machine
+## &amp;quot;x86_64&amp;quot;
+## login
+## &amp;quot;yijinzou&amp;quot;
+## user
+## &amp;quot;yijinzou&amp;quot;
+## effective_user
+## &amp;quot;yijinzou&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploratory Data Analysis</title>
+      <link>/project/exploratory_data_analysis/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/project/exploratory_data_analysis/</guid>
+      <description>
+
+
+&lt;div id=&#34;data-wrangling-and-data-exploration&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Wrangling and Data Exploration&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The first two datasets used in this project are both from &lt;a href=&#34;https://www.who.int/tb/country/data/download/en/&#34;&gt;World Health Organization&lt;/a&gt;. They contains information about cases of Tuberculosis for different countries including the new cases, previous cases, drug resistant cases, total population, etc. The third dataset is from &lt;a href=&#34;https://data.worldbank.org/indicator/NY.GDP.PCAP.CD&#34;&gt;The World Bank Group&lt;/a&gt; which lists the GDP per capita of countries for different years in US dollars. This data is interesting because I am currently in a reserach stream at UT trying to identify potential drugs to treat tuberculosis.&lt;/p&gt;
+&lt;p&gt;The first two datasets include information about the resistance of &lt;em&gt;Mycobacterium tuberculosis&lt;/em&gt; to drugs. Tuberculosis is linked with poverty which is why the GDP per capita was also considered. Expectations include that as the number of TB (tuberculosis) cases increase, the number of drug resistant multidrug resistant (MDR) and extensively drug resistant (XDR) TB cases will also increase. Furthermore, as GDP per capita increases, TB cases (and mortality) per 100,000 individuals should decrease since it is assumed that there is more access to healthcare and resources for treatment and prevention.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;find-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Find data:&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tidying&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Tidying:&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join1 &amp;lt;- left_join(data1a, data1b, by = c(&amp;quot;country&amp;quot;, &amp;quot;year&amp;quot;))
+head(join1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB
+## 1 Afghanistan    EMR 2017      19354                2233             125
+## 2 Afghanistan    EMR 2018      20485                1712              NA
+## 3     Albania    EUR 2017        195                  15               0
+## 4     Albania    EUR 2018        198                  10               0
+## 5     Algeria    AFR 2017       6278                 419               0
+## 6     Algeria    AFR 2018       6137                 362              21
+##   new.MDR prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k
+## 1      NA       NA         NA   5   36296113     189  69000        30.00
+## 2      NA       10         10   8   37171921     189  70000        29.00
+## 3       0        0          0   0    2884169      20    580         0.34
+## 4       1        1         NA  NA    2882740      18    510         0.34
+## 5      11       28         39   4   41389189      70  29000         7.70
+## 6       2        5          7   4   42228408      69  29000         7.70
+##   TB_mort.num
+## 1       11000
+## 2       11000
+## 3          10
+## 4          10
+## 5        3200
+## 6        3300&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First, a left join was used to join the first two tuberculosis data sets since dataset 1a included information for 2017 and 2018 while dataset 1b contains data for many years (2000-2018). A left join was used compared to a full_join or right_join because there would be many rows with NAs (rows with year 2000-2016).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data2pivot &amp;lt;- data2 %&amp;gt;% pivot_longer(cols = c(3:4), names_to = &amp;quot;year&amp;quot;, 
+    values_to = &amp;quot;GDP&amp;quot;) %&amp;gt;% separate(col = &amp;quot;year&amp;quot;, into = c(NA, 
+    &amp;quot;year&amp;quot;), sep = 1) %&amp;gt;% mutate(year = as.numeric(year))
+head(data2pivot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   country     Country.Code  year    GDP
+##   &amp;lt;fct&amp;gt;       &amp;lt;fct&amp;gt;        &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Aruba       ABW           2017 25630.
+## 2 Aruba       ABW           2018    NA 
+## 3 Afghanistan AFG           2017   556.
+## 4 Afghanistan AFG           2018   521.
+## 5 Angola      AGO           2017  4096.
+## 6 Angola      AGO           2018  3432.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, to make it easier to join the first two datasets with the third dataset, pivot longer was used on the GDP data (dataset 2). This is due to the fact that while year is a column name in dataset 1a and 1b, for dataset 2, the GDP has two columns: 2017 and 2018. Additionally, when imported, the header of the GDP data inserted an X before the year value. This was removed using the seperate function. Mutate was then used on ‘year’ because its type was character which is incompatible with year in the tuberculosis (1a and 1b) dataset which is a numeric type (cannot be used to join).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;joiningmerging&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Joining/Merging&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(join1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 432&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(data2pivot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 528&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Joining of all three datasets and deleting rows with NAs
+join2 &amp;lt;- inner_join(join1, data2pivot, by = c(&amp;quot;country&amp;quot;, &amp;quot;year&amp;quot;))
+nrow(join1) - nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 72&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(data2pivot) - nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 168&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 &amp;lt;- join2 %&amp;gt;% na.omit()
+nrow(join2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# document the type of join that you do
+# (left/right/inner/full), including how many cases in each
+# dataset were dropped and why you chose this particular join&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Initially, the tuberculosis dataset had 432 cases while the GDP dataset had 528 cases. An inner join was chosen so that all countries remaining would contain information for tuberculosis and their GDP. This resulted in 360 observations remaining with 72 cases being dropped from the tuberculosis dataset and 168 cases dropped from the GDP dataset. Problems include that rows with NAs are more likely to be smaller and poorer countries with less documentation of the data which may skew the results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;wrangling-filter-select-arrange-group_by-mutate-summarize&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Wrangling: filter, select, arrange, group_by, mutate, summarize&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Determining the quantile of GDP and population for each
+# country
+ntile &amp;lt;- join2 %&amp;gt;% mutate(ntileGDP = ntile(n = 5, x = GDP)) %&amp;gt;% 
+    mutate(ntilepop = ntile(n = 5, x = pop.number))
+
+# Mean and standard deviation of numeric variables (excluding
+# year)
+join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% summarize_all(.funs = mean)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   new.pul.TB prev.treated.pul.TB prev.unk.pul.TB  new.MDR prev.MDR MDR.tested
+## 1   16571.29            2829.351        138.8468 135.6441 197.5495   290.7928
+##        XDR pop.number TB.100k   TB.num TB_mort.100k TB_mort.num      GDP
+## 1 38.74324   33335846 98.5732 56241.17     16.46901    8344.464 14741.78&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% summarize_all(.funs = sd)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   new.pul.TB prev.treated.pul.TB prev.unk.pul.TB  new.MDR prev.MDR MDR.tested
+## 1    84215.1            18464.84        1363.483 667.0942   1133.7   1601.977
+##        XDR pop.number TB.100k   TB.num TB_mort.100k TB_mort.num      GDP
+## 1 261.0853  131603854 135.356 276737.8      32.3854    44225.92 18664.98&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join2 %&amp;gt;% summarize_all(.funs = n_distinct)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1     130      6    2        205                 148              44      77
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1       77         86  43        222     152    142          139         132
+##   Country.Code GDP
+## 1          130 222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# top 10 Observations for extensively drug resistant TB cases
+# for 2017 and 2018
+ntile %&amp;gt;% arrange(desc(XDR)) %&amp;gt;% head(10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##               country region year new.pul.TB prev.treated.pul.TB
+## 1  Russian Federation    EUR 2017      32978               26058
+## 2             Ukraine    EUR 2017      12840                7212
+## 3             Ukraine    EUR 2018      12931                6774
+## 4               India    SEA 2018     825939              208197
+## 5               India    SEA 2017     868769              176450
+## 6             Belarus    EUR 2017       1690                 700
+## 7          Tajikistan    EUR 2017       2432                 652
+## 8             Belarus    EUR 2018       1529                 612
+## 9            Pakistan    EMR 2017     128806               15241
+## 10               Peru    AMR 2018      17387                3075
+##    prev.unk.pul.TB new.MDR prev.MDR MDR.tested  XDR pop.number TB.100k  TB.num
+## 1                0    8206    14611      20477 3562  145530082      59   85000
+## 2                0    2594     2414       5008 1001   44487709      84   37000
+## 3                0    2755     2299       5054  972   44246156      80   36000
+## 4                0    3232     5182       6832  493 1352642280     199 2690000
+## 5                0    2152     5357       6787  466 1338676785     204 2740000
+## 6                0     629      459       1088  343    9450231      37    3500
+## 7                0     413      133        508  279    8880268      85    7500
+## 8                0     559      425        984  185    9452617      31    2900
+## 9              116     535     2102       2600  123  207906209     267  554000
+## 10               0    1198      481        758   91   31989260     123   39000
+##    TB_mort.100k TB_mort.num Country.Code        GDP ntileGDP ntilepop
+## 1           8.1       12000          RUS 10750.5871        4        5
+## 2          14.0        6400          UKR  2640.6757        2        5
+## 3          13.0        5700          UKR  3095.1736        2        5
+## 4          33.0      449000          IND  2015.5905        2        5
+## 5          34.0      454000          IND  1981.4990        2        5
+## 6           6.0         560          BLR  5761.7471        3        3
+## 7           9.2         820          TJK   806.0416        1        3
+## 8           5.9         560          BLR  6289.9386        3        3
+## 9          21.0       45000          PAK  1466.8431        1        5
+## 10          8.3        2700          PER  6947.2566        3        5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# new variable created using mutate; proportion of XDR/MDR:
+# richest countries as well as the poorest countries have the
+# lowest mean percentage of MDR TB cases developing into XDR
+# cases
+ntile %&amp;gt;% mutate(perc.XDR.MDR = XDR/MDR.tested) %&amp;gt;% group_by(ntileGDP) %&amp;gt;% 
+    summarize(mean(perc.XDR.MDR, na.rm = T))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 2
+##   ntileGDP `mean(perc.XDR.MDR, na.rm = T)`
+##      &amp;lt;int&amp;gt;                           &amp;lt;dbl&amp;gt;
+## 1        1                          0.0709
+## 2        2                          0.169 
+## 3        3                          0.150 
+## 4        4                          0.129 
+## 5        5                          0.0803&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by quantile of GDP per capita ; mean TB per 100,000
+# people and mortality due to TB per 100,00 people appears to
+# decrease as the percentile of GDP per capita increases
+ntile %&amp;gt;% group_by(ntileGDP) %&amp;gt;% summarize(mean(TB.100k), mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 3
+##   ntileGDP `mean(TB.100k)` `mean(TB_mort.100k)`
+##      &amp;lt;int&amp;gt;           &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+## 1        1           220                 49.0  
+## 2        2           163                 19.4  
+## 3        3            64.0                9.93 
+## 4        4            29.0                2.61 
+## 5        5            14.9                0.811&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by region in world: AFR=Africa; AMR=Americas;
+# EMR=Eastern Mediterranean; EUR=Europe; SEAR=South-East
+# Asia; WPR=Western Pacific
+join2 %&amp;gt;% group_by(region) %&amp;gt;% select_if(is.numeric) %&amp;gt;% select(-year) %&amp;gt;% 
+    summarize(mean(TB.100k), mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 3
+##   region `mean(TB.100k)` `mean(TB_mort.100k)`
+##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+## 1 AFR              210                  53.0 
+## 2 AMR               30.7                 3.79
+## 3 EMR               76.6                10.2 
+## 4 EUR               22.8                 2.09
+## 5 SEA              198.                 26.4 
+## 6 WPR              153.                 11.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Maximum TB cases per 100,000 people
+ntile %&amp;gt;% filter(TB.100k == max(TB.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1 Lesotho    AFR 2018       3595                 728               0      51
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1        5          5   0    2108328     611  13000          200        4200
+##   Country.Code      GDP ntileGDP ntilepop
+## 1          LSO 1324.283        1        2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Minimum TB cases per 100,000 people
+ntile %&amp;gt;% filter(TB.100k == min(TB.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      country region year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB new.MDR
+## 1   Barbados    AMR 2017          0                   0               0       0
+## 2 San Marino    EUR 2017          0                   0               0       0
+##   prev.MDR MDR.tested XDR pop.number TB.100k TB.num TB_mort.100k TB_mort.num
+## 1        0          0   0     286232       0      0          0.9           3
+## 2        0          0   0      33671       0      0          0.0           0
+##   Country.Code      GDP ntileGDP ntilepop
+## 1          BRB 16327.61        4        1
+## 2          SMR 48494.55        5        1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Group by two variables: percentile of population and year
+ntile %&amp;gt;% group_by(ntilepop, year) %&amp;gt;% summarize(mean(TB.100k), 
+    mean(TB_mort.100k))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 10 x 4
+## # Groups:   ntilepop [5]
+##    ntilepop  year `mean(TB.100k)` `mean(TB_mort.100k)`
+##       &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;           &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;
+##  1        1  2017            89.1                 9.21
+##  2        1  2018            91.8                10.4 
+##  3        2  2017           117.                 24.1 
+##  4        2  2018           154.                 31.6 
+##  5        3  2017            23.3                 2.31
+##  6        3  2018            20.9                 1.93
+##  7        4  2017           106.                 22.6 
+##  8        4  2018           147.                 33.8 
+##  9        5  2017           124.                 15.1 
+## 10        5  2018           124.                 16.4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since most of the variables are numeric, the quantiles of GDP and the population were found and were used later to group the data. The mean and standard deviation were found for the numeric variables using the summarize_all function. Using arrange, the country that has the most extensively drug resistant TB cases for either 2017 or 2018 is the Russia followed by Ukraine and India. Using mutate to create a new variable, the proportion of of XDR/MDR appears to decrease towards the extremes of GDP per capita. Grouping by quantile of GDP per capita, mean TB cases and mortality due to TB per 100,00 people appears to decrease as the quantile of GDP per capita increases. Grouping by region, AFR has the highest mean TB cases and mortality per 100,000 people of the regions while EUR has the lowest averages.&lt;/p&gt;
+&lt;p&gt;The country with the maximum TB per 100,000 people is Lesotho in AFR and in the 1st quantile of GDP (low). The countries with the minimum TB per 100,000 people are Barbados and San Marino which both have small populations (1st quantile) and relatively high GDP. Grouping by two variables (population and year), countries in the 2nd and 4th quantile of population saw the greatest change in mean TB cases per 100,000 with both reporting an increase from 2017 to 2018. Countries in the 2nd and 4th quantile of the population also had the greatest mean mortality due to TB cases per 100,000 (as well as the greatest change between 2017 and 2018). Interestingly, the countries in the 3rd quantile had the lowest mean TB cases and mortality per 100,000 (for both 2017 and 2018).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Correlation matrix
+join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% cor() %&amp;gt;% round(2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                      year new.pul.TB prev.treated.pul.TB prev.unk.pul.TB
+## year                 1.00       0.00                0.01            0.06
+## new.pul.TB           0.00       1.00                0.97            0.17
+## prev.treated.pul.TB  0.01       0.97                1.00            0.06
+## prev.unk.pul.TB      0.06       0.17                0.06            1.00
+## new.MDR             -0.03       0.39                0.47            0.02
+## prev.MDR            -0.06       0.47                0.53            0.08
+## MDR.tested          -0.05       0.43                0.49            0.07
+## XDR                 -0.06       0.18                0.26            0.01
+## pop.number           0.00       0.99                0.98            0.14
+## TB.100k              0.04       0.19                0.13            0.11
+## TB.num               0.00       0.99                0.96            0.21
+## TB_mort.100k         0.05       0.11                0.08            0.04
+## TB_mort.num          0.01       0.99                0.97            0.15
+## GDP                  0.01      -0.13               -0.10           -0.02
+##                     new.MDR prev.MDR MDR.tested   XDR pop.number TB.100k TB.num
+## year                  -0.03    -0.06      -0.05 -0.06       0.00    0.04   0.00
+## new.pul.TB             0.39     0.47       0.43  0.18       0.99    0.19   0.99
+## prev.treated.pul.TB    0.47     0.53       0.49  0.26       0.98    0.13   0.96
+## prev.unk.pul.TB        0.02     0.08       0.07  0.01       0.14    0.11   0.21
+## new.MDR                1.00     0.96       0.98  0.96       0.43    0.04   0.38
+## prev.MDR               0.96     1.00       0.99  0.93       0.51    0.06   0.47
+## MDR.tested             0.98     0.99       1.00  0.96       0.47    0.05   0.42
+## XDR                    0.96     0.93       0.96  1.00       0.23    0.00   0.17
+## pop.number             0.43     0.51       0.47  0.23       1.00    0.13   0.98
+## TB.100k                0.04     0.06       0.05  0.00       0.13    1.00   0.23
+## TB.num                 0.38     0.47       0.42  0.17       0.98    0.23   1.00
+## TB_mort.100k           0.01     0.03       0.02 -0.01       0.07    0.86   0.13
+## TB_mort.num            0.38     0.46       0.42  0.17       0.98    0.21   0.98
+## GDP                   -0.09    -0.08      -0.09 -0.06      -0.10   -0.40  -0.13
+##                     TB_mort.100k TB_mort.num   GDP
+## year                        0.05        0.01  0.01
+## new.pul.TB                  0.11        0.99 -0.13
+## prev.treated.pul.TB         0.08        0.97 -0.10
+## prev.unk.pul.TB             0.04        0.15 -0.02
+## new.MDR                     0.01        0.38 -0.09
+## prev.MDR                    0.03        0.46 -0.08
+## MDR.tested                  0.02        0.42 -0.09
+## XDR                        -0.01        0.17 -0.06
+## pop.number                  0.07        0.98 -0.10
+## TB.100k                     0.86        0.21 -0.40
+## TB.num                      0.13        0.98 -0.13
+## TB_mort.100k                1.00        0.16 -0.32
+## TB_mort.num                 0.16        1.00 -0.13
+## GDP                        -0.32       -0.13  1.00&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The correlation matrix shows that the strongest positive correlations are between new pulmonary TB cases and population number; new pulmonary TB cases and total number of TB cases; new pulmonary TB cases and total mortality due to TB; previous MDR TB cases and number of MDR cases that were tested for additional resistance. The strongest negative correlations are GDP and the TB cases per 100,000 people; GDP and TB mortality per 100,000 people.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualizing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Visualizing&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 1: Scatterplot
+ntile %&amp;gt;% ggplot(aes(x = TB.100k, y = TB_mort.100k)) + geom_point(aes(color = ntileGDP)) + 
+    ggtitle(&amp;quot;TB Cases and Mortality&amp;quot;) + xlab(&amp;quot;TB Cases per 100,000 people&amp;quot;) + 
+    ylab(&amp;quot;TB mortality per 100,000 people&amp;quot;) + scale_fill_brewer() + 
+    scale_y_continuous(breaks = c(25, 50, 75, 100, 125, 150, 
+        175, 200)) + scale_x_continuous(breaks = c(100, 200, 
+    300, 400, 500, 600)) + labs(color = &amp;quot;GDP&amp;quot;) + theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+This graph shows that as TB cases increase, TB mortality also increases per 100,000 people. Contrastingly, TB cases and mortality have a negative relationship with GDP per capita. This suggests that countries with lower GDP have higher occurrences of TB and mortality due to TB which is expected since there is less funding towards preventative measures as well as resources and access to treatment.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 2: Boxplot
+ntile %&amp;gt;% ggplot(aes(group = region, x = region, y = TB.100k)) + 
+    geom_boxplot() + geom_jitter(alpha = 0.3, aes(color = ntilepop, 
+    size = ntilepop)) + ggtitle(&amp;quot;TB cases for each Region&amp;quot;) + 
+    xlab(&amp;quot;Region&amp;quot;) + ylab(&amp;quot;TB Cases per 100,000 people&amp;quot;) + labs(color = &amp;quot;Population&amp;quot;, 
+    size = &amp;quot;Population&amp;quot;) + theme_light()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+The boxplot shows that the median of TB cases for 100,000 people is highest in SEA. Previously, summary statistics showed that AFR had the highest mean. From the boxplot, it is clear that the distribution is skewed resulting in a higher median than mean. The spread is largest for AFR as well. The countries in AMR, EMR, and EUR all have relatively low median values. When grouped by region, there is not an obvious relationship between the population and TB cases per 100,000 people.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# GGPlot 3: Stacked Bar plot
+ntile$year &amp;lt;- factor(ntile$year, levels = c(&amp;quot;2017&amp;quot;, &amp;quot;2018&amp;quot;))
+ggplot(ntile, aes(x = ntileGDP, y = TB_mort.100k, fill = year)) + 
+    geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;mean&amp;quot;, position = &amp;quot;dodge&amp;quot;) + 
+    geom_errorbar(stat = &amp;quot;summary&amp;quot;, position = &amp;quot;dodge&amp;quot;) + xlab(&amp;quot;Quantile of GDP per capita&amp;quot;) + 
+    ylab(&amp;quot;TB Mortality per 100,000 people&amp;quot;) + ggtitle(&amp;quot;GDP per Capita and TB mortality per 100,000 people&amp;quot;) + 
+    theme_grey() + scale_y_continuous(breaks = c(10, 20, 30, 
+    40, 50, 60))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+A stacked bar plot was used to demonstrate how increasing GDP per capita results in a lower TB mortality on average. The biggest change in TB mortality between 2017 and 2018 is represented in the countries in the 1st quantile of GDP per capita (however, the error bars are overlapping). As the quantile of GDP increases, the spread of the data (error bars) also decrease.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dimensionality-reduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Dimensionality Reduction&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Prepare data by scaling
+joinPCA &amp;lt;- join2 %&amp;gt;% select_if(is.numeric) %&amp;gt;% scale %&amp;gt;% na.omit
+join_pca &amp;lt;- princomp(joinPCA)
+summary(join_pca, loadings = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Importance of components:
+##                           Comp.1    Comp.2    Comp.3     Comp.4     Comp.5
+## Standard deviation     2.5078967 1.6468586 1.4044384 1.01775753 0.96840866
+## Proportion of Variance 0.4512861 0.1946011 0.1415266 0.07432267 0.06728992
+## Cumulative Proportion  0.4512861 0.6458872 0.7874138 0.86173646 0.92902637
+##                            Comp.6      Comp.7      Comp.8      Comp.9
+## Standard deviation     0.86661846 0.371251458 0.202421301 0.145441708
+## Proportion of Variance 0.05388756 0.009889379 0.002939985 0.001517786
+## Cumulative Proportion  0.98291394 0.992803315 0.995743300 0.997261086
+##                            Comp.10      Comp.11      Comp.12     Comp.13
+## Standard deviation     0.127383707 0.1098210941 0.0756806126 0.052799805
+## Proportion of Variance 0.001164288 0.0008653747 0.0004109623 0.000200031
+## Cumulative Proportion  0.998425374 0.9992907485 0.9997017107 0.999901742
+##                             Comp.14
+## Standard deviation     3.700566e-02
+## Proportion of Variance 9.825826e-05
+## Cumulative Proportion  1.000000e+00
+## 
+## Loadings:
+##                     Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8
+## year                                      0.729  0.674                     
+## new.pul.TB          -0.356  0.246 -0.118                              0.147
+## prev.treated.pul.TB -0.362  0.188 -0.138                             -0.465
+## prev.unk.pul.TB                           0.656 -0.728  0.101              
+## new.MDR             -0.297 -0.385                                    -0.616
+## prev.MDR            -0.320 -0.344                                     0.524
+## MDR.tested          -0.310 -0.372                                     0.177
+## XDR                 -0.235 -0.474  0.124                                   
+## pop.number          -0.361  0.210 -0.147                                   
+## TB.100k                     0.213  0.602               -0.241  0.708       
+## TB.num              -0.354  0.253 -0.100                       0.131  0.239
+## TB_mort.100k                0.192  0.602               -0.358 -0.670       
+## TB_mort.num         -0.354  0.255 -0.101                      -0.115       
+## GDP                               -0.404  0.157        -0.890              
+##                     Comp.9 Comp.10 Comp.11 Comp.12 Comp.13 Comp.14
+## year                                                              
+## new.pul.TB          -0.304  0.175                  -0.790  -0.156 
+## prev.treated.pul.TB  0.688         -0.130   0.264  -0.111         
+## prev.unk.pul.TB                                                   
+## new.MDR             -0.402 -0.197  -0.295  -0.212           0.203 
+## prev.MDR             0.382 -0.267  -0.185  -0.219  -0.151   0.416 
+## MDR.tested                         -0.102           0.177  -0.821 
+## XDR                         0.537   0.512   0.332           0.201 
+## pop.number          -0.139 -0.605   0.616           0.164         
+## TB.100k                                                           
+## TB.num              -0.307  0.115  -0.437   0.509   0.358   0.199 
+## TB_mort.100k                                                      
+## TB_mort.num                 0.424          -0.667   0.390         
+## GDP&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Choose number of PC to keep convert standard deviations to
+# eigenvalues
+eigval &amp;lt;- join_pca$sdev^2
+# proportion of variance explained by each PC
+varprop = round(eigval/sum(eigval), 2)
+ggplot() + geom_bar(aes(y = varprop, x = 1:14), stat = &amp;quot;identity&amp;quot;) + 
+    xlab(&amp;quot;&amp;quot;) + geom_path(aes(y = varprop, x = 1:14)) + geom_text(aes(x = 1:14, 
+    y = varprop, label = round(varprop, 2)), vjust = 1, col = &amp;quot;white&amp;quot;, 
+    size = 5) + scale_y_continuous(breaks = seq(0, 0.6, 0.2), 
+    labels = scales::percent) + scale_x_continuous(breaks = 1:14)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot for PCA (PC1 and PC2)
+join2 %&amp;gt;% na.omit %&amp;gt;% mutate(PC1 = join_pca$scores[, 1], PC2 = join_pca$scores[, 
+    2]) %&amp;gt;% ggplot(aes(x = PC1, y = PC2, color = region, size = GDP)) + 
+    geom_point() + ggtitle(&amp;quot;PCA Plot&amp;quot;) + theme(legend.position = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot for PCA (PC3 and PC4)
+join2 %&amp;gt;% na.omit %&amp;gt;% mutate(PC3 = join_pca$scores[, 3], PC4 = join_pca$scores[, 
+    4]) %&amp;gt;% ggplot(aes(x = PC3, y = PC4, color = region, size = GDP)) + 
+    geom_point() + ggtitle(&amp;quot;PCA Plot&amp;quot;) + theme(legend.position = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-3.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot of loadings
+join_pca$loadings[1:14, 1:2] %&amp;gt;% as.data.frame %&amp;gt;% rownames_to_column %&amp;gt;% 
+    ggplot() + geom_hline(aes(yintercept = 0), lty = 2) + geom_vline(aes(xintercept = 0), 
+    lty = 2) + ylab(&amp;quot;PC2&amp;quot;) + xlab(&amp;quot;PC1&amp;quot;) + geom_segment(aes(x = 0, 
+    y = 0, xend = Comp.1, yend = Comp.2), arrow = arrow(), col = &amp;quot;red&amp;quot;) + 
+    geom_label(aes(x = Comp.1 * 1.1, y = Comp.2 * 1.1, label = rowname)) + 
+    ggtitle(&amp;quot;Plot of Loadings&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-4.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# biplot combining loadings plot and PC score plot
+library(&amp;quot;factoextra&amp;quot;)
+fviz_pca_biplot(join_pca)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/Exploratory_Data_Analysis_files/figure-html/unnamed-chunk-11-5.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Based on the scree plot and cumulative proportion of variance (and Kaiser’s rule), 3 to 4 PCs should be chosen. High scores on PC1 indicate low TB cases (new, previous, MDR TB, mortality, etc.) and low population. For PC2, high scores indicate high TB cases and mortality per 100,000 people but lower resistant (MDR and XDR) TB cases as well as lower GDP per capita. For PC3, high scores indicate lower cases of resistant TB cases and lower TB cases and mortality per 100,000 people but higher GDP. On the PCA plot, there appears to be some seperation based on GDP looking at PC3 (larger dots on the right). Finally, high scores PC4 indicate high numbers of confirmed TB cases with unknown TB treatment history.&lt;/p&gt;
+&lt;p&gt;The plot of loadings helps visualize which variances contribute to which of the PCs with a smaller angle between vectors showing higher correlation. Therefore, GDP is negatively correlated to the other variables and mainly differs based on PC1. Contrastingly, other variables such as new cases of pulmonary TB, previous treated pulmonary TB cases, total TB cases, etc. are almost redundant.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] factoextra_1.0.6 forcats_0.5.0    stringr_1.4.0    dplyr_0.8.5     
+##  [5] purrr_0.3.3      readr_1.3.1      tidyr_1.0.2      tibble_2.1.3    
+##  [9] ggplot2_3.3.0    tidyverse_1.3.0  knitr_1.28      
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.0.0 xfun_0.12        haven_2.2.0      lattice_0.20-40 
+##  [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
+##  [9] yaml_2.2.1       utf8_1.1.4       rlang_0.4.5      ggpubr_0.2.5    
+## [13] pillar_1.4.3     withr_2.1.2      glue_1.3.2       DBI_1.1.0       
+## [17] dbplyr_1.4.2     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
+## [21] ggsignif_0.6.0   munsell_0.5.0    blogdown_0.18    gtable_0.3.0    
+## [25] cellranger_1.1.0 rvest_0.3.5      evaluate_0.14    labeling_0.3    
+## [29] fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4       formatR_1.7     
+## [33] backports_1.1.5  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
+## [37] fs_1.3.2         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
+## [41] ggrepel_0.8.2    bookdown_0.18    grid_3.6.1       cli_2.0.2       
+## [45] tools_3.6.1      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
+## [49] ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0     lubridate_1.7.4 
+## [53] assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1       rstudioapi_0.11 
+## [57] R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:21:42 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                                                                                            sysname 
+##                                                                                           &amp;quot;Darwin&amp;quot; 
+##                                                                                            release 
+##                                                                                           &amp;quot;18.7.0&amp;quot; 
+##                                                                                            version 
+## &amp;quot;Darwin Kernel Version 18.7.0: Tue Aug 20 16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64&amp;quot; 
+##                                                                                           nodename 
+##                                                                             &amp;quot;Cara-Yijin-Zou.local&amp;quot; 
+##                                                                                            machine 
+##                                                                                           &amp;quot;x86_64&amp;quot; 
+##                                                                                              login 
+##                                                                                         &amp;quot;yijinzou&amp;quot; 
+##                                                                                               user 
+##                                                                                         &amp;quot;yijinzou&amp;quot; 
+##                                                                                     effective_user 
+##                                                                                         &amp;quot;yijinzou&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

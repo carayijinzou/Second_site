@@ -1,0 +1,121 @@
+---
+title: "PyMOL Scripting"
+author: "Cara Yijin Zou"
+date: "2020-06-29"
+categories: ["Bioinformatics", "VDS"]
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## PyMOL
+### Brief Introduction: What is PyMOL? 
+PyMOL is a molecular visualization software used for 3D depictions of molecules such as proteins, nucleic acids, etc. You can download the software here: [https://pymol.org/2/](https://pymol.org/2/).
+
+### Why do scripting and not just use the graphical interface? 
+While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface. 
+
+### How to approach/ (Hopefully) Helpful tips 
+Having a pymol "cheat sheet" can aslo be extremely helpful. Here are some key details that I find to be useful. These are just some functions that I think are important, for more information, here is the [pymol wiki](https://pymolwiki.org/).
+
+#### Setting up the interface 
+> bg white
+
+> hide nonbonded  # hides water molecules
+
+> set seq_view, 1
+
+#### Loading in a protein(s)
+Sometimes, it can appear that the script works fine when manually inputting lines one by one but when running an entire script, it fails to run. In this case, it is important to use the async=0 so that PyMOL understands to pause until the protein(s) has loaded before proceeding. Also something to note, currently, when fetching directly from PyMOL, files download as a .CIF instead of a .PDB. You can change this by adding type=pdb. 
+
+> fetch 3lwb, type=pdb, async=0 
+
+#### Simple functions
+
+> zoom resn EDO
+
+> show sticks, hyfo
+
+> show spheres, 3lwb_active_water
+
+> color orange, hyfo
+
+> orient 3lwb
+
+> scene 001, store   #save scene 
+
+> save 3lwb_v1.pse  #save session
+
+#### Select (and Rename) Objects
+select chosen_name, resn actual_name 
+
+> sele protein, chain A - resn HOH
+
+> select ADP, (1iow &  resn ADP) 
+
+> select backbone, name CA+N+C+O
+
+> sele active_site, resi 122+120+189+208+250+124
+
+> select hyfo, resn ala+gly+val+ile+leu+phe+met
+
+#### Labelling 
+> label (resi 330 & n;cg &! 1iow),"%s-%s" % (resn,resi)
+
+> label (ADP & n;o3a), "ADP"
+
+> label (resn MG), "Magnesium"
+
+#### Booleans
+Reviewing booleans for "and", "or", "not" can be helpful when selecting molecules. 
+For example: 
+
+> select 3lwb_active_water, ((ligands) around 3.2) and (resn HOH) & ! 1iow
+
+#### Alter and Rebuild
+When changing the size of spheres, it may be necessary to rebuild the view in order to see the change.
+> alter Magnesium, vdw = 0.7
+
+> rebuild
+
+#### Acronyms
+Other than just practicing, I think the biggest help for learning scripting is learning what the acronyms and certain key words mean.
+
+| Command           | What it means                                       |
+| ------------------| ----------------------------------------------------|
+| util.cbag         | Utility color by atom (color first letter)          |
+| resn ALA          | Residue name                                        |
+| resi 100          | Residue identifier                                  |
+| id                | Column number in PDB                                |
+| byres             | By complete residue (also byobject, bychain, etc.)  |
+
+
+#### Within VS Around 
+> sele active, byres all within 5 of ligands
+
+**Within** also selects the ligands as part of the active site. If you want to select active site residues not including the ligands you can use **around**: 
+
+> select active, byres (ligand around 5)
+
+#### Take high quality picture
+> ray
+
+> png 3lwbRay.png 
+
+#### Distance 
+> distance hbonds_ligands, ligands, 3lwb_active, 3.2, mode=2
+
+> hide labels, hbonds_ligands
+
+> color black, hbonds_ligands
+
+#### Atom names
+When selecting individual atoms it can be helpful to understand this notation: "n;ca". 
+This refers to name carbon alpha (and so on for beta, gamma, delta, etc.). 
+
+#### Superimposing
+The first will move to superimpose on the second structure. 
+
+> super 1iow, 3lwb

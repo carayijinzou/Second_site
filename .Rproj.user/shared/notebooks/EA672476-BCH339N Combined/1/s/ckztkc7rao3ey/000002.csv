@@ -1,0 +1,43 @@
+"0","```r
+library(randomForest)
+set.seed(40)
+options(expressions = 5e5)
+#pos/neg control
+neg_control = rbind(clinvar2, cancer2) #112 pathogenic variants
+pos_control_index = sample(nrow(gnomAD2), size = nrow(neg_control), replace = FALSE)
+pos_control = gnomAD2[pos_control_index,]
+# take a fifth of each data set for testing data
+neg_control_index = sample(nrow(neg_control), size = round(nrow(neg_control)*0.2), replace = FALSE)
+pos_control_index1 = sample(nrow(pos_control), size = round(nrow(pos_control)*0.2), replace = FALSE)
+neg_testing_data = neg_control[neg_control_index,]
+neg_training_data = neg_control[-neg_control_index,]
+ 
+pos_testing_data = pos_control[pos_control_index1,]
+pos_training_data = pos_control[-pos_control_index1,]
+# 10-fold cross validation
+ 
+training_data = rbind(pos_training_data, neg_training_data)
+training_data = training_data[sample(nrow(training_data), size = nrow(training_data), replace = FALSE),]
+nrow(training_data)*0.1 #equals 18
+ten_fold_accuracy = c()
+for(i in 1:10){
+  Index = (1:18)+(i-1)*18
+  train_data = training_data[-Index, ]
+  testin_data = training_data[Index, ]
+  cross_result = randomForest(phenotype ~., data = train_data, importance = T, ntree = 50,
+                               	na.action = na.exclude)
+  result = predict(cross_result, testin_data)
+ 
+  ten_fold_accuracy[i] = sum(result == testin_data$phenotype)/nrow(testin_data)
+}
+#there's an NA result , in the testin_data = training_data[145:162,]
+testin_data = training_data[145:162,]
+train_data = training_data[-(145:162),]
+cross_result = randomForest(phenotype ~., data = train_data, importance = T, ntree = 50,
+                        	na.action = na.exclude)
+result = predict(cross_result, testin_data)
+# result[18] = NA, so we exclude it from data
+ten_fold_accuracy[9] = sum(result[-18] == testin_data[-18]$phenotype)/nrow(testin_data[-18])
+matrix(ten_fold_accuracy, nrow = 1, dimnames = list('ten_fold_accuracy'))
+mean(ten_fold_accuracy)
+```"

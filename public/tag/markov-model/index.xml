@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markov Model | Cara (Yijin) Zou</title>
+    <link>/tag/markov-model/</link>
+      <atom:link href="/tag/markov-model/index.xml" rel="self" type="application/rss+xml" />
+    <description>Markov Model</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Markov Model</title>
+      <link>/tag/markov-model/</link>
+    </image>
+    
+    <item>
+      <title>Markov Models</title>
+      <link>/post/markov_model/</link>
+      <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/markov_model/</guid>
+      <description>
+
+
+&lt;div id=&#34;markov-chain&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Markov Chain&lt;/h1&gt;
+&lt;div id=&#34;what-is-a-markov-chain&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a markov chain?&lt;/h3&gt;
+&lt;p&gt;A succession of random events such as coin tosses, e.g. THTTHT.
+There is a set of states: Tails and Heads. Each of these events has a certain likelihood. There is an initial probability for each state as well as a transition probability between states.
+In a fair coin:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Outcome&lt;/th&gt;
+&lt;th&gt;Likelihood&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Heads&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Tails&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;application-chutes-and-ladders&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Application: Chutes and Ladders&lt;/h3&gt;
+&lt;p&gt;A well known application is through the game “chutes and ladders” or also known as “snakes and ladders”.&lt;/p&gt;
+&lt;p&gt;Markov property, future only depends on current state (doesn’t matter how we got to current state)
+Another possible way this problem can be solved is modelling it using Markov Chain where the probability of landing on a position is independent from all the moves before the current state which is true for chutes and ladders. Markov chains use a combination of probability and matrices for problems that occur in a series of steps or probability trees. In this way, we are able to calculate the probability of being in any state many steps ahead. Markov chains are a set of states and the probability of transitioning between states. Every player is in a state and no person can be in both states. Players change states when the dice is rolled.&lt;/p&gt;
+&lt;div id=&#34;transition-matrix&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Transition Matrix&lt;/h4&gt;
+&lt;p&gt;These probabilities then form a matrix known as a transition matrix. The probability in the transition probability matrix is the probability of moving to a state, not the probability of starting in that state. All transition matrices are square, in this case, it will be a 100 by 100 matrix. This is due to the fact that each state always has a probability of transitioning to another state, even if the transition probability is zero.&lt;/p&gt;
+&lt;p&gt;There are different types of markov chains, however for the case of chutes and ladders, we will be focusing on one, the absorbing markov chain. An absorbing markov chain has absorbing states where once reached, it is impossible to exit from. In this case, we will be using an absorbing markov chain since the game is over once position 100 is reached.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/Markov_model/HMM_files/Chutes_Ladders.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Algorithmn
+1. Loop&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+def play_game(players, position):
+ for i in range(len(players)): 
+   #player spins
+   
+   #player moves  
+   position[i]+=1
+   
+   #check position
+   if position[i]==100: 
+     print(players[i], &amp;quot;wins!&amp;quot;)
+     break
+   else: 
+     print(&amp;quot;no winners yet&amp;quot;)
+ return
+ 
+def main(): 
+ players=[&amp;quot;Ann&amp;quot;, &amp;quot;Joe&amp;quot;]
+ position=[0,7]
+ 
+ play_game(players, position)
+main()
+ &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## no winners yet
+## no winners yet&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;```&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
