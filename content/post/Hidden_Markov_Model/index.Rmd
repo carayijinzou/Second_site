@@ -6,6 +6,7 @@ output: html_document
 math : true
 categories: ["Statistics", "Probability","Bioinformatics"]
 tags: ["Statistics","Modelling", "Markov Chain","Probability"]
+draft: true
 ---
 
 ```{r setup, include=FALSE}
@@ -13,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Hidden Markov Model
-I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values. 
+I go over the basics of a Markov Chain [here](Markov_chain), however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values. 
 
 ## Emission probability
 The **emission probability** is what gives way to the observed state (or the markov state).

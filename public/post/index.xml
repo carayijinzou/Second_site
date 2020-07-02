@@ -221,7 +221,7 @@ This refers to name carbon alpha (and so on for beta, gamma, delta, etc.).&lt;/p
 
 &lt;div id=&#34;hidden-markov-model&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Hidden Markov Model&lt;/h2&gt;
-&lt;p&gt;I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values.&lt;/p&gt;
+&lt;p&gt;I go over the basics of a Markov Chain &lt;a href=&#34;Markov_chain&#34;&gt;here&lt;/a&gt;, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. The markov chain is not visible to us, we can only observe outcome values.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;emission-probability&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Emission probability&lt;/h2&gt;
