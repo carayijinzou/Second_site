@@ -14,7 +14,7 @@ draft: true
 <div id="hidden-markov-model" class="section level2">
 <h2>Hidden Markov Model</h2>
 <p>I go over the basics of a Markov Chain <a href="../Markov_chain">here</a>, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. In this case the markov chain is not visible to us, we can only observe outcome values.</p>
-<p>Like a markov chain, there are still states (now hidden), transition probabilities, and initial probabilities. However, in addition to this, we also have an observed state and an emission probability.</p>
+<p>Like a markov chain, there are still <strong>states</strong> (now hidden), <strong>transition probabilities</strong>, and <strong>initial probabilities</strong>. However, in addition to this, we also have an <strong>observed state</strong> and an <strong>emission probability</strong>.</p>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="751px" viewBox="-0.5 -0.5 751 441" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-07-02T17:47:17.085Z&quot; agent=&quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot; etag=&quot;IwPpH-5e6uUfPe3D6aqo&quot; version=&quot;13.3.5&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;C5RBs43oDa-KdzZeNtuy&quot; name=&quot;Page-1&quot;&gt;7Vxbk5pIFP41PsaiLyA+RjMz2c1uNrtmd3aeUkRapQZtt8FR8+u3GRqB7lbQEdBgpSpFX2joc/nOdw7tdNBwvnlgznL2O3WJ34GGu+mgDx0I+9ji/0cd27jDBHbcMWWeG3eBtGPk/SCi0xC9K88lQW5iSKkfest855guFmQc5vocxug6P21C/fxTl86UKB2jseOrvY+eG87iXhv20v6PxJvOkicDqx+PzJ1ksthJMHNcus50obsOGjJKw/hqvhkSP5JdIpfHX7aP/m/P1sOvfwb/OX8PPn39/M+7eLH7Y27ZbYGRRXjepYUUXhx/JeT1mYQT39uILYfbRI6MrhYuidYCHTRYz7yQjJbOOBpdc8PhfbNw7ovhCV2EwhQAl9Ng6jtBpEeDXwcho887XUSzd4KNhiee7w+pT9nrY9Hg9R/vLykDIasXwkKyyViAkMkDoXMSsi2fIkZxX6hX2DfEor1OrQUkJjDLWEoyzxEGOt0tnSqBXwg9HKNuoChl5BOybI1KwOWpBCoq+ciXXlP23BqtIJzXCurVqBUU3OHFwJzNBi8j9unr9psz+UPgXVYpijLIwn0fBRHeGkei9cZ5+XMZse2/kUS7ZtJ8yo592Ahxx61t0tp4YeY23nrKjKQ3RY3knvjliKvEq3KaCuiKjUkJIw0dNiWHFuzp9ZzRo6lRY9LHiO+E3kt+Ezrdiid8oR7fXmpGknMjUzKPeJ/irmw8kxbCsj0a0kKxHJSFXk1tt+3TrU9FaaOLFQPkzhXmTS5268RzF3RBJGcWXY7vTReR3XLrILx/ELmqx4nNezEw91w3eowWY1IUSk1P8fWyxrc/eO7TQcaWsMaWYFWQoOJ0bZDwRvcu9FqwRxX1uC029qD/tbkturktRPDC3BYXu+14xV52rKrIh9/ki025mIn20N5jXczsSQuhci7GRepsM9OW0YTgwAsD6TnAOPxe0gaBXTDfOnK+Lb2PkZvPL+IdnhVPTA2emC3DEyjhCTAbxhPrDDRAMPzk+inH9vUMP6UOWeKQ4RHVUIfizKAsx7hlBueABLWoZnQTVbUFElAP57FYUy2oFRLsG8VQgfpkigGteigGNI6jGEokKqAMO8GWnS9TqzooRv980czowmzBCpQMZ+KuXUS7lngWl8QaC2gSH0XgRG9DkpUiq96Apil/ty9pliEPoYYjGtCVMqyWaUXJKZtOPUCJWsYRJUg7j7zvjK5RlE28tr4Q5vENRWqrpzrZKNIqmb+NTkNaU+YbcpmzaqTVlRPaljvISmgeaUvUE37+5AHZZk4t+FQ6gyXMxrLizpQ8IImsJ3WBvTRL3mDv8HwMj5yPD75PNckD0FUjVPP9uRFFLi1hu2lEKVGOKJ3T5SqUsGSJEnRyJUrYdI2yV5ZoNIuBco2yfyoGyjVKuRJTNdFQiwpGF7UNFmTaCBuGhWTh7NG/kJEg4KKQVcNmdP59FewRYPaMWf6gWL8/HN7fVynV4ozM1gjVrkyo6kmdvzgKbK5YplATv+qVqVoRqid+5eGnE33bMYyM6OstOh5w4kuJUAq5PjlC1ZwKQ7W8dbyJ6dlOUQFFa5i96zfMRqkTKGI8ZQ1TOR4uc7CqDVOtBlxfkO4Zlxal1Tz16qK0LNTmw/QZ0szKgK0Yr6wm8cqST7fJH93K4pUlfyuX62ZV49UZvh/vNwL9OamCYLnnoNTllSAOQNWN4L31JLaa7FZgl0YX9GH2yEPXKCqR8caZP5+V/O3O1ZsUkgKgWTPUITXVr8SkbNPOm9TNoiqyKPlbYO0WpWah10f25aMrOyE2xUuRekji6sg+vjihqmT/cs8OUD7ohZHozCor/LsfJEvnNRur8CPdd5d+y5UkV7f7DSsJq8z0cj+O1aQkS8oWoAbu6lWS7gfYvZYr6eI8Cd7gTmFjMjdu+sgq1h0kbjlxwHZtSuLN9I9IxXlL+pe40N3/&lt;/diagram&gt;&lt;/mxfile&gt;" onclick="(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;&amp;src.nodeName.toLowerCase()!='a'){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;&amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&amp;&amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute('content')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);svg.wnd=window.open('https://app.diagrams.net/?client=1&amp;lightbox=1&amp;edit=_blank');}}})(this);" style="cursor:pointer;max-width:100%;max-height:441px;">
 <defs/><g><rect x="460" y="90" width="120" height="40" rx="6" ry="6" fill="#b3b3b3" stroke="#000000" pointer-events="all"/><g transform="translate(-0.5 -0.5)">
 <switch>
@@ -312,7 +312,11 @@ Relaxed
 </div>
 <div id="emission-probability" class="section level2">
 <h2>Emission probability</h2>
-<p>The <strong>emission probability</strong> is what gives way to the <strong>observed state</strong>. Still using the example from before, the difference now is that you don’t know if the student is sleeping, watching netflix, or doing homework. Instead, the only information you have is whether or not the student is stressed (observed state). Depending on your actual state (sleep, homework, netflix), the probability of being stressed changes.</p>
+<p>The <strong>emission probability</strong> is what gives way to the <strong>observed state</strong>. In other words, given the state <span class="math inline">\(\pi\)</span>, what is the probability of the observed state <span class="math inline">\(x\)</span> happening at time <span class="math inline">\(i\)</span>.</p>
+<p><span class="math display">\[
+P (x_{i}|\pi_{i}) = \textrm{emission probability}
+\]</span></p>
+<p>Still using the example from before, the difference now is that you don’t know if the student is sleeping, watching netflix, or doing homework. Instead, the only information you have is whether or not the student is stressed (observed state). Depending on your actual state (sleep, homework, netflix), the probability of being stressed changes.</p>
 <table>
 <thead>
 <tr class="header">
@@ -339,17 +343,159 @@ Relaxed
 </tr>
 </tbody>
 </table>
+<p>For reference, here is the <strong>initial probabilities</strong> from before:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Likelihood</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sleep</td>
+<td>0.6</td>
+</tr>
+<tr class="even">
+<td>Homework</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>Netflix</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<p>As well as the <strong>transition probabilities</strong>:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Sleep</th>
+<th>Homework</th>
+<th>Netflix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sleep</strong></td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td><strong>Homework</strong></td>
+<td>0.4</td>
+<td>0.2</td>
+<td>0.4</td>
+</tr>
+<tr class="odd">
+<td><strong>Netflix</strong></td>
+<td>0.3</td>
+<td>0.1</td>
+<td>0.6</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="forward-algorithm" class="section level2">
-<h2>Forward Algorithm</h2>
-<p>The <strong>forward algorithm</strong> attempts to answer: What is the probability of a certain state at each time given the observations? It uses <strong>dynamic programming</strong>.</p>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<table style="width:100%;">
+<colgroup>
+<col width="58%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Observations <span class="math inline">\(x\)</span> (1= stressed, 0=relaxed)</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>State Path</strong> <span class="math inline">\(\pi\)</span> (S= sleep, H=homework, N=netflix)</td>
+<td>H</td>
+<td>H</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>H</td>
+<td>S</td>
+<td>S</td>
+<td>S</td>
+</tr>
+<tr class="even">
+<td><strong>Emission Probability</strong> <span class="math inline">\(P (x_{i}|\pi_{i})\)</span></td>
+<td>0.9</td>
+<td>0.9</td>
+<td>0.7</td>
+<td>0.7</td>
+<td>0.3</td>
+<td>0.9</td>
+<td>0.1</td>
+<td>0.9</td>
+<td>0.9</td>
+</tr>
+<tr class="odd">
+<td><strong>Transition Probability</strong> <span class="math inline">\(P (\pi_{i-1} \rightarrow \pi_{i})\)</span></td>
+<td>0.3</td>
+<td>0.2</td>
+<td>0.4</td>
+<td>0.6</td>
+<td>0.6</td>
+<td>0.1</td>
+<td>0.4</td>
+<td>0.5</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="brute-force" class="section level2">
+<h2>Brute Force</h2>
+<p>Before going into the algorithms, we could use brute force. We could potentially state all possible state paths given a particular observations. For example, if we observed: {1, 0, 0}, the possible state paths include SSS, SHH, SHN, SNN, SNH, HHH, HNS, HSH, HSS, etc. We could calculate the possibility of each, for example: SNS. Initial probability of sleep is 0.6. The probability of being stressed given that they are sleeping is 0.1. Sleep transitioning to Netflix is 0.1.Probability of being relaxed watching Netflix is 0.3. And so on…</p>
+<p><span class="math display">\[
+P (\pi_{1}=S) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P (\pi_{1}=S \rightarrow \pi_{2}=N)\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{2}=N \rightarrow \pi_{3}=S)\cdot P(x_{3}=0|\pi_{3}=S)
+\]</span></p>
+<p>outcome likelihood probability= prob that an HMM emmits a given string (input is string of observation, output is probability)</p>
+<p><span class="math display">\[
+P (\pi=\{S,N,S\} \textrm{ and }x=\{1,0,0\})=0.6 \cdot0.1\cdot0.1\cdot0.3\cdot0.3\cdot0.9 = 0.000486
+\]</span>
+To find the <strong>total probability</strong> of an observed sequence (e.g. 1,0,0), we need to <strong>add</strong> up all of the possible state path probabilities (SNS, SSS, HSN, etc.). Why don’t we do this? Because it would take forever, instead, we use the viterbi algorithm.</p>
 </div>
 <div id="viterbi-algorithm" class="section level2">
 <h2>Viterbi Algorithm</h2>
-<p>The <strong>viterbi algorithm</strong> answers: What is the probabiltiy of our entire set of observations given a state path?</p>
+<p>The <strong>viterbi algorithm</strong> attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses <strong>dynamic programming</strong> and <strong>recursion</strong> by going from the first observation to the current observation and finding the most likely path, a.k.a the <strong>max</strong>. To achieve this, we must multiply from i through n.</p>
+<p><span class="math display">\[
+P (x|\pi ) = \textrm{initial probability}\cdot \max(\prod(\textrm{transition probability*emission probability}))
+\]</span></p>
+</div>
+<div id="forward-algorithm" class="section level2">
+<h2>Forward Algorithm</h2>
+<p>The <strong>forward algorithm</strong> attempts to answer: What is the probability of a certain state at each time given the observations? It uses <strong>dynamic programming</strong> and use the <strong>sum</strong>. Total product weight of all paths to</p>
+<p><span class="math display">\[
+P (\pi_{i}=state | x) = \sum
+\]</span></p>
 </div>
 <div id="hmm-package-in-r" class="section level2">
 <h2>HMM Package in R</h2>
+<p>These methods are implemented in the R package, HMM, which I think is super helpful.</p>
 </div>
 <div id="application" class="section level2">
 <h2>Application</h2>

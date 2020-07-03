@@ -26,9 +26,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * A succession of random events.
 
-* There is a set of **states**, in the above example, after coming home from school: Sleep, Homework, and Netflix. 
+* There is a set of states, in the above example, after coming home from school: Sleep, Homework, and Netflix. 
 
-* There is an **initial probability** for each state. Right after coming home, you might be tired and there is a 60% probability of you taking a nap. You might have an assignment that is due that night so you might get started right away (30%) or you might have finished everything already and just want to relax and watch Netflix (10%). 
+* There is an initial probability for each state. Right after coming home, you might be tired and there is a 60% probability of you taking a nap. You might have an assignment that is due that night so you might get started right away (30%) or you might have finished everything already and just want to relax and watch Netflix (10%). 
 
 | Outcome          | Likelihood                     |
 | -----------------| -------------------------------|
@@ -37,7 +37,7 @@ knitr::opts_chunk$set(echo = TRUE)
 | Netflix          | 0.1                            |
 
 
-* There is a **transition probability** between states. For example:
+* There is a transition probability between states. For example:
 _(For each probability, it is the likelihood of transitioning from the row to the column state.)_
 
 |                | Sleep            | Homework           | Netflix        |
