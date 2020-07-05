@@ -437,8 +437,8 @@ Based on the variable importance plot above, the most important variable would b
       <description>
 
 
-&lt;div id=&#34;hidden-markov-model&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Hidden Markov Model&lt;/h2&gt;
+&lt;div id=&#34;hidden-markov-model&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Hidden Markov Model&lt;/h1&gt;
 &lt;p&gt;I go over the basics of a Markov Chain &lt;a href=&#34;../Markov_chain&#34;&gt;here&lt;/a&gt;, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. In this case the markov chain is not visible to us, we can only observe outcome values.&lt;/p&gt;
 &lt;p&gt;Like a markov chain, there are still &lt;strong&gt;states&lt;/strong&gt; (now hidden), &lt;strong&gt;transition probabilities&lt;/strong&gt;, and &lt;strong&gt;initial probabilities&lt;/strong&gt;. However, in addition to this, we also have an &lt;strong&gt;observed state&lt;/strong&gt; and an &lt;strong&gt;emission probability&lt;/strong&gt;.&lt;/p&gt;
 &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; version=&#34;1.1&#34; width=&#34;751px&#34; viewBox=&#34;-0.5 -0.5 751 441&#34; content=&#34;&amp;lt;mxfile host=&amp;quot;app.diagrams.net&amp;quot; modified=&amp;quot;2020-07-02T17:47:17.085Z&amp;quot; agent=&amp;quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&amp;quot; etag=&amp;quot;IwPpH-5e6uUfPe3D6aqo&amp;quot; version=&amp;quot;13.3.5&amp;quot; type=&amp;quot;device&amp;quot;&amp;gt;&amp;lt;diagram id=&amp;quot;C5RBs43oDa-KdzZeNtuy&amp;quot; name=&amp;quot;Page-1&amp;quot;&amp;gt;7Vxbk5pIFP41PsaiLyA+RjMz2c1uNrtmd3aeUkRapQZtt8FR8+u3GRqB7lbQEdBgpSpFX2joc/nOdw7tdNBwvnlgznL2O3WJ34GGu+mgDx0I+9ji/0cd27jDBHbcMWWeG3eBtGPk/SCi0xC9K88lQW5iSKkfest855guFmQc5vocxug6P21C/fxTl86UKB2jseOrvY+eG87iXhv20v6PxJvOkicDqx+PzJ1ksthJMHNcus50obsOGjJKw/hqvhkSP5JdIpfHX7aP/m/P1sOvfwb/OX8PPn39/M+7eLH7Y27ZbYGRRXjepYUUXhx/JeT1mYQT39uILYfbRI6MrhYuidYCHTRYz7yQjJbOOBpdc8PhfbNw7ovhCV2EwhQAl9Ng6jtBpEeDXwcho887XUSzd4KNhiee7w+pT9nrY9Hg9R/vLykDIasXwkKyyViAkMkDoXMSsi2fIkZxX6hX2DfEor1OrQUkJjDLWEoyzxEGOt0tnSqBXwg9HKNuoChl5BOybI1KwOWpBCoq+ciXXlP23BqtIJzXCurVqBUU3OHFwJzNBi8j9unr9psz+UPgXVYpijLIwn0fBRHeGkei9cZ5+XMZse2/kUS7ZtJ8yo592Ahxx61t0tp4YeY23nrKjKQ3RY3knvjliKvEq3KaCuiKjUkJIw0dNiWHFuzp9ZzRo6lRY9LHiO+E3kt+Ezrdiid8oR7fXmpGknMjUzKPeJ/irmw8kxbCsj0a0kKxHJSFXk1tt+3TrU9FaaOLFQPkzhXmTS5268RzF3RBJGcWXY7vTReR3XLrILx/ELmqx4nNezEw91w3eowWY1IUSk1P8fWyxrc/eO7TQcaWsMaWYFWQoOJ0bZDwRvcu9FqwRxX1uC029qD/tbkturktRPDC3BYXu+14xV52rKrIh9/ki025mIn20N5jXczsSQuhci7GRepsM9OW0YTgwAsD6TnAOPxe0gaBXTDfOnK+Lb2PkZvPL+IdnhVPTA2emC3DEyjhCTAbxhPrDDRAMPzk+inH9vUMP6UOWeKQ4RHVUIfizKAsx7hlBueABLWoZnQTVbUFElAP57FYUy2oFRLsG8VQgfpkigGteigGNI6jGEokKqAMO8GWnS9TqzooRv980czowmzBCpQMZ+KuXUS7lngWl8QaC2gSH0XgRG9DkpUiq96Apil/ty9pliEPoYYjGtCVMqyWaUXJKZtOPUCJWsYRJUg7j7zvjK5RlE28tr4Q5vENRWqrpzrZKNIqmb+NTkNaU+YbcpmzaqTVlRPaljvISmgeaUvUE37+5AHZZk4t+FQ6gyXMxrLizpQ8IImsJ3WBvTRL3mDv8HwMj5yPD75PNckD0FUjVPP9uRFFLi1hu2lEKVGOKJ3T5SqUsGSJEnRyJUrYdI2yV5ZoNIuBco2yfyoGyjVKuRJTNdFQiwpGF7UNFmTaCBuGhWTh7NG/kJEg4KKQVcNmdP59FewRYPaMWf6gWL8/HN7fVynV4ozM1gjVrkyo6kmdvzgKbK5YplATv+qVqVoRqid+5eGnE33bMYyM6OstOh5w4kuJUAq5PjlC1ZwKQ7W8dbyJ6dlOUQFFa5i96zfMRqkTKGI8ZQ1TOR4uc7CqDVOtBlxfkO4Zlxal1Tz16qK0LNTmw/QZ0szKgK0Yr6wm8cqST7fJH93K4pUlfyuX62ZV49UZvh/vNwL9OamCYLnnoNTllSAOQNWN4L31JLaa7FZgl0YX9GH2yEPXKCqR8caZP5+V/O3O1ZsUkgKgWTPUITXVr8SkbNPOm9TNoiqyKPlbYO0WpWah10f25aMrOyE2xUuRekji6sg+vjihqmT/cs8OUD7ohZHozCor/LsfJEvnNRur8CPdd5d+y5UkV7f7DSsJq8z0cj+O1aQkS8oWoAbu6lWS7gfYvZYr6eI8Cd7gTmFjMjdu+sgq1h0kbjlxwHZtSuLN9I9IxXlL+pe40N3/&amp;lt;/diagram&amp;gt;&amp;lt;/mxfile&amp;gt;&#34; onclick=&#34;(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;amp;&amp;amp;src.nodeName.toLowerCase()!=&#39;a&#39;){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;amp;&amp;amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data==&#39;ready&#39;&amp;amp;&amp;amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute(&#39;content&#39;)),&#39;*&#39;);window.removeEventListener(&#39;message&#39;,r);}};window.addEventListener(&#39;message&#39;,r);svg.wnd=window.open(&#39;https://app.diagrams.net/?client=1&amp;amp;lightbox=1&amp;amp;edit=_blank&#39;);}}})(this);&#34; style=&#34;cursor:pointer;max-width:100%;max-height:441px;&#34;&gt;
@@ -736,8 +736,8 @@ Relaxed
 &lt;/switch&gt;
 &lt;/svg&gt;
 &lt;/div&gt;
-&lt;div id=&#34;emission-probability&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Emission probability&lt;/h2&gt;
+&lt;div id=&#34;emission-probability&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Emission probability&lt;/h1&gt;
 &lt;p&gt;The &lt;strong&gt;emission probability&lt;/strong&gt; is what gives way to the &lt;strong&gt;observed state&lt;/strong&gt;. In other words, given the state &lt;span class=&#34;math inline&#34;&gt;\(\pi\)&lt;/span&gt;, what is the probability of the observed state &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; happening at time &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 P (x_{i}|\pi_{i}) = \textrm{emission probability}
@@ -792,7 +792,8 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;As well as the &lt;strong&gt;transition probabilities&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;As well as the &lt;strong&gt;transition probabilities&lt;/strong&gt;:
+&lt;em&gt;Keep in mind:&lt;/em&gt; &lt;span class=&#34;math inline&#34;&gt;\(P (\pi_{i-1} \rightarrow \pi_{i})\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(\pi_{i}|\pi_{i-1})\)&lt;/span&gt;_&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -823,7 +824,6 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;/div&gt;
 &lt;div id=&#34;example&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Example&lt;/h2&gt;
 &lt;table style=&#34;width:100%;&#34;&gt;
@@ -893,18 +893,6 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;brute-force&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Brute Force&lt;/h2&gt;
-&lt;p&gt;Before going into the algorithms, we could use brute force. We could potentially state all possible state paths given a particular observations. For example, if we observed: {1, 0, 0}, the possible state paths include SSS, SHH, SHN, SNN, SNH, HHH, HNS, HSH, HSS, etc. We could calculate the possibility of each, for example: SNS. Initial probability of sleep is 0.6. The probability of being stressed given that they are sleeping is 0.1. Sleep transitioning to Netflix is 0.1.Probability of being relaxed watching Netflix is 0.3. And so on…&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P (\pi_{1}=S) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P (\pi_{1}=S \rightarrow \pi_{2}=N)\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{2}=N \rightarrow \pi_{3}=S)\cdot P(x_{3}=0|\pi_{3}=S)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;outcome likelihood probability= prob that an HMM emmits a given string (input is string of observation, output is probability)&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P (\pi=\{S,N,S\} \textrm{ and }x=\{1,0,0\})=0.6 \cdot0.1\cdot0.1\cdot0.3\cdot0.3\cdot0.9 = 0.000486
-\]&lt;/span&gt;
-To find the &lt;strong&gt;total probability&lt;/strong&gt; of an observed sequence (e.g. 1,0,0), we need to &lt;strong&gt;add&lt;/strong&gt; up all of the possible state path probabilities (SNS, SSS, HSN, etc.). Why don’t we do this? Because it would take forever, instead, we use the viterbi algorithm.&lt;/p&gt;
-&lt;/div&gt;
 &lt;div id=&#34;viterbi-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Viterbi Algorithm&lt;/h2&gt;
 &lt;p&gt;The &lt;strong&gt;viterbi algorithm&lt;/strong&gt; attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and &lt;strong&gt;recursion&lt;/strong&gt; by going from the first observation to the current observation and finding the most likely path, a.k.a the &lt;strong&gt;max&lt;/strong&gt;. To achieve this, we must multiply from i through n.&lt;/p&gt;
@@ -912,12 +900,47 @@ To find the &lt;strong&gt;total probability&lt;/strong&gt; of an observed sequen
 P (x|\pi ) = \textrm{initial probability}\cdot \max(\prod(\textrm{transition probability*emission probability}))
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Forward Algorithm&lt;/h2&gt;
-&lt;p&gt;The &lt;strong&gt;forward algorithm&lt;/strong&gt; attempts to answer: What is the probability of a certain state at each time given the observations? It uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and use the &lt;strong&gt;sum&lt;/strong&gt;. Total product weight of all paths to&lt;/p&gt;
+&lt;div id=&#34;what-is-the-likelihood-of-a-specific-observation-sequence&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What is the &lt;strong&gt;likelihood&lt;/strong&gt; of a specific observation sequence?&lt;/h2&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P (\pi_{i}=state | x) = \sum
+P (x)= \sum_{\pi} P(x \textrm{ and }\pi)
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;What the above equation describes is that to determine the likelihood of an observation sequence, you must &lt;strong&gt;add&lt;/strong&gt; the probabilities of the observed sequence and the potential (hidden) state paths occurring. So how do we do this???&lt;/p&gt;
+&lt;p&gt;Based on conditional probability:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(x \textrm{ and } \pi) = P (x | \pi) \cdot P(\pi)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Multiply the emission probabilities together:
+&lt;em&gt;Given a state sequence, what is the probability of emitting the observed sequence.&lt;/em&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+P (x | \pi) = \prod_{i=1} P (x_{i}|\pi_{i})
+\]&lt;/span&gt;
+Multiply the transition probabilities together:
+&lt;em&gt;Probabililty of a state sequence depends on the &lt;strong&gt;markov property&lt;/strong&gt; that the state at i is only dependent on the state at i-1. &lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(\pi) = \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Putting it all together:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(\pi \textrm{ and } x) =  \prod_{i=1} P (\pi_{i}|x_{i}) \cdot \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+\]&lt;/span&gt;
+As an example:&lt;/p&gt;
+&lt;p&gt;We could potentially state all possible state paths given a particular observations. If we observed: {1, 0, 0}, the possible state paths include SSS, SHH, SHN, SNN, SNH, HHH, HNS, HSH, HSS, etc. We could calculate the possibility of each, for example: SNS. Initial probability of sleep is 0.6. The probability of being stressed given that they are sleeping is 0.1. Sleep transitioning to Netflix is 0.1.Probability of being relaxed watching Netflix is 0.3. And so on…&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P (\pi_{1}=S) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P ( \pi_{2}=N | \pi_{1}=S )\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{3}=S|\pi_{2}=N)\cdot P(x_{3}=0|\pi_{3}=S)
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+P (\pi=\textrm{S N S} \cap x=\textrm{1 0 0})=0.6 \cdot0.1\cdot0.1\cdot0.3\cdot0.3\cdot0.9 = 0.000486
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To find the &lt;strong&gt;total probability&lt;/strong&gt; of an observed sequence (e.g. 1,0,0), we need to &lt;strong&gt;add&lt;/strong&gt; up all of the possible state path probabilities (SNS, SSS, HSN, etc.).&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(\textrm{1 0 0}) = P(\textrm{1 0 0}| \textrm{S N S})+P(\textrm{1 0 0}| \textrm{N N S}) +P(\textrm{1 0 0}| \textrm{S N H}) + ...
+\]&lt;/span&gt;
+However, what if the observation sequence is long and therefore the corresponding hidden state sequence is also long which many possible permutations. Calculating the likelihood of a observation would take forever… which is why we use the &lt;strong&gt;forward algorithm&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Forward algorithm&lt;/h2&gt;
+&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and stores intermediate values.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;hmm-package-in-r&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;HMM Package in R&lt;/h2&gt;
@@ -926,6 +949,7 @@ P (\pi_{i}=state | x) = \sum
 &lt;div id=&#34;application&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Application&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.kaggle.com/alfrandom/protein-secondary-structure/data&#34;&gt;This&lt;/a&gt; is a good exercise to test your understanding. It looks at predicting the secondary structure of proteins from the primary sequence.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>
