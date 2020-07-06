@@ -330,25 +330,25 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
 &lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Stressed&lt;/th&gt;
 &lt;th&gt;Relaxed&lt;/th&gt;
+&lt;th&gt;Stressed&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td&gt;&lt;strong&gt;Sleep&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;0.1&lt;/td&gt;
 &lt;td&gt;0.9&lt;/td&gt;
+&lt;td&gt;0.1&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td&gt;&lt;strong&gt;Homework&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;0.9&lt;/td&gt;
 &lt;td&gt;0.1&lt;/td&gt;
+&lt;td&gt;0.9&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td&gt;&lt;strong&gt;Netflix&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;0.3&lt;/td&gt;
 &lt;td&gt;0.7&lt;/td&gt;
+&lt;td&gt;0.3&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -376,7 +376,7 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;As well as the &lt;strong&gt;transition probabilities&lt;/strong&gt;:
-&lt;em&gt;Keep in mind:&lt;/em&gt; &lt;span class=&#34;math inline&#34;&gt;\(P (\pi_{i-1} \rightarrow \pi_{i})\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(\pi_{i}|\pi_{i-1})\)&lt;/span&gt;_&lt;/p&gt;
+&lt;em&gt;Keep in mind:&lt;/em&gt; &lt;span class=&#34;math inline&#34;&gt;\(P (\pi_{i-1} \rightarrow \pi_{i})\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(\pi_{i}|\pi_{i-1})\)&lt;/span&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -476,13 +476,6 @@ P (x_{i}|\pi_{i}) = \textrm{emission probability}
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;viterbi-algorithm&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Viterbi Algorithm&lt;/h2&gt;
-&lt;p&gt;The &lt;strong&gt;viterbi algorithm&lt;/strong&gt; attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and &lt;strong&gt;recursion&lt;/strong&gt; by going from the first observation to the current observation and finding the most likely path, a.k.a the &lt;strong&gt;max&lt;/strong&gt;. To achieve this, we must multiply from i through n.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P (x|\pi ) = \textrm{initial probability}\cdot \max(\prod(\textrm{transition probability*emission probability}))
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
 &lt;div id=&#34;what-is-the-likelihood-of-a-specific-observation-sequence&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;What is the &lt;strong&gt;likelihood&lt;/strong&gt; of a specific observation sequence?&lt;/h2&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
@@ -496,21 +489,22 @@ P(x \textrm{ and } \pi) = P (x | \pi) \cdot P(\pi)
 &lt;p&gt;Multiply the emission probabilities together:
 &lt;em&gt;Given a state sequence, what is the probability of emitting the observed sequence.&lt;/em&gt;
 &lt;span class=&#34;math display&#34;&gt;\[
-P (x | \pi) = \prod_{i=1} P (x_{i}|\pi_{i})
+P (x | \pi) = \prod_{t=1} P (x_{t}|\pi_{t})
 \]&lt;/span&gt;
 Multiply the transition probabilities together:
-&lt;em&gt;Probabililty of a state sequence depends on the &lt;strong&gt;markov property&lt;/strong&gt; that the state at i is only dependent on the state at i-1. &lt;/em&gt;&lt;/p&gt;
+&lt;em&gt;Probabililty of a state sequence depends on the &lt;strong&gt;markov property&lt;/strong&gt; that the state at time t is only dependent on the state at t-1. &lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P(\pi) = \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+P(\pi) = \prod_{t=1} P (\pi_{t}|\pi_{t-1})
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Putting it all together:&lt;/p&gt;
+&lt;p&gt;Putting it all together:
+&lt;em&gt;The probability of an observed sequence and a corresponding hidden state sequence is equal to the product of the emission probabilities multiplied by the product of the transition probabilities.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P(\pi \textrm{ and } x) =  \prod_{i=1} P (\pi_{i}|x_{i}) \cdot \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+P(\pi \textrm{ and } x) =  \prod_{t=1} P (\pi_{t}|x_{t}) \cdot \prod_{t=1} P (\pi_{t}|\pi_{t-1})
 \]&lt;/span&gt;
 As an example:&lt;/p&gt;
 &lt;p&gt;We could potentially state all possible state paths given a particular observations. If we observed: {1, 0, 0}, the possible state paths include SSS, SHH, SHN, SNN, SNH, HHH, HNS, HSH, HSS, etc. We could calculate the possibility of each, for example: SNS. Initial probability of sleep is 0.6. The probability of being stressed given that they are sleeping is 0.1. Sleep transitioning to Netflix is 0.1.Probability of being relaxed watching Netflix is 0.3. And so on…&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
-P (\pi_{1}=S) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P ( \pi_{2}=N | \pi_{1}=S )\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{3}=S|\pi_{2}=N)\cdot P(x_{3}=0|\pi_{3}=S)
+P (\pi_{1}=S | \textrm{start}) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P ( \pi_{2}=N | \pi_{1}=S )\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{3}=S|\pi_{2}=N)\cdot P(x_{3}=0|\pi_{3}=S)
 \]&lt;/span&gt;
 &lt;span class=&#34;math display&#34;&gt;\[
 P (\pi=\textrm{S N S} \cap x=\textrm{1 0 0})=0.6 \cdot0.1\cdot0.1\cdot0.3\cdot0.3\cdot0.9 = 0.000486
@@ -523,15 +517,341 @@ However, what if the observation sequence is long and therefore the correspondin
 &lt;/div&gt;
 &lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Forward algorithm&lt;/h2&gt;
-&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and stores intermediate values.&lt;/p&gt;
+&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt;. You can do this recursively.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;To implement this, you need to create an empty matrix to &lt;strong&gt;store intermediate values&lt;/strong&gt;. The rows equal the number of states (in this case, 3), while the columns should be equal to the number of values in the observation sequence.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;First column: The first column states the probability of each state being the initial state and emitting the first observation. All future calculations will be based on these values.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Subsequent columns: Each value in the matrix represents the likelihood of being in a certain state &lt;em&gt;k&lt;/em&gt; having observed the first &lt;em&gt;i&lt;/em&gt; values in the observation sequence. We will represent this by:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P (\pi_t=k \textrm{ and } x = x_1, x_2 , x_3 , ...x_t) = \alpha_t (k)
+\]&lt;/span&gt;
+This is calculated by taking the emission probability of emitting &lt;span class=&#34;math inline&#34;&gt;\(x_t\)&lt;/span&gt; given that we are at state &lt;em&gt;k&lt;/em&gt; and multiplying this by the summation of the probabilities of being at the previous state &lt;span class=&#34;math inline&#34;&gt;\(l\)&lt;/span&gt; at &lt;em&gt;t-1&lt;/em&gt; and transitioning to state &lt;em&gt;k&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\alpha_t (k) = \textrm{(emission probability of } x_{t} \textrm{ given current state k)}\sum \alpha_{t-1} (l) \cdot \textrm{(transition probability from l to k)}
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+\alpha_t (k) = P (x_{t}|\pi_{t})\sum \alpha_{t-1} (l) \cdot P (\pi_{t}|\pi_{t-1})
+\]&lt;/span&gt;
+OK, that’s just a ton of math, what does it actually mean? Still using the example from before with the observed sequence 1 0 0, if we have already calculated all the paths from 1 0, we then need to calculate the path to the next 0 based on these paths formed from 1 0. Therefore for each value, you must look at the values in the previous columns.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def forward():
+  # if Stressed = 0, Relaxed = 1
+  observations = [1, 0, 0, 1, 1, 0, 1, 1]
+  #build empty dynamic programming matrix 
+  num_states= 3
+  obs_seq_num = len (observations)
+  grid = []
+  for j in range(num_states):  
+    grid.append(obs_seq_num * [0])
+        
+    
+  # initial probability distribution for S, H, N
+  initial = [0.6,0.3,0.1]
+  
+  # emission probability 
+  emission= [[0.9,0.1],[0.1,0.9],[0.7,0.3]]
+        
+  #transition probabilities 
+  transition = [[0.5,0.4,0.1],[0.4,0.2,0.4],[0.3,0.1,0.6]]
+
+  #Start filling out the grid
+  for t in range(obs_seq_num):
+    for i in range(num_states):
+      #first column 
+      if t == 0: 
+        # use the initial probability distribution 
+        grid[i][t] = initial[i] * emission [i][observations[t]]
+      else: 
+        grid[i][t] = emission [i][observations[t]] * ((grid[0][t-1]*transition[0][i]) + (grid[1][t-1]*transition[1][i]) + (grid[2][t-1]*transition[2][i]))
+  
+  prettyPrint (grid)
+  
+  print (&amp;quot;Probability of observing: &amp;quot;)
+  for k in observations:
+    print (observations[k], end=&amp;quot;        &amp;quot;)
+  print ()
+  
+  for s in range(obs_seq_num): 
+    sum=0
+    for q in range (num_states):
+      sum+=grid[q][s]
+    print (format(sum, &amp;quot;5.4f&amp;quot;), end = &amp;quot;   &amp;quot;)
+forward()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        1       2       3       4       5       6       7       9
+## S   0.0600  0.1323  0.0874  0.0061  0.0022  0.0064  0.0005  0.0002  
+## H   0.2700  0.0081  0.0064  0.0371  0.0100  0.0004  0.0029  0.0008  
+## N   0.0300  0.0924  0.0503  0.0124  0.0069  0.0058  0.0013  0.0006  
+## 
+## Probability of observing: 
+## 0        1        1        0        0        1        0        0        
+## 0.3600   0.2328   0.1441   0.0557   0.0191   0.0126   0.0047   0.0016&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For example, how did we calculate the probability of being at state S at time 2 with the observations thus far being: 1 0.&lt;/p&gt;
+&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; version=&#34;1.1&#34; width=&#34;403px&#34; viewBox=&#34;-0.5 -0.5 403 324&#34; content=&#34;&amp;lt;mxfile host=&amp;quot;app.diagrams.net&amp;quot; modified=&amp;quot;2020-07-06T20:03:18.271Z&amp;quot; agent=&amp;quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&amp;quot; etag=&amp;quot;DsuH0lr6Z-pgRyVUjwq8&amp;quot; version=&amp;quot;13.3.9&amp;quot; type=&amp;quot;device&amp;quot;&amp;gt;&amp;lt;diagram id=&amp;quot;1_E2bteAL8cD-64oW33z&amp;quot; name=&amp;quot;Page-1&amp;quot;&amp;gt;7Vxdd6I4GP41Xm4PAUG9nNo6vejM7lkvdnqZlVRzBokTYtX59ZtAECUggQVBak9PD3mBAO/zvJ+EDqzpev+Vws3qG3GRNzANdz+wngamORk6/K8QHCKBDcaRYEmxG4lAIpjj30gKDSndYhcFZwcyQjyGN+fCBfF9tGBnMkgp2Z0f9k6886tu4BIpgvkCeqr0H+yylZQCZ5LseEF4uZKXHpvygdcwPlg+SbCCLtmdiKzngTWlhLBoa72fIk/oLtZLdN4sZ+/xxijymc4J31+Xz8avX+Zk/fb68vantVvNrT/kLB/Q28oHnhG6g9Tlwm+QUbyXN88OsUb4c2zEJoP/CtHjYoU99xUeyJbF0nj0yPX/iv0QP0McSrzt2j+VBAxSJlEfCsGKrT2+DfjmboUZmm/gQuzccXZFM3hwE+Dw0uEMFC22NMAf6G8URPMIKdpvoO/KwYZgnyH6/ME1FV/4nfhsLh9KXAx6eOnz7QUSh4o7i+ESe6WWEGVon6t+cASVGwMia8TogR8iTzDHkgfSEEZyuEtYNTSkbHVCKCvmD5RMXh6nTsDmGxLvEtibCvYq1ju89qAvYF4Rin9zpUHvVKvhPdmP/Jff5dR4sAc2P2/KxyAZ819xOGVT4geMQhxqDMGA7VDAusMCHZDzrUhF/hDDqoc0aAxpS0Ga4TXiknBggEu4S8cKE123hlZ1gMyLppkB0BGL6wAEJgpCxoPhKLjwB2fnCuf2RH6iKfEId1pPPgkxe8eelxIp/k2oEfM490XuWGPXDf15FoSUbH0XxdiUd435rMwFxdJwlypEjSE0VAC66C0/gdUAp3WzsUbFIQz57heRBwruezAI8OJc9yIExLYy4KwLf7iccDgwE+yzDMXO+IGOM50aiX6Rq+SRBdodZmv3RJt2hjJjGUUeZJwL5wlvhoLlFf4SzEjASyUj4xRCAdnSBZLnnOaUqWmAfXkezvklYso8IdjHZ/4fGYyawhgPwDKtfjvOHOakollHHKetQKSi87kc59FK2nOcpooKzzfGo2G/Dce+JcNximNb38uz6khfrsiyUpfMkiwdz2oDVyNx0XaKt4GIo2V7RS6xMUDii515RHPUb384uohJqgKzWvaH47vJVKu/mrMZta/EswhjrPaTemU14zJZRNtWozaWPrfVaCffzVmNmtgJq3F6nntPbslqLNWzKehUbSyhPWY/5DFi+03omWfi0ehpf7QQPjjEA58/1Y/TQXTWyI7HyXnhKD6xqIs1m8m7GlTsYsU96rBhpJFfRR2hwqDSVl8MpBpjTophuo2xdPIEUvM03BgDajZ7ye3fi8cSxaP2+7zGIghQ39r3PagDIxuTzpSPKiQ8qPe8Dw0ur3joWP0IzLvVdK6CVF+rcrOZmD3PhSMq3koyDDSS4c9lOB0oItUGMjccu/cR5/KakY4ZjqWRhRdVkfVVi6CgVBxUrADjbl9hBRgv3y2sAHO8YzsVoEKPyiXgKDVRwzWgpVElVGPfqFqzovVehS5T49V4N9aruF2mqllgaaY2320r8p+doa++o73Ttxb6ahSWjThahWKCYLNZvgsux+DuuNlWl0rWxlMwSU105dWSQHWzc4WoHSwXyn+kUe5LHND2Si+grsZ7uQNjJm9fWgNGXXPy/Q4MD7iZr0CuCIypsRioicpaIySWi35tBbWhkzK1ScWgNhylnGl6oqY/AdBY4NJxJpx8DdwnJpjGldNwNYqWZkKdVWR+dl4+z/7kVLLsK1NJY+19EZXy4a+TZA1SKScluHUqpVf0NE2lGjKV/G8PNT9ezGaWeb0I12qjyU71hyp/7WinC/hrR7gacp2GuFTQqaqTS602g2rzS46Rmqi2FYJ8mPxTmejw5D/zWM//AQ==&amp;lt;/diagram&amp;gt;&amp;lt;/mxfile&amp;gt;&#34; onclick=&#34;(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;amp;&amp;amp;src.nodeName.toLowerCase()!=&#39;a&#39;){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;amp;&amp;amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data==&#39;ready&#39;&amp;amp;&amp;amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute(&#39;content&#39;)),&#39;*&#39;);window.removeEventListener(&#39;message&#39;,r);}};window.addEventListener(&#39;message&#39;,r);svg.wnd=window.open(&#39;https://app.diagrams.net/?client=1&amp;amp;lightbox=1&amp;amp;edit=_blank&#39;);}}})(this);&#34; style=&#34;cursor:pointer;max-width:100%;max-height:324px;&#34;&gt;
+&lt;defs/&gt;&lt;g&gt;&lt;path d=&#34;M 0 40 L 0 0 L 400 0 L 400 40&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 0 L 400 0 L 400 40&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;all&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 320 L 400 320 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 320 L 400 320 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 0 40 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 398px; height: 1px; padding-top: 20px; margin-left: 1px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+Forward Matrix
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;200&#34; y=&#34;24&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;Forward Matrix&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 40 40 L 0 40 L 0 160 L 40 160&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 40 L 400 40 L 400 160 L 40 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 40 L 40 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 80 L 40 40 L 160 40 L 160 80&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 80 L 40 160 L 160 160 L 160 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 80 L 160 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 41px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+time = 1
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;100&#34; y=&#34;64&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;time = 1&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;rect x=&#34;70&#34; y=&#34;110&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 71px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.06
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;90&#34; y=&#34;124&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.06&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 160 80 L 160 40 L 280 40 L 280 80&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 80 L 160 160 L 280 160 L 280 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 80 L 280 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 161px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+2
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;220&#34; y=&#34;64&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;2&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 240 120 L 303.63 120&#34; fill=&#34;none&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 308.88 120 L 301.88 123.5 L 303.63 120 L 301.88 116.5 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#66cc00&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;200&#34; y=&#34;110&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 201px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.1323
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;220&#34; y=&#34;124&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.1323&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 280 80 L 280 40 L 400 40 L 400 80&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 80 L 280 160 L 400 160 L 400 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 80 L 400 80&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 281px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+3
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;340&#34; y=&#34;64&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;3&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;rect x=&#34;320&#34; y=&#34;110&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 321px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.0874
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;340&#34; y=&#34;124&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.0874&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 40 160 L 0 160 L 0 240 L 40 240&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 160 L 400 160 L 400 240 L 40 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 160 L 40 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 160 L 40 160 L 160 160 L 160 160&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 160 L 40 240 L 160 240 L 160 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 160 L 160 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;70&#34; y=&#34;190&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 71px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.27
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;90&#34; y=&#34;204&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.27&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 160 160 L 160 160 L 280 160 L 280 160&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 160 L 160 240 L 280 240 L 280 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 160 L 280 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;200&#34; y=&#34;190&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 201px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.0081
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;220&#34; y=&#34;204&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.0081&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 280 160 L 280 160 L 400 160 L 400 160&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 160 L 280 240 L 400 240 L 400 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 160 L 400 160&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;320&#34; y=&#34;190&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 321px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.0064
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;340&#34; y=&#34;204&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.0064&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 110 200 L 193.64 204.65&#34; fill=&#34;none&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 198.88 204.94 L 191.7 208.04 L 193.64 204.65 L 192.09 201.06 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#ff0000&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 0 240 L 0 320 L 40 320&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 400 240 L 400 320 L 40 320&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 40 320&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 40 240 L 160 240 L 160 240&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 40 320 L 160 320 L 160 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 40 240 L 160 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;70&#34; y=&#34;270&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 71px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.03
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;90&#34; y=&#34;284&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.03&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 160 240 L 160 240 L 280 240 L 280 240&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 240 L 160 320 L 280 320 L 280 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 160 240 L 280 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;200&#34; y=&#34;270&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 201px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.0924
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;220&#34; y=&#34;284&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.0924&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 280 240 L 280 240 L 400 240 L 400 240&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 240 L 280 320 L 400 320 L 400 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 280 240 L 400 240&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;320&#34; y=&#34;270&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 321px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; &#34;&gt;
+0.0503
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;340&#34; y=&#34;284&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34;&gt;0.0503&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 110 280 L 196.72 135.46&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 199.42 130.96 L 198.82 138.76 L 196.72 135.46 L 192.82 135.16 Z&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 125 L 195.11 195.92&#34; fill=&#34;none&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 199.14 199.28 L 191.52 197.49 L 195.11 195.92 L 196 192.11 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#ff0000&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 280 L 194.97 213.91&#34; fill=&#34;none&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 199.12 210.69 L 195.74 217.75 L 194.97 213.91 L 191.44 212.22 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#ff0000&#34; stroke=&#34;#ff0000&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 125 L 196.64 264.59&#34; fill=&#34;none&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 199.41 269.05 L 192.75 264.95 L 196.64 264.59 L 198.69 261.26 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#0000ff&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;rect x=&#34;0&#34; y=&#34;100&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 110px; margin-left: 1px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+S
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;20&#34; y=&#34;114&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;S&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;rect x=&#34;0&#34; y=&#34;190&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 1px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+H
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;20&#34; y=&#34;204&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;H&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;rect x=&#34;0&#34; y=&#34;270&#34; width=&#34;40&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
+&lt;switch&gt;
+&lt;foreignObject style=&#34;overflow: visible; text-align: left;&#34; pointer-events=&#34;none&#34; width=&#34;100%&#34; height=&#34;100%&#34; requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;&gt;
+&lt;div xmlns=&#34;http://www.w3.org/1999/xhtml&#34; style=&#34;display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 1px;&#34;&gt;
+&lt;div style=&#34;box-sizing: border-box; font-size: 0; text-align: center; &#34;&gt;
+&lt;div style=&#34;display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; &#34;&gt;
+N
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/foreignObject&gt;&lt;text x=&#34;20&#34; y=&#34;284&#34; fill=&#34;#000000&#34; font-family=&#34;Helvetica&#34; font-size=&#34;12px&#34; text-anchor=&#34;middle&#34; font-weight=&#34;bold&#34;&gt;N&lt;/text&gt;
+&lt;/switch&gt;
+&lt;/g&gt;&lt;path d=&#34;M 110 120 L 183.63 120&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 188.88 120 L 181.88 123.5 L 183.63 120 L 181.88 116.5 Z&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 200 L 185.21 134.19&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 189.16 130.74 L 186.2 137.98 L 185.21 134.19 L 181.59 132.71 Z&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 200 L 185.5 275.5&#34; fill=&#34;none&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 189.21 279.21 L 181.78 276.73 L 185.5 275.5 L 186.73 271.78 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#0000ff&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 110 280 L 183.68 289.21&#34; fill=&#34;none&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 188.89 289.86 L 181.51 292.47 L 183.68 289.21 L 182.38 285.52 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#0000ff&#34; stroke=&#34;#0000ff&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 240 195 L 305.33 134.33&#34; fill=&#34;none&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 309.18 130.76 L 306.43 138.09 L 305.33 134.33 L 301.67 132.96 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#66cc00&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 240 285 L 316.92 145.58&#34; fill=&#34;none&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 319.46 140.98 L 319.14 148.8 L 316.92 145.58 L 313.01 145.42 Z&#34; fill-opacity=&#34;0.3&#34; fill=&#34;#66cc00&#34; stroke=&#34;#66cc00&#34; stroke-opacity=&#34;0.3&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;/g&gt;
+&lt;switch&gt;
+&lt;g requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;/&gt;&lt;a transform=&#34;translate(0,-5)&#34; xlink:href=&#34;https://desk.draw.io/support/solutions/articles/16000042487&#34; target=&#34;_blank&#34;&gt;&lt;text text-anchor=&#34;middle&#34; font-size=&#34;10px&#34; x=&#34;50%&#34; y=&#34;100%&#34;&gt;Viewer does not support full SVG 1.1&lt;/text&gt;&lt;/a&gt;
+&lt;/switch&gt;
+&lt;/svg&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(\pi_{2}=S \textrm{ and } x_2 = 0 )= 0.9\cdot (0.06\cdot 0.5 + 0.27\cdot 0.4+0.03\cdot0.3)=0.1323
+\]&lt;/span&gt;
+Finally, what is the probability of the following sequence: 1, 0, 0?
+This is equal to the sum of all the probabilities at the end time:
+&lt;span class=&#34;math display&#34;&gt;\[
+P(x= \textrm{1 0 0})= 0.0874 + 0.0064 + 0.0503= 0.1441
+\]&lt;/span&gt;
+Additional note: How do you find the probability of, for example, being at state S at time 3?
+This is just the likelihood probability from the matrix divided by the sum of the entire column (what we calculated above):
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{0.0874} {0.0874 + 0.0064 + 0.0503}=0.6065
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;decoding-viterbi-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Decoding: Viterbi Algorithm&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;viterbi algorithm&lt;/strong&gt; attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses &lt;strong&gt;dynamic programming&lt;/strong&gt; and &lt;strong&gt;recursion&lt;/strong&gt; by going from the first observation to the current observation and finding the most likely path, a.k.a the &lt;strong&gt;max&lt;/strong&gt;. To find the path, we must also use &lt;strong&gt;backtracking&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P (x|\pi ) = \textrm{emission probability}\cdot \max(\prod(\textrm{transition probability*}))
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P (\pi = \pi_1,\pi_2, ...k \textrm{ and } x = x_1, x_2 , x_3 , ...x_t) = v_t (k)
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+v_t (k) = \max (v_{t-1}(l)\cdot\textrm{emission probability of }x_t \textrm{ given state } k\cdot\textrm{transition probability from l to k})
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+v_t (k) = \max (v_{t-1}(l)\cdot P (x_{t}|\pi_{t})\cdot P(\pi_{t}|\pi_{t-1}))
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Again, similar to the forward algorithm, you will need a matrix to store intermediate maximum values. Each value represents the probability of being at state k at time t given the observations until time t and having gone through the most probable path at time t-1. To compute this, you recursively find the most probable paths to each cell.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def viterbi(): 
+  # if Stressed = 0, Relaxed = 1
+  observations = [1, 0, 0, 1, 1, 0, 1, 1]
+  #build empty dynamic programming matrix 
+  num_states= 3
+  obs_seq_num = len (observations)
+  grid = []
+  for j in range(num_states):  
+    grid.append(obs_seq_num * [0])
+        
+    
+  # initial probability distribution for S, H, N
+  initial = [0.6,0.3,0.1]
+  
+  # emission probability 
+  emission= [[0.9,0.1],[0.1,0.9],[0.7,0.3]]
+        
+  #transition probabilities 
+  transition = [[0.5,0.4,0.1],[0.4,0.2,0.4],[0.3,0.1,0.6]]
+
+viterbi()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What is it trying to do? Returns the path and its probability.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;hmm-package-in-r&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;HMM Package in R&lt;/h2&gt;
-&lt;p&gt;These methods are implemented in the R package, HMM, which I think is super helpful.&lt;/p&gt;
+&lt;p&gt;This is too much math/I don’t care. There are plenty of packages available on the internet, for example, these methods are implemented in the R package, HMM, which I think is super helpful. Just understanding what the different terms mean such as transition matrix, initial probability distribution, emission probability, etc. will be enough to use these tools.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;application&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Application&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.kaggle.com/alfrandom/protein-secondary-structure/data&#34;&gt;This&lt;/a&gt; is a good exercise to test your understanding. It looks at predicting the secondary structure of proteins from the primary sequence.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cs.rochester.edu/u/james/CSC248/Lec11.pdf&#34; class=&#34;uri&#34;&gt;https://www.cs.rochester.edu/u/james/CSC248/Lec11.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://pages.cs.wisc.edu/~matthewb/pages/notes/pdf/hmms/ForwardAlgorithm.pdf&#34; class=&#34;uri&#34;&gt;http://pages.cs.wisc.edu/~matthewb/pages/notes/pdf/hmms/ForwardAlgorithm.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://web.stanford.edu/~jurafsky/slp3/A.pdf&#34; class=&#34;uri&#34;&gt;https://web.stanford.edu/~jurafsky/slp3/A.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

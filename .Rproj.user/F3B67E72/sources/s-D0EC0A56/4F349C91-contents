@@ -29,11 +29,11 @@ $$
 
 Still using the example from before, the difference now is that you don't know if the student is sleeping, watching netflix, or doing homework. Instead, the only information you have is whether or not the student is stressed (observed state). Depending on your actual state (sleep, homework, netflix), the probability of being stressed changes. 
 
-|                | Stressed         | Relaxed           | 
+|                | Relaxed          | Stressed          | 
 |----------------| -----------------| ------------------|
-| **Sleep**      | 0.1              | 0.9               |
-| **Homework**   | 0.9              | 0.1               |
-| **Netflix**    | 0.3              | 0.7               | 
+| **Sleep**      | 0.9              | 0.1               |
+| **Homework**   | 0.1              | 0.9               |
+| **Netflix**    | 0.7              | 0.3               | 
 
 For reference, here is the **initial probabilities** from before:
 
@@ -44,7 +44,7 @@ For reference, here is the **initial probabilities** from before:
 | Netflix          | 0.1                            |
 
 As well as the **transition probabilities**: 
-_Keep in mind:_ $P (\pi_{i-1} \rightarrow \pi_{i})$ and $P(\pi_{i}|\pi_{i-1})$_
+_Keep in mind:_ $P (\pi_{i-1} \rightarrow \pi_{i})$ and $P(\pi_{i}|\pi_{i-1})$
 
 |                | Sleep            | Homework           | Netflix        |
 |----------------| -----------------| -------------------|----------------|
@@ -61,16 +61,6 @@ _Keep in mind:_ $P (\pi_{i-1} \rightarrow \pi_{i})$ and $P(\pi_{i}|\pi_{i-1})$_
 | **Transition Probability** $P (\pi_{i-1} \rightarrow \pi_{i})$| 0.3 | 0.2 | 0.4 | 0.6 | 0.6 | 0.1 | 0.4 | 0.5 | 0.5 |
 
 
-
-
-## Viterbi Algorithm
-The **viterbi algorithm** attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses **dynamic programming** and **recursion** by going from the first observation to the current observation and finding the most likely path, a.k.a the **max**. To achieve this, we must multiply from i through n. 
-
-
-
-$$
-P (x|\pi ) = \textrm{initial probability}\cdot \max(\prod(\textrm{transition probability*emission probability}))
-$$
 
 
 ## What is the **likelihood** of a specific observation sequence? 
@@ -91,26 +81,27 @@ $$
 Multiply the emission probabilities together:
 _Given a state sequence, what is the probability of emitting the observed sequence._
 $$
-P (x | \pi) = \prod_{i=1} P (x_{i}|\pi_{i})
+P (x | \pi) = \prod_{t=1} P (x_{t}|\pi_{t})
 $$
 Multiply the transition probabilities together: 
-_Probabililty of a state sequence depends on the **markov property** that the state at i is only dependent on the state at i-1. _
+_Probabililty of a state sequence depends on the **markov property** that the state at time t is only dependent on the state at t-1. _
 
 $$
-P(\pi) = \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+P(\pi) = \prod_{t=1} P (\pi_{t}|\pi_{t-1})
 $$
 
 Putting it all together: 
+_The probability of an observed sequence and a corresponding hidden state sequence is equal to the product of the emission probabilities multiplied by the product of the transition probabilities._
 
 $$
-P(\pi \textrm{ and } x) =  \prod_{i=1} P (\pi_{i}|x_{i}) \cdot \prod_{i=1} P (\pi_{i}|\pi_{i-1})
+P(\pi \textrm{ and } x) =  \prod_{t=1} P (\pi_{t}|x_{t}) \cdot \prod_{t=1} P (\pi_{t}|\pi_{t-1})
 $$
 As an example: 
 
 We could potentially state all possible state paths given a particular observations. If we observed: {1, 0, 0}, the possible state paths include SSS, SHH, SHN, SNN, SNH, HHH, HNS, HSH, HSS, etc. We could calculate the possibility of each, for example: SNS. Initial probability of sleep is 0.6. The probability of being stressed given that they are sleeping is 0.1. Sleep transitioning to Netflix is 0.1.Probability of being relaxed watching Netflix is 0.3. And so on...
 
 $$
-P (\pi_{1}=S) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P ( \pi_{2}=N | \pi_{1}=S )\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{3}=S|\pi_{2}=N)\cdot P(x_{3}=0|\pi_{3}=S)
+P (\pi_{1}=S | \textrm{start}) \cdot P(x_{1}=1|\pi_{1}=S)\cdot P ( \pi_{2}=N | \pi_{1}=S )\cdot P(x_{1}=0|\pi_{1}=N)\cdot P (\pi_{3}=S|\pi_{2}=N)\cdot P(x_{3}=0|\pi_{3}=S)
 $$
 $$
 P (\pi=\textrm{S N S} \cap x=\textrm{1 0 0})=0.6 \cdot0.1\cdot0.1\cdot0.3\cdot0.3\cdot0.9 = 0.000486
@@ -124,16 +115,164 @@ $$
 However, what if the observation sequence is long and therefore the corresponding hidden state sequence is also long which many possible permutations. Calculating the likelihood of a observation would take forever... which is why we use the **forward algorithm**. 
 
 ## Forward algorithm
-The forward algorithm uses **dynamic programming** and stores intermediate values. 
+The forward algorithm uses **dynamic programming**. You can do this recursively. 
+
+1. To implement this, you need to create an empty matrix to **store intermediate values**. The rows equal the number of states (in this case, 3), while the columns should be equal to the number of values in the observation sequence. 
+
+2. First column: The first column states the probability of each state being the initial state and emitting the first observation. All future calculations will be based on these values. 
+
+3. Subsequent columns: Each value in the matrix represents the likelihood of being in a certain state _k_ having observed the first _i_ values in the observation sequence. We will represent this by:
+
+$$
+P (\pi_t=k \textrm{ and } x = x_1, x_2 , x_3 , ...x_t) = \alpha_t (k)
+$$
+This is calculated by taking the emission probability of emitting $x_t$ given that we are at state _k_ and multiplying this by the summation of the probabilities of being at the previous state $l$ at _t-1_ and transitioning to state _k_. 
+
+$$
+\alpha_t (k) = \textrm{(emission probability of } x_{t} \textrm{ given current state k)}\sum \alpha_{t-1} (l) \cdot \textrm{(transition probability from l to k)}
+$$
+$$
+\alpha_t (k) = P (x_{t}|\pi_{t})\sum \alpha_{t-1} (l) \cdot P (\pi_{t}|\pi_{t-1})
+$$
+OK, that's just a ton of math, what does it actually mean? Still using the example from before with the observed sequence 1 0 0, if we have already calculated all the paths from 1 0, we then need to calculate the path to the next 0 based on these paths formed from 1 0. Therefore for each value, you must look at the values in the previous columns. 
+
+```{python, echo=FALSE}
+def prettyPrint(matrix):
+    numRows=len(matrix)
+    numCols=len(matrix[0]) 
+    possible_states=["S","H","N"]
+    print ("       1       2       3       4       5       6       7       9")
+    for row in range (numRows):
+        print (possible_states[row], end="   ")
+        for col in range(numCols): 
+            print(format(matrix[row][col], "5.4f"), end="  ")
+        print("")
+
+    print("")
+```
 
 
+```{python}
+def forward():
+  # if Stressed = 0, Relaxed = 1
+  observations = [1, 0, 0, 1, 1, 0, 1, 1]
+  #build empty dynamic programming matrix 
+  num_states= 3
+  obs_seq_num = len (observations)
+  grid = []
+  for j in range(num_states):  
+    grid.append(obs_seq_num * [0])
+        
+    
+  # initial probability distribution for S, H, N
+  initial = [0.6,0.3,0.1]
+  
+  # emission probability 
+  emission= [[0.9,0.1],[0.1,0.9],[0.7,0.3]]
+        
+  #transition probabilities 
+  transition = [[0.5,0.4,0.1],[0.4,0.2,0.4],[0.3,0.1,0.6]]
+
+  #Start filling out the grid
+  for t in range(obs_seq_num):
+    for i in range(num_states):
+      #first column 
+      if t == 0: 
+        # use the initial probability distribution 
+        grid[i][t] = initial[i] * emission [i][observations[t]]
+      else: 
+        grid[i][t] = emission [i][observations[t]] * ((grid[0][t-1]*transition[0][i]) + (grid[1][t-1]*transition[1][i]) + (grid[2][t-1]*transition[2][i]))
+  
+  prettyPrint (grid)
+  
+  print ("Probability of observing: ")
+  for k in observations:
+    print (observations[k], end="        ")
+  print ()
+  
+  for s in range(obs_seq_num): 
+    sum=0
+    for q in range (num_states):
+      sum+=grid[q][s]
+    print (format(sum, "5.4f"), end = "   ")
+forward()
+```
+For example, how did we calculate the probability of being at state S at time 2 with the observations thus far being: 1 0. 
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="403px" viewBox="-0.5 -0.5 403 324" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-07-06T20:03:18.271Z&quot; agent=&quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot; etag=&quot;DsuH0lr6Z-pgRyVUjwq8&quot; version=&quot;13.3.9&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;1_E2bteAL8cD-64oW33z&quot; name=&quot;Page-1&quot;&gt;7Vxdd6I4GP41Xm4PAUG9nNo6vejM7lkvdnqZlVRzBokTYtX59ZtAECUggQVBak9PD3mBAO/zvJ+EDqzpev+Vws3qG3GRNzANdz+wngamORk6/K8QHCKBDcaRYEmxG4lAIpjj30gKDSndYhcFZwcyQjyGN+fCBfF9tGBnMkgp2Z0f9k6886tu4BIpgvkCeqr0H+yylZQCZ5LseEF4uZKXHpvygdcwPlg+SbCCLtmdiKzngTWlhLBoa72fIk/oLtZLdN4sZ+/xxijymc4J31+Xz8avX+Zk/fb68vantVvNrT/kLB/Q28oHnhG6g9Tlwm+QUbyXN88OsUb4c2zEJoP/CtHjYoU99xUeyJbF0nj0yPX/iv0QP0McSrzt2j+VBAxSJlEfCsGKrT2+DfjmboUZmm/gQuzccXZFM3hwE+Dw0uEMFC22NMAf6G8URPMIKdpvoO/KwYZgnyH6/ME1FV/4nfhsLh9KXAx6eOnz7QUSh4o7i+ESe6WWEGVon6t+cASVGwMia8TogR8iTzDHkgfSEEZyuEtYNTSkbHVCKCvmD5RMXh6nTsDmGxLvEtibCvYq1ju89qAvYF4Rin9zpUHvVKvhPdmP/Jff5dR4sAc2P2/KxyAZ819xOGVT4geMQhxqDMGA7VDAusMCHZDzrUhF/hDDqoc0aAxpS0Ga4TXiknBggEu4S8cKE123hlZ1gMyLppkB0BGL6wAEJgpCxoPhKLjwB2fnCuf2RH6iKfEId1pPPgkxe8eelxIp/k2oEfM490XuWGPXDf15FoSUbH0XxdiUd435rMwFxdJwlypEjSE0VAC66C0/gdUAp3WzsUbFIQz57heRBwruezAI8OJc9yIExLYy4KwLf7iccDgwE+yzDMXO+IGOM50aiX6Rq+SRBdodZmv3RJt2hjJjGUUeZJwL5wlvhoLlFf4SzEjASyUj4xRCAdnSBZLnnOaUqWmAfXkezvklYso8IdjHZ/4fGYyawhgPwDKtfjvOHOakollHHKetQKSi87kc59FK2nOcpooKzzfGo2G/Dce+JcNximNb38uz6khfrsiyUpfMkiwdz2oDVyNx0XaKt4GIo2V7RS6xMUDii515RHPUb384uohJqgKzWvaH47vJVKu/mrMZta/EswhjrPaTemU14zJZRNtWozaWPrfVaCffzVmNmtgJq3F6nntPbslqLNWzKehUbSyhPWY/5DFi+03omWfi0ehpf7QQPjjEA58/1Y/TQXTWyI7HyXnhKD6xqIs1m8m7GlTsYsU96rBhpJFfRR2hwqDSVl8MpBpjTophuo2xdPIEUvM03BgDajZ7ye3fi8cSxaP2+7zGIghQ39r3PagDIxuTzpSPKiQ8qPe8Dw0ur3joWP0IzLvVdK6CVF+rcrOZmD3PhSMq3koyDDSS4c9lOB0oItUGMjccu/cR5/KakY4ZjqWRhRdVkfVVi6CgVBxUrADjbl9hBRgv3y2sAHO8YzsVoEKPyiXgKDVRwzWgpVElVGPfqFqzovVehS5T49V4N9aruF2mqllgaaY2320r8p+doa++o73Ttxb6ahSWjThahWKCYLNZvgsux+DuuNlWl0rWxlMwSU105dWSQHWzc4WoHSwXyn+kUe5LHND2Si+grsZ7uQNjJm9fWgNGXXPy/Q4MD7iZr0CuCIypsRioicpaIySWi35tBbWhkzK1ScWgNhylnGl6oqY/AdBY4NJxJpx8DdwnJpjGldNwNYqWZkKdVWR+dl4+z/7kVLLsK1NJY+19EZXy4a+TZA1SKScluHUqpVf0NE2lGjKV/G8PNT9ezGaWeb0I12qjyU71hyp/7WinC/hrR7gacp2GuFTQqaqTS602g2rzS46Rmqi2FYJ8mPxTmejw5D/zWM//AQ==&lt;/diagram&gt;&lt;/mxfile&gt;" onclick="(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;&amp;src.nodeName.toLowerCase()!='a'){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;&amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&amp;&amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute('content')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);svg.wnd=window.open('https://app.diagrams.net/?client=1&amp;lightbox=1&amp;edit=_blank');}}})(this);" style="cursor:pointer;max-width:100%;max-height:324px;"><defs/><g><path d="M 0 40 L 0 0 L 400 0 L 400 40" fill="#000000" stroke="#000000" stroke-miterlimit="10" transform="translate(2,3)" opacity="0.25"/><path d="M 0 40 L 0 0 L 400 0 L 400 40" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/><path d="M 0 40 L 0 320 L 400 320 L 400 40" fill="none" stroke="#000000" stroke-miterlimit="10" transform="translate(2,3)" opacity="0.25"/><path d="M 0 40 L 0 320 L 400 320 L 400 40" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 0 40 L 400 40" fill="none" stroke="#000000" stroke-miterlimit="10" transform="translate(2,3)" opacity="0.25"/><path d="M 0 40 L 400 40" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 398px; height: 1px; padding-top: 20px; margin-left: 1px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">Forward Matrix</div></div></div></foreignObject><text x="200" y="24" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">Forward Matrix</text></switch></g><path d="M 40 40 L 0 40 L 0 160 L 40 160" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 40 L 400 40 L 400 160 L 40 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 40 L 40 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 80 L 40 40 L 160 40 L 160 80" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 80 L 40 160 L 160 160 L 160 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 80 L 160 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 41px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">time = 1</div></div></div></foreignObject><text x="100" y="64" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">time = 1</text></switch></g><rect x="70" y="110" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 71px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.06</div></div></div></foreignObject><text x="90" y="124" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.06</text></switch></g><path d="M 160 80 L 160 40 L 280 40 L 280 80" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 80 L 160 160 L 280 160 L 280 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 80 L 280 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 161px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">2</div></div></div></foreignObject><text x="220" y="64" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">2</text></switch></g><path d="M 240 120 L 303.63 120" fill="none" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 308.88 120 L 301.88 123.5 L 303.63 120 L 301.88 116.5 Z" fill-opacity="0.3" fill="#66cc00" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><rect x="200" y="110" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 201px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.1323</div></div></div></foreignObject><text x="220" y="124" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.1323</text></switch></g><path d="M 280 80 L 280 40 L 400 40 L 400 80" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 80 L 280 160 L 400 160 L 400 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 80 L 400 80" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 60px; margin-left: 281px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">3</div></div></div></foreignObject><text x="340" y="64" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">3</text></switch></g><rect x="320" y="110" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 120px; margin-left: 321px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.0874</div></div></div></foreignObject><text x="340" y="124" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.0874</text></switch></g><path d="M 40 160 L 0 160 L 0 240 L 40 240" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 160 L 400 160 L 400 240 L 40 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 160 L 40 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 160 L 40 160 L 160 160 L 160 160" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 160 L 40 240 L 160 240 L 160 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 160 L 160 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="70" y="190" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 71px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.27</div></div></div></foreignObject><text x="90" y="204" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.27</text></switch></g><path d="M 160 160 L 160 160 L 280 160 L 280 160" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 160 L 160 240 L 280 240 L 280 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 160 L 280 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="200" y="190" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 201px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.0081</div></div></div></foreignObject><text x="220" y="204" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.0081</text></switch></g><path d="M 280 160 L 280 160 L 400 160 L 400 160" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 160 L 280 240 L 400 240 L 400 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 160 L 400 160" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="320" y="190" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 321px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.0064</div></div></div></foreignObject><text x="340" y="204" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.0064</text></switch></g><path d="M 110 200 L 193.64 204.65" fill="none" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 198.88 204.94 L 191.7 208.04 L 193.64 204.65 L 192.09 201.06 Z" fill-opacity="0.3" fill="#ff0000" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 0 240 L 0 320 L 40 320" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 400 240 L 400 320 L 40 320" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 40 320" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 40 240 L 160 240 L 160 240" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 40 320 L 160 320 L 160 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 40 240 L 160 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="70" y="270" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 71px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.03</div></div></div></foreignObject><text x="90" y="284" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.03</text></switch></g><path d="M 160 240 L 160 240 L 280 240 L 280 240" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 240 L 160 320 L 280 320 L 280 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 160 240 L 280 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="200" y="270" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 201px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.0924</div></div></div></foreignObject><text x="220" y="284" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.0924</text></switch></g><path d="M 280 240 L 280 240 L 400 240 L 400 240" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 240 L 280 320 L 400 320 L 400 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 280 240 L 400 240" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><rect x="320" y="270" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 321px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: normal; word-wrap: normal; ">0.0503</div></div></div></foreignObject><text x="340" y="284" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">0.0503</text></switch></g><path d="M 110 280 L 196.72 135.46" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 199.42 130.96 L 198.82 138.76 L 196.72 135.46 L 192.82 135.16 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 125 L 195.11 195.92" fill="none" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 199.14 199.28 L 191.52 197.49 L 195.11 195.92 L 196 192.11 Z" fill-opacity="0.3" fill="#ff0000" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 280 L 194.97 213.91" fill="none" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 199.12 210.69 L 195.74 217.75 L 194.97 213.91 L 191.44 212.22 Z" fill-opacity="0.3" fill="#ff0000" stroke="#ff0000" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 125 L 196.64 264.59" fill="none" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 199.41 269.05 L 192.75 264.95 L 196.64 264.59 L 198.69 261.26 Z" fill-opacity="0.3" fill="#0000ff" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><rect x="0" y="100" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 110px; margin-left: 1px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">S</div></div></div></foreignObject><text x="20" y="114" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">S</text></switch></g><rect x="0" y="190" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 200px; margin-left: 1px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">H</div></div></div></foreignObject><text x="20" y="204" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">H</text></switch></g><rect x="0" y="270" width="40" height="20" fill="none" stroke="none" transform="translate(2,3)" opacity="0.25"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 280px; margin-left: 1px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; font-weight: bold; white-space: normal; word-wrap: normal; ">N</div></div></div></foreignObject><text x="20" y="284" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">N</text></switch></g><path d="M 110 120 L 183.63 120" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 188.88 120 L 181.88 123.5 L 183.63 120 L 181.88 116.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 200 L 185.21 134.19" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 189.16 130.74 L 186.2 137.98 L 185.21 134.19 L 181.59 132.71 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 200 L 185.5 275.5" fill="none" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 189.21 279.21 L 181.78 276.73 L 185.5 275.5 L 186.73 271.78 Z" fill-opacity="0.3" fill="#0000ff" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 110 280 L 183.68 289.21" fill="none" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 188.89 289.86 L 181.51 292.47 L 183.68 289.21 L 182.38 285.52 Z" fill-opacity="0.3" fill="#0000ff" stroke="#0000ff" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 240 195 L 305.33 134.33" fill="none" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 309.18 130.76 L 306.43 138.09 L 305.33 134.33 L 301.67 132.96 Z" fill-opacity="0.3" fill="#66cc00" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 240 285 L 316.92 145.58" fill="none" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/><path d="M 319.46 140.98 L 319.14 148.8 L 316.92 145.58 L 313.01 145.42 Z" fill-opacity="0.3" fill="#66cc00" stroke="#66cc00" stroke-opacity="0.3" stroke-miterlimit="10" pointer-events="none"/></g><switch><g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/><a transform="translate(0,-5)" xlink:href="https://desk.draw.io/support/solutions/articles/16000042487" target="_blank"><text text-anchor="middle" font-size="10px" x="50%" y="100%">Viewer does not support full SVG 1.1</text></a></switch></svg>
+
+$$
+P(\pi_{2}=S \textrm{ and } x_2 = 0 )= 0.9\cdot (0.06\cdot 0.5 + 0.27\cdot 0.4+0.03\cdot0.3)=0.1323
+$$
+Finally, what is the probability of the following sequence: 1, 0, 0? 
+This is equal to the sum of all the probabilities at the end time: 
+$$
+P(x= \textrm{1 0 0})= 0.0874 + 0.0064 + 0.0503= 0.1441
+$$
+Additional note: How do you find the probability of, for example, being at state S at time 3? 
+This is just the likelihood probability from the matrix divided by the sum of the entire column (what we calculated above): 
+$$
+\frac{0.0874} {0.0874 + 0.0064 + 0.0503}=0.6065
+$$
 
 
+## Decoding: Viterbi Algorithm
+The **viterbi algorithm** attempts to answer: Given a sequence of observations, what is the most likely corresponding state path? It also uses **dynamic programming** and **recursion** by going from the first observation to the current observation and finding the most likely path, a.k.a the **max**. To find the path, we must also use **backtracking**. 
+
+
+$$
+P (x|\pi ) = \textrm{emission probability}\cdot \max(\prod(\textrm{transition probability*}))
+$$
+
+$$
+P (\pi = \pi_1,\pi_2, ...k \textrm{ and } x = x_1, x_2 , x_3 , ...x_t) = v_t (k)
+$$
+$$
+v_t (k) = \max (v_{t-1}(l)\cdot\textrm{emission probability of }x_t \textrm{ given state } k\cdot\textrm{transition probability from l to k})
+$$
+$$
+v_t (k) = \max (v_{t-1}(l)\cdot P (x_{t}|\pi_{t})\cdot P(\pi_{t}|\pi_{t-1}))
+$$
+
+
+Again, similar to the forward algorithm, you will need a matrix to store intermediate maximum values. Each value represents the probability of being at state k at time t given the observations until time t and having gone through the most probable path at time t-1. To compute this, you recursively find the most probable paths to each cell. 
+
+```{python}
+def viterbi(): 
+  # if Stressed = 0, Relaxed = 1
+  observations = [1, 0, 0, 1, 1, 0, 1, 1]
+  #build empty dynamic programming matrix 
+  num_states= 3
+  obs_seq_num = len (observations)
+  grid = []
+  for j in range(num_states):  
+    grid.append(obs_seq_num * [0])
+        
+    
+  # initial probability distribution for S, H, N
+  initial = [0.6,0.3,0.1]
+  
+  # emission probability 
+  emission= [[0.9,0.1],[0.1,0.9],[0.7,0.3]]
+        
+  #transition probabilities 
+  transition = [[0.5,0.4,0.1],[0.4,0.2,0.4],[0.3,0.1,0.6]]
+
+viterbi()
+
+```
+What is it trying to do? Returns the path and its probability. 
 
 
 ## HMM Package in R 
-These methods are implemented in the R package, HMM, which I think is super helpful. 
+This is too much math/I don't care. There are plenty of packages available on the internet, for example, these methods are implemented in the R package, HMM, which I think is super helpful. Just understanding what the different terms mean such as transition matrix, initial probability distribution, emission probability, etc. will be enough to use these tools. 
 
 ## Application
 [This](https://www.kaggle.com/alfrandom/protein-secondary-structure/data) is a good exercise to test your understanding. It looks at predicting the secondary structure of proteins from the primary sequence. 
+
+## References
+
+1. https://www.cs.rochester.edu/u/james/CSC248/Lec11.pdf
+2. http://pages.cs.wisc.edu/~matthewb/pages/notes/pdf/hmms/ForwardAlgorithm.pdf
+3. https://web.stanford.edu/~jurafsky/slp3/A.pdf
 
