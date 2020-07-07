@@ -230,16 +230,15 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Cara (Yijin) Zou">
   <meta property="og:url" content="/post/hidden_markov_model/">
   <meta property="og:title" content="Hidden Markov Model | Cara (Yijin) Zou">
-  <meta property="og:description" content="Hidden Markov Model I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. In this case the markov chain is not visible to us, we can only observe outcome values."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
-  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Hidden Markov Model I go over the basics of a Markov Chain here, however, unlike chutes and ladders, for a hidden markov model, there is hidden information. In this case the markov chain is not visible to us, we can only observe outcome values."><meta property="og:image" content="/post/hidden_markov_model/featured.png">
+  <meta property="twitter:image" content="/post/hidden_markov_model/featured.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2020-04-20T00:00:00&#43;00:00">
@@ -271,6 +270,10 @@
     "@id": "/post/hidden_markov_model/"
   },
   "headline": "Hidden Markov Model",
+  
+  "image": [
+    "/post/hidden_markov_model/featured.png"
+  ],
   
   "datePublished": "2020-04-20T00:00:00Z",
   "dateModified": "2020-04-20T00:00:00Z",
@@ -1683,7 +1686,8 @@ N
 <p><span class="math display">\[
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 \]</span>
-The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05. To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.</p>
+The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05.</p>
+<p>To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.</p>
 </div>
 <div id="packages" class="section level2">
 <h2>Packages</h2>

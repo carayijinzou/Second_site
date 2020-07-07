@@ -6,6 +6,12 @@ output: html_document
 math : true
 categories: ["Statistics", "Probability","Bioinformatics"]
 tags: ["Statistics","Modelling", "Markov Chain","Probability","HMM","Forward Algorithm","Viterbi Algorithm", "Emission probability","Observed State","R"]
+image:
+  placement: 1
+  caption: "Hidden Markov Model Example"
+  focal_point: "Center"
+  preview_only: true
+  
 ---
 
 ```{r setup, include=FALSE}
@@ -297,7 +303,9 @@ For example, how did they calculate the probability of the most probable path at
 $$
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 $$
-The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05. To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.  
+The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05. 
+
+To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.  
 
 ## Packages 
 This is too much math/I don't care. There are plenty of packages available on the internet, for example, these methods are implemented in the R package, HMM, which I think is super helpful. Just understanding what the different terms mean such as transition matrix, initial probability distribution, emission probability, etc. should be enough to use these tools. 

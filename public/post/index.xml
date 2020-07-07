@@ -1300,7 +1300,8 @@ N
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 \]&lt;/span&gt;
-The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05. To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.&lt;/p&gt;
+The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05.&lt;/p&gt;
+&lt;p&gt;To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;packages&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Packages&lt;/h2&gt;

@@ -6,6 +6,12 @@ output: html_document
 math : true
 categories: ["Statistics", "Probability","Bioinformatics"]
 tags: ["Statistics","Modelling", "Markov Chain","Probability","HMM","Forward Algorithm","Viterbi Algorithm", "Emission probability","Observed State","R"]
+image:
+  placement: 1
+  caption: "Hidden Markov Model Example"
+  focal_point: "Center"
+  preview_only: true
+  
 ---
 
 
@@ -1091,7 +1097,8 @@ N
 <p><span class="math display">\[
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 \]</span>
-The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05. To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.</p>
+The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05.</p>
+<p>To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.</p>
 </div>
 <div id="packages" class="section level2">
 <h2>Packages</h2>
