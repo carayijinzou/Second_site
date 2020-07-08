@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594227541556.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3222683990",
+    "id" : "3A3C508C",
+    "lastKnownWriteTime" : 1594227650,
+    "last_content_update" : 1594227650847,
+    "path" : "~/Desktop/Second_site/content/project/PAX9_RF.Rmd",
+    "project_path" : "content/project/PAX9_RF.Rmd",
+    "properties" : {
+        "cursorPosition" : "17,963",
+        "last_setup_crc32" : "1C07266F3e98116a",
+        "scrollLine" : "9"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
