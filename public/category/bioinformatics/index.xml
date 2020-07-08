@@ -73,6 +73,10 @@
 &lt;blockquote&gt;
 &lt;p&gt;orient 3lwb&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;no-ctrlz-undo&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;No Ctrl+Z (Undo)&lt;/h4&gt;
+&lt;p&gt;Something I find really annoying about PyMOL is that undo doesn’t really work (this is also why I think pymol scripting is so great). Previously, I always kept saving sessions because I was afraid of losing progress (which you should still do, just in case). Something else that I recently found out about is using scenes. It acts like a snapshot in a moment in time. You can switch between different scenes that you saved and you can also use these scenes to create movies. Scenes are great because you can go back to a certain scene and work based on that if you messed up in the GUI. However, it is also important to note that some functions such as mutagenesis are still permanent in that it will change previous scenes as well.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;scene 001, store #save scene&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1157,14 +1161,14 @@ This is just the likelihood probability from the matrix divided by the sum of th
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 P (\pi = \pi_1,\pi_2, ...k \textrm{ and } x = x_1, x_2 , x_3 , ...x_t) = v_t (k)
 \]&lt;/span&gt;
-As you can see from the formula, it is very similar to forward except we use the &lt;strong&gt;max&lt;/strong&gt; instead of the *sum** of previous probabilities.&lt;/p&gt;
+As you can see from the formula, it is very similar to forward except we use the &lt;strong&gt;max&lt;/strong&gt; instead of the &lt;strong&gt;sum&lt;/strong&gt; of previous probabilities.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 v_t (k) = \max (v_{t-1}(l)\cdot\textrm{emission probability of }x_t \textrm{ given state } k\cdot\textrm{transition probability from l to k})
 \]&lt;/span&gt;
 &lt;span class=&#34;math display&#34;&gt;\[
 v_t (k) = \max (v_{t-1}(l)\cdot P (x_{t}|\pi_{t})\cdot P(\pi_{t}|\pi_{t-1}))
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Again, similar to the forward algorithm, you will need a matrix to store intermediate maximum values. Each value represents the probability of being at state k at time t given the observations until time t and having gone through the most probable path at time t-1. To compute this, you recursively find the most probable paths to each cell.&lt;/p&gt;
+&lt;p&gt;Again, similar to the forward algorithm, you will need a matrix to store intermediate maximum values. Each value represents the probability of being at state &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; at time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt; given the observations until time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt; and having gone through the most probable path at time &lt;span class=&#34;math inline&#34;&gt;\(t-1\)&lt;/span&gt;. To compute this, you recursively find the most probable paths to each cell.&lt;/p&gt;
 &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; version=&#34;1.1&#34; width=&#34;539px&#34; viewBox=&#34;-0.5 -0.5 539 352&#34; content=&#34;&amp;lt;mxfile host=&amp;quot;app.diagrams.net&amp;quot; modified=&amp;quot;2020-07-07T16:45:58.747Z&amp;quot; agent=&amp;quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&amp;quot; etag=&amp;quot;5-2SwuO5O3Gh21Fzdcor&amp;quot; version=&amp;quot;13.3.9&amp;quot; type=&amp;quot;device&amp;quot;&amp;gt;&amp;lt;diagram id=&amp;quot;oMR4MIIZOaCO1FRYHQ6a&amp;quot; name=&amp;quot;Page-1&amp;quot;&amp;gt;7VdNb+IwEP01ObZK7EDhWKC0qlQJicN+3KzYJFadGDmGhP31OybOhxMqikq32tVyQOMXe2Y878WeeHielo+KbJMXSZnwkE9LDy88hKbhGP4NcKiAUTCpgFhxWkFBC6z5L2ZB36I7TlnuTNRSCs23LhjJLGORdjCilCzcaRsp3KhbErMBsI6IGKLfONVJhU5Gfos/MR4ndeTAt09SUk+2QJ4QKosOhB88PFdS6spKyzkTpnZ1Xap1yzeeNokplun3LHj+WSxeN+XeL6JSkPX+eea/3NTJ7YnY2R3bbPWhLgEkvjWmVB6eFQnXbL0lkUEKoBywRKcCRgGYSmqiucxgeDP1AbDumdKsfDPxoCkHyIjJlGl1gCl2AcaT27tRtapWUYsULSsoRLcWTTqchKHdJLFaiJsQbbnAsBW7pHrB+eqxjN4bHcIoEiTPeeRWjJVcfwfbt/aPjr0ou4NDZ7BiisMemLJYFZbRgZh7RYbU5E5F7Kwkhmx0Cl2rv1vlGlNMgAL2bh6nKm8jrCSHDBuyw/r9sUyjaY+8Kn+7qiv3niMUuo4C1HOkiYqZHjg6CqHZ9ge0gT6ujfey+lVk9WvckHcpWXfojKPPJgtfRFYmMwBnlOQJo5arDm0GXxENb2d2RJCPAc21kq/NJYIaZC6FOVkhBPbht1z+hcQH4ysRP3D02cSHX0H8yTMfrq5LT/2BgJZLI6H/98EpR2PX0eQPC200EFoJw6MFjWqcknIgPGiZtCswl3Crxg0XogcRwWMjwQjYNmqZmQaMQ1d7bx+knFIT5mQ/p+Quo0d9X6mDC/vHe93ddzQ0OaGh/pV9vcZtPGDDpPZPkxBMe0ftaEhCeB0SYNh+11RvUPtxiB9+Aw==&amp;lt;/diagram&amp;gt;&amp;lt;/mxfile&amp;gt;&#34; onclick=&#34;(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;amp;&amp;amp;src.nodeName.toLowerCase()!=&#39;a&#39;){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;amp;&amp;amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data==&#39;ready&#39;&amp;amp;&amp;amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute(&#39;content&#39;)),&#39;*&#39;);window.removeEventListener(&#39;message&#39;,r);}};window.addEventListener(&#39;message&#39;,r);svg.wnd=window.open(&#39;https://app.diagrams.net/?client=1&amp;amp;lightbox=1&amp;amp;edit=_blank&#39;);}}})(this);&#34; style=&#34;cursor:pointer;max-width:100%;max-height:352px;&#34;&gt;
 &lt;defs/&gt;&lt;g&gt;&lt;path d=&#34;M 148.75 -20.25 Q 391.25 -20.25 391.25 199.75 Q 391.25 419.75 148.75 419.75 Z&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;rotate(-90,270,199.75)&#34; pointer-events=&#34;all&#34;/&gt;&lt;path d=&#34;M 50 321 L 50 47.37&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;stroke&#34;/&gt;&lt;path d=&#34;M 50 42.12 L 53.5 49.12 L 50 47.37 L 46.5 49.12 Z&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;all&#34;/&gt;&lt;path d=&#34;M 50 321 L 523.63 321&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;stroke&#34;/&gt;&lt;path d=&#34;M 528.88 321 L 521.88 324.5 L 523.63 321 L 521.88 317.5 Z&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;all&#34;/&gt;&lt;path d=&#34;M 50 81 L 530 81&#34; fill=&#34;none&#34; stroke=&#34;#0000ff&#34; stroke-width=&#34;2&#34; stroke-miterlimit=&#34;10&#34; stroke-dasharray=&#34;2 6&#34; pointer-events=&#34;stroke&#34;/&gt;&lt;path d=&#34;M 270 321 L 270 1&#34; fill=&#34;none&#34; stroke=&#34;#ff0000&#34; stroke-width=&#34;2&#34; stroke-miterlimit=&#34;10&#34; stroke-dasharray=&#34;2 6&#34; pointer-events=&#34;stroke&#34;/&gt;&lt;rect x=&#34;230&#34; y=&#34;331&#34; width=&#34;80&#34; height=&#34;20&#34; fill=&#34;none&#34; stroke=&#34;none&#34; pointer-events=&#34;all&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
 &lt;switch&gt;
@@ -1195,7 +1199,7 @@ y=max
 &lt;g requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;/&gt;&lt;a transform=&#34;translate(0,-5)&#34; xlink:href=&#34;https://desk.draw.io/support/solutions/articles/16000042487&#34; target=&#34;_blank&#34;&gt;&lt;text text-anchor=&#34;middle&#34; font-size=&#34;10px&#34; x=&#34;50%&#34; y=&#34;100%&#34;&gt;Viewer does not support full SVG 1.1&lt;/text&gt;&lt;/a&gt;
 &lt;/switch&gt;
 &lt;/svg&gt;
-&lt;p&gt;But what about the actual path? This is when we use backtracking and &lt;strong&gt;argmax&lt;/strong&gt; instead of max. If you have a typical hyperbola, at the highest point, the y-value you obtain is the max, while the x value in which you used as input into the function to obtain the highest point is the argmax.&lt;/p&gt;
+&lt;p&gt;But what about the actual path? This is when we use backtracking and &lt;strong&gt;argmax&lt;/strong&gt; instead of max. If you have a typical hyperbola, at the highest point, the y-value you obtain is the max, while the x-value in which you used as input into the function to obtain the highest point is the argmax.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \pi_t (k) = \textrm{argmax} (v_{t-1}(l)\cdot P (x_{t}|\pi_{t})\cdot P(\pi_{t}|\pi_{t-1}))
 \]&lt;/span&gt;&lt;/p&gt;
@@ -1455,7 +1459,7 @@ N
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 \]&lt;/span&gt;
 The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05.&lt;/p&gt;
-&lt;p&gt;To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: HSSHHSHH.&lt;/p&gt;
+&lt;p&gt;To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: &lt;em&gt;HSSHHSHH&lt;/em&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;packages&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Packages&lt;/h2&gt;

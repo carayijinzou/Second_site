@@ -73,6 +73,10 @@
 &lt;blockquote&gt;
 &lt;p&gt;orient 3lwb&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;no-ctrlz-undo&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;No Ctrl+Z (Undo)&lt;/h4&gt;
+&lt;p&gt;Something I find really annoying about PyMOL is that undo doesn’t really work (this is also why I think pymol scripting is so great). Previously, I always kept saving sessions because I was afraid of losing progress (which you should still do, just in case). Something else that I recently found out about is using scenes. It acts like a snapshot in a moment in time. You can switch between different scenes that you saved and you can also use these scenes to create movies. Scenes are great because you can go back to a certain scene and work based on that if you messed up in the GUI. However, it is also important to note that some functions such as mutagenesis are still permanent in that it will change previous scenes as well.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;scene 001, store #save scene&lt;/p&gt;
 &lt;/blockquote&gt;
