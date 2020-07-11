@@ -1,0 +1,102 @@
+---
+title: "Working with Genetic Data"
+author: "Cara Yijin Zou"
+date: "2020-05-10"
+output: html_document
+draft: true 
+tags: ["Bioinformatics"]
+summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What are all these different files (FASTA, VCF, etc.) used for? "
+---
+
+
+
+<p>*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.</p>
+<div id="reference-sequence-number-what-do-all-of-these-acronyms-mean" class="section level2">
+<h2>Reference Sequence Number: What do all of these acronyms mean?</h2>
+<p>When I first started working on genetic data and especially with my <a href="../../PAX9_RF.Rmd">PAX9 project</a>, I was so confused by all of the different values that were associated with the gene:</p>
+<p>Genomic reference: NG_013357.1 (GRCh 37)
+Transcript reference: NM_006194.3
+Ensembl gene ID: ENSG00000198807.8
+Canonical transcript: ENST00000361487.6</p>
+</div>
+<div id="grch-37" class="section level2">
+<h2>GRCh 37</h2>
+<p>Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. <strong>GRCh37</strong> stands for Genome Reference Consortium Human Build 37 and is generally synonymous with <strong>hg19</strong>. Similarly, <strong>hg38</strong> can also be used to refer to the same genome build as <strong>GRCh38</strong>.</p>
+<p>What is the difference between GRCh37 and GRCh38? GRCh38 was released after GRCh37 and has more updated annotations. Luckily, various tools such as from [NCBI]](<a href="https://www.ncbi.nlm.nih.gov/genome/tools/remap" class="uri">https://www.ncbi.nlm.nih.gov/genome/tools/remap</a>) or <a href="https://www.ncbi.nlm.nih.gov/genome/tools/remap">Ensembl</a> can be used for converting annotations.</p>
+</div>
+<div id="ncbi-reference-sequence-refseq" class="section level2">
+<h2>NCBI Reference Sequence (RefSeq)</h2>
+<p>The accession number format:</p>
+<ul>
+<li><p>NG_: gene/genomic region</p></li>
+<li><p>NC_: plus (+) strand on <strong>c</strong>hromosome</p></li>
+<li><p>NT_: constructed genomic contigs (overlapping DNA fragments that are used to assemble the full sequence)</p></li>
+</ul>
+<p><em>‘NC’, ‘NG’, ‘NT’ all refer to genomic sequences</em></p>
+<ul>
+<li><p>NM_: <strong>m</strong>RNA, coding strand</p></li>
+<li><p>NR_: non-coding <strong>R</strong>NA</p></li>
+<li><p>NP_: <strong>p</strong>rotein</p></li>
+</ul>
+<p><em>Also, it it begins with an ‘X’ liks ‘XP’ or ‘XM’, it probably means that the sequence is from computational prediction.</em></p>
+<p><em>What about CDS? That is the coding region of a gene that is translated to protein. Therefore, it excludes the UTR and introns.</em></p>
+</div>
+<div id="ensemble" class="section level2">
+<h2>Ensemble</h2>
+<ul>
+<li><p>ENST: transcipt</p></li>
+<li><p>ENSG: gene <em>(One gene can many corresponding transcripts.)</em></p></li>
+<li><p>ENSP: protein</p></li>
+</ul>
+</div>
+<div id="types-of-files" class="section level1">
+<h1>Types of Files</h1>
+<div id="fasta" class="section level2">
+<h2>FASTA</h2>
+<p>FASTA is a type of text-based file that is used to store a nucleotide or amino acid sequence. In R, there is the read.fasta() function from the ‘seqinr’ package. It’s written in the following format</p>
+<blockquote>
+<p>&gt;3LWB:A|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH
+&gt;3LWB:B|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
+</blockquote>
+<p>The first line is used to describe the folowing sequence and it is indicated by the “&gt;” sign. As you can see above, multiple sequences can be found in one FASTA file.</p>
+</div>
+<div id="fastq" class="section level2">
+<h2>Fastq</h2>
+<p>Similar to FASTA, except from DNA sequencing (commonly for illumina). It also includes the PHRED score which is a measure of the quality of the reading for each base. It is denoted by a single ASCII character.</p>
+<blockquote>
+<p>@ SequenceID
+CATGGGCAGCCGAGAGATTGCGA
++
+K&lt;=gux;YZ[bcs3^_`a;&lt;}</p>
+</blockquote>
+<p>The first line contains the description like fasta but is indicated by the “@” sign instead. After which, the nucleotide sequence is shown on the 2nd line. The third line starts with a “+” sign. Finally, the 4th line contains the quality scores.</p>
+</div>
+<div id="sambam-files" class="section level2">
+<h2>SAM/BAM files</h2>
+<p>SAM and BAM files contain the same information, the difference is that BAM files are <strong>binary</strong> versions of a SAM file. SAM stands for “Sequence Alignment/Map” and contain information about sequences aligned to a reference sequence, and is generated by next generation sequencing.</p>
+</div>
+<div id="vcf" class="section level2">
+<h2>VCF</h2>
+<p>VCF stands for variant call format and stores different variants of a gene.</p>
+<p>What are the different BLASTS?
+BLOSUM?</p>
+<p>For more acronyms, I found this <a href="http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf">glossary</a> online that has a lot of the basics.</p>
+<p>References
+1. <a href="http://useast.ensembl.org/info/website/tutorials/grch37.html" class="uri">http://useast.ensembl.org/info/website/tutorials/grch37.html</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p><a href="https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/" class="uri">https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/</a></p></li>
+<li><p><a href="https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r" class="uri">https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r</a></p></li>
+<li><p><a href="https://thesequencingcenter.com/knowledge-base/fastq-files/" class="uri">https://thesequencingcenter.com/knowledge-base/fastq-files/</a></p></li>
+</ol>
+</div>
+</div>
