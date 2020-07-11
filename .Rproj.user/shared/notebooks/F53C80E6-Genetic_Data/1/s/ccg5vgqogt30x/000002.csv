@@ -1,0 +1,10 @@
+"1","For the sequence:  CAGCCCAATC
+The 1-mers are :
+{'C': 5, 'A': 3, 'G': 1, 'T': 1}
+The 2-mers are :
+{'CA': 2, 'AG': 1, 'GC': 1, 'CC': 2, 'AA': 1, 'AT': 1, 'TC': 1}
+The 3-mers are :
+{'CAG': 1, 'AGC': 1, 'GCC': 1, 'CCC': 1, 'CCA': 1, 'CAA': 1, 'AAT': 1, 'ATC': 1}
+The 4-mers are :
+{'CAGC': 1, 'AGCC': 1, 'GCCC': 1, 'CCCA': 1, 'CCAA': 1, 'CAAT': 1, 'AATC': 1}
+"

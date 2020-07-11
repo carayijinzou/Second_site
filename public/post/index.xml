@@ -216,107 +216,6 @@ This refers to name carbon alpha (and so on for beta, gamma, delta, etc.).&lt;/p
     </item>
     
     <item>
-      <title>Working with Genetic Data</title>
-      <link>/post/genetic_data/</link>
-      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/genetic_data/</guid>
-      <description>
-
-
-&lt;p&gt;*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.&lt;/p&gt;
-&lt;div id=&#34;reference-sequence-number-what-do-all-of-these-acronyms-mean&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Reference Sequence Number: What do all of these acronyms mean?&lt;/h2&gt;
-&lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../PAX9_RF.Rmd&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
-&lt;p&gt;Genomic reference: NG_013357.1 (GRCh 37)
-Transcript reference: NM_006194.3
-Ensembl gene ID: ENSG00000198807.8
-Canonical transcript: ENST00000361487.6&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;grch-37&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;GRCh 37&lt;/h2&gt;
-&lt;p&gt;Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. &lt;strong&gt;GRCh37&lt;/strong&gt; stands for Genome Reference Consortium Human Build 37 and is generally synonymous with &lt;strong&gt;hg19&lt;/strong&gt;. Similarly, &lt;strong&gt;hg38&lt;/strong&gt; can also be used to refer to the same genome build as &lt;strong&gt;GRCh38&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;What is the difference between GRCh37 and GRCh38? GRCh38 was released after GRCh37 and has more updated annotations. Luckily, various tools such as from [NCBI]](&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/genome/tools/remap&lt;/a&gt;) or &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34;&gt;Ensembl&lt;/a&gt; can be used for converting annotations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ncbi-reference-sequence-refseq&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;NCBI Reference Sequence (RefSeq)&lt;/h2&gt;
-&lt;p&gt;The accession number format:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;NG_: gene/genomic region&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;NC_: plus (+) strand on &lt;strong&gt;c&lt;/strong&gt;hromosome&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;NT_: constructed genomic contigs (overlapping DNA fragments that are used to assemble the full sequence)&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;‘NC’, ‘NG’, ‘NT’ all refer to genomic sequences&lt;/em&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;NM_: &lt;strong&gt;m&lt;/strong&gt;RNA, coding strand&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;NR_: non-coding &lt;strong&gt;R&lt;/strong&gt;NA&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;NP_: &lt;strong&gt;p&lt;/strong&gt;rotein&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;Also, it it begins with an ‘X’ liks ‘XP’ or ‘XM’, it probably means that the sequence is from computational prediction.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;What about CDS? That is the coding region of a gene that is translated to protein. Therefore, it excludes the UTR and introns.&lt;/em&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ensemble&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Ensemble&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ENST: transcipt&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;ENSG: gene &lt;em&gt;(One gene can many corresponding transcripts.)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;ENSP: protein&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;types-of-files&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Types of Files&lt;/h1&gt;
-&lt;div id=&#34;fasta&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;FASTA&lt;/h2&gt;
-&lt;p&gt;FASTA is a type of text-based file that is used to store a nucleotide or amino acid sequence. In R, there is the read.fasta() function from the ‘seqinr’ package. It’s written in the following format&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&amp;gt;3LWB:A|PDBID|CHAIN|SEQUENCE
-MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
-GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
-ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
-GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
-LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH
-&amp;gt;3LWB:B|PDBID|CHAIN|SEQUENCE
-MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
-GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
-ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
-GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
-LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The first line is used to describe the folowing sequence and it is indicated by the “&amp;gt;” sign. As you can see above, multiple sequences can be found in one FASTA file.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;fastq&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Fastq&lt;/h2&gt;
-&lt;p&gt;Similar to FASTA, except from DNA sequencing (commonly for illumina). It also includes the PHRED score which is a measure of the quality of the reading for each base. It is denoted by a single ASCII character.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;@ SequenceID
-CATGGGCAGCCGAGAGATTGCGA
-+
-K&amp;lt;=gux;YZ[bcs3^_`a;&amp;lt;}&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The first line contains the description like fasta but is indicated by the “@” sign instead. After which, the nucleotide sequence is shown on the 2nd line. The third line starts with a “+” sign. Finally, the 4th line contains the quality scores.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;sambam-files&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;SAM/BAM files&lt;/h2&gt;
-&lt;p&gt;SAM and BAM files contain the same information, the difference is that BAM files are &lt;strong&gt;binary&lt;/strong&gt; versions of a SAM file. SAM stands for “Sequence Alignment/Map” and contain information about sequences aligned to a reference sequence, and is generated by next generation sequencing.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;vcf&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;VCF&lt;/h2&gt;
-&lt;p&gt;VCF stands for variant call format and stores different variants of a gene.&lt;/p&gt;
-&lt;p&gt;What are the different BLASTS?
-BLOSUM?&lt;/p&gt;
-&lt;p&gt;For more acronyms, I found this &lt;a href=&#34;http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf&#34;&gt;glossary&lt;/a&gt; online that has a lot of the basics.&lt;/p&gt;
-&lt;p&gt;References
-1. &lt;a href=&#34;http://useast.ensembl.org/info/website/tutorials/grch37.html&#34; class=&#34;uri&#34;&gt;http://useast.ensembl.org/info/website/tutorials/grch37.html&lt;/a&gt;&lt;/p&gt;
-&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&#34; class=&#34;uri&#34;&gt;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://thesequencingcenter.com/knowledge-base/fastq-files/&#34; class=&#34;uri&#34;&gt;https://thesequencingcenter.com/knowledge-base/fastq-files/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Hidden Markov Model</title>
       <link>/post/hidden_markov_model/</link>
       <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
@@ -1668,6 +1567,172 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
 &lt;li&gt;&lt;p&gt;Wise, Barry M. “Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation.” Cootie, Candyland or Chutes and Ladders: Solving a Parent’s Dilemma with Monte Carlo Simulation. Cornell University, n.d. Web. 26 Sept. 2016.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bioinformatics Glossary</title>
+      <link>/post/genetic_data/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/genetic_data/</guid>
+      <description>
+
+
+&lt;p&gt;*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.&lt;/p&gt;
+&lt;div id=&#34;reference-sequence-number&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reference Sequence Number:&lt;/h2&gt;
+&lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../PAX9_RF.Rmd&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
+&lt;p&gt;Genomic reference: NG_013357.1 (GRCh 37)&lt;/p&gt;
+&lt;p&gt;Transcript reference: NM_006194.3&lt;/p&gt;
+&lt;p&gt;Ensembl gene ID: ENSG00000198807.8&lt;/p&gt;
+&lt;p&gt;Canonical transcript: ENST00000361487.6&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grch-37&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;GRCh 37&lt;/h2&gt;
+&lt;p&gt;Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. &lt;strong&gt;GRCh37&lt;/strong&gt; stands for Genome Reference Consortium Human Build 37 and is generally synonymous with &lt;strong&gt;hg19&lt;/strong&gt;. Similarly, &lt;strong&gt;hg38&lt;/strong&gt; can also be used to refer to the same genome build as &lt;strong&gt;GRCh38&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;What is the difference between GRCh37 and GRCh38? GRCh38 was released after GRCh37 and has more updated annotations. Luckily, various tools such as from [NCBI]](&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/genome/tools/remap&lt;/a&gt;) or &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34;&gt;Ensembl&lt;/a&gt; can be used for converting annotations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ncbi-reference-sequence-refseq&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;NCBI Reference Sequence (RefSeq)&lt;/h2&gt;
+&lt;p&gt;The accession number format:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;NG_: &lt;strong&gt;g&lt;/strong&gt;ene/&lt;strong&gt;g&lt;/strong&gt;enomic region&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NC_: plus (+) strand on &lt;strong&gt;c&lt;/strong&gt;hromosome&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NT_: constructed genomic contigs (overlapping DNA fragments that are used to assemble the full sequence)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;‘NC’, ‘NG’, ‘NT’ all refer to genomic sequences&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;NM_: &lt;strong&gt;m&lt;/strong&gt;RNA, coding strand&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NR_: non-coding &lt;strong&gt;R&lt;/strong&gt;NA&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NP_: &lt;strong&gt;p&lt;/strong&gt;rotein&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Also, if it begins with an ‘X’ liks ‘XP’ or ‘XM’, it probably means that the sequence is from computational prediction.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What about CDS? That is the coding region of a gene that is translated to protein. Therefore, it excludes the UTR and introns.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ensemble&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Ensemble&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ENST: transcipt&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ENSG: gene &lt;em&gt;(One gene can have many corresponding transcripts.)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ENSP: protein&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;types-of-files&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Types of Files&lt;/h1&gt;
+&lt;div id=&#34;fasta&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;FASTA&lt;/h2&gt;
+&lt;p&gt;FASTA is a type of text-based file that is used to store a nucleotide or amino acid sequence. In R, there is the read.fasta() function from the ‘seqinr’ package. It’s written in the following format:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;gt;3LWB:A|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH
+&amp;gt;3LWB:B|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The first line is used to describe the folowing sequence and it is indicated by the “&amp;gt;” sign. As you can see above, multiple sequences can be found in one FASTA file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fastq&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fastq&lt;/h2&gt;
+&lt;p&gt;Similar to FASTA, except from DNA sequencing (commonly for illumina). It also includes the PHRED score which is a measure of the quality of the reading for each base. It is denoted by a single ASCII character.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;@ SequenceID&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CATGGGCAGCCGAGAGATTGCGA&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;K&amp;lt;=gux;YZ[bcs3^_`a;&amp;lt;|}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The first line contains the description like fasta but is indicated by the “@” sign instead. After which, the nucleotide sequence is shown on the 2nd line. The third line starts with a “+” sign. Finally, the 4th line contains the quality scores.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sambam-files&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;SAM/BAM files&lt;/h2&gt;
+&lt;p&gt;SAM and BAM files contain the same information, the difference is that BAM files are &lt;strong&gt;binary&lt;/strong&gt; versions of a SAM file. SAM stands for “Sequence Alignment/Map” and contain information about sequences aligned to a reference sequence, and is generated by next generation sequencing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;vcf&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;VCF&lt;/h2&gt;
+&lt;p&gt;VCF stands for variant call format and stores different variants of a gene.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;micellaneous&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Micellaneous&lt;/h1&gt;
+&lt;div id=&#34;k-mers&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;K-mers&lt;/h2&gt;
+&lt;p&gt;Subsequences of length k of a nucleotide sequence.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def findkmers(k, seq):
+    dict1={}
+    a = 0 
+    b= k
+    k_mer= seq[a:b]
+    while len(k_mer)==k: 
+        if k_mer in dict1: 
+            dict1[k_mer]+= 1
+        else: 
+            dict1[k_mer]= 1
+        a+=1
+        b+=1
+        k_mer= seq[a:b]
+    print (dict1)
+
+def main():
+   my_seq1 = &amp;quot;CAGCCCAATC&amp;quot;
+   print(&amp;quot;For the sequence: &amp;quot;, my_seq1)
+   for i in range (1,5):
+      print(&amp;quot;The&amp;quot;, str(i)+&amp;quot;-mers are :&amp;quot;)
+      findkmers(i, my_seq1)
+
+main()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## For the sequence:  CAGCCCAATC
+## The 1-mers are :
+## {&amp;#39;C&amp;#39;: 5, &amp;#39;A&amp;#39;: 3, &amp;#39;G&amp;#39;: 1, &amp;#39;T&amp;#39;: 1}
+## The 2-mers are :
+## {&amp;#39;CA&amp;#39;: 2, &amp;#39;AG&amp;#39;: 1, &amp;#39;GC&amp;#39;: 1, &amp;#39;CC&amp;#39;: 2, &amp;#39;AA&amp;#39;: 1, &amp;#39;AT&amp;#39;: 1, &amp;#39;TC&amp;#39;: 1}
+## The 3-mers are :
+## {&amp;#39;CAG&amp;#39;: 1, &amp;#39;AGC&amp;#39;: 1, &amp;#39;GCC&amp;#39;: 1, &amp;#39;CCC&amp;#39;: 1, &amp;#39;CCA&amp;#39;: 1, &amp;#39;CAA&amp;#39;: 1, &amp;#39;AAT&amp;#39;: 1, &amp;#39;ATC&amp;#39;: 1}
+## The 4-mers are :
+## {&amp;#39;CAGC&amp;#39;: 1, &amp;#39;AGCC&amp;#39;: 1, &amp;#39;GCCC&amp;#39;: 1, &amp;#39;CCCA&amp;#39;: 1, &amp;#39;CCAA&amp;#39;: 1, &amp;#39;CAAT&amp;#39;: 1, &amp;#39;AATC&amp;#39;: 1}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blast&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;BLAST&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://blast.ncbi.nlm.nih.gov/Blast.cgi&#34;&gt;BLAST&lt;/a&gt; stands for Basic Local Alignment Search Tool. It finds areas of similarity between sequences of nucleotides or amino acids. There are many types of blast including blastn, blastp, blastx, tblastn, etc.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Query cover: how much of the query sequence actually overlapps with the aligned sequence.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;E value (expected value): smaller is better (significant). It basically means how many hits would you get just randomly (based on the quality of score and the length of the query)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Percent Identity: percentage of characters matching in the query and aligned sequence&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;needleman-wunsch-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Needleman-Wunsch algorithm&lt;/h2&gt;
+&lt;p&gt;Global alignment&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;smith-waterman-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Smith-Waterman algorithm&lt;/h2&gt;
+&lt;p&gt;Local alignment&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blosum-and-pam&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;BLOSUM and PAM&lt;/h2&gt;
+&lt;p&gt;Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90.&lt;/p&gt;
+&lt;p&gt;For more acronyms, I found this &lt;a href=&#34;http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf&#34;&gt;glossary&lt;/a&gt; online that has a lot of the basics.&lt;/p&gt;
+&lt;p&gt;References
+1. &lt;a href=&#34;http://useast.ensembl.org/info/website/tutorials/grch37.html&#34; class=&#34;uri&#34;&gt;http://useast.ensembl.org/info/website/tutorials/grch37.html&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&#34; class=&#34;uri&#34;&gt;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://thesequencingcenter.com/knowledge-base/fastq-files/&#34; class=&#34;uri&#34;&gt;https://thesequencingcenter.com/knowledge-base/fastq-files/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Kerfeld and Scott, PLoS Biology 2011&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
