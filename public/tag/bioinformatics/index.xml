@@ -177,7 +177,7 @@ Based on the variable importance plot above, the most important variable would b
 &lt;p&gt;*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.&lt;/p&gt;
 &lt;div id=&#34;reference-sequence-number&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Reference Sequence Number:&lt;/h2&gt;
-&lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../PAX9_RF.Rmd&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
+&lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../project/PAX9_RF&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
 &lt;p&gt;Genomic reference: NG_013357.1 (GRCh 37)&lt;/p&gt;
 &lt;p&gt;Transcript reference: NM_006194.3&lt;/p&gt;
 &lt;p&gt;Ensembl gene ID: ENSG00000198807.8&lt;/p&gt;
