@@ -84,6 +84,7 @@
       <description>
 
 
+&lt;p&gt;This post is used to illustrate a simple version of implementing the greedy algorithm for sequence assembly in python. Please keep in mind that there are many more complex and robust ways.&lt;/p&gt;
 &lt;div id=&#34;greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Greedy Algorithm&lt;/h2&gt;
 &lt;p&gt;Unlike other algorithms such as brute force of dynamic programming, the greedy algorithm may &lt;strong&gt;NOT&lt;/strong&gt; always give the optimum solution. Instead, it looks at the best short term gain without consideration for the end result. One example of an algorithm that uses the Greedy algorithm is Kruskal’s algorithm (Minimum Spanning Tree), however, in this case, it does give the optimal solution.&lt;/p&gt;
@@ -91,23 +92,15 @@
 &lt;div id=&#34;sequencing&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Sequencing&lt;/h2&gt;
 &lt;p&gt;One important tool used in biology is the sequencing of genetic data. There are various types of sequencing including sanger sequencing, illumina, nanopore, etc. Because techniques can be limited by read length, sometimes an original sequence/genome is fragmented, sequenced, and then assembled together again into a “contig” sequence (shot gun sequencing).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;limitations&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Limitations&lt;/h2&gt;
-&lt;p&gt;The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as &lt;em&gt;ATTAATTAA&lt;/em&gt; which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;sequence-assembly-using-the-greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Sequence Assembly Using the Greedy Algorithm&lt;/h2&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest score (calculate pairwise alignment).&lt;/li&gt;
-&lt;li&gt;Find two fragments with largest overlap and merge fragments.&lt;/li&gt;
-&lt;li&gt;Repeat until only 1 fragment is left.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;For example, given the following:
-Genome: ATTCGTAGCA
-Copy: ATTCGTAGCA
-ATTCGTAGCA
-ATTCGTAGCA&lt;/p&gt;
+&lt;p&gt;For example, given the following:&lt;/p&gt;
+&lt;p&gt;Genome: ATTCGTAGCA&lt;/p&gt;
+&lt;p&gt;Copy:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ATTCGTAGCA
+
+  ATTCGTAGCA
+  
+  ATTCGTAGCA
+  &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Fragmentation:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -135,7 +128,19 @@ ATTCGTAGCA&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;em&gt;Multiple overlaps result in higher confidence of an overlap. Get all unique sequences (duplicates don’t offer more information)&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;limitations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Limitations&lt;/h2&gt;
+&lt;p&gt;The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as &lt;em&gt;ATTAATTAA&lt;/em&gt; which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Also, get all unique sequences (duplicates don’t offer more information)&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sequence-assembly-using-the-greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sequence Assembly Using the Greedy Algorithm&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest area of overlap.&lt;/li&gt;
+&lt;li&gt;Find two fragments with largest overlap and merge fragments.&lt;/li&gt;
+&lt;li&gt;Repeat until only 1 fragment is left.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;The following program was used to find the highest number of overlapping characters in two sequences, making sure that the match isn’t in the middle of the two sequences such as “AT&lt;strong&gt;GCG&lt;/strong&gt;TA” and “GAC&lt;strong&gt;GCG&lt;/strong&gt;GGC”. Keep in mind that this program finds overlaps with the potential of left overhangs on the first sequence and right overhangs on the second sequence and &lt;strong&gt;NOT&lt;/strong&gt; vice versa. For example: “AGC&lt;strong&gt;TTA&lt;/strong&gt;” and “&lt;strong&gt;TTA&lt;/strong&gt;CCC”.
 &lt;em&gt;(Probably not the most efficient way of doing it)&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def find_high_overlap(string1_original, string2_original):
@@ -171,16 +176,16 @@ ATTCGTAGCA&lt;/p&gt;
 
 find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;find_high_overlap(&amp;quot;GAGCATGGCGAGC&amp;quot;,&amp;quot;ATGGCGAGCCCAA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 9&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n &lt;strong&gt;matrix&lt;/strong&gt; where &lt;em&gt;n&lt;/em&gt; is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 &lt;strong&gt;matrix&lt;/strong&gt;. Continue doing this until there is only 1 fragment.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use a graph,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;First, build a program that merges two fragments together:
+&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use a graph for example,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Before actually using the greedy algorithm to solve this problem, we must first build a program that merges two fragments together:
 &lt;em&gt;This will assume that the overlap was found with the program above– no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence.&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def merge(string1_original, string2_original, found_overlap):
   
   string1 = string1_original 
   string2= (len(string1_original)-1)* &amp;quot; &amp;quot; + string2_original 
-  
-  highest_overlap=0
   
   for k in range (len(string1_original)):
     overlap_num=0
@@ -194,27 +199,123 @@ find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot
             else:
                 overlap_num=0
                 break
-      #if the match is in the middle of the sequences
-      elif string1[i]!=&amp;quot; &amp;quot; and string2[i]!=&amp;quot; &amp;quot;:
-          overlap_num=0
-          break
-      if overlap_num &amp;gt; highest_overlap:
-        highest_overlap = overlap_num
-    if overlap_num &amp;gt; highest_overlap:
-      highest_overlap = overlap_num
+        if overlap_num == found_overlap:
+          #count the number of left spaces in the second sequence
+          spaces=0
+          for j in range(len(string2)): 
+            if string2[j]==&amp;quot; &amp;quot;:
+              spaces+=1
+            else:
+              break
+          merged_String= string1[:spaces]+string2[spaces:]
+          
+          return (merged_String.strip())
     string2= string2[1:]+&amp;quot; &amp;quot;
-  
-  return (highest_overlap)
 
-find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;#make a matrix 1…….100
-#1 6
-#… 6
-#100 6&lt;/p&gt;
-&lt;p&gt;#don’t want six since want unique reads, look at 5 overlaps
-#example 2,78 ; 2,89; 4,5
-#randomly pick one and extend now have 99 reads with one being the extended 2,78&lt;/p&gt;
+merge(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;, 4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;ATGGCGAGCATGGCGAGC&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;merge(&amp;quot;GAGCATGGCGAGC&amp;quot;,&amp;quot;ATGGCGAGCCCAA&amp;quot;, 9)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;GAGCATGGCGAGCCCAA&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let’s actually make the matrix:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def no_merges(matrix_1): 
+  for row in range(len(matrix_1)):
+    for col in range(len(matrix_1)):
+      if matrix_1[row][col]&amp;gt;0: 
+        return False
+  return True 
+
+
+def sequence_assembly(frag_list): 
+  #keep looping until only one fragment is left 
+  for frag in range(len(frag_list)-1): 
+    seq_matrix = []
+    for item in frag_list:  
+      seq_matrix.append(len(frag_list) * [0])
+    
+    for row in range(len(seq_matrix)): 
+      for col in range(len(seq_matrix)):
+        #the diagonal is how much it overlaps with itself (not useful)
+        if row==col: 
+          seq_matrix[row][col]=-1
+        else: 
+          seq_matrix[row][col]=find_high_overlap(frag_list[row], frag_list[col])
+    
+    print(&amp;quot;Matrix after&amp;quot;, frag, &amp;quot;merges&amp;quot;)
+    prettyPrint(seq_matrix)
+    if no_merges(seq_matrix)==True: 
+      print(&amp;quot;Cannot merge all&amp;quot;)
+      return(frag_list)
+    #find the highest overlap (if they overlap the same amount, this code just takes the first one it encounters)
+    highest= [0]
+    for i in range(len(seq_matrix)):
+      for j in range(len(seq_matrix)):
+        if seq_matrix[i][j]&amp;gt; highest[0]:
+          highest[0]=seq_matrix[i][j]
+          if len(highest)&amp;gt;1:
+            highest[1]=i
+            highest[2]=j
+          else: 
+            highest.extend([i,j])
+    #print(highest)
+    seq1=frag_list[highest[1]]
+    seq2=frag_list[highest[2]]
+    
+    frag_list.append(merge(seq1,seq2, highest[0]))
+    frag_list.remove(seq1)
+    frag_list.remove(seq2)
+    
+  return (frag_list)
+
+frag_list=[&amp;quot;GAGCATGGCGAGC&amp;quot;,&amp;quot;ATGGCGAGCCCAA&amp;quot;,&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;CAATGCACCA&amp;quot;]
+sequence_assembly(frag_list)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Matrix after 0 merges
+##   -1     9     9     1  
+##    0    -1     1     3  
+##    4     9    -1     1  
+##    0     1     1    -1  
+## 
+## Matrix after 1 merges
+##   -1     1     4  
+##    1    -1     0  
+##    1     3    -1  
+## 
+## Matrix after 2 merges
+##   -1     1  
+##    3    -1  
+## 
+## [&amp;#39;ATGGCGAGCATGGCGAGCCCAATGCACCA&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;frag_list_2=[&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;CAATGCACCA&amp;quot;, &amp;quot;GAGCATGGCGAGC&amp;quot;,&amp;quot;ATGGCGAGCCCAA&amp;quot;]
+sequence_assembly(frag_list_2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Matrix after 0 merges
+##   -1     1     4     9  
+##    1    -1     0     1  
+##    9     1    -1     9  
+##    1     3     0    -1  
+## 
+## Matrix after 1 merges
+##   -1     0     1  
+##    1    -1     9  
+##    3     0    -1  
+## 
+## Matrix after 2 merges
+##   -1     0  
+##    3    -1  
+## 
+## [&amp;#39;GAGCATGGCGAGCCCAATGCACCA&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As demonstrated in the above example, the following fragments: “GAGCATGGCGAGC”,“ATGGCGAGCCCAA”,“ATGGCGAGC”,“CAATGCACCA” can be used to form the longer sequence. However, depending on the order of the sequences submitted, the resulting longer sequence can be different: ‘ATGGCGAGCATGGCGAGCCCAATGCACCA’, ‘GAGCATGGCGAGCCCAATGCACCA’, etc. Why? Because as stated previously, if there is more than 1 pair of sequences that overlap the highest number of character overlaps, my program takes the first one it encounters–therefore order matters in this case.&lt;/p&gt;
+&lt;p&gt;There may also be cases where the greedy algorithm cannot merge all of the fragments into one:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;sequence_assembly([&amp;quot;ACGGAAATAC&amp;quot;, &amp;quot;ATCAGGT&amp;quot;, &amp;quot;GGTAAAG&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Matrix after 0 merges
+##   -1     0     0  
+##    0    -1     3  
+##    0     0    -1  
+## 
+## Matrix after 1 merges
+##   -1     0  
+##    0    -1  
+## 
+## Cannot merge all
+## [&amp;#39;ACGGAAATAC&amp;#39;, &amp;#39;ATCAGGTAAAG&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;references&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;References&lt;/h2&gt;

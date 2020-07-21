@@ -2,16 +2,19 @@
 title: "Greedy Algorithm and Sequence Assembly"
 author: "Cara Yijin Zou"
 date: "2020-07-18"
-draft: true
+draft: false
 tags: ["Bioinformatics", "Computer Science", "Greedy Algorithm", "Sequence Assembly"]
 categories: ["Bioinformatics", "Computer Science"]
 output: html_document
+summary: "The greedy algorithm can be used to assemble longer sequences from shorter fragments from sequencing, not always giving the optimal result." 
 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+This post is used to illustrate a simple version of implementing the greedy algorithm for sequence assembly in python. Please keep in mind that there are many more complex and robust ways. 
+
 
 ## Greedy Algorithm
 Unlike other algorithms such as brute force of dynamic programming, the greedy algorithm may **NOT** always give the optimum solution. Instead, it looks at the best short term gain without consideration for the end result. One example of an algorithm that uses the Greedy algorithm is Kruskal's algorithm (Minimum Spanning Tree), however, in this case, it does give the optimal solution. 
@@ -19,18 +22,16 @@ Unlike other algorithms such as brute force of dynamic programming, the greedy a
 ## Sequencing 
 One important tool used in biology is the sequencing of genetic data. There are various types of sequencing including sanger sequencing, illumina, nanopore, etc. Because techniques can be limited by read length, sometimes an original sequence/genome is fragmented, sequenced, and then assembled together again into a "contig" sequence (shot gun sequencing). 
 
-## Limitations
-The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as _ATTAATTAA_ which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).  
-
-## Sequence Assembly Using the Greedy Algorithm
-1. Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest area of overlap. 
-2. Find two fragments with largest overlap and merge fragments. 
-3. Repeat until only 1 fragment is left. 
-
 For example, given the following: 
+
 Genome: ATTCGTAGCA
-Copy: ATTCGTAGCA
+
+Copy: 
+
       ATTCGTAGCA
+
+      ATTCGTAGCA
+      
       ATTCGTAGCA
       
 Fragmentation:
@@ -41,9 +42,15 @@ Fragmentation:
 | ATTC             | GTA              | GCA              |
 | AT               | TCGT             | AGCA             |
 
+## Limitations
+The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as _ATTAATTAA_ which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).  
 
-_Multiple overlaps result in higher confidence of an overlap. Get all unique sequences (duplicates don't offer more information)_
+_Also, get all unique sequences (duplicates don't offer more information)_
 
+## Sequence Assembly Using the Greedy Algorithm
+1. Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest area of overlap. 
+2. Find two fragments with largest overlap and merge fragments. 
+3. Repeat until only 1 fragment is left. 
 
 The following program was used to find the highest number of overlapping characters in two sequences, making sure that the match isn't in the middle of the two sequences such as "AT**GCG**TA" and "GAC**GCG**GGC". Keep in mind that this program finds overlaps with the potential of left overhangs on the first sequence and right overhangs on the second sequence and **NOT** vice versa. For example: "AGC**TTA**" and "**TTA**CCC". 
 _(Probably not the most efficient way of doing it)_
@@ -87,7 +94,7 @@ Okay, so now that we have a way of determining the repeats, now what? We need to
 
 **This is NOT the only way of solving this problem. As found in the references, you can also use a graph for example,where the node represents the fragment and the edge represents the number of highest overlap.** 
 
-First, build a program that merges two fragments together: 
+Before actually using the greedy algorithm to solve this problem, we must first build a program that merges two fragments together: 
 _This will assume that the overlap was found with the program above-- no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence._
 ```{python}
 def merge(string1_original, string2_original, found_overlap):
@@ -117,7 +124,7 @@ def merge(string1_original, string2_original, found_overlap):
               break
           merged_String= string1[:spaces]+string2[spaces:]
           
-          print (merged_String)
+          return (merged_String.strip())
     string2= string2[1:]+" "
 
 merge("ATGGCGAGC","GAGCATGGCGAGC", 4)
@@ -140,38 +147,66 @@ def prettyPrint(matrix):
 
 Now let's actually make the matrix: 
 ```{python}
-frag_list=["GAGCATGGCGAGC","ATGGCGAGCCCAA","ATGGCGAGC","CAATGCACCA"]
+def no_merges(matrix_1): 
+  for row in range(len(matrix_1)):
+    for col in range(len(matrix_1)):
+      if matrix_1[row][col]>0: 
+        return False
+  return True 
 
-#keep looping until only one fragment is left 
-for frag in range(len(frag_list)-1): 
-  seq_matrix = []
-  for item in frag_list:  
-    seq_matrix.append(len(frag_list) * [0])
-  
-  for row in range(len(seq_matrix)): 
-    for col in range(len(seq_matrix)):
-      #the diagonal is how much it overlaps with itself (not useful)
-      if row==col: 
-        seq_matrix[row][col]=-1
-      else: 
-        seq_matrix[row][col]=find_high_overlap(frag_list[row], frag_list[col])
-  
-  #find the highest overlap (if they overlap the same amount, this code just takes the first one it encounters)
-  highest= [0]
-  for i in range(len(seq_matrix)):
-    for j in range(len(seq_matrix)):
-      if seq_matrix[i][j]> highest[0]:
-        highest[0]=seq_matrix[i][j]
-        if len(highest)>1:
-          highest[1]=i
-          highest[2]=j
+
+def sequence_assembly(frag_list): 
+  #keep looping until only one fragment is left 
+  for frag in range(len(frag_list)-1): 
+    seq_matrix = []
+    for item in frag_list:  
+      seq_matrix.append(len(frag_list) * [0])
+    
+    for row in range(len(seq_matrix)): 
+      for col in range(len(seq_matrix)):
+        #the diagonal is how much it overlaps with itself (not useful)
+        if row==col: 
+          seq_matrix[row][col]=-1
         else: 
-          highest+[i,j]
-  print(highest)
-  frag_list.append(merge(frag_list.pop(highest[1]),frag_list.pop(higest[2]), highest[0]))
-  
-  
-prettyPrint(seq_matrix)
+          seq_matrix[row][col]=find_high_overlap(frag_list[row], frag_list[col])
+    
+    print("Matrix after", frag, "merges")
+    prettyPrint(seq_matrix)
+    if no_merges(seq_matrix)==True: 
+      print("Cannot merge all")
+      return(frag_list)
+    #find the highest overlap (if they overlap the same amount, this code just takes the first one it encounters)
+    highest= [0]
+    for i in range(len(seq_matrix)):
+      for j in range(len(seq_matrix)):
+        if seq_matrix[i][j]> highest[0]:
+          highest[0]=seq_matrix[i][j]
+          if len(highest)>1:
+            highest[1]=i
+            highest[2]=j
+          else: 
+            highest.extend([i,j])
+    #print(highest)
+    seq1=frag_list[highest[1]]
+    seq2=frag_list[highest[2]]
+    
+    frag_list.append(merge(seq1,seq2, highest[0]))
+    frag_list.remove(seq1)
+    frag_list.remove(seq2)
+    
+  return (frag_list)
+
+frag_list=["GAGCATGGCGAGC","ATGGCGAGCCCAA","ATGGCGAGC","CAATGCACCA"]
+sequence_assembly(frag_list)
+
+frag_list_2=["ATGGCGAGC","CAATGCACCA", "GAGCATGGCGAGC","ATGGCGAGCCCAA"]
+sequence_assembly(frag_list_2)
+```
+As demonstrated in the above example, the following fragments:  "GAGCATGGCGAGC","ATGGCGAGCCCAA","ATGGCGAGC","CAATGCACCA" can be used to form the longer sequence. However, depending on the order of the sequences submitted, the resulting longer sequence can be different: 'ATGGCGAGCATGGCGAGCCCAATGCACCA', 'GAGCATGGCGAGCCCAATGCACCA', etc. Why? Because as stated previously, if there is more than 1 pair of sequences that overlap the highest number of character overlaps, my program takes the first one it encounters--therefore order matters in this case. 
+
+There may also be cases where the greedy algorithm cannot merge all of the fragments into one: 
+```{python}
+sequence_assembly(["ACGGAAATAC", "ATCAGGT", "GGTAAAG"])
 ```
 
 ## References
