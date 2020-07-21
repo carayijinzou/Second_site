@@ -517,7 +517,7 @@ However, what if the observation sequence is long and therefore the correspondin
 &lt;/div&gt;
 &lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Forward algorithm&lt;/h2&gt;
-&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt;. You can do this recursively.&lt;/p&gt;
+&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt;. What this means is that the problem is broken down into sub-problems which you find the optimal solution to in order to solve the larger problem. The solutions from the sub-problem are stored (memoization) so that you don’t waste time computing it over and over again.&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;&lt;p&gt;To implement this, you need to create an empty matrix to &lt;strong&gt;store intermediate values&lt;/strong&gt;. The rows equal the number of states (in this case, 3), while the columns should be equal to the number of values in the observation sequence.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;First column: The first column states the probability of each state being the initial state and emitting the first observation. All future calculations will be based on these values.&lt;/p&gt;&lt;/li&gt;

@@ -5,12 +5,163 @@
     <link>/category/bioinformatics/</link>
       <atom:link href="/category/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
     <description>Bioinformatics</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 29 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 18 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Bioinformatics</title>
       <link>/category/bioinformatics/</link>
     </image>
+    
+    <item>
+      <title>Greedy Algorithm and Sequence Assembly</title>
+      <link>/post/greedy_algorithm/</link>
+      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/greedy_algorithm/</guid>
+      <description>
+
+
+&lt;div id=&#34;greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Greedy Algorithm&lt;/h2&gt;
+&lt;p&gt;Unlike other algorithms such as brute force of dynamic programming, the greedy algorithm may &lt;strong&gt;NOT&lt;/strong&gt; always give the optimum solution. Instead, it looks at the best short term gain without consideration for the end result. One example of an algorithm that uses the Greedy algorithm is Kruskal’s algorithm (Minimum Spanning Tree), however, in this case, it does give the optimal solution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sequencing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sequencing&lt;/h2&gt;
+&lt;p&gt;One important tool used in biology is the sequencing of genetic data. There are various types of sequencing including sanger sequencing, illumina, nanopore, etc. Because techniques can be limited by read length, sometimes an original sequence/genome is fragmented, sequenced, and then assembled together again into a “contig” sequence (shot gun sequencing).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;limitations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Limitations&lt;/h2&gt;
+&lt;p&gt;The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as &lt;em&gt;ATTAATTAA&lt;/em&gt; which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sequence-assembly-using-the-greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sequence Assembly Using the Greedy Algorithm&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest score (calculate pairwise alignment).&lt;/li&gt;
+&lt;li&gt;Find two fragments with largest overlap and merge fragments.&lt;/li&gt;
+&lt;li&gt;Repeat until only 1 fragment is left.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example, given the following:
+Genome: ATTCGTAGCA
+Copy: ATTCGTAGCA
+ATTCGTAGCA
+ATTCGTAGCA&lt;/p&gt;
+&lt;p&gt;Fragmentation:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Frag1&lt;/th&gt;
+&lt;th&gt;Frag2&lt;/th&gt;
+&lt;th&gt;Frag3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;ATT&lt;/td&gt;
+&lt;td&gt;CGTA&lt;/td&gt;
+&lt;td&gt;GCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;ATTC&lt;/td&gt;
+&lt;td&gt;GTA&lt;/td&gt;
+&lt;td&gt;GCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;AT&lt;/td&gt;
+&lt;td&gt;TCGT&lt;/td&gt;
+&lt;td&gt;AGCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Multiple overlaps result in higher confidence of an overlap. Get all unique sequences (duplicates don’t offer more information)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The following program was used to find the highest number of overlapping characters in two sequences, making sure that the match isn’t in the middle of the two sequences such as “AT&lt;strong&gt;GCG&lt;/strong&gt;TA” and “GAC&lt;strong&gt;GCG&lt;/strong&gt;GGC”. Keep in mind that this program finds overlaps with the potential of left overhangs on the first sequence and right overhangs on the second sequence and &lt;strong&gt;NOT&lt;/strong&gt; vice versa. For example: “AGC&lt;strong&gt;TTA&lt;/strong&gt;” and “&lt;strong&gt;TTA&lt;/strong&gt;CCC”.
+&lt;em&gt;(Probably not the most efficient way of doing it)&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def find_high_overlap(string1_original, string2_original):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* &amp;quot; &amp;quot; + string2_original 
+  
+  highest_overlap=0
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+      #if the match is in the middle of the sequences
+      elif string1[i]!=&amp;quot; &amp;quot; and string2[i]!=&amp;quot; &amp;quot;:
+          overlap_num=0
+          break
+      if overlap_num &amp;gt; highest_overlap:
+        highest_overlap = overlap_num
+    if overlap_num &amp;gt; highest_overlap:
+      highest_overlap = overlap_num
+    string2= string2[1:]+&amp;quot; &amp;quot;
+  
+  return (highest_overlap)
+
+find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n &lt;strong&gt;matrix&lt;/strong&gt; where &lt;em&gt;n&lt;/em&gt; is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 &lt;strong&gt;matrix&lt;/strong&gt;. Continue doing this until there is only 1 fragment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use a graph,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, build a program that merges two fragments together:
+&lt;em&gt;This will assume that the overlap was found with the program above– no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def merge(string1_original, string2_original, found_overlap):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* &amp;quot; &amp;quot; + string2_original 
+  
+  highest_overlap=0
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+      #if the match is in the middle of the sequences
+      elif string1[i]!=&amp;quot; &amp;quot; and string2[i]!=&amp;quot; &amp;quot;:
+          overlap_num=0
+          break
+      if overlap_num &amp;gt; highest_overlap:
+        highest_overlap = overlap_num
+    if overlap_num &amp;gt; highest_overlap:
+      highest_overlap = overlap_num
+    string2= string2[1:]+&amp;quot; &amp;quot;
+  
+  return (highest_overlap)
+
+find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;#make a matrix 1…….100
+#1 6
+#… 6
+#100 6&lt;/p&gt;
+&lt;p&gt;#don’t want six since want unique reads, look at 5 overlaps
+#example 2,78 ; 2,89; 4,5
+#randomly pick one and extend now have 99 reads with one being the extended 2,78&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;AN INTRODUCTION TO BIOINFORMATICS ALGORITHMS, NEIL C. JONES AND PAVEL A. PEVZNER&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://data-science-sequencing.github.io/Win2018/lectures/lecture6/#&#34; class=&#34;uri&#34;&gt;http://data-science-sequencing.github.io/Win2018/lectures/lecture6/#&lt;/a&gt;:~:text=The%20greedy%20algorithm%20assembles%20the%20reads%20into%20an%20incorrect%20DNA,greedy%20approach%20can%20still%20fail.&amp;amp;text=One%20can%20think%20of%20the,looking%20for%20length%2D%E2%84%93%20overlaps.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/lecture-slides/MIT7_91JS14_Lecture6.pdf&#34; class=&#34;uri&#34;&gt;https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/lecture-slides/MIT7_91JS14_Lecture6.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>PyMOL Scripting</title>
@@ -874,7 +1025,7 @@ However, what if the observation sequence is long and therefore the correspondin
 &lt;/div&gt;
 &lt;div id=&#34;forward-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Forward algorithm&lt;/h2&gt;
-&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt;. You can do this recursively.&lt;/p&gt;
+&lt;p&gt;The forward algorithm uses &lt;strong&gt;dynamic programming&lt;/strong&gt;. What this means is that the problem is broken down into sub-problems which you find the optimal solution to in order to solve the larger problem. The solutions from the sub-problem are stored (memoization) so that you don’t waste time computing it over and over again.&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;&lt;p&gt;To implement this, you need to create an empty matrix to &lt;strong&gt;store intermediate values&lt;/strong&gt;. The rows equal the number of states (in this case, 3), while the columns should be equal to the number of values in the observation sequence.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;First column: The first column states the probability of each state being the initial state and emitting the first observation. All future calculations will be based on these values.&lt;/p&gt;&lt;/li&gt;
@@ -1476,6 +1627,172 @@ The highest probability in the very last column of the 1st matrix gives us the p
 &lt;li&gt;&lt;a href=&#34;http://pages.cs.wisc.edu/~matthewb/pages/notes/pdf/hmms/ForwardAlgorithm.pdf&#34; class=&#34;uri&#34;&gt;http://pages.cs.wisc.edu/~matthewb/pages/notes/pdf/hmms/ForwardAlgorithm.pdf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://web.stanford.edu/~jurafsky/slp3/A.pdf&#34; class=&#34;uri&#34;&gt;https://web.stanford.edu/~jurafsky/slp3/A.pdf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cis.upenn.edu/~cis262/notes/Example-Viterbi-DNA.pdf&#34; class=&#34;uri&#34;&gt;https://www.cis.upenn.edu/~cis262/notes/Example-Viterbi-DNA.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bioinformatics Glossary</title>
+      <link>/post/genetic_data/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/genetic_data/</guid>
+      <description>
+
+
+&lt;p&gt;*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.&lt;/p&gt;
+&lt;div id=&#34;reference-sequence-number&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reference Sequence Number:&lt;/h2&gt;
+&lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../project/PAX9_RF&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
+&lt;p&gt;Genomic reference: NG_013357.1 (GRCh 37)&lt;/p&gt;
+&lt;p&gt;Transcript reference: NM_006194.3&lt;/p&gt;
+&lt;p&gt;Ensembl gene ID: ENSG00000198807.8&lt;/p&gt;
+&lt;p&gt;Canonical transcript: ENST00000361487.6&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grch-37&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;GRCh 37&lt;/h2&gt;
+&lt;p&gt;Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. &lt;strong&gt;GRCh37&lt;/strong&gt; stands for Genome Reference Consortium Human Build 37 and is generally synonymous with &lt;strong&gt;hg19&lt;/strong&gt;. Similarly, &lt;strong&gt;hg38&lt;/strong&gt; can also be used to refer to the same genome build as &lt;strong&gt;GRCh38&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;What is the difference between GRCh37 and GRCh38? GRCh38 was released after GRCh37 and has more updated annotations. Luckily, various tools such as from [NCBI]](&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/genome/tools/remap&lt;/a&gt;) or &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/genome/tools/remap&#34;&gt;Ensembl&lt;/a&gt; can be used for converting annotations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ncbi-reference-sequence-refseq&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;NCBI Reference Sequence (RefSeq)&lt;/h2&gt;
+&lt;p&gt;The accession number format:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;NG_: &lt;strong&gt;g&lt;/strong&gt;ene/&lt;strong&gt;g&lt;/strong&gt;enomic region&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NC_: plus (+) strand on &lt;strong&gt;c&lt;/strong&gt;hromosome&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NT_: constructed genomic contigs (overlapping DNA fragments that are used to assemble the full sequence)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;‘NC’, ‘NG’, ‘NT’ all refer to genomic sequences&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;NM_: &lt;strong&gt;m&lt;/strong&gt;RNA, coding strand&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NR_: non-coding &lt;strong&gt;R&lt;/strong&gt;NA&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;NP_: &lt;strong&gt;p&lt;/strong&gt;rotein&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Also, if it begins with an ‘X’ liks ‘XP’ or ‘XM’, it probably means that the sequence is from computational prediction.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What about CDS? That is the coding region of a gene that is translated to protein. Therefore, it excludes the UTR and introns.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ensemble&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Ensemble&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ENST: transcipt&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ENSG: gene &lt;em&gt;(One gene can have many corresponding transcripts.)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ENSP: protein&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;types-of-files&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Types of Files&lt;/h1&gt;
+&lt;div id=&#34;fasta&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;FASTA&lt;/h2&gt;
+&lt;p&gt;FASTA is a type of text-based file that is used to store a nucleotide or amino acid sequence. In R, there is the read.fasta() function from the ‘seqinr’ package. It’s written in the following format:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;gt;3LWB:A|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH
+&amp;gt;3LWB:B|PDBID|CHAIN|SEQUENCE
+MSANDRRDRRVRVAVVFGGRSNEHAISCVSAGSILRNLDSRRFDVIAVGITPAGSWVLTDANPDALTITNRELPQVKSGS
+GTELALPADPRRGGQLVSLPPGAGEVLESVDVVFPVLHGPYGEDGTIQGLLELAGVPYVGAGVLASAVGMDKEFTKKLLA
+ADGLPVGAYAVLRPPRSTLHRQECERLGLPVFVKPARGGSSIGVSRVSSWDQLPAAVARARRHDPKVIVEAAISGRELEC
+GVLEMPDGTLEASTLGEIRVAGVRGREDSFYDFATKYLDDAAELDVPAKVDDQVAEAIRQLAIRAFAAIDCRGLARVDFF
+LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The first line is used to describe the folowing sequence and it is indicated by the “&amp;gt;” sign. As you can see above, multiple sequences can be found in one FASTA file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fastq&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fastq&lt;/h2&gt;
+&lt;p&gt;Similar to FASTA, except from DNA sequencing (commonly for illumina). It also includes the PHRED score which is a measure of the quality of the reading for each base. It is denoted by a single ASCII character.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;@ SequenceID&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CATGGGCAGCCGAGAGATTGCGA&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;K&amp;lt;=gux;YZ[bcs3^_`a;&amp;lt;|}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The first line contains the description like fasta but is indicated by the “@” sign instead. After which, the nucleotide sequence is shown on the 2nd line. The third line starts with a “+” sign. Finally, the 4th line contains the quality scores.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sambam-files&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;SAM/BAM files&lt;/h2&gt;
+&lt;p&gt;SAM and BAM files contain the same information, the difference is that BAM files are &lt;strong&gt;binary&lt;/strong&gt; versions of a SAM file. SAM stands for “Sequence Alignment/Map” and contain information about sequences aligned to a reference sequence, and is generated by next generation sequencing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;vcf&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;VCF&lt;/h2&gt;
+&lt;p&gt;VCF stands for variant call format and stores different variants of a gene.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;micellaneous&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Micellaneous&lt;/h1&gt;
+&lt;div id=&#34;k-mers&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;K-mers&lt;/h2&gt;
+&lt;p&gt;Subsequences of length k of a nucleotide sequence.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def findkmers(k, seq):
+    dict1={}
+    a = 0 
+    b= k
+    k_mer= seq[a:b]
+    while len(k_mer)==k: 
+        if k_mer in dict1: 
+            dict1[k_mer]+= 1
+        else: 
+            dict1[k_mer]= 1
+        a+=1
+        b+=1
+        k_mer= seq[a:b]
+    print (dict1)
+
+def main():
+   my_seq1 = &amp;quot;CAGCCCAATC&amp;quot;
+   print(&amp;quot;For the sequence: &amp;quot;, my_seq1)
+   for i in range (1,5):
+      print(&amp;quot;The&amp;quot;, str(i)+&amp;quot;-mers are :&amp;quot;)
+      findkmers(i, my_seq1)
+
+main()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## For the sequence:  CAGCCCAATC
+## The 1-mers are :
+## {&amp;#39;C&amp;#39;: 5, &amp;#39;A&amp;#39;: 3, &amp;#39;G&amp;#39;: 1, &amp;#39;T&amp;#39;: 1}
+## The 2-mers are :
+## {&amp;#39;CA&amp;#39;: 2, &amp;#39;AG&amp;#39;: 1, &amp;#39;GC&amp;#39;: 1, &amp;#39;CC&amp;#39;: 2, &amp;#39;AA&amp;#39;: 1, &amp;#39;AT&amp;#39;: 1, &amp;#39;TC&amp;#39;: 1}
+## The 3-mers are :
+## {&amp;#39;CAG&amp;#39;: 1, &amp;#39;AGC&amp;#39;: 1, &amp;#39;GCC&amp;#39;: 1, &amp;#39;CCC&amp;#39;: 1, &amp;#39;CCA&amp;#39;: 1, &amp;#39;CAA&amp;#39;: 1, &amp;#39;AAT&amp;#39;: 1, &amp;#39;ATC&amp;#39;: 1}
+## The 4-mers are :
+## {&amp;#39;CAGC&amp;#39;: 1, &amp;#39;AGCC&amp;#39;: 1, &amp;#39;GCCC&amp;#39;: 1, &amp;#39;CCCA&amp;#39;: 1, &amp;#39;CCAA&amp;#39;: 1, &amp;#39;CAAT&amp;#39;: 1, &amp;#39;AATC&amp;#39;: 1}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blast&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;BLAST&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://blast.ncbi.nlm.nih.gov/Blast.cgi&#34;&gt;BLAST&lt;/a&gt; stands for Basic Local Alignment Search Tool. It finds areas of similarity between sequences of nucleotides or amino acids. There are many types of blast including blastn, blastp, blastx, tblastn, etc.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Query cover: how much of the query sequence actually overlapps with the aligned sequence.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;E value (expected value): smaller is better (significant). It basically means how many hits would you get just randomly (based on the quality of score and the length of the query)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Percent Identity: percentage of characters matching in the query and aligned sequence&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;needleman-wunsch-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Needleman-Wunsch algorithm&lt;/h2&gt;
+&lt;p&gt;Global alignment&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;smith-waterman-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Smith-Waterman algorithm&lt;/h2&gt;
+&lt;p&gt;Local alignment&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blosum-and-pam&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;BLOSUM and PAM&lt;/h2&gt;
+&lt;p&gt;Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90.&lt;/p&gt;
+&lt;p&gt;For more acronyms, I found this &lt;a href=&#34;http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf&#34;&gt;glossary&lt;/a&gt; online that has a lot of the basics.&lt;/p&gt;
+&lt;p&gt;References
+1. &lt;a href=&#34;http://useast.ensembl.org/info/website/tutorials/grch37.html&#34; class=&#34;uri&#34;&gt;http://useast.ensembl.org/info/website/tutorials/grch37.html&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&#34; class=&#34;uri&#34;&gt;https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&#34; class=&#34;uri&#34;&gt;https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://thesequencingcenter.com/knowledge-base/fastq-files/&#34; class=&#34;uri&#34;&gt;https://thesequencingcenter.com/knowledge-base/fastq-files/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Kerfeld and Scott, PLoS Biology 2011&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;

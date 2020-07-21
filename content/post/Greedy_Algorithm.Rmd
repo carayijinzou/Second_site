@@ -1,0 +1,180 @@
+---
+title: "Greedy Algorithm and Sequence Assembly"
+author: "Cara Yijin Zou"
+date: "2020-07-18"
+draft: true
+tags: ["Bioinformatics", "Computer Science", "Greedy Algorithm", "Sequence Assembly"]
+categories: ["Bioinformatics", "Computer Science"]
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Greedy Algorithm
+Unlike other algorithms such as brute force of dynamic programming, the greedy algorithm may **NOT** always give the optimum solution. Instead, it looks at the best short term gain without consideration for the end result. One example of an algorithm that uses the Greedy algorithm is Kruskal's algorithm (Minimum Spanning Tree), however, in this case, it does give the optimal solution. 
+
+## Sequencing 
+One important tool used in biology is the sequencing of genetic data. There are various types of sequencing including sanger sequencing, illumina, nanopore, etc. Because techniques can be limited by read length, sometimes an original sequence/genome is fragmented, sequenced, and then assembled together again into a "contig" sequence (shot gun sequencing). 
+
+## Limitations
+The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as _ATTAATTAA_ which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).  
+
+## Sequence Assembly Using the Greedy Algorithm
+1. Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest area of overlap. 
+2. Find two fragments with largest overlap and merge fragments. 
+3. Repeat until only 1 fragment is left. 
+
+For example, given the following: 
+Genome: ATTCGTAGCA
+Copy: ATTCGTAGCA
+      ATTCGTAGCA
+      ATTCGTAGCA
+      
+Fragmentation:
+
+| Frag1            | Frag2            | Frag3            |
+|------------------|------------------|------------------|
+| ATT              | CGTA             | GCA              |
+| ATTC             | GTA              | GCA              |
+| AT               | TCGT             | AGCA             |
+
+
+_Multiple overlaps result in higher confidence of an overlap. Get all unique sequences (duplicates don't offer more information)_
+
+
+The following program was used to find the highest number of overlapping characters in two sequences, making sure that the match isn't in the middle of the two sequences such as "AT**GCG**TA" and "GAC**GCG**GGC". Keep in mind that this program finds overlaps with the potential of left overhangs on the first sequence and right overhangs on the second sequence and **NOT** vice versa. For example: "AGC**TTA**" and "**TTA**CCC". 
+_(Probably not the most efficient way of doing it)_
+```{python}
+def find_high_overlap(string1_original, string2_original):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* " " + string2_original 
+  
+  highest_overlap=0
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+      #if the match is in the middle of the sequences
+      elif string1[i]!=" " and string2[i]!=" ":
+          overlap_num=0
+          break
+      if overlap_num > highest_overlap:
+        highest_overlap = overlap_num
+    if overlap_num > highest_overlap:
+      highest_overlap = overlap_num
+    string2= string2[1:]+" "
+  
+  return (highest_overlap)
+
+find_high_overlap("ATGGCGAGC","GAGCATGGCGAGC")
+find_high_overlap("GAGCATGGCGAGC","ATGGCGAGCCCAA")
+```
+
+Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n **matrix** where _n_ is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 **matrix**. Continue doing this until there is only 1 fragment. 
+
+**This is NOT the only way of solving this problem. As found in the references, you can also use a graph for example,where the node represents the fragment and the edge represents the number of highest overlap.** 
+
+First, build a program that merges two fragments together: 
+_This will assume that the overlap was found with the program above-- no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence._
+```{python}
+def merge(string1_original, string2_original, found_overlap):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* " " + string2_original 
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+        if overlap_num == found_overlap:
+          #count the number of left spaces in the second sequence
+          spaces=0
+          for j in range(len(string2)): 
+            if string2[j]==" ":
+              spaces+=1
+            else:
+              break
+          merged_String= string1[:spaces]+string2[spaces:]
+          
+          print (merged_String)
+    string2= string2[1:]+" "
+
+merge("ATGGCGAGC","GAGCATGGCGAGC", 4)
+merge("GAGCATGGCGAGC","ATGGCGAGCCCAA", 9)
+
+```
+
+```{python, echo=FALSE}
+def prettyPrint(matrix):
+    numRows=len(matrix)
+    numCols=len(matrix[0]) 
+    
+    for row in range (numRows):
+        for col in range(numCols): 
+            print(format(matrix[row][col], "4d"), end="  ")
+        print("")
+
+    print("")
+```
+
+Now let's actually make the matrix: 
+```{python}
+frag_list=["GAGCATGGCGAGC","ATGGCGAGCCCAA","ATGGCGAGC","CAATGCACCA"]
+
+#keep looping until only one fragment is left 
+for frag in range(len(frag_list)-1): 
+  seq_matrix = []
+  for item in frag_list:  
+    seq_matrix.append(len(frag_list) * [0])
+  
+  for row in range(len(seq_matrix)): 
+    for col in range(len(seq_matrix)):
+      #the diagonal is how much it overlaps with itself (not useful)
+      if row==col: 
+        seq_matrix[row][col]=-1
+      else: 
+        seq_matrix[row][col]=find_high_overlap(frag_list[row], frag_list[col])
+  
+  #find the highest overlap (if they overlap the same amount, this code just takes the first one it encounters)
+  highest= [0]
+  for i in range(len(seq_matrix)):
+    for j in range(len(seq_matrix)):
+      if seq_matrix[i][j]> highest[0]:
+        highest[0]=seq_matrix[i][j]
+        if len(highest)>1:
+          highest[1]=i
+          highest[2]=j
+        else: 
+          highest+[i,j]
+  print(highest)
+  frag_list.append(merge(frag_list.pop(highest[1]),frag_list.pop(higest[2]), highest[0]))
+  
+  
+prettyPrint(seq_matrix)
+```
+
+## References
+1. AN INTRODUCTION TO BIOINFORMATICS ALGORITHMS, NEIL C. JONES AND PAVEL A. PEVZNER
+2. http://data-science-sequencing.github.io/Win2018/lectures/lecture6/#:~:text=The%20greedy%20algorithm%20assembles%20the%20reads%20into%20an%20incorrect%20DNA,greedy%20approach%20can%20still%20fail.&text=One%20can%20think%20of%20the,looking%20for%20length%2D%E2%84%93%20overlaps.
+3. https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/lecture-slides/MIT7_91JS14_Lecture6.pdf

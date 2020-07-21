@@ -3,6 +3,7 @@ title: "Bioinformatics Glossary"
 author: "Cara Yijin Zou"
 date: "2020-01-10"
 output: html_document
+categories: ["Bioinformatics"]
 tags: ["Bioinformatics"]
 summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What are all these different files (FASTA, VCF, etc.) used for? "
 ---

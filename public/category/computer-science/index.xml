@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer Science | Cara (Yijin) Zou</title>
+    <link>/category/computer-science/</link>
+      <atom:link href="/category/computer-science/index.xml" rel="self" type="application/rss+xml" />
+    <description>Computer Science</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 18 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Computer Science</title>
+      <link>/category/computer-science/</link>
+    </image>
+    
+    <item>
+      <title>Greedy Algorithm and Sequence Assembly</title>
+      <link>/post/greedy_algorithm/</link>
+      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/greedy_algorithm/</guid>
+      <description>
+
+
+&lt;div id=&#34;greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Greedy Algorithm&lt;/h2&gt;
+&lt;p&gt;Unlike other algorithms such as brute force of dynamic programming, the greedy algorithm may &lt;strong&gt;NOT&lt;/strong&gt; always give the optimum solution. Instead, it looks at the best short term gain without consideration for the end result. One example of an algorithm that uses the Greedy algorithm is Kruskal’s algorithm (Minimum Spanning Tree), however, in this case, it does give the optimal solution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sequencing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sequencing&lt;/h2&gt;
+&lt;p&gt;One important tool used in biology is the sequencing of genetic data. There are various types of sequencing including sanger sequencing, illumina, nanopore, etc. Because techniques can be limited by read length, sometimes an original sequence/genome is fragmented, sequenced, and then assembled together again into a “contig” sequence (shot gun sequencing).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;limitations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Limitations&lt;/h2&gt;
+&lt;p&gt;The shorter the reads, the harder it is to piece together (sometimes unsolvable). Another important factor to consider is if the original sequence has a lot of repeats such as &lt;em&gt;ATTAATTAA&lt;/em&gt; which will cause it to fail. We also have to assume that the sequence read was perfect (no errors in the reading of the base) and that all reads are bridged (there is some overlap).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sequence-assembly-using-the-greedy-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sequence Assembly Using the Greedy Algorithm&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for overlaps and where you can extend this. If there is more than 1 sequence that overlaps, find the sequence overlap with the highest score (calculate pairwise alignment).&lt;/li&gt;
+&lt;li&gt;Find two fragments with largest overlap and merge fragments.&lt;/li&gt;
+&lt;li&gt;Repeat until only 1 fragment is left.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example, given the following:
+Genome: ATTCGTAGCA
+Copy: ATTCGTAGCA
+ATTCGTAGCA
+ATTCGTAGCA&lt;/p&gt;
+&lt;p&gt;Fragmentation:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Frag1&lt;/th&gt;
+&lt;th&gt;Frag2&lt;/th&gt;
+&lt;th&gt;Frag3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;ATT&lt;/td&gt;
+&lt;td&gt;CGTA&lt;/td&gt;
+&lt;td&gt;GCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;ATTC&lt;/td&gt;
+&lt;td&gt;GTA&lt;/td&gt;
+&lt;td&gt;GCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;AT&lt;/td&gt;
+&lt;td&gt;TCGT&lt;/td&gt;
+&lt;td&gt;AGCA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Multiple overlaps result in higher confidence of an overlap. Get all unique sequences (duplicates don’t offer more information)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The following program was used to find the highest number of overlapping characters in two sequences, making sure that the match isn’t in the middle of the two sequences such as “AT&lt;strong&gt;GCG&lt;/strong&gt;TA” and “GAC&lt;strong&gt;GCG&lt;/strong&gt;GGC”. Keep in mind that this program finds overlaps with the potential of left overhangs on the first sequence and right overhangs on the second sequence and &lt;strong&gt;NOT&lt;/strong&gt; vice versa. For example: “AGC&lt;strong&gt;TTA&lt;/strong&gt;” and “&lt;strong&gt;TTA&lt;/strong&gt;CCC”.
+&lt;em&gt;(Probably not the most efficient way of doing it)&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def find_high_overlap(string1_original, string2_original):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* &amp;quot; &amp;quot; + string2_original 
+  
+  highest_overlap=0
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+      #if the match is in the middle of the sequences
+      elif string1[i]!=&amp;quot; &amp;quot; and string2[i]!=&amp;quot; &amp;quot;:
+          overlap_num=0
+          break
+      if overlap_num &amp;gt; highest_overlap:
+        highest_overlap = overlap_num
+    if overlap_num &amp;gt; highest_overlap:
+      highest_overlap = overlap_num
+    string2= string2[1:]+&amp;quot; &amp;quot;
+  
+  return (highest_overlap)
+
+find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n &lt;strong&gt;matrix&lt;/strong&gt; where &lt;em&gt;n&lt;/em&gt; is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 &lt;strong&gt;matrix&lt;/strong&gt;. Continue doing this until there is only 1 fragment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use a graph,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, build a program that merges two fragments together:
+&lt;em&gt;This will assume that the overlap was found with the program above– no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def merge(string1_original, string2_original, found_overlap):
+  
+  string1 = string1_original 
+  string2= (len(string1_original)-1)* &amp;quot; &amp;quot; + string2_original 
+  
+  highest_overlap=0
+  
+  for k in range (len(string1_original)):
+    overlap_num=0
+    #check individual characters to see if they match 
+    for i in range(len(string1)):
+      overlap_num=0
+      if string1[i]==string2[i]:
+        for w in range(i, len(string1)):
+            if string1[w]==string2[w]:
+              overlap_num+=1
+            else:
+                overlap_num=0
+                break
+      #if the match is in the middle of the sequences
+      elif string1[i]!=&amp;quot; &amp;quot; and string2[i]!=&amp;quot; &amp;quot;:
+          overlap_num=0
+          break
+      if overlap_num &amp;gt; highest_overlap:
+        highest_overlap = overlap_num
+    if overlap_num &amp;gt; highest_overlap:
+      highest_overlap = overlap_num
+    string2= string2[1:]+&amp;quot; &amp;quot;
+  
+  return (highest_overlap)
+
+find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;#make a matrix 1…….100
+#1 6
+#… 6
+#100 6&lt;/p&gt;
+&lt;p&gt;#don’t want six since want unique reads, look at 5 overlaps
+#example 2,78 ; 2,89; 4,5
+#randomly pick one and extend now have 99 reads with one being the extended 2,78&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;AN INTRODUCTION TO BIOINFORMATICS ALGORITHMS, NEIL C. JONES AND PAVEL A. PEVZNER&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://data-science-sequencing.github.io/Win2018/lectures/lecture6/#&#34; class=&#34;uri&#34;&gt;http://data-science-sequencing.github.io/Win2018/lectures/lecture6/#&lt;/a&gt;:~:text=The%20greedy%20algorithm%20assembles%20the%20reads%20into%20an%20incorrect%20DNA,greedy%20approach%20can%20still%20fail.&amp;amp;text=One%20can%20think%20of%20the,looking%20for%20length%2D%E2%84%93%20overlaps.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/lecture-slides/MIT7_91JS14_Lecture6.pdf&#34; class=&#34;uri&#34;&gt;https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/lecture-slides/MIT7_91JS14_Lecture6.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
