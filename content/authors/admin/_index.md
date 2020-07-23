@@ -7,12 +7,8 @@ education:
   - course: Bachelor of Science in Computational Biology, Elements of Computing Certificate 
     institution: University of Texas at Austin
     year: 2021
-    
-  - course: International Baccalaureate
-    institution: United World College of South East Asia - East Campus 
-    year: 2017
 
-email: ""
+email: "cara.yijin.zou@gmail.com"
 interests:
 - Virtual Drug Screening
 - Computer Science

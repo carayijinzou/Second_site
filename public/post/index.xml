@@ -1834,7 +1834,7 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
 &lt;div id=&#34;TOC&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#genetic-data&#34;&gt;Genetic Data&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#reference-sequence-number&#34;&gt;Reference Sequence Number:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#reference-sequence-number&#34;&gt;Reference Sequence Number&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#grch-37&#34;&gt;GRCh 37&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#ncbi-reference-sequence-refseq&#34;&gt;NCBI Reference Sequence (RefSeq)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#ensemble&#34;&gt;Ensemble&lt;/a&gt;&lt;/li&gt;
@@ -1867,7 +1867,7 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
 &lt;div id=&#34;genetic-data&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Genetic Data&lt;/h1&gt;
 &lt;div id=&#34;reference-sequence-number&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Reference Sequence Number:&lt;/h2&gt;
+&lt;h2&gt;Reference Sequence Number&lt;/h2&gt;
 &lt;p&gt;When I first started working on genetic data and especially with my &lt;a href=&#34;../../project/PAX9_RF&#34;&gt;PAX9 project&lt;/a&gt;, I was so confused by all of the different values that were associated with the gene:&lt;/p&gt;
 &lt;p&gt;Genomic reference: NG_013357.1 (GRCh 37)&lt;/p&gt;
 &lt;p&gt;Transcript reference: NM_006194.3&lt;/p&gt;

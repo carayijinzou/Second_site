@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Genetic Data 
 
-## Reference Sequence Number:
+## Reference Sequence Number
 When I first started working on genetic data and especially with my [PAX9 project](../../project/PAX9_RF), I was so confused by all of the different values that were associated with the gene: 
 
 Genomic reference: NG_013357.1 (GRCh 37) 
