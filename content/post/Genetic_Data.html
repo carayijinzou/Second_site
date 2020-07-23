@@ -10,7 +10,7 @@ summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What ar
 
 
 
-<p>*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together.</p>
+<p>*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized.</p>
 <div id="reference-sequence-number" class="section level2">
 <h2>Reference Sequence Number:</h2>
 <p>When I first started working on genetic data and especially with my <a href="../../project/PAX9_RF">PAX9 project</a>, I was so confused by all of the different values that were associated with the gene:</p>
@@ -94,6 +94,103 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <div id="vcf" class="section level2">
 <h2>VCF</h2>
 <p>VCF stands for variant call format and stores different variants of a gene.</p>
+</div>
+</div>
+<div id="basic-programming-key-words" class="section level1">
+<h1>Basic Programming Key words</h1>
+<div id="unix-shell" class="section level2">
+<h2>Unix Shell</h2>
+<p>Another way of navigating through files and giving commands to the operating system.</p>
+<p><strong>Absolute</strong> (begins with “/”)</p>
+<blockquote>
+<p>/home/downloads/pax9.csv</p>
+</blockquote>
+<p><strong>Relative</strong> (does NOT begin with “/”)</p>
+<p>If you are in /home</p>
+<blockquote>
+<p>downloads</p>
+</blockquote>
+<blockquote>
+<p>downloads/pax9.csv</p>
+</blockquote>
+<p>If you are in /home/downloads</p>
+<blockquote>
+<p>pax9.csv</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pwd</td>
+<td>“print working directory” (absolute)</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>root directory</td>
+</tr>
+<tr class="odd">
+<td>ls</td>
+<td>“listing”, gives contents of current directory</td>
+</tr>
+<tr class="even">
+<td><strong>ls</strong> /home/downloads</td>
+<td>contents of download directory</td>
+</tr>
+<tr class="odd">
+<td>cd</td>
+<td>“change directory”</td>
+</tr>
+<tr class="even">
+<td>..</td>
+<td>directory above current</td>
+</tr>
+<tr class="odd">
+<td>.</td>
+<td>current directory</td>
+</tr>
+<tr class="even">
+<td>~</td>
+<td>home directory</td>
+</tr>
+<tr class="odd">
+<td><strong>cp</strong> test.csv test2.csv</td>
+<td>“copy”: test.csv is duplicated and named test2.csv</td>
+</tr>
+<tr class="even">
+<td><strong>cp</strong> test.csv other.csv downloads</td>
+<td>“copy”: test.csv and other.csv is copied to the downloads directory</td>
+</tr>
+<tr class="odd">
+<td><strong>mv</strong> test.csv other.csv downloads</td>
+<td>“moves”: test.csv and other.csv is moved to the downloads directory</td>
+</tr>
+<tr class="even">
+<td><strong>mv</strong> test.csv new.csv</td>
+<td>“renames”: test.csv is renamed to new.csv (also works for directory)</td>
+</tr>
+<tr class="odd">
+<td><strong>rm</strong> test.csv other.csv</td>
+<td>“removes”: deletes other.csv and test.csv (does not work for directory)</td>
+</tr>
+<tr class="even">
+<td><strong>rmdir</strong> downloads</td>
+<td>“removes”: directory (must be empty!)</td>
+</tr>
+<tr class="odd">
+<td><strong>mkdir</strong> homework</td>
+<td>“makes directory” called homework</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="micellaneous" class="section level1">

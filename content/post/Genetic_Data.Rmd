@@ -11,7 +11,7 @@ summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What ar
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. 
+*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized. 
 
 ## Reference Sequence Number:
 When I first started working on genetic data and especially with my [PAX9 project](../../project/PAX9_RF), I was so confused by all of the different values that were associated with the gene: 
@@ -99,6 +99,46 @@ SAM and BAM files contain the same information, the difference is that BAM files
 
 ## VCF
 VCF stands for variant call format and stores different variants of a gene.
+
+# Basic Programming Key words 
+
+## Unix Shell 
+Another way of navigating through files and giving commands to the operating system. 
+
+**Absolute**  (begins with "/")
+
+> /home/downloads/pax9.csv
+
+**Relative** (does NOT begin with "/")
+
+If you are in /home
+
+> downloads
+
+> downloads/pax9.csv
+
+If you are in /home/downloads
+
+> pax9.csv
+
+
+| Command                            | Description                                                                    | 
+|------------------------------------|--------------------------------------------------------------------------------|
+| pwd                                | "print working directory" (absolute)                                           |
+| /                                  | root directory                                                                 |
+| ls                                 | "listing", gives contents of current directory                                 |
+| **ls** /home/downloads             |  contents of download directory                                                |
+| cd                                 | "change directory"                                                             |
+| ..                                 | directory above current                                                        |
+| .                                  | current directory                                                              |
+| ~                                  | home directory                                                                 |
+|**cp** test.csv test2.csv           | "copy": test.csv is duplicated and named test2.csv                             | 
+|**cp** test.csv other.csv downloads | "copy": test.csv and other.csv is copied to the downloads directory            | 
+|**mv** test.csv other.csv downloads | "moves": test.csv and other.csv is moved to the downloads directory            | 
+|**mv** test.csv new.csv             | "renames": test.csv is renamed to new.csv   (also works for directory)         |
+|**rm** test.csv other.csv           | "removes": deletes other.csv and test.csv  (does not work for directory)       |
+|**rmdir**  downloads                | "removes": directory (must be empty!)                                          |
+|**mkdir**  homework                 | "makes directory" called homework                                              |
 
 # Micellaneous 
 ## K-mers
