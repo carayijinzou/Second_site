@@ -40,3 +40,4 @@ user_groups:
 
 Cara Zou is a rising senior and pre-dental student at UT Austin. She's an ARI research mentor in the Virtual Drug Screening lab. Her hometown is Katy, Texas but she has also lived in China, Canada, Malalysia, and Singpaore. 
 
+_What is the purpose of this website? To showcase some of my projects and what I've learned so far. This website also acts as some of my notes for these topics and hopefully, if you are also a bioinformatics student, it can maybe help you too! But, disclaimer, while I try my best to explain topics, I'm still learning so there may be mistakes._ 

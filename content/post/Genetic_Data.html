@@ -2,15 +2,50 @@
 title: "Bioinformatics Glossary"
 author: "Cara Yijin Zou"
 date: "2020-01-10"
-output: html_document
 categories: ["Bioinformatics"]
 tags: ["Bioinformatics"]
 summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What are all these different files (FASTA, VCF, etc.) used for? "
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#genetic-data">Genetic Data</a><ul>
+<li><a href="#reference-sequence-number">Reference Sequence Number:</a></li>
+<li><a href="#grch-37">GRCh 37</a></li>
+<li><a href="#ncbi-reference-sequence-refseq">NCBI Reference Sequence (RefSeq)</a></li>
+<li><a href="#ensemble">Ensemble</a></li>
+</ul></li>
+<li><a href="#types-of-files">Types of Files</a><ul>
+<li><a href="#fasta">FASTA</a></li>
+<li><a href="#fastq">Fastq</a></li>
+<li><a href="#sambam-files">SAM/BAM files</a></li>
+<li><a href="#vcf">VCF</a></li>
+</ul></li>
+<li><a href="#basic-programming-cheatsheet">Basic Programming CheatSheet</a><ul>
+<li><a href="#unixlinux-bash">Unix/Linux (Bash)</a><ul>
+<li><a href="#need-to-kill-a-process">Need to kill a process?</a></li>
+<li><a href="#bash-script">Bash Script</a></li>
+</ul></li>
+<li><a href="#r-vs-python">R vs Python</a></li>
+</ul></li>
+<li><a href="#micellaneous">Micellaneous</a><ul>
+<li><a href="#k-mers">K-mers</a></li>
+<li><a href="#blast">BLAST</a></li>
+<li><a href="#needleman-wunsch-algorithm">Needleman-Wunsch algorithm</a></li>
+<li><a href="#smith-waterman-algorithm">Smith-Waterman algorithm</a></li>
+<li><a href="#blosum-and-pam">BLOSUM and PAM</a></li>
+<li><a href="#other">Other</a></li>
+</ul></li>
+</ul>
+</div>
 
 <p>*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized.</p>
+<div id="genetic-data" class="section level1">
+<h1>Genetic Data</h1>
 <div id="reference-sequence-number" class="section level2">
 <h2>Reference Sequence Number:</h2>
 <p>When I first started working on genetic data and especially with my <a href="../../project/PAX9_RF">PAX9 project</a>, I was so confused by all of the different values that were associated with the gene:</p>
@@ -48,6 +83,7 @@ summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What ar
 <li><p>ENSG: gene <em>(One gene can have many corresponding transcripts.)</em></p></li>
 <li><p>ENSP: protein</p></li>
 </ul>
+</div>
 </div>
 <div id="types-of-files" class="section level1">
 <h1>Types of Files</h1>
@@ -96,24 +132,24 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <p>VCF stands for variant call format and stores different variants of a gene.</p>
 </div>
 </div>
-<div id="basic-programming-key-words" class="section level1">
-<h1>Basic Programming Key words</h1>
-<div id="unix-shell" class="section level2">
-<h2>Unix Shell</h2>
+<div id="basic-programming-cheatsheet" class="section level1">
+<h1>Basic Programming CheatSheet</h1>
+<div id="unixlinux-bash" class="section level2">
+<h2>Unix/Linux (Bash)</h2>
 <p>Another way of navigating through files and giving commands to the operating system.</p>
-<p><strong>Absolute</strong> (begins with “/”)</p>
+<p><strong>Absolute</strong> path (begins with “/”)</p>
 <blockquote>
-<p>/home/downloads/pax9.csv</p>
+<p>/home/Downloads/pax9.csv</p>
 </blockquote>
-<p><strong>Relative</strong> (does NOT begin with “/”)</p>
+<p><strong>Relative</strong> path (does NOT begin with “/”)</p>
 <p>If you are in /home</p>
 <blockquote>
-<p>downloads</p>
+<p>Downloads</p>
 </blockquote>
 <blockquote>
-<p>downloads/pax9.csv</p>
+<p>Downloads/pax9.csv</p>
 </blockquote>
-<p>If you are in /home/downloads</p>
+<p>If you are in /home/Downloads</p>
 <blockquote>
 <p>pax9.csv</p>
 </blockquote>
@@ -142,7 +178,7 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <td>“listing”, gives contents of current directory</td>
 </tr>
 <tr class="even">
-<td><strong>ls</strong> /home/downloads</td>
+<td><strong>ls</strong> /home/Downloads</td>
 <td>contents of download directory</td>
 </tr>
 <tr class="odd">
@@ -162,35 +198,192 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <td>home directory</td>
 </tr>
 <tr class="odd">
-<td><strong>cp</strong> test.csv test2.csv</td>
-<td>“copy”: test.csv is duplicated and named test2.csv</td>
+<td>q</td>
+<td>“quit”</td>
 </tr>
 <tr class="even">
-<td><strong>cp</strong> test.csv other.csv downloads</td>
-<td>“copy”: test.csv and other.csv is copied to the downloads directory</td>
+<td>Control + C</td>
+<td>“cancel”</td>
 </tr>
 <tr class="odd">
-<td><strong>mv</strong> test.csv other.csv downloads</td>
-<td>“moves”: test.csv and other.csv is moved to the downloads directory</td>
+<td>top</td>
+<td>allows you to view the current processes running</td>
 </tr>
 <tr class="even">
+<td><strong>cp</strong> test.csv test2.csv</td>
+<td>“copy”: test.csv is duplicated and named test2.csv (last arg = destination)</td>
+</tr>
+<tr class="odd">
+<td><strong>cp</strong> test.csv other.csv Downloads</td>
+<td>“copy”: test.csv and other.csv is copied to the Downloads directory</td>
+</tr>
+<tr class="even">
+<td><strong>mv</strong> test.csv other.csv Downloads</td>
+<td>“moves”: test.csv and other.csv is moved to the downloads directory</td>
+</tr>
+<tr class="odd">
 <td><strong>mv</strong> test.csv new.csv</td>
 <td>“renames”: test.csv is renamed to new.csv (also works for directory)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>rm</strong> test.csv other.csv</td>
 <td>“removes”: deletes other.csv and test.csv (does not work for directory)</td>
 </tr>
-<tr class="even">
-<td><strong>rmdir</strong> downloads</td>
+<tr class="odd">
+<td><strong>rmdir</strong> Downloads</td>
 <td>“removes”: directory (must be empty!)</td>
 </tr>
-<tr class="odd">
-<td><strong>mkdir</strong> homework</td>
+<tr class="even">
+<td><strong>mkdir</strong> Homework</td>
 <td>“makes directory” called homework</td>
+</tr>
+<tr class="odd">
+<td><strong>man</strong> ls</td>
+<td>“manual” of command ls</td>
+</tr>
+<tr class="even">
+<td><strong>chmod</strong> u+x test.sh</td>
+<td>“change file mode”: permissions, read ( r ), write ( w ) or execute ( x )</td>
 </tr>
 </tbody>
 </table>
+<p>Useful Tricks:</p>
+<ul>
+<li><p>Hit up and down arrow keys to get previous commands</p></li>
+<li><p>Use tab key for autocompletion</p></li>
+<li><p>Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use  before the space</p></li>
+<li><p>if a file/destination does not exist, it will create one. If it does exist, it may overwrite</p></li>
+<li><p>there is no <strong>undo</strong></p></li>
+</ul>
+<div id="need-to-kill-a-process" class="section level3">
+<h3>Need to kill a process?</h3>
+<ol style="list-style-type: decimal">
+<li><p>Get PID (process ID) from top</p></li>
+<li><p>type: kill PID</p></li>
+<li><p>doesn’t work? type: kill -9 PID</p></li>
+</ol>
+</div>
+<div id="bash-script" class="section level3">
+<h3>Bash Script</h3>
+<p>A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the <strong>.sh</strong> extension.</p>
+<blockquote>
+<p>#!/bin/bash</p>
+</blockquote>
+<p>First line must always look something like this. “#!” is called a <strong>shebang</strong> and immediately after (no spaces), put the path to the interpreter. If you don’t know, type: “which bash” in command line.</p>
+<blockquote>
+<p>#running program from its path</p>
+</blockquote>
+<blockquote>
+<p>#Bob 07/01/2020</p>
+</blockquote>
+<p>Comments to describe what it does, author, date, etc.</p>
+<blockquote>
+<p>name = “Bob”</p>
+</blockquote>
+<p>You can set variables</p>
+<blockquote>
+<p>echo Hello $name !</p>
+</blockquote>
+<p>Like print, it will print stuff after it. Refer to variables with a “$” in front.</p>
+<blockquote>
+<p>pwd</p>
+</blockquote>
+<p>You can put commands in the script.</p>
+<p>In the actual command line, to <strong>run</strong> the script:</p>
+<blockquote>
+<p>./testscript.sh</p>
+</blockquote>
+<p>AKA, look in the current directory to find the script named testscript.sh and run it.</p>
+</div>
+</div>
+<div id="r-vs-python" class="section level2">
+<h2>R vs Python</h2>
+<p>While R has a lot of super useful packages, especially for bioinformatics and statistics, I found it <strong>super</strong> annoying to code in base R compared to python. Here are some essential equivalents for R:</p>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Python</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>len(myList)</td>
+<td>length(myList) **won’t work for strings (see below example)</td>
+</tr>
+<tr class="even">
+<td>x in myList</td>
+<td>x %in% myList</td>
+</tr>
+<tr class="odd">
+<td>myList.index(item)</td>
+<td>match (item, myList)</td>
+</tr>
+<tr class="even">
+<td>“string”[:3]</td>
+<td>substr (“string”, 1, 3)</td>
+</tr>
+<tr class="odd">
+<td>range(0, 6,2)</td>
+<td>seq(from = 0, 4, by=2)</td>
+</tr>
+<tr class="even">
+<td>“str”+“ing”</td>
+<td>paste0(“str”,“ing”, &quot;&quot;)</td>
+</tr>
+<tr class="odd">
+<td>myList=[1,2]</td>
+<td>myList=c(1,2)</td>
+</tr>
+<tr class="even">
+<td>myList.append(3)</td>
+<td>myList=c(myList, 3)</td>
+</tr>
+<tr class="odd">
+<td>myList.extend(myList2)</td>
+<td>myList=c(myList,myList2) <strong>OR</strong> myList=append(myList, myList2)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>python</strong>: len(“string”) vs <strong>R</strong>: nchar(“string”)</li>
+</ol>
+<pre class="python"><code>for i in range(len(&quot;test&quot;)): 
+  print (i)</code></pre>
+<pre><code>## 0
+## 1
+## 2
+## 3</code></pre>
+<pre class="r"><code>for (i in 1:nchar(&quot;test&quot;)){
+  print (i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Matrices</li>
+</ol>
+<p><strong>python</strong></p>
+<pre class="python"><code>test_matrix=[]
+for i in range(3): 
+  test_matrix.append([0]*3)
+test_matrix[0][1]=2
+print(test_matrix)</code></pre>
+<pre><code>## [[0, 2, 0], [0, 0, 0], [0, 0, 0]]</code></pre>
+<p><strong>R</strong></p>
+<pre class="r"><code>test_matrix&lt;- matrix(0, nrow = 3, ncol = 3)
+test_matrix[1,2]=2
+print(test_matrix)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    2    0
+## [2,]    0    0    0
+## [3,]    0    0    0</code></pre>
 </div>
 </div>
 <div id="micellaneous" class="section level1">
@@ -251,14 +444,20 @@ main()</code></pre>
 <div id="blosum-and-pam" class="section level2">
 <h2>BLOSUM and PAM</h2>
 <p>Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90.</p>
+</div>
+<div id="other" class="section level2">
+<h2>Other</h2>
 <p>For more acronyms, I found this <a href="http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf">glossary</a> online that has a lot of the basics.</p>
-<p>References
-1. <a href="http://useast.ensembl.org/info/website/tutorials/grch37.html" class="uri">http://useast.ensembl.org/info/website/tutorials/grch37.html</a></p>
-<ol start="2" style="list-style-type: decimal">
+<p>References</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="http://useast.ensembl.org/info/website/tutorials/grch37.html" class="uri">http://useast.ensembl.org/info/website/tutorials/grch37.html</a></p></li>
 <li><p><a href="https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/" class="uri">https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/</a></p></li>
 <li><p><a href="https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r" class="uri">https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_a_reference_sequence_r</a></p></li>
 <li><p><a href="https://thesequencingcenter.com/knowledge-base/fastq-files/" class="uri">https://thesequencingcenter.com/knowledge-base/fastq-files/</a></p></li>
 <li><p>Kerfeld and Scott, PLoS Biology 2011</p></li>
+<li><p><a href="https://ryanstutorials.net/linuxtutorial/" class="uri">https://ryanstutorials.net/linuxtutorial/</a></p></li>
+<li><p><a href="https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php" class="uri">https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php</a></p></li>
+<li><p><a href="https://learn.datacamp.com/" class="uri">https://learn.datacamp.com/</a></p></li>
 </ol>
 </div>
 </div>

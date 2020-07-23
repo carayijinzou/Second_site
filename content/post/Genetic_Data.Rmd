@@ -2,16 +2,20 @@
 title: "Bioinformatics Glossary"
 author: "Cara Yijin Zou"
 date: "2020-01-10"
-output: html_document
 categories: ["Bioinformatics"]
 tags: ["Bioinformatics"]
 summary: "What do all the acronyms like 'NG_', 'NM_', 'ENSG', etc. mean? What are all these different files (FASTA, VCF, etc.) used for? "
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 *** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized. 
+
+# Genetic Data 
 
 ## Reference Sequence Number:
 When I first started working on genetic data and especially with my [PAX9 project](../../project/PAX9_RF), I was so confused by all of the different values that were associated with the gene: 
@@ -23,6 +27,7 @@ Transcript reference: NM_006194.3
 Ensembl gene ID: ENSG00000198807.8
 
 Canonical transcript: ENST00000361487.6
+
 
 ## GRCh 37 
 Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. **GRCh37** stands for Genome Reference Consortium Human Build 37 and is generally synonymous with **hg19**. Similarly, **hg38** can also be used to refer to the same genome build as **GRCh38**. 
@@ -100,24 +105,24 @@ SAM and BAM files contain the same information, the difference is that BAM files
 ## VCF
 VCF stands for variant call format and stores different variants of a gene.
 
-# Basic Programming Key words 
+# Basic Programming CheatSheet 
 
-## Unix Shell 
+## Unix/Linux (Bash)
 Another way of navigating through files and giving commands to the operating system. 
 
-**Absolute**  (begins with "/")
+**Absolute** path (begins with "/")
 
-> /home/downloads/pax9.csv
+> /home/Downloads/pax9.csv
 
-**Relative** (does NOT begin with "/")
+**Relative** path (does NOT begin with "/")
 
 If you are in /home
 
-> downloads
+> Downloads
 
-> downloads/pax9.csv
+> Downloads/pax9.csv
 
-If you are in /home/downloads
+If you are in /home/Downloads
 
 > pax9.csv
 
@@ -127,18 +132,124 @@ If you are in /home/downloads
 | pwd                                | "print working directory" (absolute)                                           |
 | /                                  | root directory                                                                 |
 | ls                                 | "listing", gives contents of current directory                                 |
-| **ls** /home/downloads             |  contents of download directory                                                |
+| **ls** /home/Downloads             |  contents of download directory                                                |
 | cd                                 | "change directory"                                                             |
 | ..                                 | directory above current                                                        |
 | .                                  | current directory                                                              |
 | ~                                  | home directory                                                                 |
-|**cp** test.csv test2.csv           | "copy": test.csv is duplicated and named test2.csv                             | 
-|**cp** test.csv other.csv downloads | "copy": test.csv and other.csv is copied to the downloads directory            | 
-|**mv** test.csv other.csv downloads | "moves": test.csv and other.csv is moved to the downloads directory            | 
+| q                                  | "quit"                                                                         |
+| Control + C                        | "cancel"                                                                       |
+| top                                | allows you to view the current processes running                               |
+|**cp** test.csv test2.csv           | "copy": test.csv is duplicated and named test2.csv (last arg = destination)    | 
+|**cp** test.csv other.csv Downloads | "copy": test.csv and other.csv is copied to the Downloads directory            | 
+|**mv** test.csv other.csv Downloads | "moves": test.csv and other.csv is moved to the downloads directory            | 
 |**mv** test.csv new.csv             | "renames": test.csv is renamed to new.csv   (also works for directory)         |
 |**rm** test.csv other.csv           | "removes": deletes other.csv and test.csv  (does not work for directory)       |
-|**rmdir**  downloads                | "removes": directory (must be empty!)                                          |
-|**mkdir**  homework                 | "makes directory" called homework                                              |
+|**rmdir**  Downloads                | "removes": directory (must be empty!)                                          |
+|**mkdir**  Homework                 | "makes directory" called homework                                              |
+|**man** ls                          | "manual" of command ls                                                         |
+|**chmod** u+x test.sh               | "change file mode": permissions,  read ( r ), write ( w ) or execute ( x )     |
+
+Useful Tricks: 
+
+* Hit up and down arrow keys to get previous commands
+
+* Use tab key for autocompletion 
+
+* Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use \ before the space
+
+* if a file/destination does not exist, it will create one. If it does exist, it may overwrite 
+
+* there is no **undo**
+
+### Need to kill a process?
+
+1) Get PID (process ID) from top 
+
+2) type: kill PID
+
+3) doesn't work? type: kill -9 PID
+
+
+### Bash Script
+A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the **.sh** extension. 
+
+> #!/bin/bash
+
+First line must always look something like this. "#!" is called a **shebang** and immediately after (no spaces), put the path to the interpreter. If you don't know, type: "which bash" in command line.
+
+> #running program from its path 
+
+> #Bob 07/01/2020
+
+Comments to describe what it does, author, date, etc. 
+
+> name = "Bob"
+
+You can set variables 
+
+> echo Hello $name !
+
+Like print, it will print stuff after it. Refer to variables with a "$" in front.
+
+> pwd 
+
+You can put commands in the script. 
+
+In the actual command line, to **run** the script: 
+
+> ./testscript.sh
+
+AKA, look in the current directory to find the script named testscript.sh and run it.
+
+## R vs Python
+While R has a lot of super useful packages, especially for bioinformatics and statistics, I found it **super** annoying to code in base R compared to python. Here are some essential equivalents for R: 
+
+| Python                      | R                                                              |
+| ----------------------------|----------------------------------------------------------------|
+| len(myList)                 | length(myList) **won't work for strings (see below example)    |
+| x in myList                 | x %in% myList                                                  |
+| myList.index(item)          | match (item, myList)                                           |
+| "string"[:3]                | substr ("string", 1, 3)                                        |
+| range(0, 6,2)               | seq(from = 0, 4, by=2)                                         |
+| "str"+"ing"                 | paste0("str","ing", "")                                        |
+| myList=[1,2]                | myList=c(1,2)                                                  |
+| myList.append(3)            | myList=c(myList, 3)                                            |
+| myList.extend(myList2)      | myList=c(myList,myList2) **OR** myList=append(myList, myList2) |
+
+
+**Examples**
+
+1. **python**: len("string") vs **R**: nchar("string")
+
+```{python}
+for i in range(len("test")): 
+  print (i)
+```
+
+```{R}
+for (i in 1:nchar("test")){
+  print (i)
+}
+```
+2. Matrices
+
+**python**
+```{python}
+test_matrix=[]
+for i in range(3): 
+  test_matrix.append([0]*3)
+test_matrix[0][1]=2
+print(test_matrix)
+```
+
+**R**
+```{R}
+test_matrix<- matrix(0, nrow = 3, ncol = 3)
+test_matrix[1,2]=2
+print(test_matrix)
+```
+
 
 # Micellaneous 
 ## K-mers
@@ -186,9 +297,11 @@ Local alignment
 ## BLOSUM and PAM
 Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90. 
 
+## Other
 For more acronyms, I found this [glossary](http://www.nslc.wustl.edu/courses/archives/Bio3050/Glossary.pdf) online that has a lot of the basics. 
 
 References 
+
 1. http://useast.ensembl.org/info/website/tutorials/grch37.html
 
 2. https://bitesizebio.com/38335/get-to-know-your-reference-genome-grch37-vs-grch38/
@@ -198,3 +311,9 @@ References
 4. https://thesequencingcenter.com/knowledge-base/fastq-files/
 
 5. Kerfeld and Scott, PLoS Biology 2011
+
+6. https://ryanstutorials.net/linuxtutorial/
+
+7. https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php
+
+8. https://learn.datacamp.com/
