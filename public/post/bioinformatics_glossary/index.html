@@ -30,7 +30,7 @@
   <meta name="description" content="What do all the acronyms like &#39;NG_&#39;, &#39;NM_&#39;, &#39;ENSG&#39;, etc. mean? What are all these different files (FASTA, VCF, etc.) used for? Basics of UNIX? R vs Python equivalents? And more !">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/genetic_data/">
+  <link rel="alternate" hreflang="en-us" href="/post/bioinformatics_glossary/">
 
   
 
@@ -217,7 +217,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/genetic_data/">
+  <link rel="canonical" href="/post/bioinformatics_glossary/">
 
   
   
@@ -233,7 +233,7 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Cara (Yijin) Zou">
-  <meta property="og:url" content="/post/genetic_data/">
+  <meta property="og:url" content="/post/bioinformatics_glossary/">
   <meta property="og:title" content="Bioinformatics Glossary | Cara (Yijin) Zou">
   <meta property="og:description" content="What do all the acronyms like &#39;NG_&#39;, &#39;NM_&#39;, &#39;ENSG&#39;, etc. mean? What are all these different files (FASTA, VCF, etc.) used for? Basics of UNIX? R vs Python equivalents? And more !"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
@@ -265,7 +265,7 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/genetic_data/"
+    "@id": "/post/bioinformatics_glossary/"
   },
   "headline": "Bioinformatics Glossary",
   
@@ -556,7 +556,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    10 min read
+    9 min read
   </span>
   
 
@@ -620,20 +620,16 @@
 <li><a href="#fastq">Fastq</a></li>
 <li><a href="#sambam-files">SAM/BAM files</a></li>
 <li><a href="#sdf-structure-data-file">SDF (structure data file)</a></li>
-<li><a href="#pdb">PDB</a></li>
-<li><a href="#mol2">MOL2</a></li>
-<li><a href="#cif">CIF</a></li>
 <li><a href="#vcf">VCF</a></li>
 </ul></li>
 <li><a href="#bioinformatic-resourcestools">Bioinformatic Resources/Tools</a><ul>
 <li><a href="#blast">BLAST</a></li>
-<li><a href="#brenda">BRENDA</a><ul>
-<li><a href="#e.c.-number">E.C. Number</a></li>
-</ul></li>
+<li><a href="#brenda">BRENDA</a></li>
 <li><a href="#expasy">ExPASy</a></li>
-<li><a href="#pdb-1">PDB</a></li>
+<li><a href="#pdb">PDB</a></li>
 </ul></li>
 <li><a href="#micellaneous">Micellaneous</a><ul>
+<li><a href="#e.c.-number">E.C. Number</a></li>
 <li><a href="#k-mers">K-mers</a></li>
 <li><a href="#needleman-wunsch-algorithm">Needleman-Wunsch algorithm</a></li>
 <li><a href="#smith-waterman-algorithm">Smith-Waterman algorithm</a></li>
@@ -989,44 +985,41 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 </div>
 <div id="sdf-structure-data-file" class="section level2">
 <h2>SDF (structure data file)</h2>
-<p>Multiple molecules are separated with four dollar signs: $$$$.</p>
-<p>71080<br />
--OEChem-07232021043D</p>
-<p>13 12 0 1 0 0 0 0 0999 V2000<br />
-1.4540 -1.0463 -0.2600 O 0 0 0 0 0 0 0 0 0 0 0 0<br />
-1.2497 1.1182 0.4005 O 0 0 0 0 0 0 0 0 0 0 0 0<br />
--1.4128 1.1501 -0.1734 N 0 0 0 0 0 0 0 0 0 0 0 0<br />
--0.7093 -0.1115 -0.3951 C 0 0 2 0 0 0 0 0 0 0 0 0<br />
--1.3291 -1.2038 0.4660 C 0 0 0 0 0 0 0 0 0 0 0 0<br />
-0.7475 0.0933 -0.0380 C 0 0 0 0 0 0 0 0 0 0 0 0<br />
--0.7772 -0.3698 -1.4569 H 0 0 0 0 0 0 0 0 0 0 0 0
--2.3997 -1.3089 0.2583 H 0 0 0 0 0 0 0 0 0 0 0 0
--0.8590 -2.1736 0.2695 H 0 0 0 0 0 0 0 0 0 0 0 0
--1.2071 -0.9930 1.5349 H 0 0 0 0 0 0 0 0 0 0 0 0
--0.9750 1.8923 -0.7175 H 0 0 0 0 0 0 0 0 0 0 0 0
--1.3418 1.4251 0.8055 H 0 0 0 0 0 0 0 0 0 0 0 0
-2.4015 -0.9395 -0.0294 H 0 0 0 0 0 0 0 0 0 0 0 0
-1 6 1 0 0 0 0
-1 13 1 0 0 0 0
-2 6 2 0 0 0 0
-3 4 1 0 0 0 0
-3 11 1 0 0 0 0
-3 12 1 0 0 0 0
-4 5 1 0 0 0 0
-4 6 1 0 0 0 0
-4 7 1 0 0 0 0
-5 8 1 0 0 0 0
-5 9 1 0 0 0 0
-5 10 1 0 0 0 0</p>
-</div>
-<div id="pdb" class="section level2">
-<h2>PDB</h2>
-</div>
-<div id="mol2" class="section level2">
-<h2>MOL2</h2>
-</div>
-<div id="cif" class="section level2">
-<h2>CIF</h2>
+<p>** MOL files follow the same format but are only for a single molecule while SDF files can contain multiple
+<img src="SDF_file.png" /></p>
+<p>Three line <strong>header</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Name of Molecule (71080)</p></li>
+<li><p>Software to generate the file</p></li>
+<li><p>Comment (blank above)</p></li>
+</ol>
+<p>*** Even if lines are left blank. Still need the <em>lines</em> there for file to function properly.</p>
+<p><strong>Counts</strong> line</p>
+<ol style="list-style-type: decimal">
+<li><p>Number of atoms: 13</p></li>
+<li><p>Number of bonds: 12</p></li>
+</ol>
+<p><strong>Atoms</strong> (one line for each atom)</p>
+<ol style="list-style-type: decimal">
+<li><p>X coordinate: 1.450</p></li>
+<li><p>Y coordinate: -1.0463</p></li>
+<li><p>Z coordinate: -0.2600</p></li>
+<li><p>Atom symbol: O (oxygen)</p></li>
+</ol>
+<p><strong>Bonds</strong> (one line for bond)</p>
+<ol style="list-style-type: decimal">
+<li><p>Index of atom 1</p></li>
+<li><p>Index of atom 2</p></li>
+<li><p>Type of bond (1=single, 2=double, 3=triple)</p></li>
+</ol>
+<p><strong>M END</strong> : Required at end.</p>
+<p><strong>Metadata</strong> (data that provides info on other data)</p>
+<ul>
+<li><p>Starts with header that begins with &gt;</p></li>
+<li><p>Name of data field is written in &lt;&gt;.</p></li>
+<li><p>E.g. &gt; &lt;PUBCHEM_COMPOUND_CID&gt;</p></li>
+</ul>
+<p>Multiple molecules are separated with four dollar signs: <strong>$$$$</strong>.</p>
 </div>
 <div id="vcf" class="section level2">
 <h2>VCF</h2>
@@ -1047,22 +1040,22 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <div id="brenda" class="section level2">
 <h2>BRENDA</h2>
 <p><a href="https://www.brenda-enzymes.org/index.php">BRENDA</a> contains enzyme information such as the reaction diagram, links to research papers, KM values, IC50, inhibitors for the enzyme, etc.</p>
-<div id="e.c.-number" class="section level3">
-<h3>E.C. Number</h3>
-<p>You can categorize enzymes based on their EC number (Enzyme Committee number) based on the reaction they catalyze. For example, D-alanine D-alanine ligase has an E.C. number of 6.3.2.4. The “6” indicates that it is a ligase (joining two molecules using ATP).</p>
-</div>
 </div>
 <div id="expasy" class="section level2">
 <h2>ExPASy</h2>
 <p><a href="https://web.expasy.org/protparam/">ExPASy</a> or Expert Protein Anaylsis System can be used to find the molecular weight of a sequence of amino acids, theoretical pI, instability, extinction coefficient (for spectrophotometry), etc.</p>
 </div>
-<div id="pdb-1" class="section level2">
+<div id="pdb" class="section level2">
 <h2>PDB</h2>
 <p><a href="https://www.rcsb.org/">PDB</a> or Protein Data Bank contains 3D files of mostly proteins. For each protein, it tells you the associated research paper, number of chains, any ligands present already in the structure, resolution, etc.</p>
 </div>
 </div>
 <div id="micellaneous" class="section level1">
 <h1>Micellaneous</h1>
+<div id="e.c.-number" class="section level2">
+<h2>E.C. Number</h2>
+<p>You can categorize enzymes based on their EC number (Enzyme Committee number) based on the reaction they catalyze. For example, D-alanine D-alanine ligase has an E.C. number of 6.3.2.4. The “6” indicates that it is a ligase (joining two molecules using ATP).</p>
+</div>
 <div id="k-mers" class="section level2">
 <h2>K-mers</h2>
 <p>Subsequences of length k of a nucleotide sequence.</p>
@@ -1120,6 +1113,8 @@ main()</code></pre>
 <li><p><a href="https://ryanstutorials.net/linuxtutorial/" class="uri">https://ryanstutorials.net/linuxtutorial/</a></p></li>
 <li><p><a href="https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php" class="uri">https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php</a></p></li>
 <li><p><a href="https://learn.datacamp.com/" class="uri">https://learn.datacamp.com/</a></p></li>
+<li><p><a href="http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx" class="uri">http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx</a></p></li>
+<li><p><a href="http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx" class="uri">http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx</a></p></li>
 </ol>
 </div>
 </div>
@@ -1152,7 +1147,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/genetic_data/&amp;text=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/bioinformatics_glossary/&amp;text=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1165,7 +1160,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/genetic_data/&amp;t=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/bioinformatics_glossary/&amp;t=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1178,7 +1173,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="mailto:?subject=Bioinformatics%20Glossary&amp;body=/post/genetic_data/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Bioinformatics%20Glossary&amp;body=/post/bioinformatics_glossary/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1191,7 +1186,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/genetic_data/&amp;title=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/bioinformatics_glossary/&amp;title=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1204,7 +1199,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="whatsapp://send?text=Bioinformatics%20Glossary%20/post/genetic_data/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Bioinformatics%20Glossary%20/post/bioinformatics_glossary/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1217,7 +1212,7 @@ main()</code></pre>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/genetic_data/&amp;title=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/bioinformatics_glossary/&amp;title=Bioinformatics%20Glossary" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

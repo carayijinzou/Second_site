@@ -107,7 +107,7 @@ Other than just practicing, I think the biggest help for learning scripting is l
 | resi 100          | Residue identifier                                  |
 | id                | Column number in PDB                                |
 | byres             | By complete residue (also byobject, bychain, etc.)  |
-
+| hetatm            | hetero-atoms (not part of protein)                  |
 
 #### Within VS Around 
 > sele active, byres all within 5 of ligands
