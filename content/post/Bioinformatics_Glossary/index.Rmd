@@ -330,8 +330,25 @@ VCF stands for variant call format and stores different variants of a gene.
 
 # Micellaneous 
 
+## BLOSUM (Block Storing Matrix) and PAM
+Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90. 
+
 ## E.C. Number
 You can categorize enzymes based on their EC number (Enzyme Committee number) based on the reaction they catalyze. For example, D-alanine D-alanine ligase has an E.C. number of 6.3.2.4. The "6" indicates that it is a ligase (joining two molecules using ATP). 
+
+## Hamming Distance 
+What is the minimum number of nucleotides that need to be changed for one string to transform into another (if they are the same length). In biology, one application is in identification: in illumina sequencing, you can sequence multiple samples together and they can be differentiated due to adaptor sequences which have barcode/index sequences that are unique to each sample. 
+
+|              | **Sequence 1**   |**Sequence 2** (Hamming dist=1)| **Sequence 3** (Hamming dist=2)| **Sequence 3** (Hamming dist=2)|
+| -------------|------------------|-------------------------------|--------------------------------|--------------------------------|
+|  Original    | ACCG             | AC**T**G                      | AC**T**T                       | GC**T**T                       |
+|  1 Mutation  | "did not change" | ACCG                          | ACC**T**                       | GCC**T**                       |
+|  2 Mutations | "did not change" | -                             | ACCG                           | **G**CCT                       |
+|  3 Mutations | "did not change" | -                             | -                              | ACCG                           |
+
+However, if one mutation occurs per sequence, than you need at least a hamming distance of **2(error)+1**. For example: if you're starting sequences are "ACCG" and "GCTT", what if you get the sequence "ACCT"? Is that the sequence "ACC**G**"--> "ACCT"? Or "**G**CCT"--> "ACCT"? Therefore, if you have one error per sequence, you need a hamming distance of atleast **3** . 
+
+
 
 ## K-mers
 Subsequences of length k of a nucleotide sequence. 
@@ -367,8 +384,7 @@ Global alignment
 ## Smith-Waterman algorithm
 Local alignment
 
-## BLOSUM (Block Storing Matrix) and PAM
-Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90. 
+
 
 
 References 
@@ -391,4 +407,3 @@ References
 
 9. http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx
 
-10. http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx

@@ -1370,7 +1370,7 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
     </item>
     
     <item>
-      <title>Modelling, Testing, and Predicting</title>
+      <title>Modeling, Testing, and Predicting</title>
       <link>/project/modeling_testing_predicting/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
       <guid>/project/modeling_testing_predicting/</guid>
@@ -1650,7 +1650,7 @@ SSW&amp;lt;-new%&amp;gt;%group_by(region)%&amp;gt;%dplyr::select(new.pul.TB,prev
 {hist(Fs,prob = T); abline(v=F_obs, col=&amp;quot;red&amp;quot;, add=T)}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/project/Modeling_Testing_Predicting_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;768&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(Fs&amp;gt;F_obs)  #p-value &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.007&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.01&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Since the data is unlikely to meet the assumptions of the MANOVA, a randomization-test MANOVA (PERMANOVA) was conducted which resulted in a p-value &amp;lt; 0.05 (significant). Therefore the null hypothesis is rejected in favor of the alternative hypothesis that there is a significant difference between the centroid and/or the spread of the points is not equal between the different regions. This therefore supports the conclusion of the MANOVA conducted previously.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;linear-regression-model&#34; class=&#34;section level3&#34;&gt;
@@ -1796,11 +1796,11 @@ samp_distn&amp;lt;-replicate(5000, {
 samp_distn%&amp;gt;%t%&amp;gt;%as.data.frame%&amp;gt;%summarise_all(sd)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## (Intercept) GDP_c regionAMR regionEMR regionEUR
 regionSEA regionWPR GDP_c:regionAMR
-## 1 38.6096 0.003045773 38.63531 38.79675 38.6104 41.86718
-38.70029 0.003046698
+## 1 38.5149 0.003056803 38.5189 38.75788 38.51718 41.48764
+38.50866 0.003058287
 ## GDP_c:regionEMR GDP_c:regionEUR GDP_c:regionSEA
 GDP_c:regionWPR
-## 1 0.003055984 0.003045843 0.003347488 0.003045734&lt;/code&gt;&lt;/pre&gt;
+## 1 0.0030693 0.00305682 0.003327013 0.003059335&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Bootstrapped standard errors are used when the data is non-normal as well. Compared to the original standard errors, the standard errors for all the coefficient estimates increased (more conservative). The p-values are therefore higher as well because of the higher standard errors. Compared to the robust standard errors, the bootstrapped standard errors are also higher. Therefore, the p-values are also higher (more conservative).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1908,7 +1908,7 @@ diags &amp;lt;- rbind(diags, class_diag(probs, truth))
 }
 apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
-## 0.7434783 0.6442857 0.8261991 0.7169048 0.8454062&lt;/code&gt;&lt;/pre&gt;
+## 0.7434783 0.6364087 0.8170467 0.7267569 0.8221299&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The out of sample confusion matrix for this model has: accuracy (0.742- fair), sensitivity (0.625- poor), specificity (0.811- good), precision (0.692- poor). Although, precision decreased from fair to poor, the classifications did not change greatly. The AUC also did not change significantly which suggests that there was not overfitting.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;lasso-least-absolute-shrinkage-and-selection-operator-regression&#34; class=&#34;section level3&#34;&gt;
@@ -1949,25 +1949,25 @@ lasso &amp;lt;- glmnet(x, y, family = &amp;quot;binomial&amp;quot;, lambda = cv$
 coef(lasso)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 19 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
 ##                                s0
-## (Intercept)         -1.280359e+00
-## regionAMR           -9.392417e-03
-## regionEMR            5.857288e-01
-## regionEUR            1.624157e+00
-## regionSEA            2.860857e-01
-## regionWPR           -2.740013e-01
+## (Intercept)         -1.184453e+00
+## regionAMR           -9.067621e-03
+## regionEMR            4.794832e-01
+## regionEUR            1.507004e+00
+## regionSEA            3.001555e-01
+## regionWPR           -2.811042e-01
 ## year                 .           
 ## new.pul.TB           .           
 ## prev.treated.pul.TB  .           
 ## prev.unk.pul.TB      .           
-## new.MDR              8.206249e-04
+## new.MDR              6.021496e-04
 ## prev.MDR             .           
 ## MDR.tested           .           
-## pop.number           8.126931e-09
-## TB.100k              2.901032e-03
+## pop.number           6.064149e-09
+## TB.100k              2.758181e-03
 ## TB.num               .           
 ## TB_mort.100k         .           
 ## TB_mort.num          .           
-## GDP                 -1.438615e-05&lt;/code&gt;&lt;/pre&gt;
+## GDP                 -1.286157e-05&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Variables with a non-zero coefficient from LASSO will be retained in the model: region, new.MDR, pop.number, TB.100k, and GDP. Therefore, these are the most important predictors of if a country has atleast one case of XDR TB.&lt;/p&gt;
 &lt;div id=&#34;perform-10-fold-cv-using-lasso-model&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Perform 10-fold CV using LASSO model&lt;/h4&gt;
@@ -1994,7 +1994,7 @@ diags &amp;lt;- rbind(diags, class_diag(probs, truth))
 }
 apply(diags, 2, mean) #AVERAGE THE DIAGNOSTICS ACROSS THE 10 FOLDS&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##       acc      sens      spec       ppv       auc 
-## 0.7972332 0.6279670 0.9124291 0.8128175 0.8995426&lt;/code&gt;&lt;/pre&gt;
+## 0.7976285 0.6386111 0.9093773 0.8284127 0.8826206&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This new model’s out of sample accuracy is 0.797 which is fair. It is slightly higher than the previous model’s out of sample accuracy which was 0.743. The AUC also slightly increased from 0.839 to 0.886 (both models are good predictors of if there are XDR TB cases in a country).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;## R version 3.6.1 (2019-07-05)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
@@ -2046,7 +2046,7 @@ xml2_1.2.5
 tools_3.6.1 glue_1.3.2
 ## [56] hms_0.5.3 yaml_2.2.1 colorspace_1.4-1 rvest_0.3.5
 haven_2.2.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:23:55 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-07-24 14:55:18 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## sysname
 ## &amp;quot;Darwin&amp;quot;
 ## release
@@ -2484,16 +2484,16 @@ fviz_pca_biplot(join_pca)&lt;/code&gt;&lt;/pre&gt;
 ## [13] pillar_1.4.3     withr_2.1.2      glue_1.3.2       DBI_1.1.0       
 ## [17] dbplyr_1.4.2     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
 ## [21] ggsignif_0.6.0   munsell_0.5.0    blogdown_0.18    gtable_0.3.0    
-## [25] cellranger_1.1.0 rvest_0.3.5      evaluate_0.14    labeling_0.3    
-## [29] fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4       formatR_1.7     
-## [33] backports_1.1.5  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
-## [37] fs_1.3.2         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
-## [41] ggrepel_0.8.2    bookdown_0.18    grid_3.6.1       cli_2.0.2       
-## [45] tools_3.6.1      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
-## [49] ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0     lubridate_1.7.4 
-## [53] assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1       rstudioapi_0.11 
-## [57] R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:21:42 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+## [25] cellranger_1.1.0 rvest_0.3.5      codetools_0.2-16 evaluate_0.14   
+## [29] labeling_0.3     fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4      
+## [33] formatR_1.7      backports_1.1.5  scales_1.1.0     jsonlite_1.6.1  
+## [37] farver_2.0.3     fs_1.3.2         hms_0.5.3        digest_0.6.25   
+## [41] stringi_1.4.6    ggrepel_0.8.2    bookdown_0.18    grid_3.6.1      
+## [45] cli_2.0.2        tools_3.6.1      magrittr_1.5     crayon_1.3.4    
+## [49] pkgconfig_2.0.3  ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0    
+## [53] lubridate_1.7.4  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
+## [57] rstudioapi_0.11  R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-07-24 14:53:51 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##                                                                                            sysname 
 ##                                                                                           &amp;quot;Darwin&amp;quot; 
 ##                                                                                            release 

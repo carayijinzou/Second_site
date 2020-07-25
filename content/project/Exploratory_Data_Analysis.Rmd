@@ -13,7 +13,7 @@ summary: " Visualization of the relationship between tuberculosis cases, mortali
 ```{r global_options, include=FALSE}
 library(knitr)
 options(tinytex.verbose = TRUE)
-opts_chunk$set(fig.align="center", fig.height=5, message=FALSE, fig.width=8,tidy.opts=list(width.cutoff=60),tidy=TRUE,error=TRUE, warning=FALSE)
+opts_chunk$set(fig.align="center", fig.height=5, message=FALSE, fig.width=8,tidy.opts=list(width.cutoff=60),tidy=TRUE,error=TRUE, warning=FALSE, cache=TRUE)
 ```
 ## Data Wrangling and Data Exploration
 

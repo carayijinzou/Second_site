@@ -1,5 +1,5 @@
 ---
-title: 'Modelling, Testing, and Predicting'
+title: 'Modeling, Testing, and Predicting'
 author: "SDS348 Fall 2019"
 date: '2019-11-26'
 tags: ["Model", "Test","Predict","MANOVA","ANOVA", "Post-hoc","PERMANOVA","Regression", "Bootstrap","ROC","AOC","Confusion Matrix","Cross Validation", "LASSO","Statistics"]
@@ -24,7 +24,7 @@ knit_hooks$set(output = function(x, options) {
   hook_output(x, options)
 })
 
-knitr::opts_chunk$set(echo = TRUE, eval = TRUE,fig.align="center",warning=FALSE,message=FALSE,fig.width=8, fig.height=5, linewidth=60, error=FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,fig.align="center",warning=FALSE,message=FALSE,fig.width=8, fig.height=5, linewidth=60, error=FALSE, cache=TRUE)
 options(tibble.width = 100,width = 100)
 
 ```

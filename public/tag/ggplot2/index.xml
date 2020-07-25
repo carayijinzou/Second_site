@@ -426,16 +426,16 @@ fviz_pca_biplot(join_pca)&lt;/code&gt;&lt;/pre&gt;
 ## [13] pillar_1.4.3     withr_2.1.2      glue_1.3.2       DBI_1.1.0       
 ## [17] dbplyr_1.4.2     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
 ## [21] ggsignif_0.6.0   munsell_0.5.0    blogdown_0.18    gtable_0.3.0    
-## [25] cellranger_1.1.0 rvest_0.3.5      evaluate_0.14    labeling_0.3    
-## [29] fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4       formatR_1.7     
-## [33] backports_1.1.5  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
-## [37] fs_1.3.2         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
-## [41] ggrepel_0.8.2    bookdown_0.18    grid_3.6.1       cli_2.0.2       
-## [45] tools_3.6.1      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
-## [49] ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0     lubridate_1.7.4 
-## [53] assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1       rstudioapi_0.11 
-## [57] R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-06-29 21:21:42 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+## [25] cellranger_1.1.0 rvest_0.3.5      codetools_0.2-16 evaluate_0.14   
+## [29] labeling_0.3     fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4      
+## [33] formatR_1.7      backports_1.1.5  scales_1.1.0     jsonlite_1.6.1  
+## [37] farver_2.0.3     fs_1.3.2         hms_0.5.3        digest_0.6.25   
+## [41] stringi_1.4.6    ggrepel_0.8.2    bookdown_0.18    grid_3.6.1      
+## [45] cli_2.0.2        tools_3.6.1      magrittr_1.5     crayon_1.3.4    
+## [49] pkgconfig_2.0.3  ellipsis_0.3.0   xml2_1.2.5       reprex_0.3.0    
+## [53] lubridate_1.7.4  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
+## [57] rstudioapi_0.11  R6_2.4.1         nlme_3.1-145     compiler_3.6.1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2020-07-24 14:53:51 CDT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##                                                                                            sysname 
 ##                                                                                           &amp;quot;Darwin&amp;quot; 
 ##                                                                                            release 

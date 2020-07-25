@@ -556,7 +556,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    10 min read
   </span>
   
 
@@ -629,11 +629,12 @@
 <li><a href="#pdb">PDB</a></li>
 </ul></li>
 <li><a href="#micellaneous">Micellaneous</a><ul>
+<li><a href="#blosum-block-storing-matrix-and-pam">BLOSUM (Block Storing Matrix) and PAM</a></li>
 <li><a href="#e.c.-number">E.C. Number</a></li>
+<li><a href="#hamming-distance">Hamming Distance</a></li>
 <li><a href="#k-mers">K-mers</a></li>
 <li><a href="#needleman-wunsch-algorithm">Needleman-Wunsch algorithm</a></li>
 <li><a href="#smith-waterman-algorithm">Smith-Waterman algorithm</a></li>
-<li><a href="#blosum-block-storing-matrix-and-pam">BLOSUM (Block Storing Matrix) and PAM</a></li>
 </ul></li>
 </ul>
 </div>
@@ -1052,9 +1053,66 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 </div>
 <div id="micellaneous" class="section level1">
 <h1>Micellaneous</h1>
+<div id="blosum-block-storing-matrix-and-pam" class="section level2">
+<h2>BLOSUM (Block Storing Matrix) and PAM</h2>
+<p>Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90.</p>
+</div>
 <div id="e.c.-number" class="section level2">
 <h2>E.C. Number</h2>
 <p>You can categorize enzymes based on their EC number (Enzyme Committee number) based on the reaction they catalyze. For example, D-alanine D-alanine ligase has an E.C. number of 6.3.2.4. The “6” indicates that it is a ligase (joining two molecules using ATP).</p>
+</div>
+<div id="hamming-distance" class="section level2">
+<h2>Hamming Distance</h2>
+<p>What is the minimum number of nucleotides that need to be changed for one string to transform into another (if they are the same length). In biology, one application is in identification: in illumina sequencing, you can sequence multiple samples together and they can be differentiated due to adaptor sequences which have barcode/index sequences that are unique to each sample.</p>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="14%" />
+<col width="24%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Sequence 1</strong></th>
+<th><strong>Sequence 2</strong> (Hamming dist=1)</th>
+<th><strong>Sequence 3</strong> (Hamming dist=2)</th>
+<th><strong>Sequence 3</strong> (Hamming dist=2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Original</td>
+<td>ACCG</td>
+<td>AC<strong>T</strong>G</td>
+<td>AC<strong>T</strong>T</td>
+<td>GC<strong>T</strong>T</td>
+</tr>
+<tr class="even">
+<td>1 Mutation</td>
+<td>“did not change”</td>
+<td>ACCG</td>
+<td>ACC<strong>T</strong></td>
+<td>GCC<strong>T</strong></td>
+</tr>
+<tr class="odd">
+<td>2 Mutations</td>
+<td>“did not change”</td>
+<td>-</td>
+<td>ACCG</td>
+<td><strong>G</strong>CCT</td>
+</tr>
+<tr class="even">
+<td>3 Mutations</td>
+<td>“did not change”</td>
+<td>-</td>
+<td>-</td>
+<td>ACCG</td>
+</tr>
+</tbody>
+</table>
+<p>However, if one mutation occurs per sequence, than you need at least a hamming distance of <strong>2(error)+1</strong>. For example: if you’re starting sequences are “ACCG” and “GCTT”, what if you get the sequence “ACCT”? Is that the sequence “ACC<strong>G</strong>”–&gt; “ACCT”? Or “<strong>G</strong>CCT”–&gt; “ACCT”? Therefore, if you have one error per sequence, you need a hamming distance of atleast <strong>3</strong> .</p>
 </div>
 <div id="k-mers" class="section level2">
 <h2>K-mers</h2>
@@ -1099,10 +1157,6 @@ main()</code></pre>
 <div id="smith-waterman-algorithm" class="section level2">
 <h2>Smith-Waterman algorithm</h2>
 <p>Local alignment</p>
-</div>
-<div id="blosum-block-storing-matrix-and-pam" class="section level2">
-<h2>BLOSUM (Block Storing Matrix) and PAM</h2>
-<p>Both used as a measure of similarity between proteins. PAM is for closely related while BLOSUM is for distantly related. For BLOSUM, BLOSUM45 would be used for proteins more distant from each other than BLOSUM90.</p>
 <p>References</p>
 <ol style="list-style-type: decimal">
 <li><p><a href="http://useast.ensembl.org/info/website/tutorials/grch37.html" class="uri">http://useast.ensembl.org/info/website/tutorials/grch37.html</a></p></li>
@@ -1113,7 +1167,6 @@ main()</code></pre>
 <li><p><a href="https://ryanstutorials.net/linuxtutorial/" class="uri">https://ryanstutorials.net/linuxtutorial/</a></p></li>
 <li><p><a href="https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php" class="uri">https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php</a></p></li>
 <li><p><a href="https://learn.datacamp.com/" class="uri">https://learn.datacamp.com/</a></p></li>
-<li><p><a href="http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx" class="uri">http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx</a></p></li>
 <li><p><a href="http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx" class="uri">http://www.nonlinear.com/progenesis/sdf-studio/v0.9/faq/sdf-file-format-guidance.aspx</a></p></li>
 </ol>
 </div>
