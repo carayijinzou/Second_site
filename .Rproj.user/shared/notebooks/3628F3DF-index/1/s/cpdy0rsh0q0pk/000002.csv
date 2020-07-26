@@ -1,12 +1,14 @@
 "0","def prettyPrint(matrix):
     numRows=len(matrix)
     numCols=len(matrix[0]) 
-    possible_states=[""S"",""H"",""N""]
-    print (""       1       2       3       4       5       6       7       9"")
+    possible_states=[""S"",""H"", ""N""]
+    for value in range(numCols):
+      print(""        "", value, end="" "")
+    print("""")
     for row in range (numRows):
-        print (possible_states[row], end=""   "")
+        print (possible_states[row], end=""  "")
         for col in range(numCols): 
-            print(format(matrix[row][col], ""5.4f""), end=""  "")
+            print(format(matrix[row][col], ""9.7f""), end=""  "")
         print("""")
 
     print("""")"

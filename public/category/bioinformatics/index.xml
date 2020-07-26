@@ -1190,10 +1190,10 @@ OK, that’s just a ton of math, what does it actually mean? Still using the exa
       sum+=grid[q][s]
     print (format(sum, &amp;quot;5.4f&amp;quot;), end = &amp;quot;   &amp;quot;)
 forward()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        1       2       3       4       5       6       7       9
-## S   0.0600  0.1323  0.0874  0.0061  0.0022  0.0064  0.0005  0.0002  
-## H   0.2700  0.0081  0.0064  0.0371  0.0100  0.0004  0.0029  0.0008  
-## N   0.0300  0.0924  0.0503  0.0124  0.0069  0.0058  0.0013  0.0006  
+&lt;pre&gt;&lt;code&gt;##          0          1          2          3          4          5          6          7 
+## S  0.0600000  0.1323000  0.0873990  0.0061352  0.0021659  0.0064380  0.0005115  0.0001805  
+## H  0.2700000  0.0081000  0.0063780  0.0371420  0.0100145  0.0003557  0.0029078  0.0008235  
+## N  0.0300000  0.0924000  0.0503370  0.0124480  0.0068817  0.0058460  0.0012881  0.0005961  
 ## 
 ## Probability of observing: 
 ## 0        1        1        0        0        1        0        0        
@@ -1455,7 +1455,7 @@ y=max
 &lt;g requiredFeatures=&#34;http://www.w3.org/TR/SVG11/feature#Extensibility&#34;/&gt;&lt;a transform=&#34;translate(0,-5)&#34; xlink:href=&#34;https://desk.draw.io/support/solutions/articles/16000042487&#34; target=&#34;_blank&#34;&gt;&lt;text text-anchor=&#34;middle&#34; font-size=&#34;10px&#34; x=&#34;50%&#34; y=&#34;100%&#34;&gt;Viewer does not support full SVG 1.1&lt;/text&gt;&lt;/a&gt;
 &lt;/switch&gt;
 &lt;/svg&gt;
-&lt;p&gt;But what about the actual path? This is when we use backtracking and &lt;strong&gt;argmax&lt;/strong&gt; instead of max. If you have a typical hyperbola, at the highest point, the y-value you obtain is the max, while the x-value in which you used as input into the function to obtain the highest point is the argmax.&lt;/p&gt;
+&lt;p&gt;But what about the actual path? This is when we use backtracking and &lt;strong&gt;argmax&lt;/strong&gt; instead of max. You need a separate matrix to keep track of these values. If you have a typical hyperbola, at the highest point, the y-value you obtain is the max, while the x-value in which you used as input into the function to obtain the highest point is the argmax. For example, if the max from before was from a hidden state of “S”, this value would be recorded in the backtracking matrix.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \pi_t (k) = \textrm{argmax} (v_{t-1}(l)\cdot P (x_{t}|\pi_{t})\cdot P(\pi_{t}|\pi_{t-1}))
 \]&lt;/span&gt;&lt;/p&gt;
@@ -1466,9 +1466,10 @@ y=max
   num_states= 3
   obs_seq_num = len (observations)
   grid = []
+  backtracking=[]
   for j in range(num_states):  
     grid.append(obs_seq_num * [0])
-  
+    backtracking.append(obs_seq_num * [0])
         
   # initial probability distribution for S, H, N
   initial = [0.6,0.3,0.1]
@@ -1488,30 +1489,57 @@ y=max
         # use the initial probability distribution 
         grid[i][t] = initial[i] * emission [i][observations[t]]
       else: 
-        grid[i][t] = emission [i][observations[t]] * max ((grid[0][t-1]*transition[0][i]),  (grid[1][t-1]*transition[1][i]), (grid[2][t-1]*transition[2][i]))
+        Option_S=grid[0][t-1]*transition[0][i]
+        Option_H=grid[1][t-1]*transition[1][i]
+        Option_N=grid[2][t-1]*transition[2][i]
+        grid[i][t] = emission [i][observations[t]] * max (Option_S, Option_H, Option_N)
+        if Option_S&amp;gt;Option_H and Option_S&amp;gt;Option_N: 
+          backtracking[i][t]=&amp;quot;S&amp;quot;
+        elif Option_H&amp;gt; Option_N and Option_H&amp;gt;Option_S: 
+          backtracking[i][t]=&amp;quot;H&amp;quot;
+        else: 
+          backtracking[i][t]=&amp;quot;N&amp;quot;
         
   prettyPrint (grid)
   
-  print(&amp;quot;Probability of most probable path of 1, 0, 0, 1, 1, 0, 1, 1:&amp;quot;, grid[1][7])
+  print(&amp;quot;Backtracking matrix&amp;quot;)
+  for w in backtracking: 
+    print(w)
   
-  path=&amp;quot;&amp;quot;
-  for p in range(obs_seq_num): 
-    col= [grid [0][p], grid [1][p], grid [2][p]]
-    index = col.index(max(col))
-    
-    state_dict={0:&amp;quot;S&amp;quot;, 1:&amp;quot;H&amp;quot;, 2:&amp;quot;N&amp;quot;}
-    path+=state_dict[index]
+  #termination 
+  if grid[0][-1]&amp;gt; grid[1][-1] and grid[0][-1]&amp;gt;grid[2][-1]:
+    path=&amp;quot;S&amp;quot;
+    pointer=0
+  elif grid[1][-1]&amp;gt;grid[0][-1] and grid[1][-1]&amp;gt;grid[2][-1]: 
+    path=&amp;quot;H&amp;quot;
+    pointer=1
+  else: 
+    path=&amp;quot;N&amp;quot;
+    pointer=2
+  for s in range((obs_seq_num-1),0, -1):
+    hidden_state=backtracking[pointer][s]
+    path=hidden_state+&amp;quot; &amp;quot;+path
+    if hidden_state==&amp;quot;S&amp;quot;:
+      pointer=0
+    elif hidden_state==&amp;quot;H&amp;quot;: 
+      pointer=1
+    else: 
+      pointer=2
+
     
   print (&amp;quot;Most likely state path: &amp;quot; + path)
   
 viterbi()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        1       2       3       4       5       6       7       9
-## S   0.0600  0.0972  0.0437  0.0022  0.0006  0.0010  0.0001  0.0000  
-## H   0.2700  0.0054  0.0039  0.0157  0.0028  0.0001  0.0004  0.0001  
-## N   0.0300  0.0756  0.0318  0.0057  0.0019  0.0008  0.0001  0.0000  
+&lt;pre&gt;&lt;code&gt;##          0          1          2          3          4          5          6          7 
+## S  0.0600000  0.0972000  0.0437400  0.0021870  0.0006299  0.0010204  0.0000510  0.0000147  
+## H  0.2700000  0.0054000  0.0038880  0.0157464  0.0028344  0.0000567  0.0003673  0.0000661  
+## N  0.0300000  0.0756000  0.0317520  0.0057154  0.0018896  0.0007936  0.0001429  0.0000441  
 ## 
-## Probability of most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05
-## Most likely state path: HSSHHSHH&lt;/code&gt;&lt;/pre&gt;
+## Backtracking matrix
+## [0, &amp;#39;H&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;H&amp;#39;]
+## [0, &amp;#39;H&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;S&amp;#39;, &amp;#39;H&amp;#39;]
+## [0, &amp;#39;H&amp;#39;, &amp;#39;N&amp;#39;, &amp;#39;N&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;H&amp;#39;, &amp;#39;N&amp;#39;, &amp;#39;H&amp;#39;]
+## Most likely state path: H S S H H S H H&lt;/code&gt;&lt;/pre&gt;
 &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; version=&#34;1.1&#34; width=&#34;403px&#34; viewBox=&#34;-0.5 -0.5 403 324&#34; content=&#34;&amp;lt;mxfile host=&amp;quot;app.diagrams.net&amp;quot; modified=&amp;quot;2020-07-07T21:52:17.644Z&amp;quot; agent=&amp;quot;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&amp;quot; etag=&amp;quot;n69mDG4RgMj9XC624l1T&amp;quot; version=&amp;quot;13.3.9&amp;quot; type=&amp;quot;device&amp;quot;&amp;gt;&amp;lt;diagram id=&amp;quot;AHcoFEZCvdGWv9FQ2CJZ&amp;quot; name=&amp;quot;Page-1&amp;quot;&amp;gt;7Vvfc5s4EP5r/HgZfhhjPzYkaR/am9557i59VEExagVyhRzb/etPAskYhDEQE2I7GU9GWiQB++2udj/LI9uLNh8pWIZfSADxyDKCzci+G1nWbDzh/4Vgmwkcc5oJFhQFmcjMBXP0G0qhIaUrFMCkMJARghlaFoU+iWPos4IMUErWxWFPBBfvugQLqAnmPsC69D8UsDCTTh0jl3+CaBGqO5uGvBIBNVgKkhAEZL0nsu9HtkcJYVkr2ngQC90pvWTzHg5c3T0YhTFrMmEB4WzqIRb9g/8CP8C3x1/b8A+5yjPAK/nC/yIG6XfEhV8Ao2gjH55tlUb4eyxFk4HvQnTrhwgHn8GWrJiSqt4t1/9nFKf4GWIowaso3pckDFAmUR8LQcgizNsmb65D/ijzJfDFxTW3rmwFDJYJSm+drkChv6IJeoZ/wyRbR0jhZgniQHaWBMX8pe6fuabUjZ9IzObypcTNAEaLmLd9KIaKJ1NwiatSS5AyuDmofnMHKncGSCLI6JYPkROsqbQD6Qiu7K5zqxor2wn3LMpW9gMShaNaOgebNyTeLbC3NOx1rNcowiAWMIeEot9caQDvazV9JueWf/hTesaNM3L4PI/3zbzPP2I4ZR6JE0YBSjUGQcLWMGFvxwqagHzYi3TktwrWZkibZl9I2xrSDEWQS9KOYdbhLgMryHU9GFrdAbJqXbMCINN6VYDGGkDGjTHRYOHvzYr65u5EfkKPYMJj1l1MUsieEMYlkRbehBYR3+Y+yAsRCoI0nFchSMkqDqCCpn1kPGyUBzGxG0RLHaHeYqWjAVQbLK/AaczJ4F4zOb6BwTj4ILJAYfoYJAnyi6oXG4BylRE3uvRP8yt+ZTLxPCPXJwy0tPGINp1qbe5pz6lQnpJRiAHj2Bfz2wqFyjt8FZaQg1XKPaYlRBKyoj6Uc/ZTyNIyplO/DrfxBWTaOim4u3fujrdbFSVnro76RcXJA4ZT2rveSJycahDZVx4nd04yXJycVfnN2NWRuSi/mZ6T3yjsr7kY6w51ff2127WOFWDl7ex06Oo0S/eoeCaQGNWYtCy5+oNEZz+MG8u97JBo1lNUpZrLHjom6rTFlXtN45qrP7epZCoMZ3zhjlNPVozfmOPobMWVO07jJLw/x9HJCuE49uzCHadV9Tq44+gMgwZPV0YJbhB7lGNE+5tQNE/Js97dZucjvLNVnZi/1eN+J5vlOqqfz0t7aqJGX4mHeHh4AX2lCpSMKmqQWGVc0NGtZChGzCxRYpOSTTWlxMpJU7mI75kSM3XCpS7Uv9eNLerG6nBUYZKz3uKRztxc/EbejLY5to/3Bom6WXEfv3AqLbPDc6kbrStkW+q9pnHd2J/bVNEthutc+HfcR84EvbH017pCwqXecRrXjf05TiXhYqu872Id56wIF0vP0+bngE/742/tzjiaQ3+tZuvZ2qd3YKy83B0MGD1H+/MdGB7JKg+LviYwDXKAYxRYF6rrRYyVOsDajJsainIaT0pOWE4amnJOY7e0kFFaqGfSydZzktY2ckqa9N12utuO7byy7Zzg0Obhw5mntKofq2gpa5nJaU3JHdKSnBJb0/kwqDM7kFO8liWd4Mua9pbU1AwGg9cqomJ2DRRleHeZyYvh5d38V2/Z8Pyng/b9/w==&amp;lt;/diagram&amp;gt;&amp;lt;/mxfile&amp;gt;&#34; onclick=&#34;(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;amp;&amp;amp;src.nodeName.toLowerCase()!=&#39;a&#39;){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;amp;&amp;amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data==&#39;ready&#39;&amp;amp;&amp;amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute(&#39;content&#39;)),&#39;*&#39;);window.removeEventListener(&#39;message&#39;,r);}};window.addEventListener(&#39;message&#39;,r);svg.wnd=window.open(&#39;https://app.diagrams.net/?client=1&amp;amp;lightbox=1&amp;amp;edit=_blank&#39;);}}})(this);&#34; style=&#34;cursor:pointer;max-width:100%;max-height:324px;&#34;&gt;
 &lt;defs/&gt;&lt;g&gt;&lt;path d=&#34;M 0 40 L 0 0 L 400 0 L 400 40&#34; fill=&#34;#000000&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 0 L 400 0 L 400 40&#34; fill=&#34;#ffffff&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;all&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 320 L 400 320 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 0 320 L 400 320 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;path d=&#34;M 0 40 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; transform=&#34;translate(2,3)&#34; opacity=&#34;0.25&#34;/&gt;&lt;path d=&#34;M 0 40 L 400 40&#34; fill=&#34;none&#34; stroke=&#34;#000000&#34; stroke-miterlimit=&#34;10&#34; pointer-events=&#34;none&#34;/&gt;&lt;g transform=&#34;translate(-0.5 -0.5)&#34;&gt;
 &lt;switch&gt;
@@ -1715,7 +1743,7 @@ N
 P (\pi = \pi_1, ...S \textrm{ and } x = x_1, ...0)= 0.27 \cdot 0.4 \cdot 0.9=0.0972
 \]&lt;/span&gt;
 The highest probability in the very last column of the 1st matrix gives us the probability of the most probable path. Therefore, the probability of the most probable path of 1, 0, 0, 1, 1, 0, 1, 1: 6.611976345600003e-05.&lt;/p&gt;
-&lt;p&gt;To find the path, go to each column and find the state with the maximum probability at the time point, for example, in this case, it is: &lt;em&gt;HSSHHSHH&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To find the path, go to last column and find the state with the highest probability, that is the last hidden state: &lt;em&gt;? ? ? ? ? ? ? H&lt;/em&gt;. Then using the backtracking matrix constructed from the argmax, work backwards. In this case, since the last hidden state was H, go to the last column in the backtracking matrix and the row for H (the middle), which also has an H: &lt;em&gt;? ? ? ? ? ? H H&lt;/em&gt; Therefore, go to the second to last column and again the row for H, this has the value S: &lt;em&gt;? ? ? ? ? S H H&lt;/em&gt;. Then go to the third to last column, row for S …. And so on… Finally: &lt;em&gt;H S S H H S H H&lt;/em&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;packages&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Packages&lt;/h2&gt;
