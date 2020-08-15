@@ -19,6 +19,9 @@ output:
 <li><a href="#bash-script">Bash Script</a></li>
 </ul></li>
 <li><a href="#r-vs-python">R vs Python</a></li>
+<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a></li>
+<li><a href="#reading-files">Reading files</a></li>
+<li><a href="#reading-websites-with-python">Reading websites with Python</a></li>
 </ul></li>
 <li><a href="#genetic-data">Genetic Data</a><ul>
 <li><a href="#reference-sequence-number">Reference Sequence Number</a><ul>
@@ -40,6 +43,7 @@ output:
 <li><a href="#brenda">BRENDA</a></li>
 <li><a href="#expasy">ExPASy</a></li>
 <li><a href="#pdb">PDB</a></li>
+<li><a href="#rosalind">Rosalind</a></li>
 </ul></li>
 <li><a href="#micellaneous">Micellaneous</a><ul>
 <li><a href="#blosum-block-storing-matrix-and-pam">BLOSUM (Block Storing Matrix) and PAM</a></li>
@@ -47,6 +51,7 @@ output:
 <li><a href="#hamming-distance">Hamming Distance</a></li>
 <li><a href="#k-mers">K-mers</a></li>
 <li><a href="#needleman-wunsch-algorithm">Needleman-Wunsch algorithm</a></li>
+<li><a href="#orf">ORF</a></li>
 <li><a href="#smith-waterman-algorithm">Smith-Waterman algorithm</a></li>
 </ul></li>
 </ul>
@@ -306,6 +311,61 @@ print(test_matrix)</code></pre>
 ## [2,]    0    0    0
 ## [3,]    0    0    0</code></pre>
 </div>
+<div id="working-with-data-in-files-or-websites" class="section level2">
+<h2>Working with data in files or websites</h2>
+</div>
+<div id="reading-files" class="section level2">
+<h2>Reading files</h2>
+<p>Before anthing, make sure you’re in the right directory !
+In python, it looks something like this:</p>
+<pre class="python"><code>import os
+os.getcwd()
+os.chdir(&quot;/Users/Cara/Desktop/&quot;)</code></pre>
+<p>Using open, various functions can be accomplished including:</p>
+<ul>
+<li><p>r –&gt; read</p></li>
+<li><p>w –&gt; write</p></li>
+<li><p>a –&gt; append</p></li>
+</ul>
+<pre class="python"><code>#open the file for reading 
+infile=open(&quot;file_name.txt&quot;, &quot;r&quot;)
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!=&quot;&quot;: 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you&#39;re finished! 
+infile.close()</code></pre>
+<p>In R, some quick equivalents include:</p>
+<pre class="r"><code>infile=file(&quot;file_name.txt&quot;,open=&quot;r&quot;)
+line &lt;-readLines(infile)
+close(infile)</code></pre>
+</div>
+<div id="reading-websites-with-python" class="section level2">
+<h2>Reading websites with Python</h2>
+<p>You need to import the urllib request package!</p>
+<pre class="python"><code>from urllib import request
+
+url=&quot;http://www.uniprot.org/uniprot/A2Z669.fasta&quot;
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don&#39;t forget to close your request! 
+resp.close()</code></pre>
+</div>
 </div>
 <div id="genetic-data" class="section level1">
 <h1>Genetic Data</h1>
@@ -463,6 +523,10 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH</p>
 <h2>PDB</h2>
 <p><a href="https://www.rcsb.org/">PDB</a> or Protein Data Bank contains 3D files of mostly proteins. For each protein, it tells you the associated research paper, number of chains, any ligands present already in the structure, resolution, etc.</p>
 </div>
+<div id="rosalind" class="section level2">
+<h2>Rosalind</h2>
+<p>Different from the other resources on this list, this is a great tool for practicing bioinformatics coding. Here’s a link to my <a href="http://rosalind.info/users/cara.yijin.zou@gmail.com/">profile</a> to see my progress so far.</p>
+</div>
 </div>
 <div id="micellaneous" class="section level1">
 <h1>Micellaneous</h1>
@@ -566,6 +630,10 @@ main()</code></pre>
 <div id="needleman-wunsch-algorithm" class="section level2">
 <h2>Needleman-Wunsch algorithm</h2>
 <p>Global alignment</p>
+</div>
+<div id="orf" class="section level2">
+<h2>ORF</h2>
+<p>ORF stands for open reading frame. When reading in a DNA strand, it’s important to note that <strong>either</strong> strand can be the coding strand! Therefore, there are <strong>6</strong> reading frames per DNA strand (<em>not 3 like I previously would have immediately thought</em>). You do however need to reverse complement the given DNA strand.</p>
 </div>
 <div id="smith-waterman-algorithm" class="section level2">
 <h2>Smith-Waterman algorithm</h2>

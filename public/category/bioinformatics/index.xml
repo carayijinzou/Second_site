@@ -115,7 +115,7 @@ find_high_overlap(&amp;quot;ATGGCGAGC&amp;quot;,&amp;quot;GAGCATGGCGAGC&amp;quot
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;find_high_overlap(&amp;quot;GAGCATGGCGAGC&amp;quot;,&amp;quot;ATGGCGAGCCCAA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 9&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n &lt;strong&gt;matrix&lt;/strong&gt; where &lt;em&gt;n&lt;/em&gt; is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 &lt;strong&gt;matrix&lt;/strong&gt;. Continue doing this until there is only 1 fragment.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use a graph for example,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is NOT the only way of solving this problem. As found in the references, you can also use an overlap graph for example,where the node represents the fragment and the edge represents the number of highest overlap.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Before actually using the greedy algorithm to solve this problem, we must first build a program that merges two fragments together:
 &lt;em&gt;This will assume that the overlap was found with the program above– no overlapping only in the middle of the two sequences, left overhangs on the first sequence, and right overhangs on the second sequence.&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def merge(string1_original, string2_original, found_overlap):
@@ -1781,6 +1781,9 @@ The highest probability in the very last column of the 1st matrix gives us the p
 &lt;li&gt;&lt;a href=&#34;#bash-script&#34;&gt;Bash Script&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#r-vs-python&#34;&gt;R vs Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#working-with-data-in-files-or-websites&#34;&gt;Working with data in files or websites&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#reading-files&#34;&gt;Reading files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#reading-websites-with-python&#34;&gt;Reading websites with Python&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#genetic-data&#34;&gt;Genetic Data&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#reference-sequence-number&#34;&gt;Reference Sequence Number&lt;/a&gt;&lt;ul&gt;
@@ -1802,6 +1805,7 @@ The highest probability in the very last column of the 1st matrix gives us the p
 &lt;li&gt;&lt;a href=&#34;#brenda&#34;&gt;BRENDA&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#expasy&#34;&gt;ExPASy&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#pdb&#34;&gt;PDB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#rosalind&#34;&gt;Rosalind&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#micellaneous&#34;&gt;Micellaneous&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#blosum-block-storing-matrix-and-pam&#34;&gt;BLOSUM (Block Storing Matrix) and PAM&lt;/a&gt;&lt;/li&gt;
@@ -1809,6 +1813,7 @@ The highest probability in the very last column of the 1st matrix gives us the p
 &lt;li&gt;&lt;a href=&#34;#hamming-distance&#34;&gt;Hamming Distance&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#k-mers&#34;&gt;K-mers&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#needleman-wunsch-algorithm&#34;&gt;Needleman-Wunsch algorithm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#orf&#34;&gt;ORF&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#smith-waterman-algorithm&#34;&gt;Smith-Waterman algorithm&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -2068,6 +2073,61 @@ print(test_matrix)&lt;/code&gt;&lt;/pre&gt;
 ## [2,]    0    0    0
 ## [3,]    0    0    0&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;div id=&#34;working-with-data-in-files-or-websites&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Working with data in files or websites&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reading-files&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reading files&lt;/h2&gt;
+&lt;p&gt;Before anthing, make sure you’re in the right directory !
+In python, it looks something like this:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import os
+os.getcwd()
+os.chdir(&amp;quot;/Users/Cara/Desktop/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using open, various functions can be accomplished including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;r –&amp;gt; read&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;w –&amp;gt; write&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;a –&amp;gt; append&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;#open the file for reading 
+infile=open(&amp;quot;file_name.txt&amp;quot;, &amp;quot;r&amp;quot;)
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!=&amp;quot;&amp;quot;: 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you&amp;#39;re finished! 
+infile.close()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In R, some quick equivalents include:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;infile=file(&amp;quot;file_name.txt&amp;quot;,open=&amp;quot;r&amp;quot;)
+line &amp;lt;-readLines(infile)
+close(infile)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reading-websites-with-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reading websites with Python&lt;/h2&gt;
+&lt;p&gt;You need to import the urllib request package!&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from urllib import request
+
+url=&amp;quot;http://www.uniprot.org/uniprot/A2Z669.fasta&amp;quot;
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don&amp;#39;t forget to close your request! 
+resp.close()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;genetic-data&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Genetic Data&lt;/h1&gt;
@@ -2225,6 +2285,10 @@ LTDDGPVINEINTMPGFTTISMYPRMWAASGVDYPTLLATMIETTLARGVGLH&lt;/p&gt;
 &lt;h2&gt;PDB&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.rcsb.org/&#34;&gt;PDB&lt;/a&gt; or Protein Data Bank contains 3D files of mostly proteins. For each protein, it tells you the associated research paper, number of chains, any ligands present already in the structure, resolution, etc.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div id=&#34;rosalind&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Rosalind&lt;/h2&gt;
+&lt;p&gt;Different from the other resources on this list, this is a great tool for practicing bioinformatics coding. Here’s a link to my &lt;a href=&#34;http://rosalind.info/users/cara.yijin.zou@gmail.com/&#34;&gt;profile&lt;/a&gt; to see my progress so far.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;micellaneous&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Micellaneous&lt;/h1&gt;
@@ -2328,6 +2392,10 @@ main()&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;needleman-wunsch-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Needleman-Wunsch algorithm&lt;/h2&gt;
 &lt;p&gt;Global alignment&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;orf&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;ORF&lt;/h2&gt;
+&lt;p&gt;ORF stands for open reading frame. When reading in a DNA strand, it’s important to note that &lt;strong&gt;either&lt;/strong&gt; strand can be the coding strand! Therefore, there are &lt;strong&gt;6&lt;/strong&gt; reading frames per DNA strand (&lt;em&gt;not 3 like I previously would have immediately thought&lt;/em&gt;). You do however need to reverse complement the given DNA strand.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;smith-waterman-algorithm&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Smith-Waterman algorithm&lt;/h2&gt;

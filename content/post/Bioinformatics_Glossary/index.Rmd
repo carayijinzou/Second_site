@@ -160,6 +160,72 @@ test_matrix[1,2]=2
 print(test_matrix)
 ```
 
+## Working with data in files or websites 
+## Reading files 
+Before anthing, make sure you're in the right directory ! 
+In python, it looks something like this: 
+
+```{python, eval=F}
+import os
+os.getcwd()
+os.chdir("/Users/Cara/Desktop/")
+```
+
+Using open, various functions can be accomplished including: 
+
+* r --> read
+
+* w --> write
+
+* a --> append 
+
+```{python, eval=F}
+#open the file for reading 
+infile=open("file_name.txt", "r")
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!="": 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you're finished! 
+infile.close()
+```
+
+In R, some quick equivalents include: 
+
+```{R, eval=F}
+infile=file("file_name.txt",open="r")
+line <-readLines(infile)
+close(infile)
+```
+
+## Reading websites with Python 
+
+You need to import the urllib request package! 
+
+```{python, eval=F}
+from urllib import request
+
+url="http://www.uniprot.org/uniprot/A2Z669.fasta"
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don't forget to close your request! 
+resp.close()
+```
 
 # Genetic Data 
 
@@ -328,6 +394,9 @@ VCF stands for variant call format and stores different variants of a gene.
 ## PDB 
 [PDB](https://www.rcsb.org/) or Protein Data Bank contains 3D files of mostly proteins. For each protein, it tells you the associated research paper, number of chains, any ligands present already in the structure, resolution, etc. 
 
+## Rosalind
+Different from the other resources on this list, this is a great tool for practicing bioinformatics coding. Here's a link to my [profile](http://rosalind.info/users/cara.yijin.zou@gmail.com/) to see my progress so far. 
+
 # Micellaneous 
 
 ## BLOSUM (Block Storing Matrix) and PAM
@@ -380,6 +449,9 @@ main()
 
 ## Needleman-Wunsch algorithm 
 Global alignment
+
+## ORF 
+ORF stands for open reading frame. When reading in a DNA strand, it's important to note that **either** strand can be the coding strand! Therefore, there are **6** reading frames per DNA strand (_not 3 like I previously would have immediately thought_). You do however need to reverse complement the given DNA strand. 
 
 ## Smith-Waterman algorithm
 Local alignment
