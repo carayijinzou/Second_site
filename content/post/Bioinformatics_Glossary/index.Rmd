@@ -161,7 +161,7 @@ print(test_matrix)
 ```
 
 ## Working with data in files or websites 
-## Reading files 
+### Reading files 
 Before anthing, make sure you're in the right directory ! 
 In python, it looks something like this: 
 
@@ -207,7 +207,7 @@ line <-readLines(infile)
 close(infile)
 ```
 
-## Reading websites with Python 
+### Reading websites with Python 
 
 You need to import the urllib request package! 
 
