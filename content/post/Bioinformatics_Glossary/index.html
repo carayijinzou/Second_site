@@ -19,9 +19,10 @@ output:
 <li><a href="#bash-script">Bash Script</a></li>
 </ul></li>
 <li><a href="#r-vs-python">R vs Python</a></li>
-<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a></li>
+<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a><ul>
 <li><a href="#reading-files">Reading files</a></li>
 <li><a href="#reading-websites-with-python">Reading websites with Python</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#genetic-data">Genetic Data</a><ul>
 <li><a href="#reference-sequence-number">Reference Sequence Number</a><ul>
@@ -313,9 +314,8 @@ print(test_matrix)</code></pre>
 </div>
 <div id="working-with-data-in-files-or-websites" class="section level2">
 <h2>Working with data in files or websites</h2>
-</div>
-<div id="reading-files" class="section level2">
-<h2>Reading files</h2>
+<div id="reading-files" class="section level3">
+<h3>Reading files</h3>
 <p>Before anthing, make sure you’re in the right directory !
 In python, it looks something like this:</p>
 <pre class="python"><code>import os
@@ -349,8 +349,8 @@ infile.close()</code></pre>
 line &lt;-readLines(infile)
 close(infile)</code></pre>
 </div>
-<div id="reading-websites-with-python" class="section level2">
-<h2>Reading websites with Python</h2>
+<div id="reading-websites-with-python" class="section level3">
+<h3>Reading websites with Python</h3>
 <p>You need to import the urllib request package!</p>
 <pre class="python"><code>from urllib import request
 
@@ -365,6 +365,7 @@ data =  resp.read()
 
 #don&#39;t forget to close your request! 
 resp.close()</code></pre>
+</div>
 </div>
 </div>
 <div id="genetic-data" class="section level1">
