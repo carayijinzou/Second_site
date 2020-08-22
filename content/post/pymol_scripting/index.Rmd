@@ -1,5 +1,5 @@
 ---
-title: "PyMOL Scripting"
+title: "PyMOL test"
 author: "Cara Yijin Zou"
 date: "2020-06-29"
 categories: ["Bioinformatics", "VDS"]
@@ -14,125 +14,27 @@ image:
 
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## PyMOL
-### Brief Introduction: What is PyMOL? 
-PyMOL is a molecular visualization software used for 3D depictions of molecules such as proteins, nucleic acids, etc. You can download the software here: [https://pymol.org/2/](https://pymol.org/2/).
+## R Markdown
 
-### Why do scripting and not just use the graphical interface? 
-While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface. 
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-### How do I create a script? 
-In PyMOL, go to file --> log file --> Open. Name your new script and save as a .pml. You can start typing commands in PyMOL and your actions will be recorded. To stop recording, go to log file --> Close. To run this script later on, go to run script and find the file. You always open the .pml in a text editor and change commands later. 
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-### How to approach/ (Hopefully) Helpful tips 
-Having a pymol "cheat sheet" can aslo be extremely helpful. Here are some key details that I find to be useful. These are just some functions that I think are important, for more information, here is the [pymol wiki](https://pymolwiki.org/).
+```{r cars}
+summary(cars)
+```
 
-#### Setting up the interface 
-> bg white
+## Including Plots
 
-> hide nonbonded  # hides water molecules
+You can also embed plots, for example:
 
-> set seq_view, 1
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
 
-#### Loading in a protein(s)
-Sometimes, it can appear that the script works fine when manually inputting lines one by one but when running an entire script, it fails to run. In this case, it is important to use the async=0 so that PyMOL understands to pause until the protein(s) has loaded before proceeding. Also something to note, currently, when fetching directly from PyMOL, files download as a .CIF instead of a .PDB. You can change this by adding type=pdb. 
-
-> fetch 3lwb, type=pdb, async=0 
-
-#### Simple (self-explanatory) functions 
-
-> zoom resn EDO
-
-> show sticks, hyfo
-
-> show spheres, 3lwb_active_water
-
-> color orange, hyfo
-
-> orient 3lwb
-
-
-#### No Ctrl+Z (Undo)
-
-Something I find really annoying about PyMOL is that undo doesn't really work (this is also why I think pymol scripting is so great). Previously, I always kept saving sessions because I was afraid of losing progress (which you should still do, just in case). Something else that I recently found out about is using scenes. It acts like a snapshot in a moment in time. You can switch between different scenes that you saved and you can also use these scenes to create movies. Scenes are great because you can go back to a certain scene and work based on that if you messed up in the GUI. However, it is also important to note that some functions such as mutagenesis are still permanent in that it will change previous scenes as well. 
-
-> scene 001, store   #save scene 
-
-> save 3lwb_v1.pse  #save session
-
-#### Select (and Rename) Objects
-select chosen_name, resn actual_name 
-
-> sele protein, chain A - resn HOH
-
-> select ADP, (1iow &  resn ADP) 
-
-> select backbone, name CA+N+C+O
-
-> sele active_site, resi 122+120+189+208+250+124
-
-> select hyfo, resn ala+gly+val+ile+leu+phe+met
-
-#### Labelling 
-> label (resi 330 & n;cg &! 1iow),"%s-%s" % (resn,resi)
-
-> label (ADP & n;o3a), "ADP"
-
-> label (resn MG), "Magnesium"
-
-#### Booleans
-Reviewing booleans for "and", "or", "not" can be helpful when selecting molecules. 
-For example: 
-
-> select 3lwb_active_water, ((ligands) around 3.2) and (resn HOH) & ! 1iow
-
-#### Alter and Rebuild
-When changing the size of spheres, it may be necessary to rebuild the view in order to see the change.
-
-> alter Magnesium, vdw = 0.7
-
-> rebuild
-
-#### Acronyms
-Other than just practicing, I think the biggest help for learning scripting is learning what the acronyms and certain key words mean.
-
-| Command           | What it means                                       |
-| ------------------| ----------------------------------------------------|
-| util.cbag         | Utility color by atom (color first letter)          |
-| resn ALA          | Residue name                                        |
-| resi 100          | Residue identifier                                  |
-| id                | Column number in PDB                                |
-| byres             | By complete residue (also byobject, bychain, etc.)  |
-| hetatm            | hetero-atoms (not part of protein)                  |
-
-#### Within VS Around 
-> sele active, byres all within 5 of ligands
-
-**Within** also selects the ligands as part of the active site. If you want to select active site residues not including the ligands you can use **around**: 
-
-> select active, byres (ligand around 5)
-
-#### Take high quality picture
-> ray
-
-> png 3lwbRay.png 
-
-#### Distance 
-> distance hbonds_ligands, ligands, 3lwb_active, 3.2, mode=2
-
-> hide labels, hbonds_ligands
-
-> color black, hbonds_ligands
-
-#### Atom names
-When selecting individual atoms it can be helpful to understand this notation: "n;ca". 
-This refers to name carbon alpha (and so on for beta, gamma, delta, etc.). 
-
-#### Superimposing
-The first will move to superimpose on the second structure. 
-
-> super 1iow, 3lwb
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
