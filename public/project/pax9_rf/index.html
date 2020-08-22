@@ -611,9 +611,11 @@
 <h3>Data Sources</h3>
 <p>The pathogenic variants were found using cBioPortal (<a href="https://www.cbioportal.org/" class="uri">https://www.cbioportal.org/</a>) which contained known variants that cause cancer. Pathogenic variants were also identified from the ClinVar database (<a href="https://www.ncbi.nlm.nih.gov/clinvar/" class="uri">https://www.ncbi.nlm.nih.gov/clinvar/</a>) which consists of variants and their corresponding phenotype/condition. ClinVar largely contained variants that resulted in tooth agenesis. If the clinical significance was labelled as “benign” or “likely benign”, they were excluded from the positive variants dataset. It must be noted that there is a risk using ClinVar since there are more lenient standards for submitting data onto the database.</p>
 <p>The negative variants were extracted from gnomAD (<a href="https://gnomad.broadinstitute.org/" class="uri">https://gnomad.broadinstitute.org/</a>) which is an aggregation of genome sequencing data. Although variants from individuals that are affected by severe pediatric disease as well as their first degree relatives were removed, there may still be some individuals affected by severe disease still included. Therefore, this is not a true reference set of alleles. To remove some known disease variants, any overlap between gnomAD and the pathogenic variants were removed from the gnomAD dataset provided that the allele frequency was less than 0.05.</p>
-<p>All variants were relative to the GRCh37 reference genome (NG_013357.1).
-### Computational Methods
-Various R packages were used including ‘tidyverse’ and ‘ggplot2’ for manipulating the data as well as ‘peptider’ which contained the BLOSUM80 matrix. The ‘randomForest’ package provided the model for machine learning.</p>
+<p>All variants were relative to the GRCh37 reference genome (NG_013357.1).</p>
+</div>
+<div id="computational-methods" class="section level3">
+<h3>Computational Methods</h3>
+<p>Various R packages were used including ‘tidyverse’ and ‘ggplot2’ for manipulating the data as well as ‘peptider’ which contained the BLOSUM80 matrix. The ‘randomForest’ package provided the model for machine learning.</p>
 <p>The Ensembl Variant Effect Predictor (VEP) was used to obtain the protein consequence for the ClinVar data while the other two datasets already included protein consequence. A VCF file was produced using the results of VEP and was used to obtain the PHRED score from Combined Annotation Dependent Depletion (<a href="https://cadd.gs.washington.edu/" class="uri">https://cadd.gs.washington.edu/</a>) which predicts the deleteriousness of a single nucleotide change as well as insertions and deletions.</p>
 </div>
 <div id="results" class="section level3">
