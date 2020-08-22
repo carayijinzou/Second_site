@@ -592,7 +592,7 @@ Based on the variable importance plot above, the most important variable would b
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Hit up and down arrow keys to get previous commands&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Use tab key for autocompletion&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use  before the space&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use “\” before the space&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;if a file/destination does not exist, it will create one. If it does exist, it may overwrite&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;there is no &lt;strong&gt;undo&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;

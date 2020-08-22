@@ -66,7 +66,7 @@ Useful Tricks:
 
 * Use tab key for autocompletion 
 
-* Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use \ before the space
+* Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use "\\" before the space
 
 * if a file/destination does not exist, it will create one. If it does exist, it may overwrite 
 
