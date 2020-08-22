@@ -90,7 +90,7 @@ find_high_overlap("ATGGCGAGC","GAGCATGGCGAGC")
 find_high_overlap("GAGCATGGCGAGC","ATGGCGAGCCCAA")
 ```
 
-Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n **matrix** where _n_ is the number of fragments that we have. The value in the _i_th row and _j_th column is the overlap between the _i_th fragment and the _j_th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 **matrix**. Continue doing this until there is only 1 fragment. 
+Okay, so now that we have a way of determining the repeats, now what? We need to build a n by n **matrix** where _n_ is the number of fragments that we have. The value in the _i_ th row and _j_ th column is the overlap between the _i_ th fragment and the _j_ th fragment. Ignoring the diagonal from the top left to the bottom right, find the highest overlap (obviously a sequence will have the most overlap with itself). Once you find the two with the highest overlap (if more than two pairs, randomly pick a pair), merge/extend the pair into one fragment and change your matrix so that you have a n-1 by n-1 **matrix**. Continue doing this until there is only 1 fragment. 
 
 **This is NOT the only way of solving this problem. As found in the references, you can also use an overlap graph for example,where the node represents the fragment and the edge represents the number of highest overlap.** 
 
