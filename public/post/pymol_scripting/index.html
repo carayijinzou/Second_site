@@ -616,7 +616,6 @@
     <div class="article-style">
       
 
-
 <div id="pymol" class="section level2">
 <h2>PyMOL</h2>
 <div id="brief-introduction-what-is-pymol" class="section level3">
@@ -627,6 +626,33 @@
 <h3>Why do scripting and not just use the graphical interface?</h3>
 <p>While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface.</p>
 </div>
+
+<SCRIPT>
+function passWord() {
+var testV = 1;
+var pass1 = prompt('Please Enter Your Password',' ');
+while (testV < 3) {
+if (!pass1) 
+history.go(-1);
+if (pass1.toLowerCase() == "my super secret password") {
+window.open('EasterEgg.html');
+break;
+} 
+testV+=1;
+var pass1 = 
+prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
+}
+if (pass1.toLowerCase()!="password" & testV ==3) 
+history.go(-1);
+return " ";
+} 
+</SCRIPT>
+<CENTER>
+<FORM>
+<input type="button" value="Enter Protected Area" onClick="passWord()">
+</FORM>
+</CENTER>
+
 <div id="how-do-i-create-a-script" class="section level3">
 <h3>How do I create a script?</h3>
 <p>In PyMOL, go to file –&gt; log file –&gt; Open. Name your new script and save as a .pml. You can start typing commands in PyMOL and your actions will be recorded. To stop recording, go to log file –&gt; Close. To run this script later on, go to run script and find the file. You always open the .pml in a text editor and change commands later.</p>

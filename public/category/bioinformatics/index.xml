@@ -271,7 +271,6 @@ sequence_assembly(frag_list_2)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/pymol_scripting/</guid>
       <description>
 
-
 &lt;div id=&#34;pymol&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;PyMOL&lt;/h2&gt;
 &lt;div id=&#34;brief-introduction-what-is-pymol&#34; class=&#34;section level3&#34;&gt;
@@ -282,6 +281,33 @@ sequence_assembly(frag_list_2)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3&gt;Why do scripting and not just use the graphical interface?&lt;/h3&gt;
 &lt;p&gt;While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface.&lt;/p&gt;
 &lt;/div&gt;
+
+&lt;SCRIPT&gt;
+function passWord() {
+var testV = 1;
+var pass1 = prompt(&#39;Please Enter Your Password&#39;,&#39; &#39;);
+while (testV &lt; 3) {
+if (!pass1) 
+history.go(-1);
+if (pass1.toLowerCase() == &#34;my super secret password&#34;) {
+window.open(&#39;EasterEgg.html&#39;);
+break;
+} 
+testV+=1;
+var pass1 = 
+prompt(&#39;Access Denied - Password Incorrect, Please Try Again.&#39;,&#39;Password&#39;);
+}
+if (pass1.toLowerCase()!=&#34;password&#34; &amp; testV ==3) 
+history.go(-1);
+return &#34; &#34;;
+} 
+&lt;/SCRIPT&gt;
+&lt;CENTER&gt;
+&lt;FORM&gt;
+&lt;input type=&#34;button&#34; value=&#34;Enter Protected Area&#34; onClick=&#34;passWord()&#34;&gt;
+&lt;/FORM&gt;
+&lt;/CENTER&gt;
+
 &lt;div id=&#34;how-do-i-create-a-script&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How do I create a script?&lt;/h3&gt;
 &lt;p&gt;In PyMOL, go to file –&amp;gt; log file –&amp;gt; Open. Name your new script and save as a .pml. You can start typing commands in PyMOL and your actions will be recorded. To stop recording, go to log file –&amp;gt; Close. To run this script later on, go to run script and find the file. You always open the .pml in a text editor and change commands later.&lt;/p&gt;
