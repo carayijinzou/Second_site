@@ -615,6 +615,28 @@
 
     <div class="article-style">
       
+<SCRIPT language="JavaScript">
+<!--hide
+
+var password;
+
+var pass1="VDS4life!";
+
+password=prompt('Please enter your password to view this page!',' ');
+
+if (password==pass1)
+  {
+  alert('Hello fellow VDSer! Click OK to enter!');
+  }
+else
+   {
+    alert('Uh oh! You don\'t have access to this page. If you think this is a mistake, please contact me');
+    window.location="https://carayijinzou.netlify.app/#contact";
+    }
+
+//-->
+</SCRIPT>
+
 
 <div id="pymol" class="section level2">
 <h2>PyMOL</h2>
@@ -626,34 +648,6 @@
 <h3>Why do scripting and not just use the graphical interface?</h3>
 <p>While the graphical interface can seem less daunting and has less of a learning curve, scripting allows you to go back and change certain details that may be difficult just using the graphical interface.</p>
 </div>
-
-
-<SCRIPT>
-function passWord() {
-var testV = 1;
-var pass1 = prompt('Please Enter Your Password',' ');
-while (testV < 3) {
-if (!pass1)
-history.go(-1);
-if (pass1.toLowerCase() == "letmein") {
-alert('You Got it Right!');
-window.open('Pymol_test');
-break;
-}
-testV+=1;
-var pass1 =
-prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
-}
-if (pass1.toLowerCase()!="password" & testV ==3)
-history.go(-1);
-return " ";
-}
-</SCRIPT>
-<CENTER>
-<FORM>
-<input type="button" value="Enter Protected Area" onClick="passWord()">
-</FORM>
-</CENTER>
 
 <div id="how-do-i-create-a-script" class="section level3">
 <h3>How do I create a script?</h3>
