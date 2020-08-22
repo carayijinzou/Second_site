@@ -32,20 +32,6 @@ date_format = "Jan 2006"
   * TA for PyMOL workshop for graduate students, postdoctoral researchers, and faculty. Facilitated discussion in break out rooms over Zoom for intermediate and advanced PyMOL skills.
   * Lead summer 2020 mentor with additional tasks including writing protocols, helping plan the weekly agenda, leading journal article reading discussions, and scheduling mentors and students
   """
-
-[[experience]]
-  title = "Dental Assistant Internship"
-  company = "Forest Dental Home"
-  company_url = ""
-  location = "Katy, TX"
-  date_start = "2019-12-26"
-  date_end = ""
-  description = """
-  Responsibilities include:
-  
-  * Assisted in procedures including cleaning, fillings, crowns, bone grafting, and extractions. 
-  * Other duties included using Dentrix, sterilization, applying fluoride, and taking x-rays. 
-  """
   
   [[experience]]
   title = "Undergraduate Researcher"
