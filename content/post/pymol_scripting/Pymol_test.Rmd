@@ -1,7 +1,7 @@
 ---
 title: "Pymol_test"
 author: "Cara Yijin Zou"
-date: "8/22/2020"
+date: "2020-06-29"
 output: html_document
 ---
 
