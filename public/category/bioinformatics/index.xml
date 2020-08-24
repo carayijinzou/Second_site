@@ -499,6 +499,28 @@ This refers to name carbon alpha (and so on for beta, gamma, delta, etc.).&lt;/p
       <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
       <guid>/project/pax9_rf/</guid>
       <description>
+&lt;SCRIPT language=&#34;JavaScript&#34;&gt;
+&lt;!--hide
+
+var password;
+
+var pass1=&#34;gnomadclinvarcbioportal&#34;;
+
+password=prompt(&#39;Please enter your password to view this page!&#39;,&#39; &#39;);
+
+if (password==pass1)
+  {
+  alert(&#39;Password correct! Click OK to enter!&#39;);
+  }
+else
+   {
+    alert(&#39;Uh oh! You don\&#39;t have access to this page. If you think this is a mistake, please contact me.&#39;);
+    window.location=&#34;https://carayijinzou.netlify.app/#contact&#34;;
+    }
+
+//--&gt;
+&lt;/SCRIPT&gt;
+
 
 
 &lt;div id=&#34;predicting-the-effect-of-pax9-variants-using-a-random-forest-model&#34; class=&#34;section level2&#34;&gt;
