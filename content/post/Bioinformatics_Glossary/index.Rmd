@@ -59,6 +59,7 @@ If you are in /home/Downloads
 |**mkdir**  Homework                 | "makes directory" called homework                                              |
 |**man** ls                          | "manual" of command ls                                                         |
 |**chmod** u+x test.sh               | "change file mode": permissions,  read ( r ), write ( w ) or execute ( x )     |
+|Control + D **OR** logout           | to log out of a system                                                         |
 
 Useful Tricks: 
 

@@ -2288,6 +2288,10 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
 &lt;td&gt;&lt;strong&gt;chmod&lt;/strong&gt; u+x test.sh&lt;/td&gt;
 &lt;td&gt;“change file mode”: permissions, read ( r ), write ( w ) or execute ( x )&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Control + D &lt;strong&gt;OR&lt;/strong&gt; logout&lt;/td&gt;
+&lt;td&gt;to log out of a system&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Useful Tricks:&lt;/p&gt;
