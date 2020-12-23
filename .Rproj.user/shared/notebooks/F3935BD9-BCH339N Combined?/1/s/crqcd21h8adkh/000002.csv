@@ -1,5 +1,0 @@
-"0","library(tidyverse)"
-"0",""
-"0","clinvar<-read.csv(""clinvar_result.csv"", header=T,na.strings="""")%>%mutate_each(as.character())"
-"0","cancer<-read.csv(""pax9_mutation_in_cancer.csv"", header=T,na.strings="""")"
-"0","gnomad<-read.csv(""gnomAD_Grch37.csv"", header=T,na.strings="""")"
