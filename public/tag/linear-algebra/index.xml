@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linear Algebra | Cara (Yijin) Zou</title>
+    <link>/tag/linear-algebra/</link>
+      <atom:link href="/tag/linear-algebra/index.xml" rel="self" type="application/rss+xml" />
+    <description>Linear Algebra</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Linear Algebra</title>
+      <link>/tag/linear-algebra/</link>
+    </image>
+    
+    <item>
+      <title>Linear Algebra</title>
+      <link>/post/2020-12-23-linear-algebra/</link>
+      <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2020-12-23-linear-algebra/</guid>
+      <description>
+
+
+&lt;script type=&#34;text/javascript&#34;&gt; 
+function calculate(){
+
+    p = document.getElementById (&#34;principal&#34;).value
+    r = (document.getElementById (&#34;interestrate&#34;).value)/12
+    n=document.getElementById (&#34;loanterm&#34;).value
+
+    if (isNaN(p) || isNaN(r) || isNaN(n) || p&lt;0 || r&lt;0 || n&lt;0){
+        window.alert(&#34;A non-numeric value or negative number was entered. Computation has been halted. Please check that all input is valid. Thank you!&#34;)
+        return
+    }
+    r=r/100
+    n=Math.round(n)
+    monthpayment = p * r / (1-(1/(1+r)**n))
+    document.getElementById(&#34;monthly&#34;).value = monthpayment.toFixed(2)
+    document.getElementById(&#34;sum&#34;).value= (monthpayment*n).toFixed(2)
+
+    totalinterest = (n * monthpayment) - p
+    document.getElementById(&#34;totalinterest&#34;).value = totalinterest.toFixed(2)
+
+}
+&lt;/script&gt;
+&lt;form method = &#34;POST&#34; action= &#34;echo.cgi&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;principal&#34;&gt; Principal Amount: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;principal&#34; id=&#34;principal&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;interestrate&#34;&gt; Yearly percentage interest rate: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;interestrate&#34; id = &#34;interestrate&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;loanterm&#34;&gt; Loan term in months: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;loanterm&#34; id = &#34;loanterm&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;2&#34; class=&#34;center&#34;&gt;
+&lt;input type = &#34;button&#34; value = &#34;Calculate&#34; onclick = &#34;calculate()&#34;/&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;monthly&#34;&gt; Monthly payments: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;monthly&#34; id = &#34;monthly&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;sum&#34;&gt; Sum of all payments: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;sum&#34; id = &#34;sum&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;label for= &#34;totalinterest&#34;&gt; Total interest paid: &lt;/label&gt;
+&lt;td&gt;
+&lt;input type = &#34;text&#34;  size = &#34;20&#34; name = &#34;totalinterest&#34; id = &#34;totalinterest&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;2&#34; class=&#34;center&#34;&gt;
+&lt;input type = &#34;reset&#34; value = &#34;Clear&#34; /&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;p&gt;sajdkkjsdnfaklsjdnflaksjdflkasdjbflkasdbfkjsdbfkbkdjbfkasdjbf kabfkasdbfkjb kjdsfsdafsdfsdfasdf&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -32,6 +32,18 @@ subtitle = ""
   name = "Python"
   description = ""
 
+[[feature]]
+  icon = "globe"
+  icon_pack = "fas"
+  name = "Web Programming"
+  description = "HTML, CSS, JS, PHP, AJAX"
+  
+[[feature]]
+  icon = "image"
+  icon_pack = "fas"
+  name = "Graphics"
+  description = "Processing"
+  
 # Uncomment to use emoji icons.
 # [[feature]]
 #  icon = ":smile:"

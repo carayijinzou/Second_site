@@ -1,0 +1,73 @@
+---
+title: "Linear Algebra"
+author: "Cara Yijin Zou"
+date: "2021-01-05"
+output: html_document
+math : true
+categories: ["Mathematics"]
+tags: ["Mathematics", "Linear Algebra", "Calculator"]
+draft: true
+---
+<script type="text/javascript"> 
+function calculate(){
+
+	p = document.getElementById ("principal").value
+	r = (document.getElementById ("interestrate").value)/12
+	n=document.getElementById ("loanterm").value
+
+	if (isNaN(p) || isNaN(r) || isNaN(n) || p<0 || r<0 || n<0){
+		window.alert("A non-numeric value or negative number was entered. Computation has been halted. Please check that all input is valid. Thank you!")
+		return
+	}
+	r=r/100
+	n=Math.round(n)
+	monthpayment = p * r / (1-(1/(1+r)**n))
+	document.getElementById("monthly").value = monthpayment.toFixed(2)
+	document.getElementById("sum").value= (monthpayment*n).toFixed(2)
+
+	totalinterest = (n * monthpayment) - p
+	document.getElementById("totalinterest").value = totalinterest.toFixed(2)
+
+}
+</script>
+
+
+<form method = "POST" action= "echo.cgi">
+<table>
+<tr>
+  <td><label for= "principal"> Principal Amount:  </label>
+  <td><input type = "text"  size = "20" name = "principal" id="principal"> 
+</tr>
+<tr>
+  <td><label for= "interestrate"> Yearly percentage interest rate: </label>
+  <td><input type = "text"  size = "20" name = "interestrate" id = "interestrate"> 
+</tr>
+<tr>
+  <td><label for= "loanterm"> Loan term in months: </label>
+  <td><input type = "text"  size = "20" name = "loanterm" id = "loanterm"> 
+</tr>
+<tr>
+  <td colspan="2" class = "center">
+   <input type = "button" value = "Calculate" onclick = "calculate()"/>
+ </td>
+</tr>
+
+<tr>
+  <td><label for= "monthly"> Monthly payments: </label>
+  <td><input type = "text"  size = "20" name = "monthly" id = "monthly"> 
+</tr>
+<tr>
+  <td><label for= "sum"> Sum of all payments: </label>
+  <td><input type = "text"  size = "20" name = "sum" id = "sum"> 
+</tr>
+<tr>
+  <td><label for= "totalinterest"> Total interest paid: </label>
+  <td><input type = "text"  size = "20" name = "totalinterest" id = "totalinterest"> 
+</tr>
+<tr>
+  <td colspan="2" class= "center"> <input type = "reset" value = "Clear" /> </td>
+</tr>
+
+</table>
+</form>
+sajdkkjsdnfaklsjdnflaksjdflkasdjbflkasdbfkjsdbfkbkdjbfkasdjbf kabfkasdbfkjb kjdsfsdafsdfsdfasdf
