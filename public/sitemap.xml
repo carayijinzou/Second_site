@@ -33,52 +33,17 @@
   </url>
   
   <url>
-    <loc>/tag/calculator/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/linear-algebra/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2020-12-23-linear-algebra/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/mathematics/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/mathematics/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tag/bioinformatics/</loc>
     <lastmod>2020-07-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/category/bioinformatics/</loc>
+    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
     <lastmod>2020-07-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -103,7 +68,17 @@
   </url>
   
   <url>
+    <loc>/post/</loc>
+    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tag/sequence-assembly/</loc>
+    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
     <lastmod>2020-07-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -283,7 +258,52 @@
   </url>
   
   <url>
+    <loc>/tag/ajax/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/bioinformatics_glossary/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/css/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/graphics/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/html/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/javascript/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/php/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/processing/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-12-23-programming-cheatsheet/</loc>
+    <lastmod>2020-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/unix/</loc>
     <lastmod>2020-01-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -510,6 +530,22 @@
   <url>
     <loc>/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/other/</loc>
+  </url>
+  
+  <url>
+    <loc>/project/piggi/</loc>
+  </url>
+  
+  <url>
+    <loc>/tag/web-development/</loc>
+  </url>
+  
+  <url>
+    <loc>/category/web-development/</loc>
   </url>
   
 </urlset>

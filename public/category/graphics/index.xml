@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graphics | Cara (Yijin) Zou</title>
+    <link>/category/graphics/</link>
+      <atom:link href="/category/graphics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Graphics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 18 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Graphics</title>
+      <link>/category/graphics/</link>
+    </image>
+    
+    <item>
+      <title>Three.js</title>
+      <link>/post/2020-12-23-three-js/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-12-23-three-js/</guid>
+      <description>
+
+
+&lt;pre&gt;&lt;code&gt;    &amp;lt;script src=&amp;quot;js/three.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        camera.position.z = 3;
+        let renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+                    //create geometry
+        let geometry = new THREE.BoxGeometry(1, 1, 1);
+        let material = new THREE.MeshBasicMaterial({color: 0xff0000});
+        let cube = new THREE.Mesh(geometry, material);
+
+                    //create geometry for second object 
+        let geometry2 = new THREE.SphereGeometry(1, 100, 100);
+        const color2= new THREE.Color(&amp;quot;rgb(228,235,253)&amp;quot;)
+        let material2 = new THREE.MeshBasicMaterial({color: color2});
+        let sphere = new THREE.Mesh(geometry2, material2);
+        
+
+                    //create geometry for third object 
+        let geometry3 = new THREE.ConeGeometry(1, 2);
+        const color3= new THREE.Color(&amp;quot;rgb(152,221,109)&amp;quot;)
+        let material3 = new THREE.MeshBasicMaterial({color: color3});
+        let cone = new THREE.Mesh(geometry3, material3);
+        
+        
+        let pivot = new THREE.Object3D();
+        cube.position.x = 1;
+        sphere.position.x = 4;
+        cone.position.x = -4;
+        pivot.add(cube);
+        pivot.add(sphere);
+        pivot.add(cone)
+        scene.add(pivot);
+        
+        //draw loop
+        draw = function() {
+            requestAnimationFrame(draw);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            pivot.rotation.y += 0.03;
+            renderer.render(scene, camera);
+        }
+    
+    draw();
+    
+        &amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

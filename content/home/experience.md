@@ -23,7 +23,7 @@ date_format = "Jan 2006"
   company_url = "https://sites.google.com/site/vdsstream/"
   location = "Austin, TX"
   date_start = "2020-01-01"
-  date_end = ""
+  date_end = "2020-12-09"
   description = """
   Responsibilities include:
   

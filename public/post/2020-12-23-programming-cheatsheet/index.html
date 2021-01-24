@@ -1,0 +1,1677 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Cara (Yijin) Zou">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Basics of UNIX? R vs Python equivalents? Helpful tips for web development? And more !">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2020-12-23-programming-cheatsheet/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/2020-12-23-programming-cheatsheet/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Cara (Yijin) Zou">
+  <meta property="og:url" content="/post/2020-12-23-programming-cheatsheet/">
+  <meta property="og:title" content="Programming Cheatsheet | Cara (Yijin) Zou">
+  <meta property="og:description" content="Basics of UNIX? R vs Python equivalents? Helpful tips for web development? And more !"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-01-10T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-01-10T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2020-12-23-programming-cheatsheet/"
+  },
+  "headline": "Programming Cheatsheet",
+  
+  "datePublished": "2020-01-10T00:00:00Z",
+  "dateModified": "2020-01-10T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Cara (Yijin) Zou"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cara (Yijin) Zou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Basics of UNIX? R vs Python equivalents? Helpful tips for web development? And more !"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Programming Cheatsheet | Cara (Yijin) Zou</title>
+
+</head>
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Cara (Yijin) Zou</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Cara (Yijin) Zou</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Programming Cheatsheet</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 10, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    11 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/computer-science/">Computer Science</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+<div id="TOC">
+<ul>
+<li><a href="#unixlinux-bash">Unix/Linux (Bash)</a><ul>
+<li><a href="#change-permissions">Change Permissions</a></li>
+<li><a href="#need-to-kill-a-process">Need to kill a process?</a></li>
+<li><a href="#bash-script">Bash Script</a></li>
+</ul></li>
+<li><a href="#r-vs-python">R vs Python</a></li>
+<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a><ul>
+<li><a href="#reading-files">Reading files</a></li>
+<li><a href="#reading-websites-with-python">Reading websites with Python</a></li>
+</ul></li>
+<li><a href="#regex-using-python">Regex using Python</a><ul>
+<li><a href="#basics-of-regex">Basics of Regex</a></li>
+<li><a href="#groups">Groups</a></li>
+<li><a href="#making-your-own-character-class">Making your own Character Class</a></li>
+</ul></li>
+<li><a href="#web-programming">Web Programming</a><ul>
+<li><a href="#htmlcss">HTML/CSS</a><ul>
+<li><a href="#button-into-a-link">Button into a link</a></li>
+<li><a href="#centering">Centering</a></li>
+<li><a href="#flex">Flex</a></li>
+<li><a href="#fancy-fonts">Fancy Fonts</a></li>
+<li><a href="#colors">Colors</a></li>
+<li><a href="#css-changes-not-showing-up">CSS Changes not showing up ?</a></li>
+</ul></li>
+<li><a href="#javascript">Javascript</a><ul>
+<li><a href="#dynamic-html">Dynamic HTML</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul></li>
+<li><a href="#php">PHP</a><ul>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#troubleshooting-1">Troubleshooting</a></li>
+<li><a href="#cookies">COOKIES</a></li>
+<li><a href="#redirecting">Redirecting</a></li>
+<li><a href="#sql-injection">SQL Injection</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#processing-graphics">Processing (Graphics)</a><ul>
+<li><a href="#svg">SVG</a></li>
+<li><a href="#sprites">Sprites</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized.</p>
+<div id="unixlinux-bash" class="section level1">
+<h1>Unix/Linux (Bash)</h1>
+<p>Another way of navigating through files and giving commands to the operating system.</p>
+<p><strong>Absolute</strong> path (begins with “/”)</p>
+<blockquote>
+<p>/home/Downloads/pax9.csv</p>
+</blockquote>
+<p><strong>Relative</strong> path (does NOT begin with “/”)</p>
+<p>If you are in /home</p>
+<blockquote>
+<p>Downloads</p>
+</blockquote>
+<blockquote>
+<p>Downloads/pax9.csv</p>
+</blockquote>
+<p>If you are in /home/Downloads</p>
+<blockquote>
+<p>pax9.csv</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pwd</td>
+<td>“print working directory” (absolute)</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>root directory</td>
+</tr>
+<tr class="odd">
+<td>ls</td>
+<td>“listing”, gives contents of current directory</td>
+</tr>
+<tr class="even">
+<td><strong>ls</strong> -l</td>
+<td>contents of directory and the permisions of each file</td>
+</tr>
+<tr class="odd">
+<td>cd</td>
+<td>“change directory”</td>
+</tr>
+<tr class="even">
+<td>..</td>
+<td>directory above current</td>
+</tr>
+<tr class="odd">
+<td>.</td>
+<td>current directory</td>
+</tr>
+<tr class="even">
+<td>~</td>
+<td>home directory</td>
+</tr>
+<tr class="odd">
+<td>q</td>
+<td>“quit”</td>
+</tr>
+<tr class="even">
+<td>Control + C</td>
+<td>“cancel”</td>
+</tr>
+<tr class="odd">
+<td>top</td>
+<td>allows you to view the current processes running</td>
+</tr>
+<tr class="even">
+<td><strong>cp</strong> test.csv test2.csv</td>
+<td>“copy”: test.csv is duplicated and named test2.csv (last arg = destination)</td>
+</tr>
+<tr class="odd">
+<td><strong>cp</strong> test.csv other.csv Downloads</td>
+<td>“copy”: test.csv and other.csv is copied to the Downloads directory</td>
+</tr>
+<tr class="even">
+<td><strong>mv</strong> test.csv other.csv Downloads</td>
+<td>“moves”: test.csv and other.csv is moved to the downloads directory</td>
+</tr>
+<tr class="odd">
+<td><strong>mv</strong> test.csv new.csv</td>
+<td>“renames”: test.csv is renamed to new.csv (also works for directory)</td>
+</tr>
+<tr class="even">
+<td><strong>rm</strong> test.csv other.csv</td>
+<td>“removes”: deletes other.csv and test.csv (does not work for directory)</td>
+</tr>
+<tr class="odd">
+<td><strong>rmdir</strong> Downloads</td>
+<td>“removes”: directory (must be empty!)</td>
+</tr>
+<tr class="even">
+<td><strong>mkdir</strong> Homework</td>
+<td>“makes directory” called homework</td>
+</tr>
+<tr class="odd">
+<td><strong>man</strong> ls</td>
+<td>“manual” of command ls</td>
+</tr>
+<tr class="even">
+<td><strong>chmod</strong> u+x test.sh</td>
+<td>“change file mode”: permissions, read ( r ), write ( w ) or execute ( x )</td>
+</tr>
+<tr class="odd">
+<td>Control + D <strong>OR</strong> logout</td>
+<td>to log out of a system</td>
+</tr>
+</tbody>
+</table>
+<p>Useful Tricks:</p>
+<ul>
+<li><p>Hit up and down arrow keys to get previous commands</p></li>
+<li><p>Use tab key for autocompletion</p></li>
+<li><p>Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use “\” before the space</p></li>
+<li><p>if a file/destination does not exist, it will create one. If it does exist, it may overwrite</p></li>
+<li><p>there is no <strong>undo</strong></p></li>
+</ul>
+<div id="change-permissions" class="section level2">
+<h2>Change Permissions</h2>
+<p>If you use <strong>ls -l</strong>, you will get a list of all of the files in the current directory along with their file permisions such as: drwxr-xr-x. Now what does this mean?</p>
+<ul>
+<li><p>r –&gt; read</p></li>
+<li><p>w –&gt; write</p></li>
+<li><p>x –&gt; execute</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>rwx</th>
+<th>rwx</th>
+<th>rwx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>user/owner</td>
+<td>people in your group</td>
+<td>rest of the world</td>
+</tr>
+</tbody>
+</table>
+<p>How do I change this? Use binary:</p>
+<table>
+<thead>
+<tr class="header">
+<th>value</th>
+<th>permission (rwx)</th>
+<th>value</th>
+<th>permission (rwx)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>000</td>
+<td>4</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>001</td>
+<td>5</td>
+<td>101</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>010</td>
+<td>6</td>
+<td>110</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>011</td>
+<td>7</td>
+<td>111</td>
+</tr>
+</tbody>
+</table>
+<p>For example, if I want to be able to rwx, allow people in my group to rw-, and everyone else to have no permissions: 760.
+The most useful permissions for websites in my experience (you can rwx but everyone else can only read) were:</p>
+<ul>
+<li><p>if it’s the directory the HTML is being held in: 744</p></li>
+<li><p>if it’s the actual HTML (or any external CSS, Javascript files, pictures used on the site, etc.) : 755</p></li>
+<li><p>want to change everything in a folder (recursively): chmod -R 755 directory_name <strong>OR</strong> if you are already inside the directory: chmod 744 *</p></li>
+</ul>
+</div>
+<div id="need-to-kill-a-process" class="section level2">
+<h2>Need to kill a process?</h2>
+<ol style="list-style-type: decimal">
+<li><p>Get PID (process ID) from top</p></li>
+<li><p>type: kill PID</p></li>
+<li><p>doesn’t work? type: kill -9 PID</p></li>
+</ol>
+</div>
+<div id="bash-script" class="section level2">
+<h2>Bash Script</h2>
+<p>A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the <strong>.sh</strong> extension.</p>
+<blockquote>
+<p>#!/bin/bash</p>
+</blockquote>
+<p>First line must always look something like this. “#!” is called a <strong>shebang</strong> and immediately after (no spaces), put the path to the interpreter. If you don’t know, type: “which bash” in command line.</p>
+<blockquote>
+<p>#running program from its path</p>
+</blockquote>
+<blockquote>
+<p>#Bob 07/01/2020</p>
+</blockquote>
+<p>Comments to describe what it does, author, date, etc.</p>
+<blockquote>
+<p>name = “Bob”</p>
+</blockquote>
+<p>You can set variables</p>
+<blockquote>
+<p>echo Hello $name !</p>
+</blockquote>
+<p>Like print, it will print stuff after it. Refer to variables with a “$” in front.</p>
+<blockquote>
+<p>pwd</p>
+</blockquote>
+<p>You can put commands in the script.</p>
+<p>In the actual command line, to <strong>run</strong> the script:</p>
+<blockquote>
+<p>./testscript.sh</p>
+</blockquote>
+<p>AKA, look in the current directory to find the script named testscript.sh and run it.</p>
+</div>
+</div>
+<div id="r-vs-python" class="section level1">
+<h1>R vs Python</h1>
+<p>While R has a lot of super useful packages, especially for bioinformatics and statistics, I found it <strong>super</strong> annoying to code in base R compared to python. Here are some essential equivalents for R:</p>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Python</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>len(myList)</td>
+<td>length(myList) **won’t work for strings (see below example)</td>
+</tr>
+<tr class="even">
+<td>x in myList</td>
+<td>x %in% myList</td>
+</tr>
+<tr class="odd">
+<td>myList.index(item)</td>
+<td>match (item, myList)</td>
+</tr>
+<tr class="even">
+<td>“string”[:3]</td>
+<td>substr (“string”, 1, 3)</td>
+</tr>
+<tr class="odd">
+<td>range(0, 6,2)</td>
+<td>seq(from = 0, 4, by=2)</td>
+</tr>
+<tr class="even">
+<td>“str”+“ing”</td>
+<td>paste0(“str”,“ing”, &quot;&quot;)</td>
+</tr>
+<tr class="odd">
+<td>myList=[1,2]</td>
+<td>myList=c(1,2)</td>
+</tr>
+<tr class="even">
+<td>myList.append(3)</td>
+<td>myList=c(myList, 3)</td>
+</tr>
+<tr class="odd">
+<td>myList.extend(myList2)</td>
+<td>myList=c(myList,myList2) <strong>OR</strong> myList=append(myList, myList2)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>python</strong>: len(“string”) vs <strong>R</strong>: nchar(“string”)</li>
+</ol>
+<pre class="python"><code>for i in range(len(&quot;test&quot;)): 
+  print (i)</code></pre>
+<pre><code>## 0
+## 1
+## 2
+## 3</code></pre>
+<pre class="r"><code>for (i in 1:nchar(&quot;test&quot;)){
+  print (i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Matrices</li>
+</ol>
+<p><strong>python</strong></p>
+<pre class="python"><code>test_matrix=[]
+for i in range(3): 
+  test_matrix.append([0]*3)
+test_matrix[0][1]=2
+print(test_matrix)</code></pre>
+<pre><code>## [[0, 2, 0], [0, 0, 0], [0, 0, 0]]</code></pre>
+<p><strong>R</strong></p>
+<pre class="r"><code>test_matrix&lt;- matrix(0, nrow = 3, ncol = 3)
+test_matrix[1,2]=2
+print(test_matrix)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    2    0
+## [2,]    0    0    0
+## [3,]    0    0    0</code></pre>
+</div>
+<div id="working-with-data-in-files-or-websites" class="section level1">
+<h1>Working with data in files or websites</h1>
+<div id="reading-files" class="section level2">
+<h2>Reading files</h2>
+<p>Before anthing, make sure you’re in the right directory !
+In python, it looks something like this:</p>
+<pre class="python"><code>import os
+os.getcwd()
+os.chdir(&quot;/Users/Cara/Desktop/&quot;)</code></pre>
+<p>Using open, various functions can be accomplished including:</p>
+<ul>
+<li><p>r –&gt; read</p></li>
+<li><p>w –&gt; write</p></li>
+<li><p>a –&gt; append</p></li>
+</ul>
+<pre class="python"><code>#open the file for reading 
+infile=open(&quot;file_name.txt&quot;, &quot;r&quot;)
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!=&quot;&quot;: 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you&#39;re finished! 
+infile.close()</code></pre>
+<p>In R, some quick equivalents include:</p>
+<pre class="r"><code>infile=file(&quot;file_name.txt&quot;,open=&quot;r&quot;)
+line &lt;-readLines(infile)
+close(infile)</code></pre>
+</div>
+<div id="reading-websites-with-python" class="section level2">
+<h2>Reading websites with Python</h2>
+<p>You need to import the urllib request package!</p>
+<pre class="python"><code>from urllib import request
+
+url=&quot;http://www.uniprot.org/uniprot/A2Z669.fasta&quot;
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don&#39;t forget to close your request! 
+resp.close()</code></pre>
+</div>
+</div>
+<div id="regex-using-python" class="section level1">
+<h1>Regex using Python</h1>
+<p>If you’re like me, you’ve vaguely known about the existence of Regex (maybe a Professor mentioned it briefly) but never bothered to learn it. However, after just spending an afternoon learning Regex, I realized how many homework assignments could have been simplified by using Regex since alot of bioinformatics is dependent on finding patterns. So can you survive without it? Absolutely. (But your life might be easier if you choose to learn a bit). I highly recommand Automate the Boring Stuff with Python Programming to learn this.</p>
+<p>Here’s a bit of an example of it finding a gene within a RNA string.</p>
+<pre class="python"><code>#import this library to use regex
+import re
+
+dna_String = &quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&quot;
+# regular expression object
+geneRegex = re.compile(r&#39;AUG((.){3})*(UAG|UAA|UGA)&#39;) #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()</code></pre>
+<pre><code>## &#39;AUGAAAAGGGUAUGUACGUAG&#39;</code></pre>
+<div id="basics-of-regex" class="section level2">
+<h2>Basics of Regex</h2>
+<ul>
+<li><p>use <em>raw strings</em> in re.compile(), what does that mean? Begin the string with ‘r’ so that backslashes don’t mean escape.</p></li>
+<li><p><strong>search</strong> returns first match in a match object and to get the matching string you must use group()</p></li>
+<li><p><strong>findall</strong> returns a list of strings (if 2 or more groups, it will return a list of tupules)</p></li>
+</ul>
+</div>
+<div id="groups" class="section level2">
+<h2>Groups</h2>
+<p>Groups are great if you want parts of your matching string. You can indicate groups using parenthesis. So, for example, I can create two groups where group 1 contains the start codon and group 2 contains everthing between the start codon and the stop codon. * Unlike regular indexing in python though, groups start at 1 instead of zero.</p>
+<pre class="python"><code>dna_String = &quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&quot;
+# regular expression object
+geneRegex = re.compile(r&#39;(AUG)(((.){3})*)(UAG|UAA|UGA)&#39;) #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group(0) # full string</code></pre>
+<pre><code>## &#39;AUGAAAAGGGUAUGUACGUAG&#39;</code></pre>
+<pre class="python"><code>geneMatch.group(1) # just start codon</code></pre>
+<pre><code>## &#39;AUG&#39;</code></pre>
+<pre class="python"><code>geneMatch.group(2) # between start and stop codon</code></pre>
+<pre><code>## &#39;AAAAGGGUAUGUACG&#39;</code></pre>
+<ul>
+<li><p>if you do matchoutput.group(0) or matchoutput.group(), you’ll get the full string</p></li>
+<li><p>you can also have groups within groups !</p></li>
+</ul>
+</div>
+<div id="making-your-own-character-class" class="section level2">
+<h2>Making your own Character Class</h2>
+<p>There are character sets aleady available like <strong>/d</strong> for digit (reminder: the capital versions of these represent the opposite, in this case, <strong>/D</strong> is anything that isn’t a digit). However, you may need to create your own by using brackets [ ].</p>
+<pre class="python"><code>dna_String = &quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&quot;
+geneRegex = re.compile(r&#39;AUG([ACGU]{3})*(UAG|UAA|UGA)&#39;) #using character class instead of &quot;.&quot;
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()</code></pre>
+<pre><code>## &#39;AUGAAAAGGGUAUGUACGUAG&#39;</code></pre>
+<ul>
+<li><p>if you want anything other than what’s in the brackets, use <strong>^</strong> (e.g. r’[^ACGU]’)</p></li>
+<li><p>to ignore capital/lowercase, use an extra argument (e.g. re.compile(r’[ACGU]’,re.I))</p></li>
+</ul>
+</div>
+</div>
+<div id="web-programming" class="section level1">
+<h1>Web Programming</h1>
+<div id="htmlcss" class="section level2">
+<h2>HTML/CSS</h2>
+<div id="button-into-a-link" class="section level3">
+<h3>Button into a link</h3>
+<p>Trying to turn a button into a link? Try something like this:</p>
+<pre class="html"><code>&lt;button onclick=&quot;window.location.href=&#39;home.html&#39;&quot; id=&quot;home&quot;&gt; Home&lt;/button&gt;</code></pre>
+</div>
+<div id="centering" class="section level3">
+<h3>Centering</h3>
+<p>Centering in CSS can be soooo annoying but usually this works for me:</p>
+<pre class="css"><code>text-align:center;
+margin-right:auto;
+margin-left:auto;</code></pre>
+</div>
+<div id="flex" class="section level3">
+<h3>Flex</h3>
+<p>Trying to get things to fit along columns/rows? Try using flex, there’s tons of articles online but I found this one to be a good starting point <a href="https://css-tricks.com/dont-overthink-flexbox-grids/">CSS-tricks</a>. Here’s also a good guide: [CSS-tricks] (<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" class="uri">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a>).</p>
+<p>Change the flex of each col depending on how wide it is, for example if I have two cols, one taking one third of the space and the other taking two thirds of the space:</p>
+<pre class="css"><code>.col1 {
+  flex: 1;
+}
+
+.col2 {
+  flex: 2;
+}</code></pre>
+<p>Want to force something to be on the next row? Change the width to be 100%.</p>
+<pre class="css"><code>.flex-grid {
+  flex-wrap: wrap;
+}
+
+.col3 {
+  width:100%;
+}</code></pre>
+<p>Want the next item to go down vertically?</p>
+<pre class="css"><code>.col3 {
+  flex-direction: column;
+}
+</code></pre>
+<p>Want the edges to line up nicely?</p>
+<pre class="css"><code>.flex-grid {
+  justify-content: space-between;
+}</code></pre>
+<p>Also, if you insist on floating stuff, <a href="http://css.maxdesign.com.au/floatutorial/">Floatutorial</a> might be helpful.</p>
+</div>
+<div id="fancy-fonts" class="section level3">
+<h3>Fancy Fonts</h3>
+<p>Want to use more fancy fonts? Use <a href="https://fonts.google.com/?authuser=1&amp;selection.family=Amiko&amp;sidebar.open=true">Google Fonts</a> and on the right it should have a sidebar that tells you want to put, for example:</p>
+<p>Include this in the head</p>
+<pre class="r"><code>&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot;&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Amiko&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;</code></pre>
+<p>Then add this to the CSS</p>
+<pre class="r"><code>font-family: &#39;Amiko&#39;, sans-serif;</code></pre>
+</div>
+<div id="colors" class="section level3">
+<h3>Colors</h3>
+<p>Trying to find colors that look nice together?? Try using <a href="https://coolors.co/080708-3772ff-df2935-fdca40-e6e8e6">coolors generator</a>. Know your going to use the same color scheme for the entire page? Try using <strong>variables</strong>, then you just have to remember the name you gave the color, not the hex color code:</p>
+<pre class="r"><code>* {
+    --pink--: #FE4D9F;
+    --lightblue--: #8BE9F0;
+    --yellow--: #FECE76;
+    --salmon--: #FF7E8C;
+    --darkblue--: #5A95CE;
+}
+
+.section {
+    color: var(--yellow--);
+  backgound-color: var(--salmon--);
+}</code></pre>
+</div>
+<div id="css-changes-not-showing-up" class="section level3">
+<h3>CSS Changes not showing up ?</h3>
+<p>Are changes in CSS not showing up? This might be a browser cache issue, do a hard refresh. On Mac, this is command + shift + R.</p>
+</div>
+</div>
+<div id="javascript" class="section level2">
+<h2>Javascript</h2>
+<div id="dynamic-html" class="section level3">
+<h3>Dynamic HTML</h3>
+<p>If you are using dynamic html, trying to access or change something in the HTMl is super common. For example:</p>
+<pre class="r"><code>test = document.getElementById(&quot;test_id&quot;).innerHTML</code></pre>
+<p>However, if this doesn’t seem to be working, something to keep in mind:</p>
+<ul>
+<li><p><strong>innerHTML</strong> is used for div, span, td, etc.</p></li>
+<li><p><strong>value</strong> is for forms, input, etc.</p></li>
+</ul>
+</div>
+<div id="troubleshooting" class="section level3">
+<h3>Troubleshooting</h3>
+<p>Trying to troubleshoot for javascript? Try putting it in the console:</p>
+<pre class="r"><code>console.log(test)</code></pre>
+</div>
+</div>
+<div id="php" class="section level2">
+<h2>PHP</h2>
+<div id="basics" class="section level3">
+<h3>Basics</h3>
+<p><strong>Quotes</strong></p>
+<ul>
+<li><p>if you use single quotes ’’, this is exactly what you want</p></li>
+<li><p>if you use double quotes &quot; &quot;, this might have variables, etc.</p></li>
+</ul>
+<p><strong>Printing more than one line</strong></p>
+<p>Using an identifier (it’s named <strong>END</strong> in the below chunk of code), you can print something that has more lines. The very last line is VERY important for this to work. It must not have any indentation before (even if you have everything nicely indented to make things neat, sadly there can be no indentation before the indentifier). Also, nothing should be between the indentifier and the semicolon.</p>
+<pre class="r"><code>print &lt;&lt;&lt;END
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+      &lt;title&gt; Chocolate Cookies &lt;/title&gt;
+      &lt;meta charset=&quot;UTF-8&quot;&gt;
+      &lt;meta name = &quot;description&quot; content = &quot;Cookies&quot;&gt;
+      &lt;meta name=&quot;author&quot; content= &quot;Cara Zou&quot;&gt;
+  &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+END;</code></pre>
+<p><strong>String concatenation</strong>
+This might seem like the simplest thing in the world but I wasted a stupid amount of time until I figured out that string concatenation in php is done like this (not using ‘+’):</p>
+<pre class="r"><code>new_string = &quot;hello&quot;.&quot;world&quot;;</code></pre>
+</div>
+<div id="troubleshooting-1" class="section level3">
+<h3>Troubleshooting</h3>
+<p>PHP is so terrible to troubleshoot especially when you’re just starting, this can hopefully help tell you if there are any errors in your code. Atleast in my case, I too often forget a semicolon somewhere along the way…</p>
+<pre class="r"><code>&lt;?php
+ini_set(&#39;display_errors&#39;, 1);
+ini_set(&#39;display_startup_errors&#39;, 1);
+error_reporting(E_ALL);
+?&gt;</code></pre>
+<p>Some other websites that I found useful:</p>
+<ul>
+<li><p>Helps with syntax errors: <a href="https://phpcodechecker.com/">PHPCodechecker</a></p></li>
+<li><p>If it’s not exactly a syntax error: <a href="https://sandbox.onlinephpfunctions.com/">SANDBOX</a></p></li>
+</ul>
+</div>
+<div id="cookies" class="section level3">
+<h3>COOKIES</h3>
+<p>If you’re working with cookies, if something isn’t working right, you can use this to print all of the cookies on the browser:</p>
+<pre class="r"><code>print_r($_COOKIE);</code></pre>
+</div>
+<div id="redirecting" class="section level3">
+<h3>Redirecting</h3>
+<pre class="r"><code>header(&quot;Location: home.php&quot;);</code></pre>
+</div>
+<div id="sql-injection" class="section level3">
+<h3>SQL Injection</h3>
+<p>If you are using a SQL databases, try using something like this to prevent SQL injection:</p>
+<pre class="r"><code>real_escape_string($sql_query_var);</code></pre>
+</div>
+</div>
+</div>
+<div id="processing-graphics" class="section level1">
+<h1>Processing (Graphics)</h1>
+<p>Trying to draw something in Processing and having a hard time visualizing things? Use something like this to find the position of your mouse:</p>
+<pre class="r"><code>text(&quot;x:&quot;+mouseX+&quot;y:&quot;+mouseY, mouseX, mouseY);</code></pre>
+<div id="svg" class="section level2">
+<h2>SVG</h2>
+<p>Downloaded an SVG? Trying to find the center after loading into Processing (I <em>totally</em> haven’t spent a ridiculous amount of time on that before…) ? The below function isn’t just for basic shapes like rectangles, ellipses, etc!</p>
+<pre class="r"><code>shapeMode(CENTER);</code></pre>
+<p>Want to change the color of your SVG? Try something like this before using fill, etc. :</p>
+<pre class="r"><code>flame=loadShape(&quot;flame.svg&quot;);
+flame.disableStyle();
+fill(255,129,3);</code></pre>
+</div>
+<div id="sprites" class="section level2">
+<h2>Sprites</h2>
+<p>Trying to find sprites? You may have some luck at <a href="https://opengameart.org/">opengameart</a>.</p>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/computer-science/">Computer Science</a>
+  
+  <a class="badge badge-light" href="/tag/python/">Python</a>
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+  <a class="badge badge-light" href="/tag/unix/">UNIX</a>
+  
+  <a class="badge badge-light" href="/tag/html/">HTML</a>
+  
+  <a class="badge badge-light" href="/tag/css/">CSS</a>
+  
+  <a class="badge badge-light" href="/tag/javascript/">Javascript</a>
+  
+  <a class="badge badge-light" href="/tag/php/">PHP</a>
+  
+  <a class="badge badge-light" href="/tag/ajax/">AJAX</a>
+  
+  <a class="badge badge-light" href="/tag/processing/">Processing</a>
+  
+  <a class="badge badge-light" href="/tag/graphics/">Graphics</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2020-12-23-programming-cheatsheet/&amp;text=Programming%20Cheatsheet" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2020-12-23-programming-cheatsheet/&amp;t=Programming%20Cheatsheet" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Programming%20Cheatsheet&amp;body=/post/2020-12-23-programming-cheatsheet/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2020-12-23-programming-cheatsheet/&amp;title=Programming%20Cheatsheet" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Programming%20Cheatsheet%20/post/2020-12-23-programming-cheatsheet/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2020-12-23-programming-cheatsheet/&amp;title=Programming%20Cheatsheet" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/cara-yijin-zou/avatar_hu52a603635ecebd45650b162dadabb4e5_12861_270x270_fill_q90_lanczos_center.jpg" alt="Cara (Yijin) Zou">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Cara (Yijin) Zou</a></h5>
+        <h6 class="card-subtitle">Undergraduate Student</h6>
+        <p class="card-text">Senior, computational biology major at UT Austin. Interests include virtual drug screening, statistics/probability, computer science, and dentistry.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/carayijinzou" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/piggi/">Piggi</a></li>
+      
+      <li><a href="/post/greedy_algorithm/">Greedy Algorithm and Sequence Assembly</a></li>
+      
+      <li><a href="/post/hidden_markov_model/">Hidden Markov Model</a></li>
+      
+      <li><a href="/post/markov_chain/">Markov Chains</a></li>
+      
+      <li><a href="/project/exploratory_data_analysis/">Exploratory Data Analysis</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.66c553246b0f279a03be6e5597f72b52.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -256,5 +256,664 @@ For a more complex example, I talk about hidden markov models &lt;a href=&#34;..
 </description>
     </item>
     
+    <item>
+      <title>Programming Cheatsheet</title>
+      <link>/post/2020-12-23-programming-cheatsheet/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-12-23-programming-cheatsheet/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#unixlinux-bash&#34;&gt;Unix/Linux (Bash)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#change-permissions&#34;&gt;Change Permissions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#need-to-kill-a-process&#34;&gt;Need to kill a process?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#bash-script&#34;&gt;Bash Script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#r-vs-python&#34;&gt;R vs Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#working-with-data-in-files-or-websites&#34;&gt;Working with data in files or websites&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#reading-files&#34;&gt;Reading files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#reading-websites-with-python&#34;&gt;Reading websites with Python&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#regex-using-python&#34;&gt;Regex using Python&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#basics-of-regex&#34;&gt;Basics of Regex&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#groups&#34;&gt;Groups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#making-your-own-character-class&#34;&gt;Making your own Character Class&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#web-programming&#34;&gt;Web Programming&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#htmlcss&#34;&gt;HTML/CSS&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#button-into-a-link&#34;&gt;Button into a link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#centering&#34;&gt;Centering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#flex&#34;&gt;Flex&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#fancy-fonts&#34;&gt;Fancy Fonts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#colors&#34;&gt;Colors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#css-changes-not-showing-up&#34;&gt;CSS Changes not showing up ?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#javascript&#34;&gt;Javascript&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#dynamic-html&#34;&gt;Dynamic HTML&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#troubleshooting&#34;&gt;Troubleshooting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#php&#34;&gt;PHP&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#basics&#34;&gt;Basics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#troubleshooting-1&#34;&gt;Troubleshooting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#cookies&#34;&gt;COOKIES&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#redirecting&#34;&gt;Redirecting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sql-injection&#34;&gt;SQL Injection&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#processing-graphics&#34;&gt;Processing (Graphics)&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#svg&#34;&gt;SVG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sprites&#34;&gt;Sprites&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;p&gt;*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized.&lt;/p&gt;
+&lt;div id=&#34;unixlinux-bash&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Unix/Linux (Bash)&lt;/h1&gt;
+&lt;p&gt;Another way of navigating through files and giving commands to the operating system.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Absolute&lt;/strong&gt; path (begins with “/”)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/home/Downloads/pax9.csv&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Relative&lt;/strong&gt; path (does NOT begin with “/”)&lt;/p&gt;
+&lt;p&gt;If you are in /home&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Downloads&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Downloads/pax9.csv&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you are in /home/Downloads&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pax9.csv&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;31%&#34; /&gt;
+&lt;col width=&#34;68%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Command&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;pwd&lt;/td&gt;
+&lt;td&gt;“print working directory” (absolute)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;/&lt;/td&gt;
+&lt;td&gt;root directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;ls&lt;/td&gt;
+&lt;td&gt;“listing”, gives contents of current directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;ls&lt;/strong&gt; -l&lt;/td&gt;
+&lt;td&gt;contents of directory and the permisions of each file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;cd&lt;/td&gt;
+&lt;td&gt;“change directory”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;td&gt;directory above current&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;.&lt;/td&gt;
+&lt;td&gt;current directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;~&lt;/td&gt;
+&lt;td&gt;home directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;“quit”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Control + C&lt;/td&gt;
+&lt;td&gt;“cancel”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;top&lt;/td&gt;
+&lt;td&gt;allows you to view the current processes running&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;cp&lt;/strong&gt; test.csv test2.csv&lt;/td&gt;
+&lt;td&gt;“copy”: test.csv is duplicated and named test2.csv (last arg = destination)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;cp&lt;/strong&gt; test.csv other.csv Downloads&lt;/td&gt;
+&lt;td&gt;“copy”: test.csv and other.csv is copied to the Downloads directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;mv&lt;/strong&gt; test.csv other.csv Downloads&lt;/td&gt;
+&lt;td&gt;“moves”: test.csv and other.csv is moved to the downloads directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;mv&lt;/strong&gt; test.csv new.csv&lt;/td&gt;
+&lt;td&gt;“renames”: test.csv is renamed to new.csv (also works for directory)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;rm&lt;/strong&gt; test.csv other.csv&lt;/td&gt;
+&lt;td&gt;“removes”: deletes other.csv and test.csv (does not work for directory)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;rmdir&lt;/strong&gt; Downloads&lt;/td&gt;
+&lt;td&gt;“removes”: directory (must be empty!)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;mkdir&lt;/strong&gt; Homework&lt;/td&gt;
+&lt;td&gt;“makes directory” called homework&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;strong&gt;man&lt;/strong&gt; ls&lt;/td&gt;
+&lt;td&gt;“manual” of command ls&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;strong&gt;chmod&lt;/strong&gt; u+x test.sh&lt;/td&gt;
+&lt;td&gt;“change file mode”: permissions, read ( r ), write ( w ) or execute ( x )&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Control + D &lt;strong&gt;OR&lt;/strong&gt; logout&lt;/td&gt;
+&lt;td&gt;to log out of a system&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Useful Tricks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Hit up and down arrow keys to get previous commands&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use tab key for autocompletion&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use “\” before the space&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;if a file/destination does not exist, it will create one. If it does exist, it may overwrite&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;there is no &lt;strong&gt;undo&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;change-permissions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Change Permissions&lt;/h2&gt;
+&lt;p&gt;If you use &lt;strong&gt;ls -l&lt;/strong&gt;, you will get a list of all of the files in the current directory along with their file permisions such as: drwxr-xr-x. Now what does this mean?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;r –&amp;gt; read&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;w –&amp;gt; write&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;x –&amp;gt; execute&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;rwx&lt;/th&gt;
+&lt;th&gt;rwx&lt;/th&gt;
+&lt;th&gt;rwx&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;user/owner&lt;/td&gt;
+&lt;td&gt;people in your group&lt;/td&gt;
+&lt;td&gt;rest of the world&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;How do I change this? Use binary:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;value&lt;/th&gt;
+&lt;th&gt;permission (rwx)&lt;/th&gt;
+&lt;th&gt;value&lt;/th&gt;
+&lt;th&gt;permission (rwx)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;000&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;001&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;101&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;010&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;110&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;011&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;For example, if I want to be able to rwx, allow people in my group to rw-, and everyone else to have no permissions: 760.
+The most useful permissions for websites in my experience (you can rwx but everyone else can only read) were:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;if it’s the directory the HTML is being held in: 744&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;if it’s the actual HTML (or any external CSS, Javascript files, pictures used on the site, etc.) : 755&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;want to change everything in a folder (recursively): chmod -R 755 directory_name &lt;strong&gt;OR&lt;/strong&gt; if you are already inside the directory: chmod 744 *&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;need-to-kill-a-process&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Need to kill a process?&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Get PID (process ID) from top&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;type: kill PID&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;doesn’t work? type: kill -9 PID&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bash-script&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bash Script&lt;/h2&gt;
+&lt;p&gt;A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the &lt;strong&gt;.sh&lt;/strong&gt; extension.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;#!/bin/bash&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;First line must always look something like this. “#!” is called a &lt;strong&gt;shebang&lt;/strong&gt; and immediately after (no spaces), put the path to the interpreter. If you don’t know, type: “which bash” in command line.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;#running program from its path&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;#Bob 07/01/2020&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Comments to describe what it does, author, date, etc.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name = “Bob”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can set variables&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;echo Hello $name !&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Like print, it will print stuff after it. Refer to variables with a “$” in front.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pwd&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can put commands in the script.&lt;/p&gt;
+&lt;p&gt;In the actual command line, to &lt;strong&gt;run&lt;/strong&gt; the script:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;./testscript.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;AKA, look in the current directory to find the script named testscript.sh and run it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-vs-python&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R vs Python&lt;/h1&gt;
+&lt;p&gt;While R has a lot of super useful packages, especially for bioinformatics and statistics, I found it &lt;strong&gt;super&lt;/strong&gt; annoying to code in base R compared to python. Here are some essential equivalents for R:&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;30%&#34; /&gt;
+&lt;col width=&#34;69%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Python&lt;/th&gt;
+&lt;th&gt;R&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;len(myList)&lt;/td&gt;
+&lt;td&gt;length(myList) **won’t work for strings (see below example)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;x in myList&lt;/td&gt;
+&lt;td&gt;x %in% myList&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;myList.index(item)&lt;/td&gt;
+&lt;td&gt;match (item, myList)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;“string”[:3]&lt;/td&gt;
+&lt;td&gt;substr (“string”, 1, 3)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;range(0, 6,2)&lt;/td&gt;
+&lt;td&gt;seq(from = 0, 4, by=2)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;“str”+“ing”&lt;/td&gt;
+&lt;td&gt;paste0(“str”,“ing”, &amp;quot;&amp;quot;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;myList=[1,2]&lt;/td&gt;
+&lt;td&gt;myList=c(1,2)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;myList.append(3)&lt;/td&gt;
+&lt;td&gt;myList=c(myList, 3)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;myList.extend(myList2)&lt;/td&gt;
+&lt;td&gt;myList=c(myList,myList2) &lt;strong&gt;OR&lt;/strong&gt; myList=append(myList, myList2)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;python&lt;/strong&gt;: len(“string”) vs &lt;strong&gt;R&lt;/strong&gt;: nchar(“string”)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;for i in range(len(&amp;quot;test&amp;quot;)): 
+  print (i)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0
+## 1
+## 2
+## 3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;for (i in 1:nchar(&amp;quot;test&amp;quot;)){
+  print (i)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Matrices&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;python&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;test_matrix=[]
+for i in range(3): 
+  test_matrix.append([0]*3)
+test_matrix[0][1]=2
+print(test_matrix)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[0, 2, 0], [0, 0, 0], [0, 0, 0]]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;R&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test_matrix&amp;lt;- matrix(0, nrow = 3, ncol = 3)
+test_matrix[1,2]=2
+print(test_matrix)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3]
+## [1,]    0    2    0
+## [2,]    0    0    0
+## [3,]    0    0    0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;working-with-data-in-files-or-websites&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Working with data in files or websites&lt;/h1&gt;
+&lt;div id=&#34;reading-files&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reading files&lt;/h2&gt;
+&lt;p&gt;Before anthing, make sure you’re in the right directory !
+In python, it looks something like this:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import os
+os.getcwd()
+os.chdir(&amp;quot;/Users/Cara/Desktop/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using open, various functions can be accomplished including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;r –&amp;gt; read&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;w –&amp;gt; write&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;a –&amp;gt; append&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;#open the file for reading 
+infile=open(&amp;quot;file_name.txt&amp;quot;, &amp;quot;r&amp;quot;)
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!=&amp;quot;&amp;quot;: 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you&amp;#39;re finished! 
+infile.close()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In R, some quick equivalents include:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;infile=file(&amp;quot;file_name.txt&amp;quot;,open=&amp;quot;r&amp;quot;)
+line &amp;lt;-readLines(infile)
+close(infile)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reading-websites-with-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reading websites with Python&lt;/h2&gt;
+&lt;p&gt;You need to import the urllib request package!&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from urllib import request
+
+url=&amp;quot;http://www.uniprot.org/uniprot/A2Z669.fasta&amp;quot;
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don&amp;#39;t forget to close your request! 
+resp.close()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regex-using-python&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Regex using Python&lt;/h1&gt;
+&lt;p&gt;If you’re like me, you’ve vaguely known about the existence of Regex (maybe a Professor mentioned it briefly) but never bothered to learn it. However, after just spending an afternoon learning Regex, I realized how many homework assignments could have been simplified by using Regex since alot of bioinformatics is dependent on finding patterns. So can you survive without it? Absolutely. (But your life might be easier if you choose to learn a bit). I highly recommand Automate the Boring Stuff with Python Programming to learn this.&lt;/p&gt;
+&lt;p&gt;Here’s a bit of an example of it finding a gene within a RNA string.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;#import this library to use regex
+import re
+
+dna_String = &amp;quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&amp;quot;
+# regular expression object
+geneRegex = re.compile(r&amp;#39;AUG((.){3})*(UAG|UAA|UGA)&amp;#39;) #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;AUGAAAAGGGUAUGUACGUAG&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;basics-of-regex&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Basics of Regex&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;use &lt;em&gt;raw strings&lt;/em&gt; in re.compile(), what does that mean? Begin the string with ‘r’ so that backslashes don’t mean escape.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;search&lt;/strong&gt; returns first match in a match object and to get the matching string you must use group()&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;findall&lt;/strong&gt; returns a list of strings (if 2 or more groups, it will return a list of tupules)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;groups&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Groups&lt;/h2&gt;
+&lt;p&gt;Groups are great if you want parts of your matching string. You can indicate groups using parenthesis. So, for example, I can create two groups where group 1 contains the start codon and group 2 contains everthing between the start codon and the stop codon. * Unlike regular indexing in python though, groups start at 1 instead of zero.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dna_String = &amp;quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&amp;quot;
+# regular expression object
+geneRegex = re.compile(r&amp;#39;(AUG)(((.){3})*)(UAG|UAA|UGA)&amp;#39;) #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group(0) # full string&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;AUGAAAAGGGUAUGUACGUAG&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;geneMatch.group(1) # just start codon&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;AUG&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;geneMatch.group(2) # between start and stop codon&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;AAAAGGGUAUGUACG&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;if you do matchoutput.group(0) or matchoutput.group(), you’ll get the full string&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;you can also have groups within groups !&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;making-your-own-character-class&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Making your own Character Class&lt;/h2&gt;
+&lt;p&gt;There are character sets aleady available like &lt;strong&gt;/d&lt;/strong&gt; for digit (reminder: the capital versions of these represent the opposite, in this case, &lt;strong&gt;/D&lt;/strong&gt; is anything that isn’t a digit). However, you may need to create your own by using brackets [ ].&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dna_String = &amp;quot;CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG&amp;quot;
+geneRegex = re.compile(r&amp;#39;AUG([ACGU]{3})*(UAG|UAA|UGA)&amp;#39;) #using character class instead of &amp;quot;.&amp;quot;
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;AUGAAAAGGGUAUGUACGUAG&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;if you want anything other than what’s in the brackets, use &lt;strong&gt;^&lt;/strong&gt; (e.g. r’[^ACGU]’)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;to ignore capital/lowercase, use an extra argument (e.g. re.compile(r’[ACGU]’,re.I))&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;web-programming&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Web Programming&lt;/h1&gt;
+&lt;div id=&#34;htmlcss&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;HTML/CSS&lt;/h2&gt;
+&lt;div id=&#34;button-into-a-link&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Button into a link&lt;/h3&gt;
+&lt;p&gt;Trying to turn a button into a link? Try something like this:&lt;/p&gt;
+&lt;pre class=&#34;html&#34;&gt;&lt;code&gt;&amp;lt;button onclick=&amp;quot;window.location.href=&amp;#39;home.html&amp;#39;&amp;quot; id=&amp;quot;home&amp;quot;&amp;gt; Home&amp;lt;/button&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;centering&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Centering&lt;/h3&gt;
+&lt;p&gt;Centering in CSS can be soooo annoying but usually this works for me:&lt;/p&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;text-align:center;
+margin-right:auto;
+margin-left:auto;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;flex&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Flex&lt;/h3&gt;
+&lt;p&gt;Trying to get things to fit along columns/rows? Try using flex, there’s tons of articles online but I found this one to be a good starting point &lt;a href=&#34;https://css-tricks.com/dont-overthink-flexbox-grids/&#34;&gt;CSS-tricks&lt;/a&gt;. Here’s also a good guide: [CSS-tricks] (&lt;a href=&#34;https://css-tricks.com/snippets/css/a-guide-to-flexbox/&#34; class=&#34;uri&#34;&gt;https://css-tricks.com/snippets/css/a-guide-to-flexbox/&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Change the flex of each col depending on how wide it is, for example if I have two cols, one taking one third of the space and the other taking two thirds of the space:&lt;/p&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;.col1 {
+  flex: 1;
+}
+
+.col2 {
+  flex: 2;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Want to force something to be on the next row? Change the width to be 100%.&lt;/p&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;.flex-grid {
+  flex-wrap: wrap;
+}
+
+.col3 {
+  width:100%;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Want the next item to go down vertically?&lt;/p&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;.col3 {
+  flex-direction: column;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Want the edges to line up nicely?&lt;/p&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;.flex-grid {
+  justify-content: space-between;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Also, if you insist on floating stuff, &lt;a href=&#34;http://css.maxdesign.com.au/floatutorial/&#34;&gt;Floatutorial&lt;/a&gt; might be helpful.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fancy-fonts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Fancy Fonts&lt;/h3&gt;
+&lt;p&gt;Want to use more fancy fonts? Use &lt;a href=&#34;https://fonts.google.com/?authuser=1&amp;amp;selection.family=Amiko&amp;amp;sidebar.open=true&#34;&gt;Google Fonts&lt;/a&gt; and on the right it should have a sidebar that tells you want to put, for example:&lt;/p&gt;
+&lt;p&gt;Include this in the head&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;lt;link rel=&amp;quot;preconnect&amp;quot; href=&amp;quot;https://fonts.gstatic.com&amp;quot;&amp;gt;
+&amp;lt;link href=&amp;quot;https://fonts.googleapis.com/css2?family=Amiko&amp;amp;display=swap&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then add this to the CSS&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;font-family: &amp;#39;Amiko&amp;#39;, sans-serif;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;colors&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Colors&lt;/h3&gt;
+&lt;p&gt;Trying to find colors that look nice together?? Try using &lt;a href=&#34;https://coolors.co/080708-3772ff-df2935-fdca40-e6e8e6&#34;&gt;coolors generator&lt;/a&gt;. Know your going to use the same color scheme for the entire page? Try using &lt;strong&gt;variables&lt;/strong&gt;, then you just have to remember the name you gave the color, not the hex color code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;* {
+    --pink--: #FE4D9F;
+    --lightblue--: #8BE9F0;
+    --yellow--: #FECE76;
+    --salmon--: #FF7E8C;
+    --darkblue--: #5A95CE;
+}
+
+.section {
+    color: var(--yellow--);
+  backgound-color: var(--salmon--);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;css-changes-not-showing-up&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;CSS Changes not showing up ?&lt;/h3&gt;
+&lt;p&gt;Are changes in CSS not showing up? This might be a browser cache issue, do a hard refresh. On Mac, this is command + shift + R.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;javascript&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Javascript&lt;/h2&gt;
+&lt;div id=&#34;dynamic-html&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Dynamic HTML&lt;/h3&gt;
+&lt;p&gt;If you are using dynamic html, trying to access or change something in the HTMl is super common. For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test = document.getElementById(&amp;quot;test_id&amp;quot;).innerHTML&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, if this doesn’t seem to be working, something to keep in mind:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;innerHTML&lt;/strong&gt; is used for div, span, td, etc.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;value&lt;/strong&gt; is for forms, input, etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;troubleshooting&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Troubleshooting&lt;/h3&gt;
+&lt;p&gt;Trying to troubleshoot for javascript? Try putting it in the console:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;console.log(test)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;php&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;PHP&lt;/h2&gt;
+&lt;div id=&#34;basics&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Basics&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Quotes&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;if you use single quotes ’’, this is exactly what you want&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;if you use double quotes &amp;quot; &amp;quot;, this might have variables, etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Printing more than one line&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Using an identifier (it’s named &lt;strong&gt;END&lt;/strong&gt; in the below chunk of code), you can print something that has more lines. The very last line is VERY important for this to work. It must not have any indentation before (even if you have everything nicely indented to make things neat, sadly there can be no indentation before the indentifier). Also, nothing should be between the indentifier and the semicolon.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print &amp;lt;&amp;lt;&amp;lt;END
+    &amp;lt;!DOCTYPE html&amp;gt;
+    &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+    &amp;lt;head&amp;gt;
+      &amp;lt;title&amp;gt; Chocolate Cookies &amp;lt;/title&amp;gt;
+      &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+      &amp;lt;meta name = &amp;quot;description&amp;quot; content = &amp;quot;Cookies&amp;quot;&amp;gt;
+      &amp;lt;meta name=&amp;quot;author&amp;quot; content= &amp;quot;Cara Zou&amp;quot;&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;
+END;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;String concatenation&lt;/strong&gt;
+This might seem like the simplest thing in the world but I wasted a stupid amount of time until I figured out that string concatenation in php is done like this (not using ‘+’):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;new_string = &amp;quot;hello&amp;quot;.&amp;quot;world&amp;quot;;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;troubleshooting-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Troubleshooting&lt;/h3&gt;
+&lt;p&gt;PHP is so terrible to troubleshoot especially when you’re just starting, this can hopefully help tell you if there are any errors in your code. Atleast in my case, I too often forget a semicolon somewhere along the way…&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;lt;?php
+ini_set(&amp;#39;display_errors&amp;#39;, 1);
+ini_set(&amp;#39;display_startup_errors&amp;#39;, 1);
+error_reporting(E_ALL);
+?&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Some other websites that I found useful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Helps with syntax errors: &lt;a href=&#34;https://phpcodechecker.com/&#34;&gt;PHPCodechecker&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If it’s not exactly a syntax error: &lt;a href=&#34;https://sandbox.onlinephpfunctions.com/&#34;&gt;SANDBOX&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cookies&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;COOKIES&lt;/h3&gt;
+&lt;p&gt;If you’re working with cookies, if something isn’t working right, you can use this to print all of the cookies on the browser:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print_r($_COOKIE);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;redirecting&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Redirecting&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;header(&amp;quot;Location: home.php&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sql-injection&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;SQL Injection&lt;/h3&gt;
+&lt;p&gt;If you are using a SQL databases, try using something like this to prevent SQL injection:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;real_escape_string($sql_query_var);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;processing-graphics&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Processing (Graphics)&lt;/h1&gt;
+&lt;p&gt;Trying to draw something in Processing and having a hard time visualizing things? Use something like this to find the position of your mouse:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;text(&amp;quot;x:&amp;quot;+mouseX+&amp;quot;y:&amp;quot;+mouseY, mouseX, mouseY);&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;svg&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;SVG&lt;/h2&gt;
+&lt;p&gt;Downloaded an SVG? Trying to find the center after loading into Processing (I &lt;em&gt;totally&lt;/em&gt; haven’t spent a ridiculous amount of time on that before…) ? The below function isn’t just for basic shapes like rectangles, ellipses, etc!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;shapeMode(CENTER);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Want to change the color of your SVG? Try something like this before using fill, etc. :&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flame=loadShape(&amp;quot;flame.svg&amp;quot;);
+flame.disableStyle();
+fill(255,129,3);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sprites&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sprites&lt;/h2&gt;
+&lt;p&gt;Trying to find sprites? You may have some luck at &lt;a href=&#34;https://opengameart.org/&#34;&gt;opengameart&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

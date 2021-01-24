@@ -38,6 +38,15 @@ date_format = "Jan 2006"
   date_end = ""
   description = "Recognized for being in the top 4 percent of the College of Natural Science."
   
-
+[[item]]
+  organization = "SheHacks V Hackathon"
+  organization_url = "https://shehacks.ca/"
+  title = "TD Green Hack Challenge Winner"
+  url = "https://devpost.com/software/piggi"
+  certificate_url = ""
+  date_start = "2021-01-10"
+  date_end = ""
+  description = "Web app designed to introduce and build upon skills and concepts of financial literacy for young girls (aged 10-15)."
+  
 
 +++

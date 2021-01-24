@@ -1,0 +1,514 @@
+---
+title: "Programming Cheatsheet"
+author: "Cara Yijin Zou"
+date: "2020-01-10"
+categories: ["Computer Science"]
+tags: ["Computer Science","Python","R","UNIX","HTML","CSS","Javascript","PHP","AJAX","Processing","Graphics"]
+summary: "Basics of UNIX? R vs Python equivalents? Helpful tips for web development? And more !"
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+*** As I learn more, I will hopefully continue to add to this page for things that confused me or I thought would be helpful to compile together. As a warning, this is just a collection of notes and is not super organized. 
+
+# Unix/Linux (Bash)
+Another way of navigating through files and giving commands to the operating system. 
+
+**Absolute** path (begins with "/")
+
+> /home/Downloads/pax9.csv
+
+**Relative** path (does NOT begin with "/")
+
+If you are in /home
+
+> Downloads
+
+> Downloads/pax9.csv
+
+If you are in /home/Downloads
+
+> pax9.csv
+
+
+| Command                            | Description                                                                    | 
+|------------------------------------|--------------------------------------------------------------------------------|
+| pwd                                | "print working directory" (absolute)                                           |
+| /                                  | root directory                                                                 |
+| ls                                 | "listing", gives contents of current directory                                 |
+| **ls** -l                          |  contents of directory and the permisions of each file                         |
+| cd                                 | "change directory"                                                             |
+| ..                                 | directory above current                                                        |
+| .                                  | current directory                                                              |
+| ~                                  | home directory                                                                 |
+| q                                  | "quit"                                                                         |
+| Control + C                        | "cancel"                                                                       |
+| top                                | allows you to view the current processes running                               |
+|**cp** test.csv test2.csv           | "copy": test.csv is duplicated and named test2.csv (last arg = destination)    | 
+|**cp** test.csv other.csv Downloads | "copy": test.csv and other.csv is copied to the Downloads directory            | 
+|**mv** test.csv other.csv Downloads | "moves": test.csv and other.csv is moved to the downloads directory            | 
+|**mv** test.csv new.csv             | "renames": test.csv is renamed to new.csv   (also works for directory)         |
+|**rm** test.csv other.csv           | "removes": deletes other.csv and test.csv  (does not work for directory)       |
+|**rmdir**  Downloads                | "removes": directory (must be empty!)                                          |
+|**mkdir**  Homework                 | "makes directory" called homework                                              |
+|**man** ls                          | "manual" of command ls                                                         |
+|**chmod** u+x test.sh               | "change file mode": permissions,  read ( r ), write ( w ) or execute ( x )     |
+|Control + D **OR** logout           | to log out of a system                                                         |
+
+Useful Tricks: 
+
+* Hit up and down arrow keys to get previous commands
+
+* Use tab key for autocompletion 
+
+* Spaces for file names can cause problems because they are seen as separate items. To prevent this, put them in quotes or use "\\" before the space
+
+* if a file/destination does not exist, it will create one. If it does exist, it may overwrite 
+
+* there is no **undo**
+
+## Change Permissions
+
+If you use **ls -l**, you will get a list of all of the files in the current directory along with their file permisions such as: drwxr-xr-x. Now what does this mean? 
+
+* r --> read
+
+* w --> write
+
+* x --> execute 
+
+
+| rwx                    | rwx                    | rwx                     |
+|------------------------|------------------------|-------------------------|
+| user/owner             | people in your group   | rest of the world       |
+
+
+How do I change this? Use binary: 
+
+| value                  | permission (rwx)       | value                  | permission (rwx)       |
+|------------------------|------------------------|------------------------|------------------------|
+| 0                      | 000                    | 4                      | 100                    |
+| 1                      | 001                    | 5                      | 101                    |
+| 2                      | 010                    | 6                      | 110                    |
+| 3                      | 011                    | 7                      | 111                    |
+
+For example, if I want to be able to rwx, allow people in my group to rw-, and everyone else to have no permissions: 760. 
+The most useful permissions for websites in my experience (you can rwx but everyone else can only read) were: 
+
+* if it's the directory the HTML is being held in: 744
+
+* if it's the actual HTML (or any external CSS, Javascript files, pictures used on the site, etc.) : 755 
+
+* want to change everything in a folder (recursively): chmod -R 755  directory_name **OR** if you are already inside the directory: chmod 744 *
+
+
+## Need to kill a process?
+
+1) Get PID (process ID) from top 
+
+2) type: kill PID
+
+3) doesn't work? type: kill -9 PID
+
+
+## Bash Script
+A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the **.sh** extension. 
+
+> #!/bin/bash
+
+First line must always look something like this. "#!" is called a **shebang** and immediately after (no spaces), put the path to the interpreter. If you don't know, type: "which bash" in command line.
+
+> #running program from its path 
+
+> #Bob 07/01/2020
+
+Comments to describe what it does, author, date, etc. 
+
+> name = "Bob"
+
+You can set variables 
+
+> echo Hello $name !
+
+Like print, it will print stuff after it. Refer to variables with a "$" in front.
+
+> pwd 
+
+You can put commands in the script. 
+
+In the actual command line, to **run** the script: 
+
+> ./testscript.sh
+
+AKA, look in the current directory to find the script named testscript.sh and run it.
+
+# R vs Python
+While R has a lot of super useful packages, especially for bioinformatics and statistics, I found it **super** annoying to code in base R compared to python. Here are some essential equivalents for R: 
+
+| Python                      | R                                                              |
+| ----------------------------|----------------------------------------------------------------|
+| len(myList)                 | length(myList) **won't work for strings (see below example)    |
+| x in myList                 | x %in% myList                                                  |
+| myList.index(item)          | match (item, myList)                                           |
+| "string"[:3]                | substr ("string", 1, 3)                                        |
+| range(0, 6,2)               | seq(from = 0, 4, by=2)                                         |
+| "str"+"ing"                 | paste0("str","ing", "")                                        |
+| myList=[1,2]                | myList=c(1,2)                                                  |
+| myList.append(3)            | myList=c(myList, 3)                                            |
+| myList.extend(myList2)      | myList=c(myList,myList2) **OR** myList=append(myList, myList2) |
+
+
+**Examples**
+
+1. **python**: len("string") vs **R**: nchar("string")
+
+```{python}
+for i in range(len("test")): 
+  print (i)
+```
+
+```{R}
+for (i in 1:nchar("test")){
+  print (i)
+}
+```
+2. Matrices
+
+**python**
+```{python}
+test_matrix=[]
+for i in range(3): 
+  test_matrix.append([0]*3)
+test_matrix[0][1]=2
+print(test_matrix)
+```
+
+**R**
+```{R}
+test_matrix<- matrix(0, nrow = 3, ncol = 3)
+test_matrix[1,2]=2
+print(test_matrix)
+```
+
+# Working with data in files or websites 
+## Reading files 
+Before anthing, make sure you're in the right directory ! 
+In python, it looks something like this: 
+
+```{python, eval=F}
+import os
+os.getcwd()
+os.chdir("/Users/Cara/Desktop/")
+```
+
+Using open, various functions can be accomplished including: 
+
+* r --> read
+
+* w --> write
+
+* a --> append 
+
+```{python, eval=F}
+#open the file for reading 
+infile=open("file_name.txt", "r")
+
+#reads one character
+char = infile.read(1)
+
+#reads one line until \n
+line = infile.readline()
+while line!="": 
+  # ... 
+  line = infile.readline()
+
+#alternatively, use infile.readlines() to get all lines in a list, with \n at the end of each item 
+#OR use infile.read() to get all lines from where you are in the file 
+
+#close the file after you're finished! 
+infile.close()
+```
+
+In R, some quick equivalents include: 
+
+```{R, eval=F}
+infile=file("file_name.txt",open="r")
+line <-readLines(infile)
+close(infile)
+```
+
+## Reading websites with Python 
+
+You need to import the urllib request package! 
+
+```{python, eval=F}
+from urllib import request
+
+url="http://www.uniprot.org/uniprot/A2Z669.fasta"
+
+#request- opens urls
+resp = request.urlopen(url) 
+
+#urlopen is used to open url like open is used for files
+#returns html as a string - stored in data variable 
+data =  resp.read() 
+
+#don't forget to close your request! 
+resp.close()
+```
+
+# Regex using Python 
+If you're like me, you've vaguely known about the existence of Regex (maybe a Professor mentioned it briefly) but never bothered to learn it. However, after just spending an afternoon learning Regex, I realized how many homework assignments could have been simplified by using Regex since alot of bioinformatics is dependent on finding patterns. So can you survive without it? Absolutely. (But your life might be easier if you choose to learn a bit). I highly recommand Automate the Boring Stuff with Python Programming to learn this. 
+
+Here's a bit of an example of it finding a gene within a RNA string. 
+
+```{python}
+#import this library to use regex
+import re
+
+dna_String = "CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG"
+# regular expression object
+geneRegex = re.compile(r'AUG((.){3})*(UAG|UAA|UGA)') #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()
+
+```
+## Basics of Regex
+* use _raw strings_ in re.compile(), what does that mean? Begin the string with 'r' so that backslashes don't mean escape. 
+
+* **search** returns first match in a match object and to get the matching string you must use group()
+
+* **findall** returns a list of strings (if 2 or more groups, it will return a list of tupules)
+
+## Groups 
+Groups are great if you want parts of your matching string. You can indicate groups using parenthesis. So, for example, I can create two groups where group 1 contains the start codon and group 2 contains everthing between the start codon and the stop codon. * Unlike regular indexing in python though, groups start at 1 instead of zero.
+
+```{python}
+dna_String = "CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG"
+# regular expression object
+geneRegex = re.compile(r'(AUG)(((.){3})*)(UAG|UAA|UGA)') #find start codon and then anything after it until stop codon is reached
+# match object, if no matches will return none 
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group(0) # full string
+geneMatch.group(1) # just start codon
+geneMatch.group(2) # between start and stop codon
+```
+* if you do matchoutput.group(0) or matchoutput.group(), you'll get the full string
+
+* you can also have groups within groups ! 
+
+
+## Making your own Character Class 
+There are character sets aleady available like __/d__ for digit (reminder: the capital versions of these represent the opposite, in this case, __/D__ is anything that isn't a digit). However, you may need to create your own by using brackets [ ]. 
+
+```{python}
+dna_String = "CAAAAGCGAUGAAAAGGGUAUGUACGUAGGCAACGACGAACACCGAG"
+geneRegex = re.compile(r'AUG([ACGU]{3})*(UAG|UAA|UGA)') #using character class instead of "."
+geneMatch=geneRegex.search(dna_String)
+geneMatch.group()
+
+```
+* if you want anything other than what's in the brackets, use **^** (e.g. r'[^ACGU]')
+
+* to ignore capital/lowercase, use an extra argument (e.g. re.compile(r'[ACGU]',re.I))
+
+
+# Web Programming
+## HTML/CSS
+
+### Button into a link
+Trying to turn a button into a link? Try something like this: 
+```{html, eval=F}
+<button onclick="window.location.href='home.html'" id="home"> Home</button>
+```
+
+### Centering
+Centering in CSS can be soooo annoying but usually this works for me: 
+```{css, eval=F}
+text-align:center;
+margin-right:auto;
+margin-left:auto;
+```
+
+### Flex
+Trying to get things to fit along columns/rows? Try using flex, there's tons of articles online but I found this one to be a good starting point [CSS-tricks](https://css-tricks.com/dont-overthink-flexbox-grids/). Here's also a good guide: [CSS-tricks] (https://css-tricks.com/snippets/css/a-guide-to-flexbox/).
+
+Change the flex of each col depending on how wide it is, for example if I have two cols, one taking one third of the space and the other taking two thirds of the space: 
+```{css, eval=F}
+.col1 {
+  flex: 1;
+}
+
+.col2 {
+  flex: 2;
+}
+```
+
+Want to force something to be on the next row? Change the width to be 100%. 
+```{css, eval=F}
+.flex-grid {
+  flex-wrap: wrap;
+}
+
+.col3 {
+  width:100%;
+}
+```
+
+Want the next item to go down vertically? 
+```{css, eval=F}
+.col3 {
+  flex-direction: column;
+}
+
+```
+
+Want the edges to line up nicely? 
+```{css, eval=F}
+.flex-grid {
+  justify-content: space-between;
+}
+```
+Also, if you insist on floating stuff, [Floatutorial](http://css.maxdesign.com.au/floatutorial/) might be helpful. 
+
+### Fancy Fonts
+Want to use more fancy fonts? Use [Google Fonts](https://fonts.google.com/?authuser=1&selection.family=Amiko&sidebar.open=true) and on the right it should have a sidebar that tells you want to put, for example: 
+
+Include this in the head
+```{R, eval=F}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
+```
+
+Then add this to the CSS
+```{R, eval=F}
+font-family: 'Amiko', sans-serif;
+```
+
+### Colors
+Trying to find colors that look nice together?? Try using [coolors generator](https://coolors.co/080708-3772ff-df2935-fdca40-e6e8e6). Know your going to use the same color scheme for the entire page? Try using **variables**, then you just have to remember the name you gave the color, not the hex color code: 
+```{R, eval=F}
+* {
+	--pink--: #FE4D9F;
+	--lightblue--: #8BE9F0;
+	--yellow--: #FECE76;
+	--salmon--: #FF7E8C;
+	--darkblue--: #5A95CE;
+}
+
+.section {
+	color: var(--yellow--);
+  backgound-color: var(--salmon--);
+}
+```
+
+### CSS Changes not showing up ?
+Are changes in CSS not showing up? This might be a browser cache issue, do a hard refresh. On Mac, this is command + shift + R. 
+
+## Javascript 
+### Dynamic HTML
+If you are using dynamic html, trying to access or change something in the HTMl is super common. For example: 
+```{R, eval=F}
+test = document.getElementById("test_id").innerHTML
+```
+
+However, if this doesn't seem to be working, something to keep in mind: 
+
+* **innerHTML** is used for div, span, td, etc. 
+
+* **value** is for forms, input, etc. 
+
+### Troubleshooting
+Trying to troubleshoot for javascript? Try putting it in the console: 
+```{R, eval=F}
+console.log(test)
+```
+
+
+## PHP
+### Basics
+**Quotes**
+
+* if you use single quotes '', this is exactly what you want
+
+* if you use double quotes " ", this might have variables, etc. 
+
+**Printing more than one line**
+
+Using an identifier (it's named **END** in the below chunk of code), you can print something that has more lines. The very last line is VERY important for this to work. It must not have any indentation before (even if you have everything nicely indented to make things neat, sadly there can be no indentation before the indentifier). Also, nothing should be between the indentifier and the semicolon. 
+```{R, eval=F}
+print <<<END
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <title> Chocolate Cookies </title>
+	  <meta charset="UTF-8">
+	  <meta name = "description" content = "Cookies">
+	  <meta name="author" content= "Cara Zou">
+  <body>
+	</body>
+	</html>
+END;
+```
+
+**String concatenation**
+This might seem like the simplest thing in the world but I wasted a stupid amount of time until I figured out that string concatenation in php is done like this (not using '+'): 
+```{R, eval=F}
+new_string = "hello"."world";
+```
+
+### Troubleshooting
+PHP is so terrible to troubleshoot especially when you're just starting, this can hopefully help tell you if there are any errors in your code. Atleast in my case, I too often forget a semicolon somewhere along the way...
+```{R, eval=F}
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+```
+Some other websites that I found useful: 
+
+* Helps with syntax errors: [PHPCodechecker](https://phpcodechecker.com/)
+
+* If it's not exactly a syntax error: [SANDBOX](https://sandbox.onlinephpfunctions.com/)
+
+### COOKIES
+If you're working with cookies, if something isn't working right, you can use this to print all of the cookies on the browser: 
+```{R, eval=F}
+print_r($_COOKIE);
+```
+
+### Redirecting 
+```{R, eval=F}
+header("Location: home.php");
+```
+
+### SQL Injection
+If you are using a SQL databases, try using something like this to prevent SQL injection: 
+```{R, eval=F}
+real_escape_string($sql_query_var);
+```
+
+# Processing (Graphics)
+Trying to draw something in Processing and having a hard time visualizing things? Use something like this to find the position of your mouse: 
+```{R, eval=F}
+text("x:"+mouseX+"y:"+mouseY, mouseX, mouseY);
+```
+
+## SVG
+Downloaded an SVG? Trying to find the center after loading into Processing (I _totally_ haven't spent a ridiculous amount of time on that before...) ? The below function isn't just for basic shapes like rectangles, ellipses, etc!
+```{R, eval=F}
+shapeMode(CENTER);
+```
+
+Want to change the color of your SVG? Try something like this before using fill, etc. : 
+```{R, eval=F}
+flame=loadShape("flame.svg");
+flame.disableStyle();
+fill(255,129,3);
+```
+
+## Sprites
+Trying to find sprites? You may have some luck at [opengameart](https://opengameart.org/). 
