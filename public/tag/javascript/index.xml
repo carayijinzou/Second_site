@@ -5,12 +5,47 @@
     <link>/tag/javascript/</link>
       <atom:link href="/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
     <description>Javascript</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 10 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Javascript</title>
       <link>/tag/javascript/</link>
     </image>
+    
+    <item>
+      <title>Piggi</title>
+      <link>/project/piggi/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>/project/piggi/</guid>
+      <description>
+
+
+&lt;p&gt;This was my very first hackathon and it was so much fun! We only used HTML,CSS, and javascript so a lot of the stuff was just for demo (no backend). To see the entire project, here’s the &lt;a href=&#34;https://devpost.com/software/piggi&#34;&gt;devpost page&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;child-view-of-missions-page&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Child view of missions page:&lt;/h2&gt;
+&lt;p&gt;One of the pages that I worked on was the missions page where parent could send “missions” to their children. Once complete and confirmed by the parent, the child would be rewarded and could put this money towards a specified goal, paying back any borrowed money, etc.&lt;/p&gt;
+&lt;iframe src=&#34;missions.html&#34; allowfullscreen style=&#34;height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div id=&#34;parent-view-of-missions-page&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Parent view of missions page:&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;As a reminder, since there’s no backend database or php, the actions done on these pages aren’t connected. For example, if a child sends a completed mission, it doesn’t pop up on the parent’s side (yet). &lt;/strong&gt;&lt;/p&gt;
+&lt;iframe src=&#34;missions_parent.html&#34; allowfullscreen style=&#34;height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div id=&#34;child-view-of-borrow-and-payback-page&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Child view of borrow and payback page:&lt;/h2&gt;
+&lt;p&gt;I also worked on the borrow and payback pages for the website. This allowed children to borrow money from their parent which had to be paid back by a specified due date. If they are late, they must then pay a late fee.&lt;/p&gt;
+&lt;iframe src=&#34;borrow_payback.html&#34; allowfullscreen style=&#34;height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div id=&#34;parent-view-of-borrow-and-payback-page&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Parent view of borrow and payback page:&lt;/h2&gt;
+&lt;iframe src=&#34;borrow_payback_parent.html&#34; allowfullscreen style=&#34;height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Programming Cheatsheet</title>
@@ -668,18 +703,6 @@ fill(255,129,3);&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Trying to find sprites? You may have some luck at &lt;a href=&#34;https://opengameart.org/&#34;&gt;opengameart&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Piggi</title>
-      <link>/project/piggi/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/project/piggi/</guid>
-      <description>
-
-
-
 </description>
     </item>
     

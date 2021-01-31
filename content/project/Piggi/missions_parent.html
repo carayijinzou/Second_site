@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Piggi Missions</title>
+    <link rel="stylesheet" href="missions_parent.css">
+    <script src="missions_parent.js" defer></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  </head>
+	<body>
+	<div id="page_container">
+        <div id="content_wrap">
+
+  <div id="top">
+    <a href= ""> <img src="Group 1.png" id="logo" alt="piggi logo"></a> 
+
+    <button  id="home"> Home</button>
+    
+  </div>
+
+<div class="flex-grid">
+
+  <div class="col" id="mission_control"> 
+    <div class = "col" id = "title">
+    <h1> MISSION <br> CONTROL <br> CENTER </h1>
+  </div>
+  <div class = "col" id = "submitted"> 
+    <h2> Submitted Missions </h2>
+      <div class = "missions" id="sub1">
+    <p class="money col" > $10 </p>
+    <p class="task col" > Vacuum the house </p>
+   </div>
+
+  </div>
+  </div>
+
+
+  <div class="col" id = "weekly_missions">
+    <h2> Regular Missions </h2>
+    <div class = "missions" id="reg2">
+    <p class="money"> $20 </p>
+    <p class="task"> Wash the dishes for 2 weeks </p>
+   </div>
+    
+    <div class = "missions" id="reg3">
+    <p class="money"> $5 </p>
+    <p class="task"> Clean the cat litter </p>
+   </div>
+
+    <div class = "missions" id="reg4">
+    <p class="money"> $10 </p>
+    <p class="task"> Shovel the snow </p>
+   </div>
+
+    <div class = "missions" id="hidden1" style="display:none">
+    <p class="money" > $10 </p>
+    <p class="task" > Vacuum the house </p>
+   </div>
+
+    <div class = "missions" id="hidden2" style="display:none">
+    <p class="money" id="hidemoney"> N/A  </p>
+    <p class="task" id= "hidetask"> N/A </p>
+   </div>
+
+  </div>
+  <div class="col" id = "special_missions">
+    <h2> Special Missions </h2>
+    <div class = "missions" id = "spec1">
+    <p class="money"> $100 </p>
+    <p class="task"> Get Straight A's on your report card</p>
+   </div>
+
+    <div class = "missions" id="spec2">
+    <p class="money"> $30 </p>
+    <p class="task"> Read 5 new books </p>
+   </div>
+
+    <div class = "missions" id = "spec3">
+    <p class="money"> $40 </p>
+    <p class="task"> Learn a new skill! </p>
+   </div>
+  </div>
+
+<div class="col" id="new_mission">
+<div class="col" id="empty">
+</div>
+<div class ="col">
+  <button id="new"> NEW MISSION </button>
+</div>
+</div>
+
+</div>
+
+
+<!-- Modal 1-->
+<div id="modal1" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p class="green"> $10 </p>
+    <div class="modal_main">
+    <h3> Vacuum the house </h3>
+    <p class="duedate"> Due date: 01/10/2021 </p>
+    </div>
+    <br>
+
+    <div class="center">
+    <button id="complete"> Completed </button> <button id="incomplete"> Incomplete </button>
+    <br>
+  </div>
+  </div>
+</div>
+
+
+<!-- New Mission Modal -->
+<div id="modal2" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id="new_modal">
+    <span class="close">&times;</span>
+    <div class="modal_main">
+    <h3 id="new_title"> NEW MISSION </h3>
+    </div>
+    <br>
+    <form method = "POST">
+    <table class="center">
+
+    <tr>
+      <td><label for= "title"> Title:  </label></td>
+      <td><input type = "text"  size = "20" name = "title" id="title_id"> </td>
+    </tr>
+    <tr>
+      <td><label for= "reward"> Reward: </label></td>
+      <td><input type = "text"  size = "20" name = "reward" id = "reward" placeholder="$"> </td>
+    </tr>
+    <tr>
+      <td><label for= "misdate"> Due Date: </label></td>
+      <td><input type = "text"  size = "20" name = "misdate" id = "misdate" placeholder="MMDDYY"> </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p style="text-align:left" id="descr"> Description: </p>
+        <textarea name = "comments" id = "comments" placeholder = "Enter comments here" rows = "6" cols = "50"> </textarea>
+      </td>
+    </tr>
+    </table>
+    </form>
+    <div class="center">
+    <button id="send"> Send Mission </button> 
+    <br>
+  </div>
+  </div>
+</div>
+
+
+  
+ </div>
+	</div>
+	</body>
+</html>

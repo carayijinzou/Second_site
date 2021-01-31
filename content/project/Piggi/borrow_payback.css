@@ -1,0 +1,189 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	--pink--: #FE4D9F;
+	--lightblue--: #8BE9F0;
+	--yellow--: #FECE76;
+	--salmon--: #FF7E8C;
+	--darkblue--: #5A95CE;
+}
+
+body {
+	font-family: 'Baloo 2', cursive;
+	background-color: #FFF8E7;
+}
+ 
+#page_container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#logo {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+#top {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+}
+
+#home {
+	font-size: 25px;
+	display: inline-block;
+	padding: 8px 15px;
+	border-radius: 12px;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-weight: 300;
+	background-color: var(--yellow--);
+	font-family: 'Baloo 2', cursive;
+	color: black;
+	text-align: center;
+	transition: all 0.2s;
+	outline:none;
+	border: none;
+	float: right;
+	margin-right: 100px;
+	width: 140px;
+}
+
+#home:before {
+  content: '';
+  background: url('home.png');
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right:5px;
+}
+
+
+#content_wrap {
+	padding-bottom: 3rem;
+}
+
+
+.flex-grid {
+  display: flex;
+  margin-top: 9rem;
+  margin-right: 3rem;
+  margin-left: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family: 'Baloo 2', cursive;
+}
+.col {
+  padding:2rem;
+  box-sizing: border-box;
+}
+
+.pink {
+	color:var(--pink--);
+}
+
+#borrowed {
+	width:100%;
+	margin:1rem;
+	background-color:var(--lightblue--);
+	color:black;
+	border-radius: 12px;
+}
+
+#borrowed h1{
+	color: var(--pink--);
+	font-family: 'Baloo 2', cursive;
+}
+
+#borrowed p{
+	font-size:150%;
+}
+
+
+#borrowed2 {
+	float:left;
+	width:40%;
+	margin-left:100px;
+	font-size:120%;
+}
+
+#borrowed3 {
+	float:right;
+	width:30%;
+	text-align:center;
+}
+
+#payback {
+	flex:2;
+  	background-color:var(--salmon--);
+	color:black;
+	border-radius: 12px;
+	padding: 1rem;
+	margin: 1rem;
+}
+
+#payback h1, #borrow h1 {
+	color:white;
+	font-family: 'Baloo 2', cursive;
+}
+
+#payback p, #borrow p {
+	color:black;
+	font-family: 'Baloo 2', cursive;
+	font-size:20px;
+}
+
+#borrow {
+  	background-color:var(--yellow--);
+	color:black;
+	border-radius: 12px;
+	margin: 1rem;
+	padding: 1rem;
+	flex:1;
+	
+}
+
+#bank {
+	margin: 20px;
+	width:15%;
+	float:left;
+}
+
+.redthings {
+	color:#e2422d;
+}
+
+#circle {
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  color: #e2422d;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+input[type=text] {
+	background-color:lightgrey;
+	height:25px;
+}
+
+#labelprogress {
+	color:black;
+}
+
+#progress-data {
+	column-width:350px;
+}

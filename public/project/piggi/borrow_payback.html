@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Piggi Borrow and Payback</title>
+    <link rel="stylesheet" href="borrow_payback.css">
+    <script src="borrow_payback.html.js" defer></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+  </head>
+	<body>
+	<div id="page_container">
+        <div id="content_wrap">
+
+  <div id="top">
+    <a href= ""> <img src="Group 1.png" id="logo" alt="piggi logo"></a> 
+    <button id="home"> Home</button>
+  </div>
+
+
+<div class="flex-grid">
+
+  <!-- BORROWED MONEY --> 
+  <div class="col" id="borrowed">
+    <h1> BORROWED MONEY </h1>
+    <img src="bank.png" id="bank" alt="hand holding bag of money">
+
+    <div id = "borrowed2">
+      
+    <p> You have borrowed <span class="pink"> $30 </span>.</p>
+    <p> You have paid back <span class ="pink" id="paidback"> $20 </span>.</p><br> 
+
+  <!-- PROGRESS BAR --> 
+
+
+  <table>
+    <tr> 
+      <td id="progress-data"> 
+  <div class="progress-custom">
+    <div class="w3-light-grey w3-round-xlarge" id="progress">
+      <div class="w3-container w3-round-xlarge w3-green" style="height:15px;width:66%;" id="progress-bar"> </div>
+    </div>
+  </div>
+</td>
+<td id="label_progress"> $10 </td>
+</tr>
+</table>
+  
+
+    <br> <p id="almost"> Almost there, Anna! </p>
+    </div>
+
+    <div id = "borrowed3">
+    <button disabled id="circle"> 
+      <br><p>DUE DATE:</p>
+      <p> 01/20/2021 </p>
+      <br>
+  </button>
+
+
+    <span class="redthings">
+      <br>
+      <p> $10 late fee for each week late </p>
+    </span>
+
+    </div>
+
+  </div>
+
+
+<!-- PAYBACK --> 
+
+  <div class="col" id="payback">
+    <h1> PAY BACK </h1> 
+
+    <p> Please enter how much money you would like to pay back:<p>
+    $ <input type = "text"  size = "20" name = "payinput" id = "payinput"> 
+
+    <p> Pay by <span class="redthings"> 01/20/2021 </span> to avoid the late fee of <span class="redthings"> $10 </span> for each week the payment is late! </p>
+  </div>
+
+
+<!-- BORROW --> 
+  <div class="col" id="borrow">
+    <h1> BORROW </h1>
+
+    <p> Sorry! You can not borrow money until you pay back the money you owe </p>
+  </div>
+</div>
+
+  
+</div>
+  
+ </div>
+
+	</body>
+
+    <script> 
+    // Get the input field
+var input = document.getElementById("payinput");
+var total=20;
+var needed =10;
+var paidback=20;
+
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    var input = document.getElementById("payinput").value;
+    width = (parseInt(input)+total)/30;
+    total += parseInt(input);
+    paidback+=parseInt(input);
+    needed -= parseInt(input);
+    console.log(width);
+    if (width > 1){
+      width =1;
+    }
+
+    var paidbacknow=document.getElementById("paidback");
+    paidbacknow.innerHTML="$"+paidback;
+    if (needed <=0){
+      needed =0;
+      var almost = document.getElementById("almost");
+      almost.innerHTML="Great Job, Anna!";
+    }
+    width_p = (width *100) + "%";
+
+    var progress = document.getElementById("progress-bar");
+    progress.style.width = width_p;
+
+    var label = document.getElementById("label_progress");
+    label.innerHTML = "$" + needed;
+
+  }
+});
+
+  </script>
+</html>

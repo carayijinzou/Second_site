@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Piggi Borrow and Payback</title>
+    <link rel="stylesheet" href="borrow_payback_parent.css">
+    <script src="borrow_payback_parent.js" defer></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+  </head>
+	<body>
+	<div id="page_container">
+        <div id="content_wrap">
+
+  <div id="top">
+    <a href= ""> <img src="Group 1.png" id="logo" alt="piggi logo"></a> 
+    <button id="home"> Home</button>
+  </div>
+
+
+<div class="flex-grid">
+
+  <!-- BORROWED MONEY --> 
+  <div class="col" id="borrowed">
+    <h1> BORROWED MONEY </h1>
+    <img src="bank.png" id="bank" alt="hand holding bag of money">
+
+    <div id = "borrowed2">
+      
+    <p> Anna has borrowed <span class="pink"> $30 </span>.</p>
+    <p> Anna has paid back <span class ="pink"> $20 </span>.</p><br> 
+
+  <!-- PROGRESS BAR --> 
+  <table>
+    <tr> 
+      <td id="progress-data"> 
+  <div class="progress-custom">
+    <div class="w3-light-grey w3-round-xlarge" id="progress">
+      <div class="w3-container w3-round-xlarge w3-green" style="height:15px;width:66%;"> <span id="labelprogress"> </span></div>
+    </div>
+  </div>
+</td>
+<td> $10 </td>
+</tr>
+</table>
+
+
+    <br> <p>  </p>
+    </div>
+
+    <div id = "borrowed3">
+    <button disabled id="circle"> 
+      <br><p>DUE DATE:</p>
+      <p id="reddate"> 01/20/2021 </p>
+      <br>
+  </button>
+
+
+    <span class="redthings">
+      <br>
+      <p> $<span id="latefee">10 </span> late fee for each <span id="new_freq"> week</span> late </p>
+    </span>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="col" id="edit">
+    <button id="edit_button"> EDIT </button>
+</div>
+
+  
+</div>
+  
+ </div>
+
+
+<!-- New Mission Modal -->
+<div id="modal1" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id="modal">
+    <span class="close">&times;</span>
+    <div class="modal_main">
+    <h3 id="new_title"> EDIT CURRENT LOAN </h3>
+    <img src="bank.png" id="bank2" alt="hand holding bag of money">
+    </div>
+    <br>
+    <table class="center" id="edit_form">
+    <tr colspan="2">
+      <td> Current Due Date:</td>
+      <td class="redthings"> 01/20/2021 </td>
+    </tr>
+    <tr>
+      <td><label for= "new_date"> New Due Date:  </label> </td>
+      <td><input type = "text"  size = "15" name = "new_date" id="new_date"> </td>
+    </tr>
+    <tr>
+      <td colspan="2">  <br> </td>
+    </tr>
+    <tr>
+      <td> Current Late Fee:</td>
+      <td class="redthings"> $10/week</td> 
+    </tr>
+    <tr>
+      <td><label for= "new_fee"> New Fee Amount: </label></td>
+      <td> $<input type = "text"  size = "14" name = "new_fee" id = "new_fee"> </td>
+    </tr>
+    <tr>
+      <td><label for= "misdate"> New Fee Frequency: </label> </td>
+      <td> <button id="send" class="frequency" id="daily"> Daily </button> <button id="send" class="frequency" id="weekly"> Weekly </button> </td>
+    </tr>
+    </table>
+    <br><br><br><br>
+  </div>
+</div>
+
+
+
+	</body>
+</html>

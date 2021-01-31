@@ -1,12 +1,9 @@
 ---
 title: Piggi
-date: '2021-1-10'
+date: '2021-01-10'
 tags: ["Web Development", "HTML","Javascript","CSS", "Other"]
 categories: ["Web Development"]
 summary: Introducing Piggi, the web app designed to introduce and build upon the skills and concepts of financial literacy for young girls.
-
-# Optional external URL for project (replaces project detail page).
-external_link: "https://devpost.com/software/piggi"
 
 image:
   caption: Piggi logo
@@ -14,3 +11,33 @@ image:
   focal_point: "Bottom"
 
 ---
+This was my very first hackathon and it was so much fun! We only used HTML,CSS, and javascript so a lot of the stuff was just for demo (no backend). To see the entire project, here's the [devpost page](https://devpost.com/software/piggi).
+
+## Child view of missions page: 
+
+One of the pages that I worked on was the missions page where parent could send "missions" to their children. Once complete and confirmed by the parent, the child would be rewarded and could put this money towards a specified goal, paying back any borrowed money, etc.
+
+<iframe src="missions.html" allowfullscreen style="height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;" >
+</iframe>
+
+## Parent view of missions page: 
+
+**As a reminder, since there's no backend database or php, the actions done on these pages aren't connected. For example, if a child sends a completed mission, it doesn't pop up on the parent's side (yet). **
+
+<iframe src="missions_parent.html" allowfullscreen style="height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;" >
+</iframe>
+
+
+## Child view of borrow and payback page: 
+
+I also worked on the borrow and payback pages for the website. This allowed children to borrow money from their parent which had to be paid back by a specified due date. If they are late, they must then pay a late fee. 
+
+<iframe src="borrow_payback.html" allowfullscreen style="height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;" >
+</iframe>
+
+
+## Parent view of borrow and payback page: 
+
+<iframe src="borrow_payback_parent.html" allowfullscreen style="height:800px; width: 90vw; position:relative; left:50%; right:50%; margin-left:-45vw; margin-right:-45vw;" >
+</iframe>
+
