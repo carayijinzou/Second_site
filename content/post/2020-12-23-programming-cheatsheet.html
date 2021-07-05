@@ -10,26 +10,32 @@ output:
     toc: true
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#unixlinux-bash">Unix/Linux (Bash)</a><ul>
+<li><a href="#unixlinux-bash">Unix/Linux (Bash)</a>
+<ul>
 <li><a href="#change-permissions">Change Permissions</a></li>
 <li><a href="#need-to-kill-a-process">Need to kill a process?</a></li>
 <li><a href="#bash-script">Bash Script</a></li>
 </ul></li>
 <li><a href="#r-vs-python">R vs Python</a></li>
-<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a><ul>
+<li><a href="#working-with-data-in-files-or-websites">Working with data in files or websites</a>
+<ul>
 <li><a href="#reading-files">Reading files</a></li>
 <li><a href="#reading-websites-with-python">Reading websites with Python</a></li>
 </ul></li>
-<li><a href="#regex-using-python">Regex using Python</a><ul>
+<li><a href="#regex-using-python">Regex using Python</a>
+<ul>
 <li><a href="#basics-of-regex">Basics of Regex</a></li>
 <li><a href="#groups">Groups</a></li>
 <li><a href="#making-your-own-character-class">Making your own Character Class</a></li>
 </ul></li>
-<li><a href="#web-programming">Web Programming</a><ul>
-<li><a href="#htmlcss">HTML/CSS</a><ul>
+<li><a href="#web-programming">Web Programming</a>
+<ul>
+<li><a href="#htmlcss">HTML/CSS</a>
+<ul>
 <li><a href="#button-into-a-link">Button into a link</a></li>
 <li><a href="#centering">Centering</a></li>
 <li><a href="#flex">Flex</a></li>
@@ -37,11 +43,13 @@ output:
 <li><a href="#colors">Colors</a></li>
 <li><a href="#css-changes-not-showing-up">CSS Changes not showing up ?</a></li>
 </ul></li>
-<li><a href="#javascript">Javascript</a><ul>
+<li><a href="#javascript">Javascript</a>
+<ul>
 <li><a href="#dynamic-html">Dynamic HTML</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul></li>
-<li><a href="#php">PHP</a><ul>
+<li><a href="#php">PHP</a>
+<ul>
 <li><a href="#basics">Basics</a></li>
 <li><a href="#troubleshooting-1">Troubleshooting</a></li>
 <li><a href="#cookies">COOKIES</a></li>
@@ -49,7 +57,8 @@ output:
 <li><a href="#sql-injection">SQL Injection</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#processing-graphics">Processing (Graphics)</a><ul>
+<li><a href="#processing-graphics">Processing (Graphics)</a>
+<ul>
 <li><a href="#svg">SVG</a></li>
 <li><a href="#sprites">Sprites</a></li>
 </ul></li>
@@ -329,7 +338,7 @@ The most useful permissions for websites in my experience (you can rwx but every
 </tr>
 <tr class="even">
 <td>“str”+“ing”</td>
-<td>paste0(“str”,“ing”, &quot;&quot;)</td>
+<td>paste0(“str”,“ing”, "")</td>
 </tr>
 <tr class="odd">
 <td>myList=[1,2]</td>
@@ -498,7 +507,7 @@ geneMatch.group()</code></pre>
 <div id="button-into-a-link" class="section level3">
 <h3>Button into a link</h3>
 <p>Trying to turn a button into a link? Try something like this:</p>
-<pre class="html"><code>&lt;button onclick=&quot;window.location.href=&#39;home.html&#39;&quot; id=&quot;home&quot;&gt; Home&lt;/button&gt;</code></pre>
+<pre class="r"><code>&lt;button onclick=&quot;window.location.href=&#39;home.html&#39;&quot; id=&quot;home&quot;&gt; Home&lt;/button&gt;</code></pre>
 </div>
 <div id="centering" class="section level3">
 <h3>Centering</h3>
@@ -592,7 +601,7 @@ margin-left:auto;</code></pre>
 <p><strong>Quotes</strong></p>
 <ul>
 <li><p>if you use single quotes ’’, this is exactly what you want</p></li>
-<li><p>if you use double quotes &quot; &quot;, this might have variables, etc.</p></li>
+<li><p>if you use double quotes " ", this might have variables, etc.</p></li>
 </ul>
 <p><strong>Printing more than one line</strong></p>
 <p>Using an identifier (it’s named <strong>END</strong> in the below chunk of code), you can print something that has more lines. The very last line is VERY important for this to work. It must not have any indentation before (even if you have everything nicely indented to make things neat, sadly there can be no indentation before the indentifier). Also, nothing should be between the indentifier and the semicolon.</p>
