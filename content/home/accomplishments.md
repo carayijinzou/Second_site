@@ -31,7 +31,7 @@ date_format = "Jan 2006"
 [[item]]
   organization = "UT Austin"
   organization_url = ""
-  title = "2020 Distinguished College Scholar of UT Austin"
+  title = "2020 and 2021 Distinguished College Scholar of UT Austin"
   url = ""
   certificate_url = ""
   date_start = "2020-04-04"

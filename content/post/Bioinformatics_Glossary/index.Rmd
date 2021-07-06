@@ -30,7 +30,7 @@ Canonical transcript: ENST00000361487.6
 
 
 ### GRCh 37 
-Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first trying to find data on my gene. **GRCh37** stands for Genome Reference Consortium Human Build 37 and is generally synonymous with **hg19**. Similarly, **hg38** can also be used to refer to the same genome build as **GRCh38**. 
+Before going into what all of these sequences are, first of all, what is GRCh37? I kept coming across this when I first tried to find data on my gene. **GRCh37** stands for Genome Reference Consortium Human Build 37 and is generally synonymous with **hg19**. Similarly, **hg38** can also be used to refer to the same genome build as **GRCh38**. 
 
 What is the difference between GRCh37 and GRCh38? GRCh38 was released after GRCh37 and has more updated annotations. Luckily, various tools such as from [NCBI]](https://www.ncbi.nlm.nih.gov/genome/tools/remap) or [Ensembl](https://www.ncbi.nlm.nih.gov/genome/tools/remap) can be used for converting annotations. 
 

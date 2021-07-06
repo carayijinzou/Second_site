@@ -18,6 +18,16 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+  title = "Application Development Internship"
+  location = "Remote"
+  date_start = "2021-03-01"
+  date_end = "2019-05-30"
+  description = """
+  Responsibilities include:
+  
+  * Worked with company founders to plan, model, and create web and mobile apps using Wordpress, Airtable, and Zapier. 
+  """
+[[experience]]
   title = "Undergraduate Research Mentor"
   company = "College of Natural Science TIDES/FRI- Virtual Drug Screening"
   company_url = "https://sites.google.com/site/vdsstream/"
@@ -30,7 +40,7 @@ date_format = "Jan 2006"
   * Demonstrated lab techniques, ensured lab safety, and aided the development of new researchers
   * Organized and led weekly team meetings with students to discuss key concepts and provide guidance
   * TA for PyMOL workshop for graduate students, postdoctoral researchers, and faculty. Facilitated discussion in break out rooms over Zoom for intermediate and advanced PyMOL skills.
-  * Lead summer 2020 mentor with additional tasks including writing protocols, helping plan the weekly agenda, leading journal article reading discussions, and scheduling mentors and students
+  * Lead summer 2020 mentor with additional tasks including writing protocols, leading journal article reading discussions, and scheduling mentors and students
   """
   
   [[experience]]

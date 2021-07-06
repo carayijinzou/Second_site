@@ -111,6 +111,12 @@ The most useful permissions for websites in my experience (you can rwx but every
 
 3) doesn't work? type: kill -9 PID
 
+## Want to run a python or R script from the command line? 
+
+| python                 | R                       |
+|------------------------|-------------------------|
+| python3 file_name.py   | R CMD BATCH file_name.R |
+
 
 ## Bash Script
 A text file with commands. Anything you put in command line can be in a script and vice versa. Uses the **.sh** extension. 

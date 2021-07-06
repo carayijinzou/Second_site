@@ -1,8 +1,0 @@
-"0","# Cancer Variant"
-"0","cancer2 = cancer1 %>% mutate(gene_location = mutation_region(cancer1$Start.Pos))"
-"0","# Clinvar Variant"
-"0","clinvar2 = clinvar1 %>% mutate(gene_location = mutation_region(clinvar1$GRCh37Location))"
-"0","# GnomAD Variant"
-"0","gnomAD2 = gnomAD2 %>% mutate(gene_location = mutation_region(gnomAD2$Position))"
-"0",""
-"0",""

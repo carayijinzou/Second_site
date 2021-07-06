@@ -13,25 +13,18 @@ subtitle = ""
 # Add/remove as many `[[feature]]` blocks below as you like.
 # 
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
-
-[[feature]]
-  icon = "r-project"
-  icon_pack = "fab"
-  name = "R"
-  description = "tidyverse, ggplot2"
-  
-[[feature]]
-  icon = "chart-line"
-  icon_pack = "fas"
-  name = "Statistics"
-  description = ""  
-  
 [[feature]]
   icon = "python"
   icon_pack = "fab"
   name = "Python"
   description = ""
-
+  
+[[feature]]
+  icon = "r-project"
+  icon_pack = "fab"
+  name = "R"
+  description = "dplyr, ggplot2"
+ 
 [[feature]]
   icon = "globe"
   icon_pack = "fas"
@@ -39,10 +32,16 @@ subtitle = ""
   description = "HTML, CSS, JS, PHP, AJAX"
   
 [[feature]]
+  icon = "chart-line"
+  icon_pack = "fas"
+  name = "Data Visualization"
+  description = "Tableau, GraphPad Prism"  
+  
+[[feature]]
   icon = "image"
   icon_pack = "fas"
   name = "Graphics"
-  description = "Processing"
+  description = "Processing, Adobe Illustrator"
   
 # Uncomment to use emoji icons.
 # [[feature]]

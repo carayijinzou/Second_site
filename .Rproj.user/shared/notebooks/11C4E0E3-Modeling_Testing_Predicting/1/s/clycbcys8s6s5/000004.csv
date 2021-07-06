@@ -1,3 +1,0 @@
-"0",""
-"0","# Confirm normality of residuals"
-"0","qqnorm(fit1$residuals, main = ""QQ-plot of Model Residuals"")"

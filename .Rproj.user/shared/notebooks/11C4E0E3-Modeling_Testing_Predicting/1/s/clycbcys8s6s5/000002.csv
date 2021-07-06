@@ -1,2 +1,0 @@
-"0","#Linear relationship between each predictor and response (no scatterplot for region since it is categorical)"
-"0","ggplot(TB_Data, aes(x=GDP_c, y=TB_mort.100k_c,group=region))+geom_point(aes(color=region))"
