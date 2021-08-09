@@ -520,7 +520,7 @@ fill(255,129,3);
 Trying to find sprites? You may have some luck at [opengameart](https://opengameart.org/). 
 
 ## Trying to share your processing file? Use processing.js or p5js! 
-
+*Move your mouse to change the direction of the wind blowing. 
 <head> 
 	<script type = "text/javascript" src = "processing.js"></script>
 </head>
