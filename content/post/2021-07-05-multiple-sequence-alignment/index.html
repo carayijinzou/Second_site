@@ -1,0 +1,177 @@
+---
+title: "Multiple Sequence Alignment"
+author: "Cara Yijin Zou"
+date: '2021-07-05'
+draft: false
+tags: ["Bioinformatics", "Multiple Sequence Alignment", "Dental"]
+categories: ["Bioinformatics"]
+output: html_document
+summary: "How to do a multiple sequence alignment using the seqinr and msa package." 
+image:
+  placement: 1
+  caption: "DMP1 Multiple Sequence Alignment"
+  focal_point: "Center"
+  preview_only: true
+---  
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The method and database information was from following journal article: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/</a>.</p>
+<p>The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans.</p>
+<div id="read-in-fastas" class="section level2">
+<h2>Read in Fastas</h2>
+<pre class="r"><code>#read fasta
+library(seqinr)
+
+#multiple sequence alignment
+library(msa)</code></pre>
+<pre><code>## Loading required package: Biostrings</code></pre>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## 
+## Attaching package: &#39;BiocGenerics&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+##     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+##     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+##     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+##     union, unique, unsplit, which.max, which.min</code></pre>
+<pre><code>## Loading required package: S4Vectors</code></pre>
+<pre><code>## Loading required package: stats4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;S4Vectors&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     expand.grid, I, unname</code></pre>
+<pre><code>## Loading required package: IRanges</code></pre>
+<pre><code>## Loading required package: XVector</code></pre>
+<pre><code>## Loading required package: GenomeInfoDb</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Biostrings&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:seqinr&#39;:
+## 
+##     translate</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     strsplit</code></pre>
+<pre class="r"><code>#read in fasta using seqinr
+altai &lt;- read.fasta(&quot;Altai.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)
+
+vindija &lt;- read.fasta(&quot;Vindija.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)
+
+sidron &lt;- read.fasta(&quot;Sidron.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)</code></pre>
+</div>
+<div id="create-function-that-takes-the-gene-name-and-outputs-a-msa" class="section level2">
+<h2>Create function that takes the gene name and outputs a msa</h2>
+<pre class="r"><code>msa_maker&lt;- function(gene_name, ensg_num, hcg_fasta_name, combined_fasta_name){
+  #Part 1: Create a combined fasta
+  #Read in fasta with human, chimp, and gorilla 
+  hcg_fasta &lt;- read.fasta(hcg_fasta_name, seqtype=&quot;AA&quot;,as.string=TRUE,set.attributes = FALSE)
+  
+  #changed the original sequence names because they were too long and made the final msa look messy 
+  hcg_names &lt;- sapply(strsplit(names(hcg_fasta), &quot;|&quot;, fixed=TRUE),&quot;[[&quot;, 3)
+  #write into new combined fasta 
+  write.fasta(hcg_fasta, names=hcg_names,file.out = combined_fasta_name, open=&quot;w&quot;, as.string=TRUE)
+
+  #find the protein in the Neanderthal Data and write it into the combined fasta file 
+  #Altai
+  #sequence name in file is in the form of ENSGXXXX_ENSTXXXX, grep used to just search with the ENSG info
+  altai_index&lt;-grep(ensg_num,attributes(altai)$names)[[1]] 
+  altai_filtered&lt;- altai[altai_index]
+  #write into new combined fasta
+  write.fasta(paste(altai_filtered)[1], paste0(&quot;altai_&quot;,gene_name),file.out = combined_fasta_name, open=&quot;a&quot;, as.string=TRUE)
+  
+  #Vindija
+  vindija_index&lt;-grep(ensg_num,attributes(vindija)$names)[[1]]
+  vindija_filtered&lt;-vindija[vindija_index]
+  write.fasta(paste(vindija_filtered)[1], paste0(&quot;vindija_&quot;, gene_name),file.out = combined_fasta_name, open=&quot;a&quot;, as.string=TRUE)
+  
+  #Sidron
+  sidron_index&lt;-grep(ensg_num,attributes(sidron)$names)[[1]]
+  sidron_filtered&lt;-sidron[sidron_index]
+  write.fasta(paste(sidron_filtered)[1], paste0(&quot;sidron_&quot;, gene_name),file.out = combined_fasta_name, open=&quot;a&quot;, as.string=TRUE)
+  
+  
+  
+  #Part 2: align the sequences using multiple sequence alignment 
+  sequences &lt;- Biostrings::readAAStringSet(combined_fasta_name)
+  msa &lt;-msa::msa(
+  inputSeqs=sequences,
+  method = &quot;ClustalW&quot;
+)
+
+
+return(msa)
+}</code></pre>
+</div>
+<div id="function-that-helps-find-the-missense-variant-from-the-msa-object" class="section level2">
+<h2>Function that helps find the missense variant from the msa object</h2>
+<pre class="r"><code>#why is index of each sequence needed? The msa before can arrange the sequences not necessarily in the order inputted
+missense_finder&lt;-function(completed_msa,human_index, gorilla_index, chimp_index, altai_index, vindija_index, sidron_index){
+  
+  #convert the msa to another format so that I can work with it  
+  convert_msa &lt;- msaConvert(completed_msa,&quot;seqinr::alignment&quot;)
+  
+  missense_list&lt;-c()
+
+  #go through entire alignment 
+  for (i in 1:nchar(convert_msa$seq[1])){
+    
+    #if the human amino acid doesn&#39;t match the altai, add to the stored list 
+    if ((substr(convert_msa$seq[human_index],i,i)!=substr(convert_msa$seq[altai_index],i,i))&amp;&amp;(substr(convert_msa$seq[altai_index],i,i)!=&quot;X&quot;)&amp;&amp;(substr(convert_msa$seq[human_index],i,i)!=&quot;-&quot;)&amp;&amp;(substr(convert_msa$seq[altai_index],i,i)!=&quot;-&quot;)){
+      
+      #stored in the order human, gorilla, chimp, altai, vindija, sidron
+      amino_list&lt;-c(i,substr(convert_msa$seq[human_index],i,i),substr(convert_msa$seq[gorilla_index],i,i),substr(convert_msa$seq[chimp_index],i,i),substr(convert_msa$seq[altai_index],i,i),substr(convert_msa$seq[vindija_index],i,i),substr(convert_msa$seq[sidron_index],i,i))
+      missense_list=rbind(missense_list, amino_list)
+    }
+    
+    #if human amino acid doesn&#39;t match the vindija, add to the stored list 
+    else if ((substr(convert_msa$seq[human_index],i,i)!=substr(convert_msa$seq[vindija_index],i,i))&amp;&amp;(substr(convert_msa$seq[vindija_index],i,i)!=&quot;X&quot;)&amp;&amp;(substr(convert_msa$seq[human_index],i,i)!=&quot;-&quot;)&amp;&amp;(substr(convert_msa$seq[vindija_index],i,i)!=&quot;-&quot;)){
+      #stored in the order human, gorilla, chimp, altai, vindija, sidron
+      amino_list&lt;-c(i,substr(convert_msa$seq[human_index],i,i),substr(convert_msa$seq[gorilla_index],i,i),substr(convert_msa$seq[chimp_index],i,i),substr(convert_msa$seq[altai_index],i,i),substr(convert_msa$seq[vindija_index],i,i),substr(convert_msa$seq[sidron_index],i,i))
+      missense_list=rbind(missense_list, amino_list)
+      
+    }
+    
+        #if human amino acid doesn&#39;t match the sidron, add to the stored list 
+    else if ((substr(convert_msa$seq[human_index],i,i)!=substr(convert_msa$seq[sidron_index],i,i))&amp;&amp;(substr(convert_msa$seq[sidron_index],i,i)!=&quot;X&quot;)&amp;&amp;(substr(convert_msa$seq[human_index],i,i)!=&quot;-&quot;)&amp;&amp;(substr(convert_msa$seq[sidron_index],i,i)!=&quot;-&quot;)){
+      #stored in the order human, gorilla, chimp, altai, vindija, sidron
+      amino_list&lt;-c(i,substr(convert_msa$seq[human_index],i,i),substr(convert_msa$seq[gorilla_index],i,i),substr(convert_msa$seq[chimp_index],i,i),substr(convert_msa$seq[altai_index],i,i),substr(convert_msa$seq[vindija_index],i,i),substr(convert_msa$seq[sidron_index],i,i))
+      missense_list=rbind(missense_list, amino_list)
+    }
+    
+  }
+
+  colnames(missense_list)&lt;- c(&quot;position&quot;,&quot;human&quot;,&quot;gorilla&quot;,&quot;chimpanzee&quot;,&quot;altai&quot;,&quot;vindija&quot;, &quot;sidron&quot;)
+  return(missense_list)
+}</code></pre>
+</div>
+<div id="find-the-tooth-proteins" class="section level2">
+<h2>Find the tooth proteins</h2>
+<div id="dentin-matrix-acidic-phosphoprotein-1-dmp1" class="section level4">
+<h4>Dentin matrix acidic phosphoprotein 1 (DMP1)</h4>
+<div id="ensg00000152592" class="section level5">
+<h5>ENSG00000152592</h5>
+<pre class="r"><code>dmp1_msa&lt;-msa_maker(&quot;dmp1&quot;, &quot;ENSG00000152592&quot;, &quot;uniprot_dmp1.fasta&quot;, &quot;combined_dmp1.fasta&quot;)</code></pre>
+<pre><code>## use default substitution matrix</code></pre>
+<pre class="r"><code>#pretty print the aligned sequence in a pdf file using the following line
+#msaPrettyPrint(dmp1_msa,file=paste0(&quot;dmp1&quot;,&quot;.pdf&quot;),askForOverwrite=FALSE, showLogo=&quot;none&quot;,showConsensus = &quot;none&quot;)
+
+missense_finder(dmp1_msa, 3, 1, 2, 4, 5, 6)</code></pre>
+<pre><code>##            position human gorilla chimpanzee altai vindija sidron
+## amino_list &quot;483&quot;    &quot;N&quot;   &quot;N&quot;     &quot;N&quot;        &quot;T&quot;   &quot;T&quot;     &quot;X&quot;</code></pre>
+<p><img src="images/featured.png" /></p>
+</div>
+</div>
+</div>
