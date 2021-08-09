@@ -21,7 +21,7 @@ date_format = "Jan 2006"
   title = "Application Development Internship"
   location = "Remote"
   date_start = "2021-03-01"
-  date_end = "2019-05-30"
+  date_end = "2021-05-30"
   description = """
   Responsibilities include:
   
@@ -41,6 +41,16 @@ date_format = "Jan 2006"
   * Organized and led weekly team meetings with students to discuss key concepts and provide guidance
   * TA for PyMOL workshop for graduate students, postdoctoral researchers, and faculty. Facilitated discussion in break out rooms over Zoom for intermediate and advanced PyMOL skills.
   * Lead summer 2020 mentor with additional tasks including writing protocols, leading journal article reading discussions, and scheduling mentors and students
+  """
+  
+    [[experience]]
+  title = "Biochemistry (BCH369) PLUS Facillitator"
+  company = "Peer-Led Undergraduate Studying (PLUS)"
+  company_url = ""
+  location = "Austin, TX"
+  date_start = "2019-09-26"
+  date_end = "2019-12-20"
+  description = """Collaborated in a team to lead and promote discussion in study sessions and exam review sessions
   """
   
   [[experience]]

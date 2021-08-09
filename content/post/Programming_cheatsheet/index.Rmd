@@ -415,7 +415,7 @@ Are changes in CSS not showing up? This might be a browser cache issue, do a har
 
 ## Javascript 
 ### Dynamic HTML
-If you are using dynamic html, trying to access or change something in the HTMl is super common. For example: 
+If you are using dynamic html, trying to access or change something in the HTML is super common. For example: 
 ```{R, eval=F}
 test = document.getElementById("test_id").innerHTML
 ```
@@ -518,3 +518,111 @@ fill(255,129,3);
 
 ## Sprites
 Trying to find sprites? You may have some luck at [opengameart](https://opengameart.org/). 
+
+## Trying to share your processing file? Use processing.js or p5js! 
+
+<head> 
+	<script type = "text/javascript" src = "processing.js"></script>
+</head>
+
+<body>
+	<script type = "text/processing">
+class Bubble{
+    //initial position of bubble
+    float x,y;
+    float velocity_x, velocity_y;
+    float gravity;
+    float wind;
+    float mouse;
+    float size;
+    int time;
+
+    Bubble (float _x, float _y){
+    x = _x;
+    y= _y;
+    //bubbles explode to both sides but more to the left because bottle is tilted 
+    velocity_x= random (-10, 5);
+    //bubbles must come out from the top of the bubble
+    velocity_y= random (-30, 0);
+    //force gravity downwards
+    gravity = 4.0;
+    //wind direction determined by mouse 
+    wind = 0.01* (mouseX-x);
+    
+    //size of bubble determined randomly
+    size = random (2,12);
+    
+    //time starts at zero
+    time = 0;
+    
+  }
+    
+    void applyForces(){
+      //velocity in x direction affected by wind 
+      velocity_x+=wind;
+      //velocity in y direction affected by gravity 
+      velocity_y+=gravity;
+      
+      x+=velocity_x;
+      y+=velocity_y;
+      
+          }
+    
+    void display(){
+      noStroke();
+      //color of champagne
+      fill(247,231,206);
+      ellipse(x,y,size,size);
+      //turns into droplet as time goes on
+      triangle(x,y-(size*time/10), x+(size/2), y, x-(size/2), y);
+      //reflection of light in bubble (gives it a bit more of 3D look);
+      fill(255);
+      arc( x, y, 7, 7, -1*PI/4, 3*PI/4);
+      time++;
+
+    }
+}
+
+class Champagne {
+  float x,y;
+  ArrayList<Bubble> bubbles;
+  Champagne (float _x, float _y){
+    x = _x;
+    y= _y;
+    //fill array list with objects from particle class
+    bubbles = new ArrayList<Bubble>();
+  }
+
+  void display(){
+    //bub is one bubble in the bubbles array 
+    for (Bubble bub : bubbles){
+      bub.applyForces();
+      bub.display();
+    }
+  }
+  
+  void addBubble(){
+    bubbles.add(new Bubble(x-35,y-50));
+
+  }
+    
+}
+
+Champagne bottle1;
+
+
+void setup(){
+  size(500,500);  
+  bottle1 = new Champagne (450, 250);
+
+}
+
+void draw(){
+  background(100);
+  bottle1.addBubble();
+  bottle1.display();
+
+}
+	</script>
+	<canvas data-processing-sources="test.pde"></canvas>
+</body> 
