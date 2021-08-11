@@ -6,7 +6,7 @@ draft: false
 tags: ["Bioinformatics", "Multiple Sequence Alignment", "Dental"]
 categories: ["Bioinformatics"]
 output: html_document
-summary: "How to do a multiple sequence alignment using the seqinr and msa package." 
+summary: "Finding missense variants that help explain the differences in dentition in Neanderthals and modern humans using a multiple sequence alignment (R seqinr and msa package)." 
 image:
   placement: 1
   caption: "DMP1 Multiple Sequence Alignment"
@@ -17,8 +17,7 @@ image:
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>The method and database information was from following journal article: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/</a>.</p>
-<p>The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans.</p>
+<p>The method and database information was from following journal article: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/</a>. The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans. This was an attempt to recreate/speculate what was done for the research paper to obtain their results.</p>
 <div id="read-in-fastas" class="section level2">
 <h2>Read in Fastas</h2>
 <pre class="r"><code>#read fasta
@@ -74,6 +73,15 @@ sidron &lt;- read.fasta(&quot;Sidron.txt&quot;, seqtype=&quot;AA&quot;,as.string
 </div>
 <div id="create-function-that-takes-the-gene-name-and-outputs-a-msa" class="section level2">
 <h2>Create function that takes the gene name and outputs a msa</h2>
+<div id="part-1-create-a-combined-fasta" class="section level3">
+<h3>Part 1: Create a combined fasta</h3>
+<ul>
+<li>Human, gorilla, and chimpanzee protein sequences were from the uniprot database</li>
+<li>Neanderthal protein sequences were obtained from a database listed in the journal article</li>
+</ul>
+</div>
+<div id="part-2-align-the-sequences-from-the-combined-fasta-using-the-msa-package" class="section level3">
+<h3>Part 2: Align the sequences from the combined fasta using the msa package</h3>
 <pre class="r"><code>msa_maker&lt;- function(gene_name, ensg_num, hcg_fasta_name, combined_fasta_name){
   #Part 1: Create a combined fasta
   #Read in fasta with human, chimp, and gorilla 
@@ -114,6 +122,7 @@ sidron &lt;- read.fasta(&quot;Sidron.txt&quot;, seqtype=&quot;AA&quot;,as.string
 
 return(msa)
 }</code></pre>
+</div>
 </div>
 <div id="function-that-helps-find-the-missense-variant-from-the-msa-object" class="section level2">
 <h2>Function that helps find the missense variant from the msa object</h2>
@@ -157,8 +166,8 @@ missense_finder&lt;-function(completed_msa,human_index, gorilla_index, chimp_ind
   return(missense_list)
 }</code></pre>
 </div>
-<div id="find-the-tooth-proteins" class="section level2">
-<h2>Find the tooth proteins</h2>
+<div id="find-the-tooth-proteins-example" class="section level2">
+<h2>Find the tooth proteins: Example</h2>
 <div id="dentin-matrix-acidic-phosphoprotein-1-dmp1" class="section level4">
 <h4>Dentin matrix acidic phosphoprotein 1 (DMP1)</h4>
 <div id="ensg00000152592" class="section level5">

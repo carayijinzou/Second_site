@@ -6,7 +6,7 @@ draft: false
 tags: ["Bioinformatics", "Multiple Sequence Alignment", "Dental"]
 categories: ["Bioinformatics"]
 output: html_document
-summary: "How to do a multiple sequence alignment using the seqinr and msa package." 
+summary: "Finding missense variants that help explain the differences in dentition in Neanderthals and modern humans using a multiple sequence alignment (R seqinr and msa package)." 
 image:
   placement: 1
   caption: "DMP1 Multiple Sequence Alignment"
@@ -18,9 +18,7 @@ image:
 knitr::opts_chunk$set(echo = TRUE)
 ```
  
-The method and database information was from following journal article: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/. 
-
-The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans. 
+The method and database information was from following journal article: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/. The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans. This was an attempt to recreate/speculate what was done for the research paper to obtain their results. 
 
 
 ## Read in Fastas
@@ -41,6 +39,12 @@ sidron <- read.fasta("Sidron.txt", seqtype="AA",as.string=TRUE)
 ```
 
 ## Create function that takes the gene name and outputs a msa
+### Part 1: Create a combined fasta
+* Human, gorilla, and chimpanzee protein sequences were from the uniprot database
+* Neanderthal protein sequences were obtained from a database listed in the journal article
+
+### Part 2: Align the sequences from the combined fasta using the msa package
+
 ```{R}
 msa_maker<- function(gene_name, ensg_num, hcg_fasta_name, combined_fasta_name){
   #Part 1: Create a combined fasta
@@ -132,7 +136,7 @@ missense_finder<-function(completed_msa,human_index, gorilla_index, chimp_index,
 ```
   
 
-## Find the tooth proteins
+## Find the tooth proteins: Example 
 
 #### Dentin matrix acidic phosphoprotein 1 (DMP1) 
 ##### ENSG00000152592 
