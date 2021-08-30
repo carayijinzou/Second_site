@@ -21,8 +21,9 @@ knitr::opts_chunk$set(echo = TRUE)
 The method and database information was from following journal article: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/. The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans. This was an attempt to recreate/speculate what was done for the research paper to obtain their results. 
 
 
-## Read in Fastas
-```{R}
+## Read in the Fastas
+The function read.fasta() from the R package ‘seqinr’ was used to read in protein sequence FASTA files. 
+```{R, message = FALSE}
 #read fasta
 library(seqinr)
 
@@ -38,12 +39,13 @@ sidron <- read.fasta("Sidron.txt", seqtype="AA",as.string=TRUE)
 
 ```
 
-## Create function that takes the gene name and outputs a msa
-### Part 1: Create a combined fasta
-* Human, gorilla, and chimpanzee protein sequences were from the uniprot database
-* Neanderthal protein sequences were obtained from a database listed in the journal article
+## Create a function that takes the gene name and outputs a msa
+### Part 1: Create a combined fasta using write.fasta
+* The reference FASTA files for human, chimpanzee (_Pan troglodytes_), and gorilla (_Gorilla gorilla_) protein sequences were obtained from UniProt
+* Neanderthal data including Altai pedal phalanx (Altai Mountain Cave, Siberia) and bone fragments of SD1253 (El Sidron cave, Spain) and Vi33.15 (Vindija cave, Croatia) were obtained from the Max Planck Institute for Evolutionary Anthropology: http://cdna.eva.mpg.de/neandertal/exomes/ 
 
 ### Part 2: Align the sequences from the combined fasta using the msa package
+The ClustalW algorithm was used for the multiple sequence alignment with a BLOSUM matrix. The msaPrettyPrint() function was used to print the sequence in a more readable manner
 
 ```{R}
 msa_maker<- function(gene_name, ensg_num, hcg_fasta_name, combined_fasta_name){
@@ -89,7 +91,8 @@ return(msa)
 
 ```
 
-## Function that helps find the missense variant from the msa object 
+## Function that helps find the missense variant from the msa object
+Additional computations in R were used to find the positions of missense variants excluding any that were the result of X’s in the sequence.
 ```{R}
 #why is index of each sequence needed? The msa before can arrange the sequences not necessarily in the order inputted
 missense_finder<-function(completed_msa,human_index, gorilla_index, chimp_index, altai_index, vindija_index, sidron_index){
@@ -138,8 +141,7 @@ missense_finder<-function(completed_msa,human_index, gorilla_index, chimp_index,
 
 ## Find the tooth proteins: Example 
 
-#### Dentin matrix acidic phosphoprotein 1 (DMP1) 
-##### ENSG00000152592 
+#### Dentin matrix acidic phosphoprotein 1 (DMP1): ENSG00000152592 
 
 ```{R}
 

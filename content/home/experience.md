@@ -18,6 +18,16 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+  title = "UTSD Summer Research Program"
+  location = "Houston"
+  date_start = "2021-06-01"
+  date_end = "2021-07-30"
+  description = """
+  
+  * Digital image analysis of 3D structures for salivary tissue engineering using Imaris (microscopy image analysis software)
+  """
+  
+[[experience]]
   title = "Application Development Internship"
   location = "Remote"
   date_start = "2021-03-01"
@@ -25,8 +35,9 @@ date_format = "Jan 2006"
   description = """
   Responsibilities include:
   
-  * Worked with company founders to plan, model, and create web apps using Wordpress, Airtable, and Zapier. 
+  * Worked with company founders to plan, model, and create web apps using Wordpress, Ninja Forms, Airtable, and Zapier. 
   """
+
 [[experience]]
   title = "Undergraduate Research Mentor"
   company = "College of Natural Science TIDES/FRI- Virtual Drug Screening"

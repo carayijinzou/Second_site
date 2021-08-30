@@ -18,70 +18,34 @@ image:
 
 
 <p>The method and database information was from following journal article: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597096/</a>. The objective was to discover missense variants that could help explain the differences in dentition between Neanderthals and modern humans. This was an attempt to recreate/speculate what was done for the research paper to obtain their results.</p>
-<div id="read-in-fastas" class="section level2">
-<h2>Read in Fastas</h2>
+<div id="read-in-the-fastas" class="section level2">
+<h2>Read in the Fastas</h2>
+<p>The function read.fasta() from the R package ‘seqinr’ was used to read in protein sequence FASTA files.</p>
 <pre class="r"><code>#read fasta
 library(seqinr)
 
 #multiple sequence alignment
-library(msa)</code></pre>
-<pre><code>## Loading required package: Biostrings</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: &#39;BiocGenerics&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     anyDuplicated, append, as.data.frame, basename, cbind, colnames,
-##     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
-##     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
-##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
-##     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
-##     union, unique, unsplit, which.max, which.min</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;S4Vectors&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     expand.grid, I, unname</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: XVector</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Biostrings&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:seqinr&#39;:
-## 
-##     translate</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     strsplit</code></pre>
-<pre class="r"><code>#read in fasta using seqinr
+library(msa)
+
+#read in fasta using seqinr
 altai &lt;- read.fasta(&quot;Altai.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)
 
 vindija &lt;- read.fasta(&quot;Vindija.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)
 
 sidron &lt;- read.fasta(&quot;Sidron.txt&quot;, seqtype=&quot;AA&quot;,as.string=TRUE)</code></pre>
 </div>
-<div id="create-function-that-takes-the-gene-name-and-outputs-a-msa" class="section level2">
-<h2>Create function that takes the gene name and outputs a msa</h2>
-<div id="part-1-create-a-combined-fasta" class="section level3">
-<h3>Part 1: Create a combined fasta</h3>
+<div id="create-a-function-that-takes-the-gene-name-and-outputs-a-msa" class="section level2">
+<h2>Create a function that takes the gene name and outputs a msa</h2>
+<div id="part-1-create-a-combined-fasta-using-write.fasta" class="section level3">
+<h3>Part 1: Create a combined fasta using write.fasta</h3>
 <ul>
-<li>Human, gorilla, and chimpanzee protein sequences were from the uniprot database</li>
-<li>Neanderthal protein sequences were obtained from a database listed in the journal article</li>
+<li>The reference FASTA files for human, chimpanzee (<em>Pan troglodytes</em>), and gorilla (<em>Gorilla gorilla</em>) protein sequences were obtained from UniProt</li>
+<li>Neanderthal data including Altai pedal phalanx (Altai Mountain Cave, Siberia) and bone fragments of SD1253 (El Sidron cave, Spain) and Vi33.15 (Vindija cave, Croatia) were obtained from the Max Planck Institute for Evolutionary Anthropology: <a href="http://cdna.eva.mpg.de/neandertal/exomes/" class="uri">http://cdna.eva.mpg.de/neandertal/exomes/</a></li>
 </ul>
 </div>
 <div id="part-2-align-the-sequences-from-the-combined-fasta-using-the-msa-package" class="section level3">
 <h3>Part 2: Align the sequences from the combined fasta using the msa package</h3>
+<p>The ClustalW algorithm was used for the multiple sequence alignment with a BLOSUM matrix. The msaPrettyPrint() function was used to print the sequence in a more readable manner</p>
 <pre class="r"><code>msa_maker&lt;- function(gene_name, ensg_num, hcg_fasta_name, combined_fasta_name){
   #Part 1: Create a combined fasta
   #Read in fasta with human, chimp, and gorilla 
@@ -126,6 +90,7 @@ return(msa)
 </div>
 <div id="function-that-helps-find-the-missense-variant-from-the-msa-object" class="section level2">
 <h2>Function that helps find the missense variant from the msa object</h2>
+<p>Additional computations in R were used to find the positions of missense variants excluding any that were the result of X’s in the sequence.</p>
 <pre class="r"><code>#why is index of each sequence needed? The msa before can arrange the sequences not necessarily in the order inputted
 missense_finder&lt;-function(completed_msa,human_index, gorilla_index, chimp_index, altai_index, vindija_index, sidron_index){
   
@@ -168,10 +133,8 @@ missense_finder&lt;-function(completed_msa,human_index, gorilla_index, chimp_ind
 </div>
 <div id="find-the-tooth-proteins-example" class="section level2">
 <h2>Find the tooth proteins: Example</h2>
-<div id="dentin-matrix-acidic-phosphoprotein-1-dmp1" class="section level4">
-<h4>Dentin matrix acidic phosphoprotein 1 (DMP1)</h4>
-<div id="ensg00000152592" class="section level5">
-<h5>ENSG00000152592</h5>
+<div id="dentin-matrix-acidic-phosphoprotein-1-dmp1-ensg00000152592" class="section level4">
+<h4>Dentin matrix acidic phosphoprotein 1 (DMP1): ENSG00000152592</h4>
 <pre class="r"><code>dmp1_msa&lt;-msa_maker(&quot;dmp1&quot;, &quot;ENSG00000152592&quot;, &quot;uniprot_dmp1.fasta&quot;, &quot;combined_dmp1.fasta&quot;)</code></pre>
 <pre><code>## use default substitution matrix</code></pre>
 <pre class="r"><code>#pretty print the aligned sequence in a pdf file using the following line
@@ -181,6 +144,5 @@ missense_finder(dmp1_msa, 3, 1, 2, 4, 5, 6)</code></pre>
 <pre><code>##            position human gorilla chimpanzee altai vindija sidron
 ## amino_list &quot;483&quot;    &quot;N&quot;   &quot;N&quot;     &quot;N&quot;        &quot;T&quot;   &quot;T&quot;     &quot;X&quot;</code></pre>
 <p><img src="images/featured.png" /></p>
-</div>
 </div>
 </div>
