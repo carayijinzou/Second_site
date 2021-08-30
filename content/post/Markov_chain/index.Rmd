@@ -12,6 +12,7 @@ image:
   caption: "Chutes and Ladders Board"
   focal_point: "Smart"
   preview_only: false 
+summary : Markov chains are a succession of random events. Using the example of chutes and ladders, concepts such as states, initial probability, and transition matrix are explained. 
 ---
 
 ```{r setup, include=FALSE}
