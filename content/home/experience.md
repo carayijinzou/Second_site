@@ -25,7 +25,7 @@ date_format = "Jan 2006"
   description = """
   Responsibilities include:
   
-  * Worked with company founders to plan, model, and create web and mobile apps using Wordpress, Airtable, and Zapier. 
+  * Worked with company founders to plan, model, and create web apps using Wordpress, Airtable, and Zapier. 
   """
 [[experience]]
   title = "Undergraduate Research Mentor"
