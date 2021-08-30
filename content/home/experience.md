@@ -57,7 +57,7 @@ date_format = "Jan 2006"
     [[experience]]
   title = "Biochemistry (BCH369) PLUS Facillitator"
   company = "Peer-Led Undergraduate Studying (PLUS)"
-  company_url = ""
+  company_url = "https://ugs.utexas.edu/slc/support/plus"
   location = "Austin, TX"
   date_start = "2019-09-26"
   date_end = "2019-12-20"
