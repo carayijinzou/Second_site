@@ -33,7 +33,6 @@ date_format = "Jan 2006"
   date_start = "2021-03-01"
   date_end = "2021-05-30"
   description = """
-  Responsibilities include:
   
   * Worked with company founders to plan, model, and create web apps using Wordpress, Ninja Forms, Airtable, and Zapier. 
   """
