@@ -23,13 +23,13 @@ subtitle = ""
   icon = "r-project"
   icon_pack = "fab"
   name = "R"
-  description = "dplyr, ggplot2"
+  description = "tidyr, dplyr, ggplot2"
  
 [[feature]]
   icon = "globe"
   icon_pack = "fas"
   name = "Web Programming"
-  description = "HTML, CSS, JS, PHP, AJAX"
+  description = "HTML, CSS, JS, PHP, AJAX, MySQLi"
   
 [[feature]]
   icon = "chart-line"

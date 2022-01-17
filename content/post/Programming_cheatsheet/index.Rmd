@@ -379,6 +379,16 @@ Want the edges to line up nicely?
 ```
 Also, if you insist on floating stuff, [Floatutorial](http://css.maxdesign.com.au/floatutorial/) might be helpful. 
 
+### Navigation Bars Not Reaching the Edge
+Trying to create a navigation bar (or some kind of horizontal strip, etc.) but it won't completely reach the edges for some reason? This is likely because of the default css. Try this: 
+
+```{css, eval=F}
+body {
+   margin:0;
+   padding:0;
+}
+```
+
 ### Fancy Fonts
 Want to use more fancy fonts? Use [Google Fonts](https://fonts.google.com/?authuser=1&selection.family=Amiko&sidebar.open=true) and on the right it should have a sidebar that tells you want to put, for example: 
 
@@ -478,7 +488,8 @@ Some other websites that I found useful:
 
 * Helps with syntax errors: [PHPCodechecker](https://phpcodechecker.com/)
 
-* If it's not exactly a syntax error: [SANDBOX](https://sandbox.onlinephpfunctions.com/)
+* If it's not exactly a syntax error: [SANDBOX](https://sandbox.onlinephpfunctions.com/),
+[ExtendsClass](https://extendsclass.com/php.html)
 
 ### COOKIES
 If you're working with cookies, if something isn't working right, you can use this to print all of the cookies on the browser: 

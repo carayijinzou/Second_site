@@ -21,10 +21,10 @@ date_format = "Jan 2006"
   title = "UTSD Summer Research Program"
   location = "Houston"
   date_start = "2021-06-01"
-  date_end = "2021-07-30"
+  date_end = "2021-12-30"
   description = """
   
-  * Digital image analysis of 3D structures for salivary tissue engineering using Imaris (microscopy image analysis software)
+  * Digital image analysis of 3D structures for salivary tissue engineering using Imaris (microscopy image analysis software) and Nikon NIS-Elements.
   """
   
 [[experience]]

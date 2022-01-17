@@ -1,0 +1,19 @@
+---
+title: 'Covalent'
+author: "Cara Zou"
+date: '2022-01-08'
+tags: ["Web Development", "HTML","Javascript","CSS", "Other"]
+categories: ["Web Development"]
+external_link: "https://sleepy-roentgen-0022a4.netlify.app/" 
+output:
+  html_document: default
+  pdf_document: default
+summary: "Bonding Women in STEM. SheHacks VI. Web app used to connect young females, specifically those in high school, interested in STEM to an experienced mentor in their fields of interests."
+
+image:
+  caption: Covalent Logo
+  placement: 1
+  focal_point: "Bottom"
+---
+
+Devpost: https://devpost.com/software/covalent
