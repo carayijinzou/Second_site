@@ -18,13 +18,24 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+
+  title = "American Student Dental Association District 9 Cabinet Webmaster"
+  location = "Houston"
+  date_start = "2022-04-01"
+  description = """
+  
+  * Maintained and restructured district website to provide resources to 6 dental schools across Texas, Oklahoma, and Colorado
+  * Implemented new integration of event payment and registration system into website
+
+  """
+
+[[experience]]
   title = "UTSD Summer Research Program"
   location = "Houston"
   date_start = "2021-06-01"
-  date_end = "2021-12-30"
   description = """
   
-  * Digital image analysis of 3D structures for salivary tissue engineering using Imaris (microscopy image analysis software) and Nikon NIS-Elements.
+  * Digital image analysis of 3D structures for salivary tissue engineering
   """
   
 [[experience]]
