@@ -244,6 +244,19 @@ line <-readLines(infile)
 close(infile)
 ```
 
+To read multiple files into one variable in R with similar names: 
+
+```{R, eval=F}
+#reads all files in current directory with names starting with 5-27
+#Here is where it may be helpful to use regex as talked about later!
+example_files <- list.files(pattern = "5-27." )
+```
+
+Another tip, if your data has column names with spaces, e.g. Object Area, this can be extremely irritating to work with. Try something like the following to get something with no spaces: Object_Area
+```{R, eval=F}
+file_no_space<- (read_csv("5-27-A1.csv")) %>% select_all(~gsub("\\s+|\\.", "_", .)) 
+```
+
 ## Reading websites with Python 
 
 You need to import the urllib request package! 
