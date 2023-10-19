@@ -24,7 +24,7 @@ interests:
 organizations:
 - name: UTHealth School of Dentistry at Houston
   url: ""
-role: D2
+role: D3
 social:
 - icon: envelope
   icon_pack: fas
@@ -39,6 +39,6 @@ user_groups:
 - Visitors
 ---
 
-My name is **Cara Zou** and I'm a D2 at UTSD. My hometown is Katy, Texas but I've also lived in China, Canada, Malaysia, and Singapore!
+My name is **Cara Zou** and I'm a D3 at UTSD. My hometown is Katy, Texas but I've also lived in China, Canada, Malaysia, and Singapore!
 
 _What is the purpose of this website? To showcase some of my projects and what I've learned so far. This website also acts as some of my notes for these topics and hopefully, if you are also a bioinformatics student, it can maybe help you too! But, disclaimer, while I try my best to explain topics, I'm still learning so there may be mistakes._ 
