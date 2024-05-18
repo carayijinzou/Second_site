@@ -22,6 +22,7 @@ date_format = "Jan 2006"
   title = "American Student Dental Association District 9 Cabinet Webmaster"
   location = "Houston"
   date_start = "2022-04-01"
+  date_end = "2023-04-01"
   description = """
   
   * Maintained and restructured district website to provide resources to 6 dental schools across Texas, Oklahoma, and Colorado
@@ -33,6 +34,7 @@ date_format = "Jan 2006"
   title = "UTSD Summer Research Program"
   location = "Houston"
   date_start = "2021-06-01"
+  date_end = "2023-10-31"
   description = """
   
   * Digital image analysis of 3D structures for salivary tissue engineering
