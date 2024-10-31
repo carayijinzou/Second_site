@@ -17,7 +17,26 @@ date_format = "Jan 2006"
 #   `title`, `organization` and `date_start` are the required parameters.
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
-
+[[item]]
+  organization = "UTSD Research Showcase"
+  organization_url = ""
+  title = "Best Poster Award for the Category of Tissue Engineering, Biomaterials, and Applications in Dentistry  "
+  url = "https://dentistry.uth.edu/news/story/dental-school-community-enjoys-13th-annual-student-research-showcase"
+  certificate_url = ""
+  date_start = "2023-10-31"
+  date_end = ""
+  description = " Digital Analysis of Tissue-Assisted Salivary Cell Cultures in Biocompatible Hydrogels"
+  
+[[item]]
+  organization = "UTSD Research Showcase"
+  organization_url = ""
+  title = "Best Abstract Award for the Category of Tissue Engineering, Biomaterials, and Applications in Dentistry  "
+  url = "https://www.uth.edu/news/story/findings-on-display-at-11th-annual-student-research-showcase"
+  certificate_url = ""
+  date_start = "2021-12-31"
+  date_end = ""
+  description = " Digital Image Analysis of 3D Structures for Salivary Tissue Engineering"
+  
 [[item]]
   organization = "UT Austin"
   organization_url = ""
