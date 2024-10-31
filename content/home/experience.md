@@ -37,7 +37,14 @@ date_format = "Jan 2006"
   date_end = "2023-10-31"
   description = """
   
-  * Digital image analysis of 3D structures for salivary tissue engineering
+  * [Digital Image analysis of 3D structures for Salivary Tissue Engineering (2021)](https://www.iadr.org/media/1155?utm_source=Real%20Magnet&utm_medium=email&utm_campaign=178578204) -
+     *[Best Abstract Award for Category of Tissue Engineering, Biomaterials, and Applications in Dentistry, UTSD Research Showcase](https://www.uth.edu/news/story/findings-on-display-at-11th-annual-student-research-showcase)*
+  * [Digital Quantification of Cluster Features for Salivary Tissue Engineering (2022)](https://dentistry.uth.edu/research/student/docs/showcase/2022/zou-cara.pdf)
+  * [Digital Analysis of Tissue-Assisted Salivary Cell Cultures in Biocompatible Hydrogels (2023)](https://dentistry.uth.edu/research/student/docs/showcase/2023/zou-cara.pdf) -
+     *[Best Poster Award for the Category of Tissue Engineering, Biomaterials, and Applications in Dentistry, UTSD Research Showcase](https://dentistry.uth.edu/news/story/dental-school-community-enjoys-13th-annual-student-research-showcase)*
+  
+  
+  
   """
   
 [[experience]]
