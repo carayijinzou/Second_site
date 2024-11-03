@@ -37,10 +37,10 @@ date_format = "Jan 2006"
   date_end = "2023-10-31"
   description = """
   
-  * [Digital Image analysis of 3D structures for Salivary Tissue Engineering (2021)](/Poster_2021.jpg) -
+  * Digital Image analysis of 3D structures for Salivary Tissue Engineering (2021)
    
-  * [Digital Quantification of Cluster Features for Salivary Tissue Engineering (2022)](/Poster_2022.pdf)
-  * [Digital Analysis of Tissue-Assisted Salivary Cell Cultures in Biocompatible Hydrogels (2023)](/Poster_2023.pdf) -
+  * Digital Quantification of Cluster Features for Salivary Tissue Engineering (2022)
+  * Digital Analysis of Tissue-Assisted Salivary Cell Cultures in Biocompatible Hydrogels (2023)
   
   
   
