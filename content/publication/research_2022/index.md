@@ -40,7 +40,7 @@ title: Digital Quantification of Cluster Features for Salivary Tissue Engineerin
 #url_code: '#'
 #url_dataset: '#'
 #url_pdf: http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf
-url_poster: 'Poster_2022.jpg'
+url_poster: 'Poster_2022.pdf'
 #url_project: ""
 #url_slides: ""
 #url_source: '#'

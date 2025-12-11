@@ -66,7 +66,7 @@ title: Digital Analysis of Tissue-Assisted Salivary Cell Cultures in Biocompatib
 #url_code: '#'
 #url_dataset: '#'
 #url_pdf: http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf
-url_poster: 'Poster_2023.jpg'
+url_poster: 'Poster_2023.pdf'
 #url_project: ""
 #url_slides: ""
 #url_source: '#'

@@ -18,6 +18,27 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[item]]
+  organization = "UTSD"
+  organization_url = ""
+  title = "U.S. Public Health Service Dental Award of Excellence "
+  url = "https://www.uth.edu/news/story/dds-class-of-2025-celebrated-at-senior-awards"
+  certificate_url = ""
+  date_start = "2025-04-17"
+  date_end = ""
+  description = ""
+  
+  
+[[item]]
+  organization = "1st year honoree (2022) and Alumni membership (2025)"
+  organization_url = ""
+  title = "Mu Mu Chapter of Omicron Kappa Upsilon National Dental Honor Society "
+  url = "https://dentistry.uth.edu/news/story/okus-mu-mu-chapter-welcomes-2025-inductees"
+  certificate_url = ""
+  date_start = "2025-04-15"
+  date_end = ""
+  description = " National Dental Honor Society promoting excellence in academics, professionalism, and character (top 12% of graduating class)"
+
+[[item]]
   organization = "UTSD Research Showcase"
   organization_url = ""
   title = "Best Poster Award for the Category of Tissue Engineering, Biomaterials, and Applications in Dentistry  "
