@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Cavity Risk Calculator (CAMBRA + Age)</title>
+  <link href = "cavity_risk_calculator.css" rel = "stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1>Caries Risk Assessment</h1>
+  <p class="subtitle">CAMBRA-based with age-specific logic</p>
+
+  <div class="info-box">
+    <strong id="descTitle"></strong><br>
+    <span id="descText"></span>
+    <button onclick="toggleCambra()">Learn more about CAMBRA ▸</button>
+    <div id="cambraInfo" style="display:none;margin-top:8px;color:#4b5563;font-size:.8rem">
+      <strong>How your score is calculated:</strong><br>
+      Points are assigned to risk factors (diet, dry mouth, oral hygiene), disease indicators (when in dentist mode), and age-related risk patterns. Protective factors such as fluoride use reduce the score. The final score is converted into a Low, Moderate, or High caries risk category.
+      <br><br>
+      <strong>About CAMBRA:</strong><br>
+      CAMBRA (Caries Management by Risk Assessment) is an evidence-based method used in dentistry to identify cavity risk early and tailor prevention and treatment strategies rather than waiting for cavities to develop.
+    </div>
+  </div>
+
+  <div class="mode-toggle">
+    <button id="patientBtn" class="active" onclick="setMode('patient')">Patient Mode</button>
+    <button id="dentistBtn" onclick="setMode('dentist')">Dentist Mode</button>
+  </div>
+
+  <h2>Patient Information</h2>
+  <label>Age (years)</label>
+  <input type="number" id="age" min="1" max="120" placeholder="e.g., 8 or 45">
+
+  <div id="dentistSection" style="display:none">
+    <h2>Disease Indicators (Clinician)</h2>
+    <label>Recent cavities or restorations (past 3 yrs)</label>
+    <select id="caries"><option value="0">No</option><option value="3">Yes</option></select>
+    <label>Visible plaque / heavy biofilm</label>
+    <select id="plaque"><option value="0">Minimal</option><option value="2">Moderate / Heavy</option></select>
+  </div>
+
+  <h2>Risk Factors</h2>
+  <label>Sugary snacks or drinks per day</label>
+  <select id="sugar"><option value="0">0–1</option><option value="2">2–3</option><option value="3">4+</option></select>
+  <label>Dry mouth / low saliva</label>
+  <select id="saliva"><option value="0">No</option><option value="2">Yes</option></select>
+
+  <h2>Protective Factors</h2>
+  <label>Brushing with fluoride toothpaste</label>
+  <select id="brushing"><option value="0">Twice daily</option><option value="1">Once or less</option></select>
+  <label>Additional fluoride (Rx toothpaste, varnish)</label>
+  <select id="fluoride"><option value="-1">Yes</option><option value="0">No</option></select>
+
+  <button class="calculate" onclick="calculateRisk()">Calculate Risk</button>
+
+  <div class="result" id="result">
+    <p class="risk-level" id="riskText"></p>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="recommendations" id="recommendations"></div>
+    <p class="disclaimer">Educational use only. Not a substitute for a clinical exam.</p>
+  </div>
+</div>
+
+<script>
+let mode='patient';
+const descTitle=document.getElementById('descTitle');
+const descText=document.getElementById('descText');
+const dentistSection=document.getElementById('dentistSection');
+
+function updateDescription(){
+  if(mode==='patient'){
+    descTitle.textContent='What this tool does:';
+    descText.textContent='Curious about your risk of developing cavities? This tool estimates your risk for developing dental cavities using your age and daily habits. It provides personalized prevention tips to help keep your teeth healthy. However, this tool is not meant for diagnosis, please see a dentist if you think you may have a cavity.';
+  } else {
+    descTitle.textContent='What this tool does:';
+    descText.textContent='This CAMBRA-based tool stratifies caries risk using patient-reported factors, age modifiers, and clinician-entered disease indicators to support risk-based preventive and restorative planning.';
+  }
+}
+
+function setMode(m){
+  mode=m;
+  patientBtn.classList.toggle('active',m==='patient');
+  dentistBtn.classList.toggle('active',m==='dentist');
+  dentistSection.style.display=m==='dentist'?'block':'none';
+  updateDescription();
+}
+
+function toggleCambra(){
+  const el=document.getElementById('cambraInfo');
+  el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function ageAdjustments(age){
+  if(age<=5) return {scoreAdj:2,recs:['Parent-assisted brushing twice daily','Avoid frequent sugary drinks','Fluoride varnish every 3–6 months']};
+  if(age<=12) return {scoreAdj:1,recs:['Pea-sized fluoride toothpaste','Sealants on molars','Fluoride varnish at recall']};
+  if(age>=65) return {scoreAdj:1,recs:['Manage dry mouth','High-fluoride toothpaste','Root caries prevention']};
+  return {scoreAdj:0,recs:[]};
+}
+
+function calculateRisk(){
+  let score=0;
+  const age=Number(ageInput.value||0);
+  score+=Number(sugar.value)+Number(saliva.value)+Number(brushing.value)+Number(fluoride.value);
+  if(mode==='dentist') score+=Number(caries.value)+Number(plaque.value);
+  const adj=ageAdjustments(age); score+=adj.scoreAdj;
+  score=Math.max(0,Math.min(score,10));
+  const pct=(score/10)*100;
+  let risk='',cls='',recs=[];
+  if(pct<35){risk='Low Risk';cls='low';recs=['Routine 6‑month recall','Maintain fluoride brushing'];}
+  else if(pct<70){risk='Moderate Risk';cls='moderate';recs=['Additional fluoride','Diet counseling','4–6 month recall'];}
+  else{risk='High Risk';cls='high';recs=['Prescription fluoride','3–4 month recall','Diet modification'];}
+  recs=[...new Set(recs.concat(adj.recs))];
+  riskText.textContent=risk; riskText.className='risk-level '+cls;
+  progressFill.style.width=pct+'%';
+  recommendations.innerHTML='<strong>Personalized Recommendations:</strong><ul>'+recs.map(r=>'<li>'+r+'</li>').join('')+'</ul>';
+  result.style.display='block';
+}
+
+const ageInput=document.getElementById('age');
+updateDescription();
+</script>
+</body>
+</html>
