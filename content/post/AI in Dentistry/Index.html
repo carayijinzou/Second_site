@@ -1,0 +1,92 @@
+---
+title: "AI in Dental Imaging - What it can (and can't do) "
+author: "Cara Yijin Zou"
+date: "2026-02-18"
+tags: ["Bioinformatics", "Computer Science", "Artificial Intelligence", "Dentistry"]
+categories: ["Dentistry", "Computer Science"]
+output: html_document
+diagram: true
+math : true
+summary: "Use of artificial integlligence in dentistry. Exploring topics like deep learning, training datasets, overfitting, and limitations." 
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Artificial intelligence has been exploding and integrating in all parts of life including in dentistry. It has applications in various areas such as radiographic interpretation, treatment planning, intraoral scanning/prosthetic design, practice management/operations, and patient communication.</p>
+<div id="demystifying-ai-in-dentistry" class="section level2">
+<h2>Demystifying AI in Dentistry</h2>
+<p>As a dentist, or even as part of the public, AI is likely being marketed to you constantly as something magical that will make your life easier and more efficient. But how does it actually work? And what can it actually do? This article will explain:</p>
+<ul>
+<li>What deep learning is</li>
+<li>Why training data matters</li>
+<li>Limitations of models</li>
+<li>Use of AI as a helpful supportive tool, not a replacement</li>
+</ul>
+</div>
+<div id="deep-learning" class="section level2">
+<h2>Deep Learning</h2>
+<p>Deep learning is a type of machine learning (which is a subset of AI) that uses massive unstructured datasets and uses <strong>pattern recognition</strong>. When you interpret a radiograph, what do you do? We look for patterns in radiolucencies, radio-opacities, etc. based on both experience and repetition. Deep learning seeks to do the same with mathematics. A <strong>neural network</strong> similarly also looks for relationships between the input images (e.g. pixels) and the output labels (e.g. caries present vs caries absent). Based on the training data, it analyzes thousands or millions of images (labelled as caries present vs caries absent) and it adjusts internal parameters until it becomes better at predicting the correct label. A <strong>Convolutional Neural Network (CNN)</strong> is designed to detect spatial patterns in images such as edges, shapes, and textures. It is crucial to clarify that the CNN has no idea what a lesion actually is. It detects statistical patterns of pixel intensity and spatial arrangement that were associated with lesions in the training data.</p>
+<p>The model doesn’t know what decay is, what enamel is, or how caries is formed. It is unable to reason clinically. It can only find correlation between patterns in pixels and labels. For example, you could show someone 10,000 bitewings labeled “caries” or “no caries”. Over time, the person would likely get better at determining caries from recognizing patterns but he/she would still have a lack a fundamental understanding of caries.</p>
+<p>Deep learning is powerful because it can help quantify subtle patterns that we can find hard to explain. However, they function on pure pattern recognition which is important to consider when we evaluate the use of AI.</p>
+</div>
+<div id="training-data" class="section level2">
+<h2>Training Data</h2>
+<p>The accuracy of a model is directly linked to the <strong>quality</strong> and <strong>quantity</strong> of its training dataset (e.g. Garbage in = Garbage out). <strong>Diversity</strong> in datasets is also important to avoid bias and ensure fairness. Lastly, another important factor is who is labeling the training data? Is it dental students? General dentists? Oral maxillofacial radiologists? <strong>Interobserver</strong> variability is the differences and inconsistencies in measurements/interpretation of the same case by different observers due to differences in experience, training, or subjective interpretation.</p>
+</div>
+<div id="overfitting" class="section level2">
+<h2>Overfitting</h2>
+<p>Overfitting occurs when the model learns from the training dataset, including the <strong>“noise”</strong> (irrelevant or accidental patterns), <em>too well</em> rather than recognizing actual patterns that can be generalized . For example, the model could be built on recognizing radiographic artifacts correlated with a pathology in an image rather than the actual features of the pathology. This results in the model performing well on training datasets but poorly on new, real-world data.</p>
+<p>For example, imagine you had an exam the next day. You have access to an old exam and ONLY study those questions. If your new exam was similar to the old exam, you would likely score very highly. BUT, if the new exam uses different scenarios/wording, your performance would likely drop. This is because you memorized patterns in the old exam questions instead of actually understanding the content.</p>
+<p>Now, if an AI model is trained specifically on thousands of images from a single clinic/DSO. These images likely all share the same type of sensors, exposure settings, and patient demographic. Therefore, the model may be learning patterns specific to that specific environment rather than generalizable characteristics of caries.The model may have high accuracy on that particular training dataset but may perform poorly on images from a different machine, practice setting, etc. because it’s being tested in an unfamiliar environment.</p>
+<p>Especially in dentistry, overfitting can be an issue because datasets are often smaller than medical settings and can vary widely from different clinics. Therefore, a poorly fitting model can give false reassurance or unnecessary alarm when used in a more broad setting. Therefore, it is important for clinicians to understand the concept of overfitting and interpret AI outputs with appropriate caution.</p>
+</div>
+<div id="sensitivity-specificity-and-the-illusion-of-accuracy" class="section level2">
+<h2>Sensitivity, Specificity, and the Illusion of Accuracy</h2>
+<table>
+<colgroup>
+<col width="35%" />
+<col width="31%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Model says pathology absent</th>
+<th>Model says pathology present</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pathology actually absent</strong></td>
+<td>True negative (TN)</td>
+<td>False Positive (FP)</td>
+</tr>
+<tr class="even">
+<td><strong>Pathology actually present</strong></td>
+<td>False Negative (FN)</td>
+<td>True Positive (TP)</td>
+</tr>
+</tbody>
+</table>
+<p>Remember back to statistics class? Is it enough when a model claims it is 95% accurate?</p>
+<p><span class="math display">\[
+\textrm{Accuracy} = \frac{\textrm{TP}+\textrm{TN}}{\textrm{TP}+\textrm{TN}+\textrm{FP}+\textrm{FN}}
+\]</span></p>
+<p><span class="math display">\[
+\textrm{Specificity} = \frac{\textrm{True Negatives}}{\textrm{True Negatives}+\textrm{False Positives}}
+\]</span>
+<span class="math display">\[
+\textrm{Sensitivity} = \frac{\textrm{True Positives}}{\textrm{True Positives}+\textrm{False Negatives}}
+\]</span>
+<strong>Sensitivity</strong> looks at how well a model is able to identify something when it is there. <strong>Specificity</strong>, on the other hand, looks at how well the model is able to identify when something is NOT there (ensuring healthy/normal isn’t flagged as diseased). Accuracy can sometimes be misleading, for example, if a pathology is present in 1% of the population, if the model labels everything in the dataset as negative (healthy), it will have a 99% accuracy rate (but 0% sensitivity). Sensitivity and specificity is needed to ensure that the model is able to catch rare cases.</p>
+</div>
+<div id="legal-and-clinical-responsibility" class="section level2">
+<h2>Legal and Clinical Responsibility</h2>
+<p>AI tools are meant to support the clinician and doesn’t eliminate the responsibility to interpret results in the broader clinical context. Liability remains with the treating dentist. We should not be putting blind reliance on AI and it does not replace appropriate referral.</p>
+</div>
+<div id="future-of-ai-in-dentistry" class="section level2">
+<h2>Future of AI in Dentistry</h2>
+<p>AI thrives at repetitive tasks. However, it struggles with atypical presentations, integration with clinical history, and incidental findings. AI will likely be able to aid us in detection but complex interpretion remains a human task. Understanding how AI models work is important for dentists so we neither dismiss or overestimate their ability.</p>
+</div>
