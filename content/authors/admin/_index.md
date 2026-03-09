@@ -16,10 +16,10 @@ education:
 email: "cara.yijin.zou@gmail.com"
 interests:
 - Dentistry
-- Virtual Drug Screening
+- Oral Maxillofacial Radiology
 - Computer Science
-- Machine Learning 
-- Biomedical Engineering
+- AI/Machine Learning 
+- Statistics
 
 
 organizations:
@@ -40,5 +40,5 @@ user_groups:
 - Visitors
 ---
 
-My name is **Cara Zou** and I'm a dentist who also loves tech! My hometown is Katy, Texas but I've also lived in China, Canada, Malaysia, and Singapore. In my free time, I love singing and learning new things!
+As a dentist who also has interests in research, statistics, and coding, I aim to specialize in the intersection between all of my passions! My hometown is Katy, Texas but I've also lived in China, Canada, Malaysia, and Singapore. In my free time, I love singing and learning new things!
 
